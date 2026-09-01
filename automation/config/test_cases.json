@@ -2174,7 +2174,9 @@
       "behavior": "运行时 DLL 加载（LoadLibrary）",
       "sample_md5": "68C8A01A7ED801E73A9F1488FA54F980",
       "sample_sha256": "2940BED4F9C006F8217AED0D0FC7D3D3D0D48B05ABB2E6E7BAEFB5D209DF6713",
-      "match": {},
+      "match": {
+        "actor_md5": "68C8A01A7ED801E73A9F1488FA54F980"
+      },
       "expected_result": "",
       "notes": "补充样本：显式 LoadLibrary 加载 TestLibrary.dll，补启动期 DLL 之外的运行时映像加载触发方式"
     },
@@ -2188,9 +2190,53 @@
       "behavior": "APC 注入（QueueUserAPC）",
       "sample_md5": "FA0A2A9012A843FF86668DECE14005EF",
       "sample_sha256": "49AAF6C9CA0A272292A7151AA3F56857E96C1CC7D1D85637A8EB709705FE4112",
-      "match": {},
+      "match": {
+        "actor_md5": "FA0A2A9012A843FF86668DECE14005EF"
+      },
       "expected_result": "",
       "notes": "补充样本：QueueUserAPC 注入 ProcessTarget，补 WriteProcessMemory 之外的进程注入手法"
+    },
+    {
+      "id": "FILE-CREATE-002",
+      "module": "File",
+      "program": "FileJsonTest.exe",
+      "action": "--case FILE-CREATE-002",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "behavior": "文件创建(JSON)",
+      "sample_md5": "59A37DB8E9B3EF4B02122533258A82FC",
+      "sample_sha256": "8DD8AD23A9436CEB5CA218DB35FC1819E8C9C718B10AC1915BF96FF66D5E7FF4",
+      "match": {},
+      "expected_result": "",
+      "notes": "补充样本：创建 JSON 文件（IOA 采 JSON 不采 TXT）"
+    },
+    {
+      "id": "TASK-CREATE-002",
+      "module": "ScheduleTask",
+      "program": "TaskXmlTest.exe",
+      "action": "--case TASK-CREATE-002",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "behavior": "计划任务创建(XML导入)",
+      "sample_md5": "F79725CBD4E8024BA657AA054DAF81F4",
+      "sample_sha256": "BDB3922BDCA18CD74D743A4C074520E17FE29C2C7B62272C22EB220DF6F7CD28",
+      "match": {},
+      "expected_result": "",
+      "notes": "补充样本：schtasks /create /xml 导入（IOA 采 XML 不采 /TR 命令行）"
+    },
+    {
+      "id": "REG-CREATE-002",
+      "module": "Registry",
+      "program": "RegistryRunTest.exe",
+      "action": "--case REG-CREATE-002",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "behavior": "注册表键值创建(HKLM Run)",
+      "sample_md5": "382ECADBB4455003ADAB703F9E0579F0",
+      "sample_sha256": "4A43A58760093B17E5CDDCBE728565534505A5FE5A1F4D910FA524B3875ACC0D",
+      "match": {},
+      "expected_result": "",
+      "notes": "补充样本：写 HKLM Run 启动项（IOA 采启动项路径，不采 HKU\\.DEFAULT）"
     }
   ]
 }

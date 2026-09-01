@@ -1,0 +1,15 @@
+[RUN-BEGIN] RunID=185c450b-4795-400e-8062-731eb1a082d6 TimeUTC=2026-09-01T18:09:17.774Z
+[META] TestCaseID=PROC-IMAGE-LOAD-002 Module=Process Action=ImageLoad
+[META] Process=LoadLibraryTest.exe PID=8148 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-09-01T18:09:17.847Z
+[SETUP] DllPath=C:\EDRTest\samples\Process\Support\TestLibrary.dll
+[SETUP] Required=Present
+[SETUP-END] TimeUTC=2026-09-01T18:09:17.847Z
+[TARGET-BEGIN] TimeUTC=2026-09-01T18:09:17.847Z
+[TARGET] Operation=LoadLibrary
+[TARGET] DllPath=C:\EDRTest\samples\Process\Support\TestLibrary.dll
+[TARGET] ModuleHandle=140717463109632
+[TARGET] Freed=true
+[TARGET-END] TimeUTC=2026-09-01T18:09:18.525Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=185c450b-4795-400e-8062-731eb1a082d6 TimeUTC=2026-09-01T18:09:18.525Z

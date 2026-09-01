@@ -1,0 +1,29 @@
+[
+  {
+    "test_case_id": "PROC-IMAGE-LOAD-002",
+    "run_id": "185c450b-4795-400e-8062-731eb1a082d6",
+    "module": "Process",
+    "action": "ImageLoad",
+    "process_name": "LoadLibraryTest.exe",
+    "pid": 8148,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-09-01T18:09:17.774000+00:00",
+    "setup_begin_utc": "2026-09-01T18:09:17.847000+00:00",
+    "setup_end_utc": "2026-09-01T18:09:17.847000+00:00",
+    "target_begin_utc": "2026-09-01T18:09:17.847000+00:00",
+    "target_end_utc": "2026-09-01T18:09:18.525000+00:00",
+    "run_end_utc": "2026-09-01T18:09:18.525000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Operation": "LoadLibrary",
+      "DllPath": "C:\\EDRTest\\samples\\Process\\Support\\TestLibrary.dll",
+      "ModuleHandle": "140717463109632",
+      "Freed": "true"
+    },
+    "error_lines": []
+  }
+]
