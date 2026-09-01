@@ -20,6 +20,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 RUNS = ROOT.parent / 'results' / 'runs'
 CONFIG = ROOT / 'config'
+sys.path.insert(0, str(ROOT / 'core'))  # for `import status`
 
 # 四态 -> emoji
 BIN_ICON = {'采集通过': '🟢', '采集未通过': '🔴', '待匹配': '🟡', '待测': '⚪'}

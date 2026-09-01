@@ -2023,7 +2023,7 @@
       "id": "DEVICE-VDISK-MOUNT-001",
       "module": "Device",
       "program": "VirtualDiskMountTest.exe",
-      "action": "",
+      "action": "--case DEVICE-VDISK-MOUNT-001",
       "execution_mode": "single_action",
       "runner_type": "exe",
       "snapshot": "IOA_Sysmon",
