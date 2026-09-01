@@ -1,0 +1,28 @@
+[
+  {
+    "test_case_id": "TASK-MODIFY-002",
+    "run_id": "f15d647b-4817-4794-ae2d-4b20e7d33508",
+    "module": "ScheduleTask",
+    "action": "SchedTaskUpdateXml",
+    "process_name": "TaskModifyTest.exe",
+    "pid": 11276,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-09-01T19:05:55.815000+00:00",
+    "setup_begin_utc": "2026-09-01T19:05:55.904000+00:00",
+    "setup_end_utc": "2026-09-01T19:06:00.154000+00:00",
+    "target_begin_utc": "2026-09-01T19:06:00.154000+00:00",
+    "target_end_utc": "2026-09-01T19:06:01.447000+00:00",
+    "run_end_utc": "2026-09-01T19:06:02.202000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Operation": "SchedTaskUpdate",
+      "TaskName": "EDRTelemetryTaskModify",
+      "Method": "XMLReimport"
+    },
+    "error_lines": []
+  }
+]

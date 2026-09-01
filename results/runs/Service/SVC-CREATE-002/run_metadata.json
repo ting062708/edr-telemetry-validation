@@ -1,0 +1,28 @@
+[
+  {
+    "test_case_id": "SVC-CREATE-002",
+    "run_id": "ca236fd2-765d-4a56-86c8-b73e5fc4ce07",
+    "module": "Service",
+    "action": "CreateService",
+    "process_name": "SvcCreateTest.exe",
+    "pid": 5432,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-09-01T19:07:06.546000+00:00",
+    "setup_begin_utc": "2026-09-01T19:07:06.582000+00:00",
+    "setup_end_utc": "2026-09-01T19:07:06.595000+00:00",
+    "target_begin_utc": "2026-09-01T19:07:06.595000+00:00",
+    "target_end_utc": "2026-09-01T19:07:07.214000+00:00",
+    "run_end_utc": "2026-09-01T19:07:07.233000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Operation": "CreateService",
+      "ServiceName": "EDRTelemetrySvcCreate",
+      "ServiceHandle": "15076688"
+    },
+    "error_lines": []
+  }
+]

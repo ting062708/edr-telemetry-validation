@@ -1,0 +1,29 @@
+[
+  {
+    "test_case_id": "ACCOUNT-CREATE-002",
+    "run_id": "fd88b1e5-7738-4941-8b02-1db9035708fb",
+    "module": "Account",
+    "action": "AccountCreate",
+    "process_name": "AccountCreateTest.exe",
+    "pid": 11632,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-09-01T19:10:26.719000+00:00",
+    "setup_begin_utc": "2026-09-01T19:10:26.776000+00:00",
+    "setup_end_utc": "2026-09-01T19:10:26.833000+00:00",
+    "target_begin_utc": "2026-09-01T19:10:26.833000+00:00",
+    "target_end_utc": "2026-09-01T19:10:27.455000+00:00",
+    "run_end_utc": "2026-09-01T19:10:27.460000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Operation": "AccountCreate",
+      "UserName": "EDRAccountTest",
+      "Method": "NetUserAdd",
+      "NetUserAddResult": "0"
+    },
+    "error_lines": []
+  }
+]

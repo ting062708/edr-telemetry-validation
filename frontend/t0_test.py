@@ -74,7 +74,26 @@ def t0_overview():
     assert client.get('/api/classmate_baseline').status_code == 200
     v = client.get('/api/case/REG-CREATE-001/variants')
     assert v.status_code == 200 and v.get_json().get('variants') == [], v.get_json()
-    print(f"[T0-2 PASS] /api/overview 16 modules / {total} cases + 新端点可用")
+    # analysis 合并语义：只更新 payload 出现的字段，三字段全空才删除（测试后还原现场）
+    from server import ANALYSIS
+    existed = ANALYSIS.exists()
+    orig = ANALYSIS.read_text(encoding='utf-8') if existed else None
+    try:
+        r = client.post('/api/case/__T0__/analysis', json={'mapping': '映射笔记X'})
+        assert r.status_code == 200 and r.get_json()['ok']
+        r = client.post('/api/case/__T0__/analysis', json={'map_name': 'EvtX', 'analysis': '分析X'})
+        cur = client.get('/api/analysis').get_json()['cases']['__T0__']
+        assert cur['mapping'] == '映射笔记X' and cur['map_name'] == 'EvtX' \
+            and cur['analysis'] == '分析X', cur
+        client.post('/api/case/__T0__/analysis',
+                    json={'map_name': '', 'mapping': '', 'analysis': ''})
+        assert '__T0__' not in client.get('/api/analysis').get_json()['cases']
+    finally:
+        if existed:
+            ANALYSIS.write_text(orig, encoding='utf-8')
+        elif ANALYSIS.exists():
+            ANALYSIS.unlink()
+    print(f"[T0-2 PASS] /api/overview 16 modules / {total} cases + 新端点可用 + analysis 合并语义")
 
 
 def t0_field_table():

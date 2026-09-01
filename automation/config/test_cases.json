@@ -2259,6 +2259,54 @@
       },
       "expected_result": "",
       "notes": "补充样本：创建 TXT 文件到 C:\\Temp，验证路径 vs 文件类型偏向"
+    },
+    {
+      "id": "TASK-MODIFY-002",
+      "module": "ScheduleTask",
+      "program": "TaskModifyTest.exe",
+      "action": "--case TASK-MODIFY-002",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "behavior": "计划任务修改(XML重导入)",
+      "sample_md5": "E52B9422115A4618AE55C51424ECC0C5",
+      "sample_sha256": "DD12C9F30E2A16B69514814C0280D56E42AA697327B0163E5C06A8F34FB9F30C",
+      "match": {
+        "actor_md5": "E52B9422115A4618AE55C51424ECC0C5"
+      },
+      "expected_result": "",
+      "notes": "补充样本：XML 重导入修改计划任务"
+    },
+    {
+      "id": "SVC-CREATE-002",
+      "module": "Service",
+      "program": "SvcCreateTest.exe",
+      "action": "--case SVC-CREATE-002",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "behavior": "服务创建(CreateService API)",
+      "sample_md5": "DD89408F6FD4A3502875E72AABE04987",
+      "sample_sha256": "793CB1DB9A3B4379926DB5F0729B3DF06D3161768A98AC38EA250D6C48CA0D67",
+      "match": {
+        "actor_md5": "DD89408F6FD4A3502875E72AABE04987"
+      },
+      "expected_result": "",
+      "notes": "补充样本：标准 CreateService API 创建服务"
+    },
+    {
+      "id": "ACCOUNT-CREATE-002",
+      "module": "Account",
+      "program": "AccountCreateTest.exe",
+      "action": "--case ACCOUNT-CREATE-002",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "behavior": "账户创建(NetUserAdd API)",
+      "sample_md5": "9E00D8FBA97B45FA3107F6CA732B6D8A",
+      "sample_sha256": "3DC0F53C80E5C4D9BD76DDC71AD8276CCF4CC24A59E6814ACD6BC8B67119D988",
+      "match": {
+        "actor_md5": "9E00D8FBA97B45FA3107F6CA732B6D8A"
+      },
+      "expected_result": "",
+      "notes": "补充样本：标准 NetUserAdd API 创建本地账户"
     }
   ]
 }

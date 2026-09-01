@@ -153,6 +153,14 @@ tbody tr.cap-row td:first-child{border-left:3px solid var(--accent);padding-left
 .mask.open{display:block}
 .slide{position:fixed;top:0;right:0;bottom:0;width:640px;max-width:92vw;background:var(--panel);z-index:21;transform:translateX(100%);transition:transform .24s ease;display:flex;flex-direction:column;box-shadow:-8px 0 30px rgba(20,30,60,.12)}
 .slide.open{transform:translateX(0)}
+/* 向左展开：整宽查看（宽表格不用横向拉），宽度可拖左缘自定义 */
+.slide.wide{width:96vw !important;max-width:96vw !important}
+.slide-drag{position:absolute;left:-2px;top:0;bottom:0;width:5px;cursor:ew-resize;z-index:6;border-radius:3px}
+.slide-drag:hover,.slide-drag.active{background:var(--accent);opacity:.6}
+.slide-expand{cursor:pointer;color:var(--text-dim);width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:8px;margin-left:auto}
+.slide-expand:hover{background:var(--raised);color:var(--text)}
+.slide-expand.on{color:var(--accent);background:var(--accent-bg)}
+.slide-expand + .close{margin-left:0}
 .slide-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0}
 .slide-head .title{font-weight:700;font-size:15px}
 .slide-head .sub{color:var(--text-faint);font-size:12px}
@@ -211,6 +219,13 @@ tbody tr.cap-row td:first-child{border-left:3px solid var(--accent);padding-left
 .atarea{width:100%;box-sizing:border-box;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--panel);padding:10px 12px;font-family:var(--sans);font-size:13px;line-height:1.7;color:var(--text);resize:vertical;outline:none;transition:border-color .12s}
 .atarea:focus{border-color:var(--accent)}
 .atarea::placeholder{color:var(--text-faint)}
+/* 单行输入（分析 tab 映射名称 / 同学基线行内编辑共用） */
+.ainput{width:100%;box-sizing:border-box;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--panel);padding:7px 10px;font-family:var(--sans);font-size:12px;line-height:1.6;color:var(--text);outline:none;transition:border-color .12s}
+.ainput:focus{border-color:var(--accent)}
+.ainput::placeholder{color:var(--text-faint)}
+textarea.ainput{resize:vertical;font-size:12px}
+.cm-name{font-family:var(--mono);font-size:11px;min-width:130px}
+.cm-ana{min-width:200px}
 .mapref{border:1px solid var(--border);border-radius:var(--r-sm);background:var(--panel-2);padding:8px 12px}
 .ana-foot{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
 .ana-meta{font-size:11px;color:var(--text-faint);font-family:var(--mono)}

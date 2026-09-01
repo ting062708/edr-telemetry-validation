@@ -309,7 +309,7 @@ Tab 结构（顶部 4 个 tab，默认「结果」）：
 - 新增端点全部 200；app.js 过 `node --check`；静态资源（style.css/app.js）经 Flask static_folder 正常服务。
 - 已知留白：变体数据源未接入（占位）；行业基线为行为级参照矩阵（未做模块级聚合差异，需行为中英映射表后再加）。
 
-## 十、变体分组（能力级并集判定）
+## 十、变体分组（能力级并集判定） ✅ 已实现（2026-09-02，见附录 C.6）
 
 新增样本是「变体」——同一个能力（capability）的多个触发方式，命名 <模块>-<能力>-<序号>。
 现有变体：PROC-IMAGE-LOAD / PROC-TAMPER / FILE-CREATE / TASK-CREATE / REG-CREATE（各 2 个变体，-001/-002）。
@@ -328,3 +328,17 @@ Tab 结构（顶部 4 个 tab，默认「结果」）：
 4. **详情抽屉**：加「变体 tab」，列出该能力所有变体 case + 各自跑测/判定状态，对照不同触发方式。
 
 5. **数据源**：现有 GET /api/overview 的 case 列表（case_id/module/binary/run_state），前端按 case_id 前缀分组即可，无需后端改动。
+
+### C.6 v3.2 增量（2026-09-02，已实现）
+
+1. **变体分组落地（第十节）**：`capKeyOf()` 按 case_id 去末尾序号分组；矩阵能力行
+   （`.cap-row` 蓝底 + `N 变体` 标签 + 并集徽章，点击展开变体子行），整组跑/匹配
+   （`runGroup`/`matchGroup` 逐个投递走串行队列）；抽屉「变体」tab 改为真实分组列表
+   （原 `/api/case/<id>/variants` 占位路由保留不用）。并集判定 `unionBadge()`：
+   全采→采集 / 部分→疑问 / 全缺→缺失 / 含待测→待测。
+2. **同学基线 tab 行内填写**：每行新增「能力映射名称」输入框 + 「采集分析」文本域，
+   失焦自动保存。后端 `POST /api/case/<id>/analysis` 改**合并语义**（只更新 payload
+   出现的字段，三字段全空才删除），新增 `map_name` 字段；抽屉「分析」tab 同步加映射名称。
+3. **面板向左展开**：所有 `.slide` 面板头部加展开按钮（`.wide` = 96vw 整宽），
+   左缘 `.slide-drag` 拖拽自由调宽（480px~96vw），宽度存 localStorage
+   （`wb_edr_slide_w_<panelId>`），交互与终端一致。

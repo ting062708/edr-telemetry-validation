@@ -463,7 +463,9 @@ async function loadTabAnalysis(c) {
     }
   }
   html += `
-    <div class="sec-t"${html ? ' style="margin-top:16px"' : ''}>映射笔记 · 行为 → IOA 事件/字段</div>
+    <div class="sec-t"${html ? ' style="margin-top:16px"' : ''}>能力映射名称 · MAP NAME</div>
+    <input class="ainput" id="ana-mapname" type="text" placeholder="例：FileWriteClose / ProcessCreate（IOA 事件名）" value="${esc(a.map_name || '')}">
+    <div class="sec-t" style="margin-top:14px">映射笔记 · 行为 → IOA 事件/字段</div>
     <textarea class="atarea" id="ana-mapping" rows="4" placeholder="例：覆盖写 → FileWriteClose，取 Child.FilePath / Child.FileMd5；TXT 不采、JSON 可采…">${esc(a.mapping || '')}</textarea>
     <div class="sec-t" style="margin-top:14px">采集分析 · 结论与限制条件</div>
     <textarea class="atarea" id="ana-analysis" rows="6" placeholder="例：仅启动期 DLL 可采，运行时 LoadLibrary 不触发；行业普遍 Yes，本产品属弱项，待补…">${esc(a.analysis || '')}</textarea>
@@ -476,13 +478,14 @@ async function loadTabAnalysis(c) {
 }
 async function saveAnalysis(caseId) {
   const payload = {
+    map_name: $('ana-mapname').value,
     mapping: $('ana-mapping').value,
     analysis: $('ana-analysis').value,
   };
   try {
     await post(`/api/case/${caseId}/analysis`, payload);
     const updated = new Date().toISOString().slice(0, 16).replace('T', ' ');
-    if (payload.mapping.trim() || payload.analysis.trim()) {
+    if (payload.map_name.trim() || payload.mapping.trim() || payload.analysis.trim()) {
       state.analysis[caseId] = { ...payload, updated };
     } else {
       delete state.analysis[caseId];
@@ -701,6 +704,55 @@ function closeAll() {
   $('mask').classList.remove('open');
 }
 
+/* ── 面板向左展开（类似终端：左缘拖拽调宽 + 一键整宽，宽度存 localStorage） ── */
+function initSlideExpand() {
+  document.querySelectorAll('.slide').forEach((sl) => {
+    const key = 'wb_edr_slide_w_' + sl.id;
+    /* 恢复上次拖拽的宽度 */
+    try {
+      const w = parseInt(localStorage.getItem(key), 10);
+      if (w >= 480) sl.style.width = w + 'px';
+    } catch (e) { /* ignore */ }
+    /* 左缘拖拽调宽 */
+    const drag = document.createElement('div');
+    drag.className = 'slide-drag';
+    drag.title = '拖动调整面板宽度';
+    sl.appendChild(drag);
+    drag.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      drag.classList.add('active');
+      const startX = e.clientX;
+      const startW = sl.getBoundingClientRect().width;
+      const move = (ev) => {
+        const w = Math.min(window.innerWidth * 0.96, Math.max(480, startW + (startX - ev.clientX)));
+        sl.classList.remove('wide');
+        sl.querySelector('.slide-expand').classList.remove('on');
+        sl.style.width = w + 'px';
+      };
+      const up = () => {
+        drag.classList.remove('active');
+        document.removeEventListener('pointermove', move);
+        document.removeEventListener('pointerup', up);
+        try { localStorage.setItem(key, String(parseInt(sl.style.width, 10) || 640)); } catch (err) { /* ignore */ }
+      };
+      document.addEventListener('pointermove', move);
+      document.addEventListener('pointerup', up);
+    });
+    /* 头部「展开」按钮：一键整宽 / 还原 */
+    const head = sl.querySelector('.slide-head');
+    if (!head) return;
+    const btn = document.createElement('span');
+    btn.className = 'slide-expand';
+    btn.title = '展开 / 还原（整宽查看）';
+    btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
+    btn.onclick = () => {
+      const on = sl.classList.toggle('wide');
+      btn.classList.toggle('on', on);
+    };
+    head.insertBefore(btn, head.querySelector('.close'));
+  });
+}
+
 /* ── 手册 ── */
 let _manualLoaded = false;
 async function loadManual() {
@@ -755,6 +807,7 @@ function mdToHtml(md) {
 async function loadBaseline() {
   if (!state.industry) { try { state.industry = await api('/api/industry'); } catch (e) { state.industry = {}; } }
   if (!state.classmate) { try { state.classmate = await api('/api/classmate_baseline'); } catch (e) { state.classmate = {}; } }
+  if (!state.analysis) { try { state.analysis = (await api('/api/analysis')).cases || {}; } catch (e) { state.analysis = {}; } }
   renderBaseline();
 }
 function switchBaselineTab(tab) {
@@ -826,6 +879,7 @@ function renderClassmate() {
   const cases = (state.classmate && state.classmate.cases) || state.classmate || {};
   const ids = Object.keys(cases).filter((k) => cases[k] && typeof cases[k] === 'object');
   if (!ids.length) { $('baseline-body').innerHTML = '<div class="empty">classmate_baseline.json 无数据</div>'; return; }
+  const ana = state.analysis || {};
   const rows = ids.sort().map((id) => {
     const cm = cases[id];
     const ours = findCase(id);
@@ -837,14 +891,42 @@ function renderClassmate() {
     const agree = (cv === '有' || cv === '?') === (b.cls === 'ok' || b.cls === 'warn');
     const delta = b.cls === 'muted' ? '<span class="delta-eq">—</span>'
       : agree ? '<span class="delta-eq">= 一致</span>' : '<span class="delta-dn">≠ 差异</span>';
+    const a = ana[id] || {};
     return `<tr><td class="mod-name" style="font-family:var(--mono);font-size:11px">${esc(id)}</td>
       <td style="color:var(--text-dim)">${esc(cm.behavior || (ours && ours.display) || '')}</td>
-      <td><span class="badge ${b.cls}"><i></i>${b.txt}</span></td><td>${cmBadge}</td><td>${delta}</td></tr>`;
+      <td><span class="badge ${b.cls}"><i></i>${b.txt}</span></td><td>${cmBadge}</td><td>${delta}</td>
+      <td><input class="ainput cm-name" data-id="${esc(id)}" type="text" placeholder="映射名，如 FileWriteClose" value="${esc(a.map_name || '')}"></td>
+      <td><textarea class="ainput cm-ana" data-id="${esc(id)}" rows="2" placeholder="采集分析（一两行）：结论、限制条件、差异原因…">${esc(a.analysis || '')}</textarea></td></tr>`;
   }).join('');
   $('baseline-body').innerHTML = `
-    <div class="note-box">同学实测判定 vs 本产品当前判定（演示期兜底参照，暂时保留）；本项目复测定稿后以 case_result_map 为准。</div>
-    <table class="cmp-table"><thead><tr><th>CASE</th><th>行为</th><th>本产品</th><th>同学</th><th>对照</th></tr></thead>
+    <div class="note-box">同学实测判定 vs 本产品当前判定（演示期兜底参照，暂时保留）；本项目复测定稿后以 case_result_map 为准。
+    右侧两列可直接填写：<b>能力映射名称</b>（IOA 事件名）与<b>采集分析</b>（一两行结论），失焦自动保存，与 case 详情「分析」页互通。</div>
+    <table class="cmp-table"><thead><tr><th>CASE</th><th>行为</th><th>本产品</th><th>同学</th><th>对照</th><th>能力映射名称</th><th>采集分析</th></tr></thead>
     <tbody>${rows}</tbody></table>`;
+  /* 失焦自动保存（合并语义：只提交 map_name/analysis，不动映射笔记） */
+  const save = async (id) => {
+    const nameEl = $('baseline-body').querySelector(`.cm-name[data-id="${id}"]`);
+    const anaEl = $('baseline-body').querySelector(`.cm-ana[data-id="${id}"]`);
+    const payload = { map_name: nameEl.value, analysis: anaEl.value };
+    const prev = ana[id] || {};
+    if ((prev.map_name || '') === payload.map_name.trim()
+        && (prev.analysis || '') === payload.analysis.trim()) return;
+    try {
+      await post(`/api/case/${id}/analysis`, payload);
+      const updated = new Date().toISOString().slice(0, 16).replace('T', ' ');
+      if (payload.map_name.trim() || payload.analysis.trim() || (prev.mapping || '')) {
+        state.analysis[id] = { ...prev, ...payload, updated };
+      } else {
+        delete state.analysis[id];
+      }
+      toast(`${id} 分析已保存`, 1500);
+    } catch (e) {
+      toast(`保存失败：${e.message}`);
+    }
+  };
+  $('baseline-body').querySelectorAll('.cm-name,.cm-ana').forEach((el) => {
+    el.addEventListener('change', () => save(el.dataset.id));
+  });
 }
 
 /* ── 总结报告 ── */
@@ -1154,6 +1236,9 @@ document.addEventListener('DOMContentLoaded', () => {
   $('btn-term-max').onclick = (e) => { e.stopPropagation(); termMaxToggle(); };
   $('term-dot').classList.add('idle');
   initTermDrag();
+
+  /* 面板向左展开（拖拽 + 一键整宽） */
+  initSlideExpand();
 
   /* 快捷键 */
   document.addEventListener('keydown', (e) => {

@@ -387,7 +387,7 @@ ANALYSIS = CONFIG / 'case_analysis.json'
 
 
 def _load_analysis() -> dict:
-    """人工撰写的映射笔记 + 采集分析：case_id -> {mapping, analysis, updated}。"""
+    """人工撰写的能力映射名称 + 映射笔记 + 采集分析：case_id -> {map_name, mapping, analysis, updated}。"""
     if not ANALYSIS.exists():
         return {}
     try:
@@ -405,21 +405,27 @@ def api_analysis():
 
 @app.route('/api/case/<case_id>/analysis', methods=['POST'])
 def api_save_analysis(case_id):
-    """保存单个 case 的人工分析。空内容视为删除该条。"""
+    """保存单个 case 的人工分析（合并语义）。
+
+    只更新 payload 里出现的字段（map_name / mapping / analysis），
+    未出现的字段保留原值——同学基线 tab 与抽屉「分析」tab 各编辑一部分字段，
+    互不覆盖。三个字段全空时删除该条。
+    """
     data = request.get_json(silent=True) or {}
-    mapping = str(data.get('mapping', '')).strip()
-    analysis = str(data.get('analysis', '')).strip()
     cases = _load_analysis()
-    if mapping or analysis:
-        cases[case_id] = {
-            'mapping': mapping,
-            'analysis': analysis,
-            'updated': time.strftime('%Y-%m-%d %H:%M'),
-        }
+    cur = cases.get(case_id, {})
+    merged = {
+        'map_name': str(data.get('map_name', cur.get('map_name', ''))).strip(),
+        'mapping': str(data.get('mapping', cur.get('mapping', ''))).strip(),
+        'analysis': str(data.get('analysis', cur.get('analysis', ''))).strip(),
+    }
+    if any(merged.values()):
+        merged['updated'] = time.strftime('%Y-%m-%d %H:%M')
+        cases[case_id] = merged
     else:
         cases.pop(case_id, None)
     ANALYSIS.write_text(
-        json.dumps({'_meta': {'purpose': '人工撰写的行为→IOA字段映射笔记与采集分析'}, 'cases': cases},
+        json.dumps({'_meta': {'purpose': '人工撰写的能力映射名称、行为→IOA字段映射笔记与采集分析'}, 'cases': cases},
                    ensure_ascii=False, indent=2),
         encoding='utf-8')
     return jsonify({'ok': True})
