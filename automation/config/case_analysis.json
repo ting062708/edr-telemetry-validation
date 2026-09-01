@@ -1,0 +1,272 @@
+{
+  "_meta": {
+    "purpose": "人工撰写的能力映射名称、行为→IOA字段映射笔记与采集分析"
+  },
+  "cases": {
+    "ACCOUNT-CREATE-001": {
+      "map_name": "AccountCreate",
+      "mapping": "",
+      "analysis": "张顺钦判[有]·operation=AccountCreate；我方判[有]；NetUserAdd API 采到（AccountCreateTest 验证）；之前误判为无（旧样本用 cmd net user 未命中）"
+    },
+    "ACCOUNT-DELETE-001": {
+      "map_name": "",
+      "mapping": "没有对应字段。",
+      "analysis": "张顺钦判[无]·operation=；我方判[无]；与baseline一致"
+    },
+    "ACCOUNT-LOGIN-001": {
+      "map_name": "LoginSuccess",
+      "mapping": "LoginSuccess；登录失败场景没测，理论上应该也能采。",
+      "analysis": "张顺钦判[有]·operation=LoginSuccess；我方判[有]；LoginSuccess×1635"
+    },
+    "ACCOUNT-LOGOFF-001": {
+      "map_name": "",
+      "mapping": "没有直接字段，按 4634 也没检出。",
+      "analysis": "张顺钦判[无]·operation=；我方判[无]；无4634/4647,与baseline一致"
+    },
+    "ACCOUNT-MODIFY-001": {
+      "map_name": "",
+      "mapping": "没有直接字段，按 4738 事件比对也没有对应；4722-4725/4740/4767/4781 等候选还没试。",
+      "analysis": "张顺钦判[无]·operation=；我方判[无]；无4723等事件,与baseline一致"
+    },
+    "AGENT-ERROR-001": {
+      "map_name": "",
+      "mapping": "测不了。",
+      "analysis": "张顺钦判[无]·operation=；我方判[未标]"
+    },
+    "AGENT-INSTALL-001": {
+      "map_name": "",
+      "mapping": "只能拿到首次上线时间，而且那不是安装时间，是点「加入组织」的时间。",
+      "analysis": "张顺钦判[有]·operation=；我方判[未标]"
+    },
+    "AGENT-KEEPALIVE-001": {
+      "map_name": "",
+      "mapping": "监控界面能通过断网/恢复网络看到终端离线/在线，但区分不了「心跳丢失」和「主动关闭」。",
+      "analysis": "张顺钦判[无]·operation=；我方判[未标]"
+    },
+    "AGENT-START-001": {
+      "map_name": "",
+      "mapping": "与保活机制分不开。",
+      "analysis": "张顺钦判[无]·operation=；我方判[未标]"
+    },
+    "AGENT-STOP-001": {
+      "map_name": "",
+      "mapping": "与保活机制分不开。",
+      "analysis": "张顺钦判[无]·operation=；我方判[未标]"
+    },
+    "AGENT-UNINSTALL-001": {
+      "map_name": "",
+      "mapping": "与保活机制分不开。",
+      "analysis": "张顺钦判[无]·operation=；我方判[未标]"
+    },
+    "BIT-JOB-001": {
+      "map_name": "",
+      "mapping": "没有对应字段。",
+      "analysis": "张顺钦判[无]·operation=；我方判[无]；无BitsJobCreate;与baseline一致(样本注入NtWriteVirtualMemory被采但非BITS事件)"
+    },
+    "DEVICE-USB-MOUNT-001": {
+      "map_name": "",
+      "mapping": "没有对应字段。",
+      "analysis": "张顺钦判[无]·operation=；我方判[未标]"
+    },
+    "DEVICE-USB-UNMOUNT-001": {
+      "map_name": "",
+      "mapping": "没有对应字段。",
+      "analysis": "张顺钦判[无]·operation=；我方判[未标]"
+    },
+    "DEVICE-VDISK-MOUNT-001": {
+      "map_name": "",
+      "mapping": "没有对应字段。",
+      "analysis": "张顺钦判[无]·operation=；我方判[无]；样本usage失败未执行;需修复--case参数后复测"
+    },
+    "DRIVER-LOAD-001": {
+      "map_name": "LoadDriver",
+      "mapping": "",
+      "analysis": "张顺钦判[有]·operation=LoadDriver；我方判[有]；LoadDriver×9,系统进程加载"
+    },
+    "DRIVER-MODIFY-001": {
+      "map_name": "",
+      "mapping": "没有对应字段。",
+      "analysis": "张顺钦判[无]·operation=；我方判[有]；改驱动文件=FileWriteClose能采;baseline判无(无专用事件),语义差异"
+    },
+    "DRIVER-UNLOAD-001": {
+      "map_name": "",
+      "mapping": "没有对应字段。",
+      "analysis": "张顺钦判[无]·operation=；我方判[无]；无UnloadDriver,与baseline一致"
+    },
+    "FILE-CREATE-001": {
+      "map_name": "FileWriteClose",
+      "mapping": "落在 FileWriteClose 的「新建文件」子事件上；JSON 能采，TXT 采不到。",
+      "analysis": "张顺钦判[有]·operation=FileWriteClose；我方判[有]；能力有(FileWriteClose×851)但样本进程FileEvents 0命中=采集盲区;纯创建靠FileTotalWrite=0区分；实测双重盲区：路径C:\\EDRTest不采 + 文件类型TXT不采（JSON/DLL/EXE采，FileJsonTest@C:\\Temp验证）"
+    },
+    "FILE-DELETE-001": {
+      "map_name": "FileDelete",
+      "mapping": "FileDelete 事件；DLL 删得掉、采得到，TXT/JSON 采不到。",
+      "analysis": "张顺钦判[有]·operation=FileDelete；我方判[有]；FileDelete×2269；文件类型盲区：DLL可采，TXT/JSON不采"
+    },
+    "FILE-MODIFY-001": {
+      "map_name": "FileWriteClose",
+      "mapping": "FileWriteClose 的「覆盖写」子事件；JSON 可、TXT 不可。",
+      "analysis": "张顺钦判[有]·operation=FileWriteClose；我方判[有]；FileWriteClose存在；实测双重盲区：路径C:\\EDRTest不采 + 文件类型TXT不采（JSON/DLL/EXE采，FileJsonTest@C:\\Temp验证）"
+    },
+    "FILE-OPEN-001": {
+      "map_name": "FileWriteClose",
+      "mapping": "落在 FileWriteClose 的「打开文件」子事件上；同样 JSON 行、TXT 不行。",
+      "analysis": "张顺钦判[有]·operation=FileWriteClose；我方判[有]；能力有;行业公认难采；实测双重盲区：路径C:\\EDRTest不采 + 文件类型TXT不采（JSON/DLL/EXE采，FileJsonTest@C:\\Temp验证）"
+    },
+    "FILE-RENAME-001": {
+      "map_name": "MoveFileExW",
+      "mapping": "走 MoveFileExW，不限文件类型。",
+      "analysis": "张顺钦判[有]·operation=MoveFileExW；我方判[有]；FileRename×7;baseline写MoveFileExW,实际Action.Name=FileRename(带OldFilePath)；实测双重盲区：路径C:\\EDRTest不采 + 文件类型TXT不采（JSON/DLL/EXE采，FileJsonTest@C:\\Temp验证）"
+    },
+    "GPO-MODIFY-001": {
+      "map_name": "RegSetValue",
+      "mapping": "RegSetValue，用 Child.RegGroupName=组策略 识别；路径有过滤，从已有组策略路径写入才采到。",
+      "analysis": "张顺钦判[有]·operation=RegSetValue；我方判[有]；样本拉msiexec写策略,msiexec×25 RegSetValue于RUN-END后~3min异步应用,需post_slack≥300;与baseline一致"
+    },
+    "HASH-IMPHASH-001": {
+      "map_name": "",
+      "mapping": "没有对应字段，同样只能基于文件创建事件。",
+      "analysis": "张顺钦判[无]·operation=；我方判[有]；stdout口径:样本计算哈希行为被采(CryptAcquireContextW×3,InjectDll hook);与张顺钦按哈希值元数据字段口径(MD5有/SHA无/IMPHASH无)不同"
+    },
+    "HASH-MD5-001": {
+      "map_name": "Child.FileMd5",
+      "mapping": "基于文件创建事件，取 Child.FileMd5。",
+      "analysis": "张顺钦判[有]·operation=Child.FileMd5；我方判[有]；stdout口径:样本计算哈希行为被采(CryptAcquireContextW×3,InjectDll hook);与张顺钦按哈希值元数据字段口径(MD5有/SHA无/IMPHASH无)不同"
+    },
+    "HASH-SHA-001": {
+      "map_name": "",
+      "mapping": "没有对应字段，同样只能基于文件创建事件。",
+      "analysis": "张顺钦判[无]·operation=；我方判[有]；stdout口径:样本计算哈希行为被采(CryptAcquireContextW×3,InjectDll hook);与张顺钦按哈希值元数据字段口径(MD5有/SHA无/IMPHASH无)不同"
+    },
+    "NET-DNS-001": {
+      "map_name": "",
+      "mapping": "能采到底层 udp 连接和 53 端口，但查询内容/目标端口没有被记录。",
+      "analysis": "张顺钦判[?]·operation=；我方判[无]；无端口记录;baseline标疑问"
+    },
+    "NET-DOWNLOAD-001": {
+      "map_name": "",
+      "mapping": "靠「tcp 连接 + 新建文件」两个事件联合判定。",
+      "analysis": "张顺钦判[有]·operation=；我方判[有]；tcp连接+新建文件联合,与baseline一致"
+    },
+    "NET-TCP-001": {
+      "map_name": "NetBind",
+      "mapping": "靠网络监听 NetBind 的 Child.Protocol=tcp 区分；感觉只是凑巧命中测试场景，换一种未必行。",
+      "analysis": "张顺钦判[有]·operation=NetBind；我方判[有]；NetBind×3;baseline同;NetBind在RUN-END后36s出现,需post_slack≥60；TCP采的是connect，UDP才踩bind盲区"
+    },
+    "NET-UDP-001": {
+      "map_name": "NetBind",
+      "mapping": "同样靠 NetBind 的 Child.Protocol=udp；也是凑巧命中，换场景未必行。",
+      "analysis": "张顺钦判[有]·operation=NetBind；我方判[有]；NetBind×3;baseline同；UDP只采bind(NetBind)不采sendto，UDP连接本身是盲区（114.114.114.114实测0命中）"
+    },
+    "NET-URL-001": {
+      "map_name": "",
+      "mapping": "能采到底层 tcp 连接，但 URL 本身没有被记录。",
+      "analysis": "张顺钦判[?]·operation=；我方判[有]；HttpsRequest×119但url字段为空;baseline标疑问"
+    },
+    "PIPE-CONNECT-001": {
+      "map_name": "NamedPipe",
+      "mapping": "NamedPipe，Child.PipeOpName=打开管道。",
+      "analysis": "张顺钦判[有]·operation=NamedPipe；我方判[有]；NamedPipe×10"
+    },
+    "PIPE-CREATE-001": {
+      "map_name": "NamedPipe",
+      "mapping": "NamedPipe，Child.PipeOpName=创建管道。",
+      "analysis": "张顺钦判[有]·operation=NamedPipe；我方判[有]；NamedPipe×10"
+    },
+    "PROC-ACCESS-001": {
+      "map_name": "NtOpenProcess",
+      "mapping": "",
+      "analysis": "张顺钦判[有]·operation=NtOpenProcess；我方判[有]；样本failed_deliver无证据;日志NtOpenProcess×1是rundll32产生"
+    },
+    "PROC-CREATE-001": {
+      "map_name": "ProcessCreate",
+      "mapping": "",
+      "analysis": "张顺钦判[有]·operation=ProcessCreate；我方判[有]；样本为Parent创建ProcessTarget.exe,ProcessCreate×2635"
+    },
+    "PROC-IMAGE-LOAD-001": {
+      "map_name": "",
+      "mapping": "字段是有的，其他终端也能看到事件，但换了几种触发方式本终端始终没测出来。",
+      "analysis": "张顺钦判[有]·operation=；我方判[有]；LoadDll×8,样本加载TestLibrary.dll"
+    },
+    "PROC-REMOTE-THREAD-001": {
+      "map_name": "RemoteThread",
+      "mapping": "",
+      "analysis": "张顺钦判[有]·operation=RemoteThread；我方判[有]；日志RemoteThread×11存在(归属待查)"
+    },
+    "PROC-TAMPER-001": {
+      "map_name": "WriteProcessMemory",
+      "mapping": "走 WriteProcessMemory，其余注入手法还没验证。",
+      "analysis": "张顺钦判[有]·operation=WriteProcessMemory；我方判[有]；样本failed_deliver;日志NtWriteVirtualMemory×2是BIT/PS样本产生"
+    },
+    "PROC-TERMINATE-001": {
+      "map_name": "",
+      "mapping": "字段层面能读到进程间通信的 NtOpenProcess，但全程没有独立的进程终止事件。",
+      "analysis": "张顺钦判[无]·operation=；我方判[无]；无ProcessTerminate事件,与baseline一致"
+    },
+    "PS-BLOCK-001": {
+      "map_name": "ScriptScan",
+      "mapping": "ScriptScan，再结合命令内容进一步判定。",
+      "analysis": "张顺钦判[有]·operation=ScriptScan；我方判[有]；样本拉powershell.exe,ScriptScan×6;与baseline一致"
+    },
+    "REG-CREATE-001": {
+      "map_name": "RegSetValue",
+      "mapping": "RegSetValue，但路径有过滤——自定义测试路径不采，从启动项路径写入才采得到。",
+      "analysis": "张顺钦判[有]·operation=RegSetValue；我方判[有]；RegSetValue存在;路径有筛选,值无→有触发"
+    },
+    "REG-DELETE-001": {
+      "map_name": "",
+      "mapping": "有字段定义，但没有对应终端事件，疑似未实现。",
+      "analysis": "张顺钦判[无]·operation=；我方判[无]；无RegDeleteValue/RegDeleteKey事件,与baseline一致"
+    },
+    "REG-MODIFY-001": {
+      "map_name": "RegSetValue",
+      "mapping": "RegSetValue，用 Child.RegOldValData 与 Child.RegValData 新旧值比对；路径同样有过滤。",
+      "analysis": "张顺钦判[有]·operation=RegSetValue；我方判[有]；RegSetValue×1(notepad→calc,启动项路径)"
+    },
+    "SVC-CREATE-001": {
+      "map_name": "CreateService",
+      "mapping": "",
+      "analysis": "张顺钦判[有]·operation=CreateService；我方判[有]；标准 CreateService API 采到（SvcCreateTest 验证）；之前误判为无（旧样本触发方式不对，只采到 StartService）"
+    },
+    "SVC-DELETE-001": {
+      "map_name": "",
+      "mapping": "有字段定义，但没有对应终端事件，疑似未实现。",
+      "analysis": "张顺钦判[无]·operation=；我方判[无]；与baseline一致"
+    },
+    "SVC-MODIFY-001": {
+      "map_name": "",
+      "mapping": "有字段定义，但没有对应终端事件，疑似未实现。",
+      "analysis": "张顺钦判[无]·operation=；我方判[无]；与baseline一致"
+    },
+    "TASK-CREATE-001": {
+      "map_name": "SchedTaskCreate",
+      "mapping": "SchedTaskCreate；要导入具体 XML 才会被捕获。",
+      "analysis": "张顺钦判[有]·operation=SchedTaskCreate；我方判[有]；RpcSchedTaskCreate×18全为系统任务;baseline备注需导入XML才抓,样本用/TR命令行→未采"
+    },
+    "TASK-DELETE-001": {
+      "map_name": "",
+      "mapping": "有字段定义，但没有对应终端事件，疑似未实现。",
+      "analysis": "张顺钦判[无]·operation=；我方判[无]；与baseline一致"
+    },
+    "TASK-MODIFY-001": {
+      "map_name": "SchedTaskUpdate",
+      "mapping": "SchedTaskUpdate；同样要导入具体 XML 才捕获。",
+      "analysis": "张顺钦判[有]·operation=SchedTaskUpdate；我方判[无]；XML 重导入(/create /xml /f)被采成 RpcSchedTaskCreate(创建)；真正的 Update 需用 schtasks /change 触发，待补样本"
+    },
+    "WMI-CONSUMER-001": {
+      "map_name": "WmiOperation",
+      "mapping": "能读到 WmiOperation，但跟 WMI 能力本身无关，读到的都是 11 事件。",
+      "analysis": "张顺钦判[无]·operation=WmiOperation；我方判[无]；同上"
+    },
+    "WMI-CONSUMER-TO-FILTER-001": {
+      "map_name": "WmiOperation",
+      "mapping": "能读到 WmiOperation，但跟 WMI 能力本身无关，读到的都是 11 事件。",
+      "analysis": "张顺钦判[无]·operation=WmiOperation；我方判[无]；同上"
+    },
+    "WMI-FILTER-001": {
+      "map_name": "WmiOperation",
+      "mapping": "能读到 WmiOperation，但跟 WMI 能力本身无关，读到的都是 11 事件。",
+      "analysis": "张顺钦判[无]·operation=WmiOperation；我方判[无]；无专用WMI事件(WmiCreate不存在);仅脚本被ScriptScan×3捕获但那是脚本能力不是WMI能力;与baseline一致"
+    }
+  }
+}

@@ -342,3 +342,11 @@ Tab 结构（顶部 4 个 tab，默认「结果」）：
 3. **面板向左展开**：所有 `.slide` 面板头部加展开按钮（`.wide` = 96vw 整宽），
    左缘 `.slide-drag` 拖拽自由调宽（480px~96vw），宽度存 localStorage
    （`wb_edr_slide_w_<panelId>`），交互与终端一致。
+
+### C.7 v3.3 增量（2026-09-02，已实现）
+
+**行业基线中英对照 + 模块级差异**：`industry_baseline.json` 新增 `category_cn`
+（53 个行业类目的中文名映射，随 `_meta.updated` 维护）；行业 tab 行为列显示
+中文 + 英文小字；顶部新增模块级差异汇总条（`.mod-chips`，各模块 ↓弱/↑强/=一致/…待测
+计数，按弱于行业降序，弱项模块粉底高亮），点击 chip = 筛选该模块矩阵并关闭面板。
+模块归属由 case_map → case → module 前端推导，无需后端改动。

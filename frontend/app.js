@@ -824,6 +824,7 @@ function renderIndustry() {
   const ind = state.industry || {};
   const cats = ind.categories || {};
   const caseMap = ind.case_map || {};
+  const catCn = ind.category_cn || {};
   const names = Object.keys(cats);
   if (!names.length) { $('baseline-body').innerHTML = '<div class="empty">industry_baseline.json 无数据</div>'; return; }
   /* case_map 反转：行业类目 → 本产品的 case（1 类可对多 case） */
@@ -843,6 +844,13 @@ function renderIndustry() {
   };
   const products = ['Sysmon', 'MDE', 'CrowdStrike', 'SentinelOne'];
   let nWeak = 0, nStrong = 0, nAgree = 0;
+  /* 模块级差异汇总：mod -> {agree, weak, strong, pending} */
+  const modStats = {};
+  const bumpMod = (mod, kind) => {
+    if (!mod) return;
+    const s = modStats[mod] = modStats[mod] || { agree: 0, weak: 0, strong: 0, pending: 0 };
+    s[kind]++;
+  };
   const rows = names.map((cat) => {
     const ours = (cat2cases[cat] || []).map(findCase).filter(Boolean);
     /* 本产品列：逐 case 徽章，点击跳详情 */
@@ -855,24 +863,54 @@ function renderIndustry() {
     /* 对照：行业多数能采（≥2/4）vs 本产品 */
     const indCap = products.filter((p) => capable(cats[cat][p])).length >= 2;
     let delta = '<span class="delta-eq">—</span>';
+    const mod = ours.length ? ours[0].module : null;
     if (ours.length && !ours.every((c) => badgeOf(c).cls === 'muted')) {
       const oursCap = ours.some((c) => ['ok', 'warn'].includes(badgeOf(c).cls));
-      if (oursCap && indCap) { delta = '<span class="delta-eq">= 一致</span>'; nAgree++; }
-      else if (oursCap && !indCap) { delta = '<span class="delta-up">↑ 强于行业</span>'; nStrong++; }
-      else if (!oursCap && indCap) { delta = '<span class="delta-dn">↓ 弱于行业</span>'; nWeak++; }
-      else { delta = '<span class="delta-eq">= 均弱</span>'; nAgree++; }
+      if (oursCap && indCap) { delta = '<span class="delta-eq">= 一致</span>'; nAgree++; bumpMod(mod, 'agree'); }
+      else if (oursCap && !indCap) { delta = '<span class="delta-up">↑ 强于行业</span>'; nStrong++; bumpMod(mod, 'strong'); }
+      else if (!oursCap && indCap) { delta = '<span class="delta-dn">↓ 弱于行业</span>'; nWeak++; bumpMod(mod, 'weak'); }
+      else { delta = '<span class="delta-eq">= 均弱</span>'; nAgree++; bumpMod(mod, 'agree'); }
+    } else {
+      bumpMod(mod, 'pending');
     }
-    return `<tr><td class="mod-name">${esc(cat)}</td><td>${oursHtml}</td>
+    const cn = catCn[cat];
+    const catCell = cn
+      ? `<td class="mod-name">${esc(cn)}<div class="cat-en">${esc(cat)}</div></td>`
+      : `<td class="mod-name">${esc(cat)}</td>`;
+    return `<tr>${catCell}<td>${oursHtml}</td>
       ${products.map((p) => `<td>${chip(cats[cat][p])}</td>`).join('')}<td>${delta}</td></tr>`;
   }).join('');
+  /* 模块级差异汇总条：按「弱于行业」降序，点击跳对应模块矩阵 */
+  const modChips = Object.keys(modStats)
+    .sort((a, b) => (modStats[b].weak - modStats[a].weak) || (modStats[b].agree - modStats[a].agree))
+    .map((mod) => {
+      const s = modStats[mod];
+      const parts = [
+        s.weak ? `<b class="r">↓${s.weak}</b>` : '',
+        s.strong ? `<b class="g">↑${s.strong}</b>` : '',
+        s.agree ? `<b class="x">=${s.agree}</b>` : '',
+        s.pending ? `<b class="x">…${s.pending}</b>` : '',
+      ].filter(Boolean).join(' ');
+      return `<span class="mod-chip${s.weak ? ' has-weak' : ''}" data-mod="${esc(mod)}" title="点击筛选 ${esc(mod)} 模块矩阵">
+        ${esc(MODULE_CN[mod] || mod)} ${parts}</span>`;
+    }).join('');
   $('baseline-body').innerHTML = `
     <div class="note-box">本产品当前判定 vs 行业参照矩阵（tsale/EDR-Telemetry，行业多数 = 4 款中 ≥2 款可采）。
     一致 ${nAgree} 项 · <span class="delta-dn">↓ 弱于行业 ${nWeak} 项</span>（补齐优先级清单） · <span class="delta-up">↑ 强于行业 ${nStrong} 项</span>。
     点「本产品」列徽章可跳到对应 case 详情。</div>
+    <div class="sec-t">模块级差异 · 按弱于行业排序（↓弱 ↑强 =一致 …待测）</div>
+    <div class="mod-chips">${modChips}</div>
     <table class="cmp-table"><thead><tr><th>行为</th><th>本产品</th>${products.map((p) => `<th>${p}</th>`).join('')}<th>对照</th></tr></thead>
     <tbody>${rows}</tbody></table>`;
   $('baseline-body').querySelectorAll('[data-case]').forEach((el) => {
     el.onclick = () => openDrawer(el.dataset.case);
+  });
+  $('baseline-body').querySelectorAll('.mod-chip').forEach((el) => {
+    el.onclick = () => {
+      state.activeModule = el.dataset.mod;
+      refreshAll();
+      closeAll();
+    };
   });
 }
 function renderClassmate() {

@@ -226,6 +226,14 @@ tbody tr.cap-row td:first-child{border-left:3px solid var(--accent);padding-left
 textarea.ainput{resize:vertical;font-size:12px}
 .cm-name{font-family:var(--mono);font-size:11px;min-width:130px}
 .cm-ana{min-width:200px}
+/* 行业基线：类目中英对照 + 模块级差异汇总 */
+.cat-en{font-size:10px;color:var(--text-faint);font-weight:400;font-family:var(--mono);margin-top:1px}
+.mod-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.mod-chip{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border:1px solid var(--border);border-radius:14px;background:var(--panel);font-size:12px;color:var(--text-dim);cursor:pointer;transition:border-color .12s,background .12s}
+.mod-chip:hover{border-color:var(--accent);background:var(--accent-bg)}
+.mod-chip.has-weak{border-color:#f3c2cd;background:var(--bad-bg)}
+.mod-chip b{font-family:var(--mono);font-size:11px;font-weight:700}
+.mod-chip .r{color:var(--bad)} .mod-chip .g{color:var(--ok)} .mod-chip .x{color:var(--text-faint)}
 .mapref{border:1px solid var(--border);border-radius:var(--r-sm);background:var(--panel-2);padding:8px 12px}
 .ana-foot{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
 .ana-meta{font-size:11px;color:var(--text-faint);font-family:var(--mono)}
