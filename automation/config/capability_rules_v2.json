@@ -757,14 +757,14 @@
         "ServiceEvents"
       ],
       "operations": [
-        "CreateService"
+        "StartService"
       ],
       "cases": [
         "SVC-CREATE-001"
       ],
       "capability": "无",
-      "note": "baseline有(CreateService);本次无,仅StartService×53;需干净快照复测",
-      "last_assessment": "未采到"
+      "note": "日志无CreateService,仅StartService×53(服务启动);baseline写CreateService,实际采集落在StartService",
+      "last_assessment": "采到(StartService)"
     },
     {
       "id": "svc-modify",
