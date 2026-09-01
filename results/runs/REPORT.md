@@ -1,16 +1,15 @@
 # EDR 采集能力验证报告
 
-> 生成时间：2026-09-02 01:42:00
-> 覆盖用例：45 / 36（另有预留模块 17 个未接入）
+> 生成时间：2026-09-02 03:36:08
+> 覆盖用例：54 / 36（另有预留模块 17 个未接入）
 
 ## 概览
 
 | 状态 | 数量 |
 |---|---|
-| 🟢 采集通过 | 25 |
-| 🔴 采集未通过 | 20 |
-| 🟡 待匹配 | 0 |
-| ⚪ 待测 | 0 |
+| 🟢 采集通过 | 27 |
+| 🔴 采集未通过 | 18 |
+| ⚪ 待判定 | 9 |
 
 ## 能力矩阵
 
@@ -21,6 +20,7 @@
 | REG-CREATE-001 | --case REG-CREATE-001 | 🟢 采集通过 | — | 1/3 |
 | REG-MODIFY-001 | --case REG-MODIFY-001 | 🟢 采集通过 | — | 1/4 |
 | REG-DELETE-001 | --case REG-DELETE-001 | 🔴 采集未通过 | — | 0/4 |
+| REG-CREATE-002 | --case REG-CREATE-002 | ⚪ 待判定 | — | 0/0 |
 
 ### Process
 
@@ -32,6 +32,8 @@
 | PROC-REMOTE-THREAD-001 | remotethread | 🟢 采集通过 | 否 | 2/2 |
 | PROC-TAMPER-001 | tamper | 🟢 采集通过 | 是 | 2/3 |
 | PROC-TERMINATE-001 | terminate | 🔴 采集未通过 | 否 | 1/2 |
+| PROC-IMAGE-LOAD-002 | --case PROC-IMAGE-LOAD-002 | ⚪ 待判定 | — | 0/0 |
+| PROC-TAMPER-002 | --case PROC-TAMPER-002 | ⚪ 待判定 | — | 0/0 |
 
 ### File
 
@@ -42,6 +44,8 @@
 | FILE-DELETE-001 | --case FILE-DELETE-001 | 🟢 采集通过 | — | 0/3 |
 | FILE-MODIFY-001 | --case FILE-MODIFY-001 | 🟢 采集通过 | — | 3/4 |
 | FILE-RENAME-001 | --case FILE-RENAME-001 | 🟢 采集通过 | — | 0/6 |
+| FILE-CREATE-002 | --case FILE-CREATE-002 | ⚪ 待判定 | — | 0/0 |
+| FILE-CREATE-003 | --case FILE-CREATE-003 | ⚪ 待判定 | — | 0/0 |
 
 ### Account
 
@@ -52,6 +56,7 @@
 | ACCOUNT-DELETE-001 | --case ACCOUNT-DELETE-001 | 🔴 采集未通过 | — | 0/2 |
 | ACCOUNT-LOGIN-001 | --case ACCOUNT-LOGIN-001 | 🟢 采集通过 | — | 1/2 |
 | ACCOUNT-LOGOFF-001 | --case ACCOUNT-LOGOFF-001 | 🔴 采集未通过 | — | 0/3 |
+| ACCOUNT-CREATE-002 | --case ACCOUNT-CREATE-002 | ⚪ 待判定 | — | 0/0 |
 
 ### Network
 
@@ -68,8 +73,8 @@
 | 用例 | 行为 | 能力判定 | 锚定样本 | 值扫描命中/缺失 |
 |---|---|---|---|---|
 | HASH-MD5-001 | --case HASH-MD5-001 --target C:\EDRTest\samples\Hash\Support\TestLibrary.dll | 🟢 采集通过 | — | 1/2 |
-| HASH-SHA-001 | --case HASH-SHA-001 --target C:\EDRTest\samples\Hash\Support\TestLibrary.dll | 🔴 采集未通过 | — | 0/4 |
-| HASH-IMPHASH-001 | --case HASH-IMPHASH-001 --target C:\EDRTest\samples\Hash\Support\TestLibrary.dll | 🔴 采集未通过 | — | 1/3 |
+| HASH-SHA-001 | --case HASH-SHA-001 --target C:\EDRTest\samples\Hash\Support\TestLibrary.dll | 🟢 采集通过 | — | 0/4 |
+| HASH-IMPHASH-001 | --case HASH-IMPHASH-001 --target C:\EDRTest\samples\Hash\Support\TestLibrary.dll | 🟢 采集通过 | — | 1/3 |
 
 ### Driver
 
@@ -86,6 +91,8 @@
 | TASK-CREATE-001 | --case TASK-CREATE-001 | 🟢 采集通过 | — | 3/4 |
 | TASK-MODIFY-001 | --case TASK-MODIFY-001 | 🔴 采集未通过 | — | 3/4 |
 | TASK-DELETE-001 | --case TASK-DELETE-001 | 🔴 采集未通过 | — | 3/5 |
+| TASK-CREATE-002 | --case TASK-CREATE-002 | ⚪ 待判定 | — | 0/0 |
+| TASK-MODIFY-002 | --case TASK-MODIFY-002 | ⚪ 待判定 | — | 0/0 |
 
 ### Service
 
@@ -94,6 +101,7 @@
 | SVC-CREATE-001 | --case SVC-CREATE-001 | 🔴 采集未通过 | — | 0/4 |
 | SVC-MODIFY-001 | --case SVC-MODIFY-001 | 🔴 采集未通过 | — | 0/5 |
 | SVC-DELETE-001 | --case SVC-DELETE-001 | 🔴 采集未通过 | — | 1/2 |
+| SVC-CREATE-002 | --case SVC-CREATE-002 | ⚪ 待判定 | — | 0/0 |
 
 ### Pipe
 

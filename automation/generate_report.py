@@ -23,7 +23,7 @@ CONFIG = ROOT / 'config'
 sys.path.insert(0, str(ROOT / 'core'))  # for `import status`
 
 # 四态 -> emoji
-BIN_ICON = {'采集通过': '🟢', '采集未通过': '🔴', '待匹配': '🟡', '待测': '⚪'}
+BIN_ICON = {'采集通过': '🟢', '采集未通过': '🔴', '待判定': '⚪'}
 
 
 def _read_json(path: Path):
@@ -53,14 +53,14 @@ def _binary(match_doc, result_entry) -> str:
         return '采集通过'
     if v in ('错', '未采集', '未通过'):
         return '采集未通过'
-    return '待测'
+    return '待判定'
 
 
 def main() -> int:
     cases = _load_cases()
     baseline = _read_json(CONFIG / 'baseline.json')
 
-    # 复用 status.py 的四态判定（采集通过/采集未通过/待匹配/待测）
+    # 复用 status.py 的四态判定（采集通过/采集未通过/待判定/待判定）
     import status as _st
     binary_map = {}
     try:
@@ -77,7 +77,7 @@ def main() -> int:
         action = c.get('action', '')
         mr_path = RUNS / module / cid / 'match_result.json'
         mr = _read_json(mr_path)
-        bin_state = binary_map.get(cid, '待测')
+        bin_state = binary_map.get(cid, '待判定')
         anomaly = (mr or {}).get('anomaly', '')
         anchor = (mr or {}).get('anchor_detected')
         vs = (mr or {}).get('value_scan', {}) or {}
@@ -90,7 +90,7 @@ def main() -> int:
         })
 
     # 概览统计
-    cnt = {k: 0 for k in ('采集通过', '采集未通过', '待匹配', '待测')}
+    cnt = {k: 0 for k in ('采集通过', '采集未通过', '待判定')}
     for r in rows:
         cnt[r['binary']] = cnt.get(r['binary'], 0) + 1
 
@@ -104,7 +104,7 @@ def main() -> int:
     L.append('')
     L.append('| 状态 | 数量 |')
     L.append('|---|---|')
-    for k in ('采集通过', '采集未通过', '待匹配', '待测'):
+    for k in ('采集通过', '采集未通过', '待判定'):
         L.append(f'| {BIN_ICON[k]} {k} | {cnt[k]} |')
     L.append('')
 

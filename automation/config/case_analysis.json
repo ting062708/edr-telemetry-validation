@@ -1,6 +1,7 @@
 {
   "_meta": {
-    "purpose": "人工撰写的能力映射名称、行为→IOA字段映射笔记与采集分析"
+    "purpose": "人工撰写的能力映射名称、行为→IOA字段映射笔记与采集分析",
+    "finalized": "2026-09-02"
   },
   "cases": {
     "ACCOUNT-CREATE-001": {

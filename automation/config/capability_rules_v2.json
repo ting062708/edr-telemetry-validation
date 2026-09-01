@@ -1,6 +1,6 @@
 {
-  "version": "2.0.0",
-  "generated": "2026-08-25",
+  "version": "2.1.0",
+  "generated": "2026-09-02",
   "standard": "能力=有/无(全局:operation/表存在即有能力); 采集=时间窗+锚定进程(Parent)+表类别(窗内命中即采集成功)",
   "anchor_types": {
     "direct": "样本进程自己就是Parent(发起者),按样本MD5/进程名锚定",
