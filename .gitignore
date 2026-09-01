@@ -2,11 +2,12 @@
 bin/
 obj/
 .vs/
-*.exe
-*.dll
 *.pdb
 *.lib
 *.obj
+
+# === 第三方工具（Sysmon 等，可自行下载）===
+tools/
 
 # === Python ===
 __pycache__/
