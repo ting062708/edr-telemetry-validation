@@ -50,6 +50,7 @@ const state = {
   analysis: null,        // /api/analysis 整份（人工映射笔记+采集分析）
   es: null,              // 当前 EventSource
   taskId: null,          // 当前任务 id
+  pollTimer: null,       // 运行期间的进度轮询定时器
 };
 
 /* 模块中文名 */
@@ -95,15 +96,15 @@ function groupByCapability(cases) {
   });
   return groups;
 }
-/* 能力级并集判定（DESIGN_SPEC 十.3）：
-   全部变体采集 → 对；部分变体采到/有疑问 → 疑问（采集有偏向）；
-   全部缺失 → 错；含待测且无采集 → 待测 */
+/* 能力级并集判定（四态）：
+   任一变体采到 → 采集；全部变体缺失 → 缺失；
+   已构建变体但还有变体未匹配（无采集）→ 疑问；单 case 待测 → 待测。 */
 function unionBadge(cases) {
   const cls = cases.map((c) => badgeOf(c).cls);
   let b;
-  if (cls.every((x) => x === 'ok')) b = { cls: 'ok', txt: '采集' };
-  else if (cls.some((x) => x === 'ok' || x === 'warn')) b = { cls: 'warn', txt: '疑问' };
+  if (cls.some((x) => x === 'ok')) b = { cls: 'ok', txt: '采集' };
   else if (cls.every((x) => x === 'bad')) b = { cls: 'bad', txt: '缺失' };
+  else if (cases.length > 1) b = { cls: 'warn', txt: '疑问' };
   else b = { cls: 'muted', txt: '待测' };
   if (cases.some((c) => !c.integrated)) b.manual = true;
   return b;
@@ -112,9 +113,11 @@ function findCase(caseId) { return allCases().find((c) => c.case_id === caseId) 
 function isManualModule(m) { return m.cases.every((c) => !c.integrated); }
 
 function countByBadge() {
+  /* 按「能力」统计（DESIGN_SPEC 十）：变体组取并集，一个能力算 1 个，而非按样例数。
+     53 能力 = 45 自动化能力 + 8 预留手测能力。 */
   const n = { ok: 0, warn: 0, bad: 0, muted: 0, manual: 0, total: 0 };
-  allCases().forEach((c) => {
-    const b = badgeOf(c);
+  groupByCapability(allCases()).forEach((g) => {
+    const b = unionBadge(g.cases);
     n[b.cls]++;
     n.total++;
     if (b.manual) n.manual++;
@@ -143,7 +146,7 @@ function renderStats() {
     <div class="stat bad"><div class="ico">${ICO.cross}</div><div><div class="num">${n.bad}</div><div class="lab">缺失</div></div></div>
     <div class="stat muted"><div class="ico">${ICO.clock}</div><div><div class="num">${n.muted}</div><div class="lab">待测</div></div></div>
     <div class="stat total">
-      <div class="row1"><span class="lab" style="margin:0">采集覆盖率 · ${n.total} CASE${n.manual ? `（含 ${n.manual} 手测）` : ''}</span><span class="pct">${pct}%</span></div>
+      <div class="row1"><span class="lab" style="margin:0">采集覆盖率 · ${n.total} 能力${n.manual ? `（含 ${n.manual} 手测）` : ''}</span><span class="pct">${pct}%</span></div>
       <div class="pbar">${seg(n.ok, 'var(--ok)')}${seg(n.warn, 'var(--warn)')}${seg(n.bad, 'var(--bad)')}${seg(n.muted, 'var(--muted)')}</div>
     </div>`;
 }
@@ -235,9 +238,11 @@ function renderMatrix() {
       const nRun = g.cases.filter((c) => c.run_state !== 'never').length;
       const nMatch = g.cases.filter((c) => c.has_match_result).length;
       const nSy = g.cases.filter((c) => (state.sysmon[c.case_id] || {}).captured).length;
-      const syCell = nSy === n ? '<span class="st"><i></i>已对照</span>'
+      const nEv = g.cases.filter((c) => state.sysmon[c.case_id]).length;
+      const syCell = nEv === 0 ? '<span class="st no"><i></i>无</span>'
+        : nSy === n ? '<span class="st"><i></i>已对照</span>'
         : nSy > 0 ? `<span class="st warn"><i></i>${nSy}/${n} 对照</span>`
-        : '<span class="st no"><i></i>无</span>';
+        : '<span class="st warn"><i></i>未采到</span>';
       const subRows = g.cases.map((c) => {
         const { b, sample, log, ops } = caseCells(c);
         return `<tr class="variant-row" data-parent="${esc(g.key)}" data-case="${esc(c.case_id)}" style="display:none">
@@ -973,7 +978,7 @@ function loadReport() { renderReport(); }
 function renderReport() {
   const n = countByBadge();
   const auto = n.total - n.manual;
-  const pct = auto ? Math.round((n.ok / auto) * 100) : 0;
+  const pct = n.total ? Math.round((n.ok / n.total) * 100) : 0;
 
   /* 较上轮 diff（localStorage 快照，历史不迁后端） */
   const cur = {};
@@ -993,19 +998,19 @@ function renderReport() {
 
   /* 自动摘要 */
   const mods = (state.overview && state.overview.modules) || [];
-  const strong = mods.filter((m) => !isManualModule(m) && m.cases.every((c) => badgeOf(c).cls === 'ok'))
-    .map((m) => `${m.module}（${m.cases.length}/${m.cases.length}）`);
+  const strong = mods.filter((m) => !isManualModule(m) && groupByCapability(m.cases).every((g) => unionBadge(g.cases).cls === 'ok'))
+    .map((m) => { const gs = groupByCapability(m.cases); return `${m.module}（${gs.length}/${gs.length}）`; });
   const concern = [];
   mods.forEach((m) => {
     if (isManualModule(m)) return;
-    const bad = m.cases.filter((c) => ['bad', 'warn'].includes(badgeOf(c).cls));
-    if (bad.length) concern.push(`${m.module}：${bad.map((c) => `${c.case_id}(${badgeOf(c).txt})`).join('、')}`);
+    const bad = groupByCapability(m.cases).filter((g) => ['bad', 'warn'].includes(unionBadge(g.cases).cls));
+    if (bad.length) concern.push(`${m.module}：${bad.map((g) => `${g.key}(${unionBadge(g.cases).txt})`).join('、')}`);
   });
   const manualMods = mods.filter(isManualModule).map((m) => m.module);
 
   $('report-body').innerHTML = `
     <div class="report-cards">
-      <div class="rcard"><div class="k">总 Case 数</div><div class="v">${n.total}${n.manual ? `（含 ${n.manual} 手动）` : ''}</div></div>
+      <div class="rcard"><div class="k">总能力数</div><div class="v">${n.total}${n.manual ? `（含 ${n.manual} 手动）` : ''}</div></div>
       <div class="rcard"><div class="k">采集覆盖率</div><div class="v" style="color:var(--ok)">${pct}%</div></div>
       <div class="rcard"><div class="k">较上轮新增采集</div><div class="v" style="color:var(--ok)">${added === '-' ? '—' : '+' + added}</div></div>
       <div class="rcard"><div class="k">较上轮退化</div><div class="v" style="color:${regressed > 0 ? 'var(--bad)' : 'var(--ok)'}">${regressed}</div></div>
@@ -1033,19 +1038,19 @@ function saveSnapshot() {
 function exportReportMd() {
   const n = countByBadge();
   const auto = n.total - n.manual;
-  const pct = auto ? Math.round((n.ok / auto) * 100) : 0;
+  const pct = n.total ? Math.round((n.ok / n.total) * 100) : 0;
   const mods = (state.overview && state.overview.modules) || [];
   const lines = [
     `# EDR 采集能力验证报告`, ``,
     `- 生成时间：${new Date().toLocaleString('zh-CN')}`,
-    `- 总 Case：${n.total}（自动化 ${auto}，手动 ${n.manual}）`,
+    `- 总能力：${n.total}（自动化 ${auto}，手动 ${n.manual}）`,
     `- 采集覆盖率：${pct}%`,
     `- 状态分布：采集 ${n.ok} / 疑问 ${n.warn} / 缺失 ${n.bad} / 待测 ${n.muted}`, ``,
     `| 模块 | 采集 | 疑问 | 缺失 | 待测 |`, `|---|---|---|---|---|`,
   ];
   mods.forEach((m) => {
     const cnt = { ok: 0, warn: 0, bad: 0, muted: 0 };
-    m.cases.forEach((c) => { const cls = badgeOf(c).cls; if (cls in cnt) cnt[cls]++; });
+    groupByCapability(m.cases).forEach((g) => { const cls = unionBadge(g.cases).cls; if (cls in cnt) cnt[cls]++; });
     lines.push(`| ${m.module} | ${cnt.ok} | ${cnt.warn} | ${cnt.bad} | ${cnt.muted} |`);
   });
   lines.push('', '## 明细', '');
@@ -1109,18 +1114,23 @@ function termClear() { $('term').innerHTML = ''; $('term-last').textContent = ''
 
 function attachTask(taskId, label) {
   if (state.es) { state.es.close(); state.es = null; }
+  if (state.pollTimer) { clearInterval(state.pollTimer); state.pollTimer = null; }
   state.taskId = taskId;
   termSetOpen(true);
   termAppend(`▶ ${label}（task ${taskId}）`);
   termCaret(true);
   $('term-dot').classList.remove('idle');
+  // 运行期间每 5s 刷一次矩阵/侧栏：即使终端(SSE)断了、页面看不到过程，也能看投递进度
+  state.pollTimer = setInterval(() => { loadOverview(); }, 5000);
   const es = new EventSource(`/api/task/${taskId}/events`);
   state.es = es;
+  const stopPoll = () => { if (state.pollTimer) { clearInterval(state.pollTimer); state.pollTimer = null; } };
   es.onmessage = (ev) => {
     const d = JSON.parse(ev.data);
     if (d.line != null) { termCaret(false); termAppend(d.line); termCaret(true); }
     if (d.done) {
       es.close(); state.es = null; state.taskId = null;
+      stopPoll();
       termCaret(false);
       $('term-dot').classList.add('idle');
       termAppend(d.exit_code === 0 ? '── 任务完成（exit 0）──' : `── 任务结束（exit ${d.exit_code}）──`);
@@ -1130,7 +1140,12 @@ function attachTask(taskId, label) {
       });
     }
   };
-  es.onerror = () => { es.close(); state.es = null; termCaret(false); $('term-dot').classList.add('idle'); };
+  es.onerror = () => {
+    // SSE 断开：不停进度轮询（矩阵继续刷新），只标记终端连接状态
+    es.close(); state.es = null;
+    termCaret(false); $('term-dot').classList.add('idle');
+    termAppend('── 终端连接已断开（进度仍在矩阵刷新）──');
+  };
 }
 async function stopTask() {
   if (!state.taskId) { toast('当前无运行中任务'); return; }

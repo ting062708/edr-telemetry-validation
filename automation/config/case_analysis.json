@@ -6,7 +6,7 @@
     "ACCOUNT-CREATE-001": {
       "map_name": "AccountCreate",
       "mapping": "无",
-      "analysis": "采到 AccountCreate。"
+      "analysis": "原样本用 cmd net user 未触发 AccountCreate；改用 NetUserAdd API 才采到（见变体 -002）。"
     },
     "ACCOUNT-DELETE-001": {
       "map_name": "无",
@@ -96,32 +96,32 @@
     "FILE-CREATE-001": {
       "map_name": "FileWriteClose",
       "mapping": "落在 FileWriteClose 的「新建文件」子事件上；JSON 能采，TXT 采不到。",
-      "analysis": "采到 FileWriteClose，但路径有过滤。"
+      "analysis": "采到 FileWriteClose（新建子事件）。双重偏向：路径过滤（C:\\EDRTest 不采、C:\\Temp 才采）+ 文件类型过滤（TXT 不采、JSON/DLL 才采）。"
     },
     "FILE-DELETE-001": {
       "map_name": "FileDelete",
       "mapping": "FileDelete 事件；DLL 删得掉、采得到，TXT/JSON 采不到。",
-      "analysis": "采到 FileDelete，但文件类型有过滤。"
+      "analysis": "采到 FileDelete。文件类型过滤：DLL 采、TXT/JSON 不采；同样受 C:\\EDRTest 路径盲区影响。"
     },
     "FILE-MODIFY-001": {
       "map_name": "FileWriteClose",
       "mapping": "FileWriteClose 的「覆盖写」子事件；JSON 可、TXT 不可。",
-      "analysis": "采到 FileWriteClose，但路径有过滤。"
+      "analysis": "采到 FileWriteClose（覆盖写子事件）。文件类型过滤：JSON 采、TXT 不采；同样受 C:\\EDRTest 路径盲区影响。"
     },
     "FILE-OPEN-001": {
       "map_name": "FileWriteClose",
       "mapping": "落在 FileWriteClose 的「打开文件」子事件上；同样 JSON 行、TXT 不行。",
-      "analysis": "采到 FileRead，但路径有过滤。"
+      "analysis": "采到 FileWriteClose（打开子事件）。文件类型过滤：JSON 采、TXT 不采；同样受 C:\\EDRTest 路径盲区影响。"
     },
     "FILE-RENAME-001": {
       "map_name": "MoveFileExW",
       "mapping": "走 MoveFileExW，不限文件类型。",
-      "analysis": "采到 FileRename，但路径有过滤。"
+      "analysis": "采到 FileRename（走 MoveFileExW），不限文件类型。"
     },
     "GPO-MODIFY-001": {
       "map_name": "RegSetValue",
       "mapping": "RegSetValue，用 Child.RegGroupName=组策略 识别；路径有过滤，从已有组策略路径写入才采到。",
-      "analysis": "采到 RegSetValue。"
+      "analysis": "采到 RegSetValue（按 Child.RegGroupName=组策略 识别）。路径过滤：从已有组策略路径写入才采。"
     },
     "HASH-IMPHASH-001": {
       "map_name": "无",
@@ -151,17 +151,17 @@
     "NET-TCP-001": {
       "map_name": "NetBind",
       "mapping": "靠网络监听 NetBind 的 Child.Protocol=tcp 区分；感觉只是凑巧命中测试场景，换一种未必行。",
-      "analysis": "采到 HttpRequest。"
+      "analysis": "采到 HttpRequest/NetBind，靠监听命中；单播连接未必采，属凑巧命中。"
     },
     "NET-UDP-001": {
       "map_name": "NetBind",
       "mapping": "同样靠 NetBind 的 Child.Protocol=udp；也是凑巧命中，换场景未必行。",
-      "analysis": "采到 NetBind。"
+      "analysis": "采到 NetBind（socket 绑定），但 UDP sendto 本身不采——只采「绑定」不采「发送」，UDP 连接是真实盲区。"
     },
     "NET-URL-001": {
       "map_name": "无",
       "mapping": "能采到底层 tcp 连接，但 URL 本身没有被记录。",
-      "analysis": "采到 HttpsRequest。"
+      "analysis": "采到底层 tcp 连接，但 URL 本身不记录（Host 有、Url 空）。"
     },
     "PIPE-CONNECT-001": {
       "map_name": "NamedPipe",
@@ -186,7 +186,7 @@
     "PROC-IMAGE-LOAD-001": {
       "map_name": "无",
       "mapping": "字段是有的，其他终端也能看到事件，但换了几种触发方式本终端始终没测出来。",
-      "analysis": "采到 LoadDll。"
+      "analysis": "采到 LoadDll。启动期 DLL 与运行时 LoadLibrary 均采（此前以为只采启动期）。"
     },
     "PROC-REMOTE-THREAD-001": {
       "map_name": "RemoteThread",
@@ -196,7 +196,7 @@
     "PROC-TAMPER-001": {
       "map_name": "WriteProcessMemory",
       "mapping": "走 WriteProcessMemory，其余注入手法还没验证。",
-      "analysis": "采到 NtWriteVirtualMemory。"
+      "analysis": "采到 NtWriteVirtualMemory/VirtualAllocEx。WriteProcessMemory 与 QueueUserAPC 注入链均采。"
     },
     "PROC-TERMINATE-001": {
       "map_name": "无",
@@ -211,7 +211,7 @@
     "REG-CREATE-001": {
       "map_name": "RegSetValue",
       "mapping": "RegSetValue，但路径有过滤——自定义测试路径不采，从启动项路径写入才采得到。",
-      "analysis": "采到 RegSetValue。"
+      "analysis": "采到 RegSetValue。路径过滤：启动项路径（HKLM/HKCU\\...\\Run）采、自定义路径（HKU\\.DEFAULT）不采；且仅覆盖写采、首次创建不采。"
     },
     "REG-DELETE-001": {
       "map_name": "无",
@@ -221,12 +221,12 @@
     "REG-MODIFY-001": {
       "map_name": "RegSetValue",
       "mapping": "RegSetValue，用 Child.RegOldValData 与 Child.RegValData 新旧值比对；路径同样有过滤。",
-      "analysis": "采到 RegSetValue。"
+      "analysis": "采到 RegSetValue（RegOldValData/RegValData 新旧值比对）。路径过滤：启动项路径采、自定义路径不采。"
     },
     "SVC-CREATE-001": {
       "map_name": "CreateService",
       "mapping": "无",
-      "analysis": "采到 CreateService。"
+      "analysis": "原样本仅触发 StartService，未采到 CreateService；改用标准 CreateService API 才采到（见变体 -002）。"
     },
     "SVC-DELETE-001": {
       "map_name": "无",
@@ -241,7 +241,7 @@
     "TASK-CREATE-001": {
       "map_name": "SchedTaskCreate",
       "mapping": "SchedTaskCreate；要导入具体 XML 才会被捕获。",
-      "analysis": "采到 RpcSchedTaskCreate，需 XML 导入。"
+      "analysis": "采到 RpcSchedTaskCreate。需导入 XML 才捕获，/TR 命令行不采。"
     },
     "TASK-DELETE-001": {
       "map_name": "无",
@@ -251,7 +251,7 @@
     "TASK-MODIFY-001": {
       "map_name": "SchedTaskUpdate",
       "mapping": "SchedTaskUpdate；同样要导入具体 XML 才捕获。",
-      "analysis": "无对应字段，IOA 不采集。"
+      "analysis": "无 SchedTaskUpdate 事件。需 /change 触发修改，XML 重导入被采成「创建」而非「修改」。"
     },
     "WMI-CONSUMER-001": {
       "map_name": "WmiOperation",

@@ -113,10 +113,14 @@
       "22": 142,
       "26": 9
     },
-    "baseline_ids": [],
-    "matched": [],
-    "captured": false,
-    "note": ""
+    "baseline_ids": [
+      1
+    ],
+    "matched": [
+      1
+    ],
+    "captured": true,
+    "note": "sc.exe进程创建(命令行)"
   },
   "SVC-DELETE-001": {
     "total": 1402,
@@ -202,10 +206,14 @@
       "16": 1,
       "22": 134
     },
-    "baseline_ids": [],
-    "matched": [],
-    "captured": false,
-    "note": ""
+    "baseline_ids": [
+      1
+    ],
+    "matched": [
+      1
+    ],
+    "captured": true,
+    "note": "schtasks.exe进程创建(命令行)"
   },
   "TASK-DELETE-001": {
     "total": 1405,
@@ -270,10 +278,14 @@
       "22": 144,
       "26": 2
     },
-    "baseline_ids": [],
-    "matched": [],
-    "captured": false,
-    "note": ""
+    "baseline_ids": [
+      1
+    ],
+    "matched": [
+      1
+    ],
+    "captured": true,
+    "note": "schtasks.exe进程创建"
   },
   "REG-CREATE-001": {
     "total": 1410,
@@ -315,10 +327,16 @@
       "16": 1,
       "22": 136
     },
-    "baseline_ids": [],
-    "matched": [],
-    "captured": false,
-    "note": ""
+    "baseline_ids": [
+      13,
+      12
+    ],
+    "matched": [
+      13,
+      12
+    ],
+    "captured": true,
+    "note": "RegistryValueSet/RegistryEvent"
   },
   "REG-DELETE-001": {
     "total": 1416,
@@ -458,10 +476,12 @@
       "16": 1,
       "22": 137
     },
-    "baseline_ids": [],
+    "baseline_ids": [
+      7
+    ],
     "matched": [],
     "captured": false,
-    "note": ""
+    "note": "ImageLoad"
   },
   "PROC-REMOTE-THREAD-001": {
     "total": 3857,
@@ -537,10 +557,16 @@
       "16": 1,
       "22": 133
     },
-    "baseline_ids": [],
-    "matched": [],
-    "captured": false,
-    "note": ""
+    "baseline_ids": [
+      10,
+      8
+    ],
+    "matched": [
+      10,
+      8
+    ],
+    "captured": true,
+    "note": "ProcessAccess(写)+远程线程"
   },
   "PROC-TERMINATE-001": {
     "total": 1462,
@@ -897,10 +923,14 @@
       "16": 1,
       "22": 134
     },
-    "baseline_ids": [],
-    "matched": [],
-    "captured": false,
-    "note": ""
+    "baseline_ids": [
+      11
+    ],
+    "matched": [
+      11
+    ],
+    "captured": true,
+    "note": "FileCreate"
   },
   "FILE-CREATE-003": {
     "total": 3796,
@@ -919,10 +949,14 @@
       "22": 142,
       "26": 10
     },
-    "baseline_ids": [],
-    "matched": [],
-    "captured": false,
-    "note": ""
+    "baseline_ids": [
+      11
+    ],
+    "matched": [
+      11
+    ],
+    "captured": true,
+    "note": "FileCreate"
   },
   "FILE-DELETE-001": {
     "total": 3666,
@@ -1110,7 +1144,7 @@
     "baseline_ids": [],
     "matched": [],
     "captured": false,
-    "note": ""
+    "note": "不适用：Windows安全日志4720，非sysmon"
   },
   "ACCOUNT-DELETE-001": {
     "total": 1396,
