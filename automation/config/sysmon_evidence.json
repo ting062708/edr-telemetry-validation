@@ -96,6 +96,28 @@
     "captured": true,
     "note": "sc.exe进程创建(命令行)"
   },
+  "SVC-CREATE-002": {
+    "total": 3797,
+    "event_ids": {
+      "1": 619,
+      "2": 9,
+      "3": 31,
+      "4": 1,
+      "5": 13,
+      "6": 19,
+      "8": 27,
+      "11": 2480,
+      "12": 40,
+      "13": 405,
+      "16": 2,
+      "22": 142,
+      "26": 9
+    },
+    "baseline_ids": [],
+    "matched": [],
+    "captured": false,
+    "note": ""
+  },
   "SVC-DELETE-001": {
     "total": 1402,
     "event_ids": {
@@ -164,6 +186,27 @@
     "captured": true,
     "note": "schtasks.exe进程创建(命令行)"
   },
+  "TASK-CREATE-002": {
+    "total": 3722,
+    "event_ids": {
+      "1": 606,
+      "2": 7,
+      "3": 30,
+      "4": 1,
+      "5": 12,
+      "6": 19,
+      "8": 26,
+      "11": 2445,
+      "12": 40,
+      "13": 401,
+      "16": 1,
+      "22": 134
+    },
+    "baseline_ids": [],
+    "matched": [],
+    "captured": false,
+    "note": ""
+  },
   "TASK-DELETE-001": {
     "total": 1405,
     "event_ids": {
@@ -210,6 +253,28 @@
     "captured": true,
     "note": "schtasks.exe进程创建"
   },
+  "TASK-MODIFY-002": {
+    "total": 3819,
+    "event_ids": {
+      "1": 635,
+      "2": 10,
+      "3": 32,
+      "4": 1,
+      "5": 13,
+      "6": 19,
+      "8": 31,
+      "11": 2488,
+      "12": 40,
+      "13": 402,
+      "16": 2,
+      "22": 144,
+      "26": 2
+    },
+    "baseline_ids": [],
+    "matched": [],
+    "captured": false,
+    "note": ""
+  },
   "REG-CREATE-001": {
     "total": 1410,
     "event_ids": {
@@ -233,6 +298,27 @@
     ],
     "captured": true,
     "note": "RegistryValueSet/RegistryEvent"
+  },
+  "REG-CREATE-002": {
+    "total": 3681,
+    "event_ids": {
+      "1": 576,
+      "2": 7,
+      "3": 30,
+      "4": 1,
+      "5": 12,
+      "6": 19,
+      "8": 12,
+      "11": 2445,
+      "12": 40,
+      "13": 402,
+      "16": 1,
+      "22": 136
+    },
+    "baseline_ids": [],
+    "matched": [],
+    "captured": false,
+    "note": ""
   },
   "REG-DELETE-001": {
     "total": 1416,
@@ -356,6 +442,27 @@
     "captured": true,
     "note": "ImageLoad"
   },
+  "PROC-IMAGE-LOAD-002": {
+    "total": 3720,
+    "event_ids": {
+      "1": 586,
+      "2": 10,
+      "3": 30,
+      "4": 1,
+      "5": 12,
+      "6": 19,
+      "8": 17,
+      "11": 2465,
+      "12": 40,
+      "13": 402,
+      "16": 1,
+      "22": 137
+    },
+    "baseline_ids": [],
+    "matched": [],
+    "captured": false,
+    "note": ""
+  },
   "PROC-REMOTE-THREAD-001": {
     "total": 3857,
     "event_ids": {
@@ -411,6 +518,29 @@
     ],
     "captured": true,
     "note": "ProcessAccess(写)+远程线程"
+  },
+  "PROC-TAMPER-002": {
+    "total": 3785,
+    "event_ids": {
+      "1": 585,
+      "2": 10,
+      "3": 30,
+      "4": 1,
+      "5": 12,
+      "6": 19,
+      "7": 32,
+      "8": 19,
+      "10": 39,
+      "11": 2463,
+      "12": 40,
+      "13": 401,
+      "16": 1,
+      "22": 133
+    },
+    "baseline_ids": [],
+    "matched": [],
+    "captured": false,
+    "note": ""
   },
   "PROC-TERMINATE-001": {
     "total": 1462,
@@ -583,20 +713,21 @@
     "note": "NetworkConnect(TCP)"
   },
   "NET-UDP-001": {
-    "total": 3667,
+    "total": 3793,
     "event_ids": {
-      "1": 568,
-      "2": 6,
-      "3": 30,
+      "1": 621,
+      "2": 8,
+      "3": 32,
       "4": 1,
-      "5": 12,
+      "5": 13,
       "6": 19,
-      "8": 12,
-      "11": 2442,
+      "8": 28,
+      "11": 2482,
       "12": 40,
-      "13": 402,
-      "16": 1,
-      "22": 134
+      "13": 404,
+      "16": 2,
+      "22": 142,
+      "26": 1
     },
     "baseline_ids": [
       3
@@ -749,6 +880,49 @@
     ],
     "captured": true,
     "note": "FileCreate"
+  },
+  "FILE-CREATE-002": {
+    "total": 3673,
+    "event_ids": {
+      "1": 573,
+      "2": 7,
+      "3": 30,
+      "4": 1,
+      "5": 12,
+      "6": 19,
+      "8": 13,
+      "11": 2442,
+      "12": 40,
+      "13": 401,
+      "16": 1,
+      "22": 134
+    },
+    "baseline_ids": [],
+    "matched": [],
+    "captured": false,
+    "note": ""
+  },
+  "FILE-CREATE-003": {
+    "total": 3796,
+    "event_ids": {
+      "1": 618,
+      "2": 10,
+      "3": 32,
+      "4": 1,
+      "5": 13,
+      "6": 19,
+      "8": 26,
+      "11": 2481,
+      "12": 40,
+      "13": 402,
+      "16": 2,
+      "22": 142,
+      "26": 10
+    },
+    "baseline_ids": [],
+    "matched": [],
+    "captured": false,
+    "note": ""
   },
   "FILE-DELETE-001": {
     "total": 3666,
@@ -915,6 +1089,28 @@
     "matched": [],
     "captured": false,
     "note": "不适用：Windows安全日志4720，非sysmon"
+  },
+  "ACCOUNT-CREATE-002": {
+    "total": 3791,
+    "event_ids": {
+      "1": 619,
+      "2": 9,
+      "3": 32,
+      "4": 1,
+      "5": 13,
+      "6": 19,
+      "8": 27,
+      "11": 2482,
+      "12": 40,
+      "13": 402,
+      "16": 2,
+      "22": 144,
+      "26": 1
+    },
+    "baseline_ids": [],
+    "matched": [],
+    "captured": false,
+    "note": ""
   },
   "ACCOUNT-DELETE-001": {
     "total": 1396,
