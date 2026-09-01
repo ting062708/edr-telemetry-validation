@@ -338,9 +338,9 @@
       "cases": [
         "ACCOUNT-CREATE-001"
       ],
-      "capability": "无",
-      "note": "baseline有(AccountCreate);本次日志无(仅4798 UserLocalGroupEnum);疑似状态残留或方法差异,需干净快照复测",
-      "last_assessment": "未采到"
+      "capability": "有",
+      "note": "NetUserAdd API 采到（AccountCreateTest 验证）；之前误判为无（旧样本用 cmd net user 未命中）",
+      "last_assessment": "采到"
     },
     {
       "id": "account-modify",
@@ -719,7 +719,7 @@
         "TASK-MODIFY-001"
       ],
       "capability": "无",
-      "note": "baseline有(SchedTaskUpdate);本次无此operation,需复测确认",
+      "note": "XML 重导入(/create /xml /f)被采成 RpcSchedTaskCreate(创建)；真正的 Update 需用 schtasks /change 触发，待补样本",
       "last_assessment": "未采到"
     },
     {
@@ -757,14 +757,14 @@
         "ServiceEvents"
       ],
       "operations": [
-        "StartService"
+        "CreateService"
       ],
       "cases": [
         "SVC-CREATE-001"
       ],
-      "capability": "无",
-      "note": "日志无CreateService,仅StartService×53(服务启动);baseline写CreateService,实际采集落在StartService",
-      "last_assessment": "采到(StartService)"
+      "capability": "有",
+      "note": "标准 CreateService API 采到（SvcCreateTest 验证）；之前误判为无（旧样本触发方式不对，只采到 StartService）",
+      "last_assessment": "采到"
     },
     {
       "id": "svc-modify",
