@@ -1039,7 +1039,8 @@
         "operation": "HttpRequest",
         "actor_md5": "420CC1EE2BF37C9771EED953D17A3221",
         "Child.DstIp": "93.184.216.34",
-        "Child.DstPort": "80"
+        "Child.DstPort": "80",
+        "post_slack_s": 60
       },
       "expected_fields": {
         "actor_name": {
@@ -2065,7 +2066,8 @@
       "match": {
         "actor_exe": "GroupPolicyModifyTest.exe",
         "operation": "RegSetValue",
-        "actor_md5": "10B8C9137AE6D196E066B7627C6ED700"
+        "actor_md5": "10B8C9137AE6D196E066B7627C6ED700",
+        "post_slack_s": 240
       },
       "expected_fields": {
         "actor_name": {

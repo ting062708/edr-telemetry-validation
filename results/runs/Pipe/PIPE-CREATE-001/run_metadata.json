@@ -1,18 +1,18 @@
 [
   {
     "test_case_id": "PIPE-CREATE-001",
-    "run_id": "35ead57d-f7fa-4486-85d4-ca7d14a1da7e",
+    "run_id": "926fe91b-cfc2-4557-9cea-ca7c746b40ec",
     "module": "Pipe",
     "action": "PipeCreate",
     "process_name": "PipeLifecycleTest.exe",
-    "pid": 896,
+    "pid": 1840,
     "hostname": "DESKTOP-0AHK53B",
-    "run_start_utc": "2026-09-01T15:22:01.754000+00:00",
-    "setup_begin_utc": "2026-09-01T15:22:01.866000+00:00",
-    "setup_end_utc": "2026-09-01T15:22:01.890000+00:00",
-    "target_begin_utc": "2026-09-01T15:22:01.890000+00:00",
-    "target_end_utc": "2026-09-01T15:22:01.890000+00:00",
-    "run_end_utc": "2026-09-01T15:22:01.890000+00:00",
+    "run_start_utc": "2026-09-01T17:14:16.425000+00:00",
+    "setup_begin_utc": "2026-09-01T17:14:16.448000+00:00",
+    "setup_end_utc": "2026-09-01T17:14:16.462000+00:00",
+    "target_begin_utc": "2026-09-01T17:14:16.462000+00:00",
+    "target_end_utc": "2026-09-01T17:14:16.471000+00:00",
+    "run_end_utc": "2026-09-01T17:14:16.477000+00:00",
     "sample_result": "PASS",
     "exit_code": 0,
     "parser_mode": "current",
@@ -20,8 +20,8 @@
     "degraded_match": false,
     "target_fields": {
       "Operation": "PipeCreate",
-      "PipeName": "EDRTelemetryPipeTest_35ead57df7fa",
-      "TargetName": "\\\\.\\pipe\\EDRTelemetryPipeTest_35ead57df7fa"
+      "PipeName": "EDRTelemetryPipeTest_926fe91bcfc2",
+      "TargetName": "\\\\.\\pipe\\EDRTelemetryPipeTest_926fe91bcfc2"
     },
     "error_lines": []
   }

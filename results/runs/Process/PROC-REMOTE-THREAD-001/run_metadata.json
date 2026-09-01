@@ -1,18 +1,18 @@
 [
   {
     "test_case_id": "PROC-REMOTE-THREAD-001",
-    "run_id": "4f0ef66d769f45219c67808c5bceee28",
+    "run_id": "d8f4096602b24fa78cf3c2f4cdb7c8e0",
     "module": "Process",
     "action": "remotethread",
     "process_name": "ProcessLifecycleTest.exe",
-    "pid": 2624,
+    "pid": 8756,
     "hostname": "DESKTOP-0AHK53B",
-    "run_start_utc": "2026-09-01T14:25:23.846000+00:00",
-    "setup_begin_utc": "2026-09-01T14:25:23.893000+00:00",
-    "setup_end_utc": "2026-09-01T14:25:23.893000+00:00",
-    "target_begin_utc": "2026-09-01T14:25:26.892000+00:00",
-    "target_end_utc": "2026-09-01T14:25:26.892000+00:00",
-    "run_end_utc": "2026-09-01T14:25:27.942000+00:00",
+    "run_start_utc": "2026-09-01T17:13:04.887000+00:00",
+    "setup_begin_utc": "2026-09-01T17:13:04.944000+00:00",
+    "setup_end_utc": "2026-09-01T17:13:04.959000+00:00",
+    "target_begin_utc": "2026-09-01T17:13:07.997000+00:00",
+    "target_end_utc": "2026-09-01T17:13:08.059000+00:00",
+    "run_end_utc": "2026-09-01T17:13:09.084000+00:00",
     "sample_result": "PASS",
     "exit_code": 0,
     "parser_mode": "current",
@@ -20,8 +20,8 @@
     "degraded_match": false,
     "target_fields": {
       "Operation": "RemoteThreadCreate",
-      "TargetPID": "6448",
-      "RemoteThreadID": "636",
+      "TargetPID": "11964",
+      "RemoteThreadID": "400",
       "StartRoutine": "kernel32!Sleep"
     },
     "error_lines": []
