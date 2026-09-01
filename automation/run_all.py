@@ -32,7 +32,7 @@ from pathlib import Path
 _HERE     = Path(__file__).resolve().parent
 _RUNNER   = _HERE / 'runner' / 'telemetry_runner.py'
 _CONFIG   = _HERE / 'config'
-_RUNS     = _HERE / 'runs'
+_RUNS     = _HERE.parent / 'results' / 'runs'
 _PROGRESS = _RUNS / 'progress.json'
 _BASELINE = _CONFIG / 'baseline.json'
 

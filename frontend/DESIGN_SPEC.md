@@ -180,3 +180,131 @@ Tab 结构（顶部 4 个 tab，默认「结果」）：
 3. 跑样本 / 匹配 / 全量跑 / 全量匹配四类操作都能在终端看到实时输出。
 4. 深色主题、四色状态徽章、等宽终端与 `_mockup.html` 一致。
 5. 手动模式能力（USB / EDR 运维）显示「手动」徽章、无自动化按钮、结果可看。
+
+---
+
+## 附录 A · 视觉规范 v2（美化稿，2026-09-01 定）
+
+> 视觉参考升级为同目录 `_mockup_v2.html`。**功能、路由、字段、组件结构全部不变**，以下为纯视觉增量，实现时以 v2 为准。第四节 CSS 变量整段替换为本节变量。
+
+### A.1 调色板替换（层次靠明度差，不用投影/渐变）
+
+```css
+:root{
+  --bg:#0b0e14; --panel:#11151d; --panel-2:#161b26; --raised:#1c2230;
+  --border:#232a3a; --border-strong:#2e3750;
+  --text:#e8eaf0; --text-dim:#97a0b4; --text-faint:#5b6376;
+  --ok:#34c77b; --warn:#f2a93b; --bad:#e8545a; --muted:#5b6376;
+  --manual:#8b7cf6; --accent:#5b93ff; --accent-dim:#3d6fd6;
+  --r:6px;
+}
+```
+
+### A.2 新增/改动组件（均为纯展示，数据源沿用现有 API）
+
+| 组件 | 说明 | 数据来源 |
+|---|---|---|
+| 顶栏「使用手册」按钮 | **一级入口**，`--manual` 紫描边与其它按钮区分，F1 快捷键；点击滑出手册面板（640px），内容复用 `GET /api/manual` | `/api/manual` |
+| 汇总条 statstrip | 矩阵顶部一行：采集/疑问/缺失/待测四张统计卡 + 覆盖率进度条；**让"重跑后结果更新了"一眼可见** | `/api/overview` 聚合 |
+| 模块带 module-band | 替代原 module-head，吸顶；含模块名+中文+内联判定统计（`1 采集 1 疑问 1 待测`）+ 模块级按钮 | `/api/overview` 聚合 |
+| 侧栏健康条 | 每个模块名下一排 3px 色块（每 case 一格，按判定着色），模块状态不进矩阵也能扫到 | `/api/overview` 聚合 |
+| 侧栏手动分区 | 手动模块（Device/EDR 运维）与自动模块之间加分隔线 + `手动 MANUAL` 标签 | 静态 |
+| 状态点 `.st` | 样本/日志/Sysmon 三列从裸 `✓/−` 改为「色点+文字」（已投递/3 版/已对照），hover 可出详情 | `/api/overview` |
+| 徽章圆点 | 判定徽章内加 6px 圆点（`badge > i`），色彩识别更快 | — |
+| 事件漏斗 | 详情抽屉「结果」tab 内，`match_stats` 渲染为横向阶梯条（条宽 ∝ 数量，末段绿、中间琥珀） | `/api/case/<id>/result` |
+| 终端分级配色 | 输出行按级别着色：INFO 蓝 / OK 绿 / WARN 琥珀 / ERR 红；行尾闪烁光标；终端栏右置「清空/停止」 | SSE 流 |
+| 图标系统 | 全部内联 SVG（play/check/upload/book/radar），**不引用外部图标库、不用 emoji 当图标** | — |
+
+### A.3 硬约束继承（不变）
+
+深色主题、四状态色+手动紫、等宽终端、行高 ≤38px 紧凑表格、禁大圆角/投影/营销渐变、无框架无构建。
+
+### A.4 用户已确认的口径变更（2026-09-01）
+
+1. **L2 Sysmon 归因不在前端做判定**——样本由人工先验证再入 case，前端 Sysmon 列/tab 只做「有无对照」展示，不承担「样本待验证 vs 能力缺失」的归因逻辑（归因口径本身已认可，线下执行）。
+2. **前端历史不迁后端**，保留 localStorage；结果可见性由汇总条（A.2）保证。
+3. **回归方式：45 个 case 全量重跑**（真开 VM），测试框架复用现有 runner；前端只需保证重跑后状态正确刷新。
+
+---
+
+## 附录 B · 视觉规范 v3（浅色现代风，2026-09-01 晚定稿）
+
+> 用户反馈 v2「太黑、风格老气」。**v3 起改为浅色主题**，视觉参考为同目录 `_mockup_v3.html`，附录 A 的调色板与「深色硬约束」作废；功能、路由、字段、组件结构仍全部不变。
+
+### B.1 调色板（替换 A.1，浅色分层：浅灰底 + 白卡片 + 柔和状态色）
+
+```css
+:root{
+  --bg:#f2f4f9; --panel:#ffffff; --panel-2:#f6f8fc; --raised:#eef1f8;
+  --border:#e4e8f0; --border-strong:#d3d9e6;
+  --text:#1d2433; --text-dim:#5b6579; --text-faint:#98a1b3;
+  --ok:#16a34a;  --ok-bg:#e7f6ec;
+  --warn:#d97706;--warn-bg:#fdf1e0;
+  --bad:#e11d48; --bad-bg:#fde8ec;
+  --muted:#8b94a7;--muted-bg:#eef0f4;
+  --manual:#7c6cf0;--manual-bg:#efedfd;
+  --accent:#4f6ef7;--accent-dim:#3b57d9;--accent-bg:#eef1fe;
+  --r:10px; --r-sm:7px;
+  --shadow:0 1px 2px rgba(20,30,60,.05),0 4px 14px rgba(20,30,60,.05);
+}
+```
+
+**风格要点**：白卡片 + 10px 圆角 + 极轻投影 + 状态色一律「浅底深字」（徽章、图标座）；logo 用蓝紫渐变方块；**终端保留深色**（#10141d，现代 IDE 惯例），终端配色沿用 v2 分级方案。
+
+### B.2 新增两个顶栏一级入口（用户点名）
+
+| 入口 | 面板内容 | 数据源 |
+|---|---|---|
+| `Baseline 对比` | 右侧滑出面板：行业基线 / 同学基线分段切换（seg 控件），模块 ×「本产品 / 基线 / 差异」对照表，▲超出绿、▼落后红、= 持平灰；底部「导出对比 CSV」 | 现有 `GET /api/industry`、`GET /api/classmate_baseline`，差异前端即时计算 |
+| `总结报告` | 右侧滑出面板：四张结论卡（总 case / 覆盖率 / 较上轮新增 / 较上轮退化）+ 结论摘要（采集强项 / 关注项 / 手动能力）+「导出报告 Markdown」 | `/api/overview` 聚合 + `case_result_map`；「较上轮」对比重跑前快照 |
+
+三个面板（详情抽屉 / 手册 / Baseline / 报告）共用同一 `.slide` 滑出骨架 + 遮罩，Esc 关闭，互斥打开。
+
+### B.3 硬约束更新
+
+- ~~深色主题~~ → **浅色主题**；状态色语义不变（绿=采集/琥珀=疑问/红=缺失/灰=待测/紫=手动），仅改为浅底深字适配。
+- 依然：无框架无构建、全内联 SVG 图标不用 emoji、等宽终端/Case ID、表格紧凑（行高 ≤40px）、一屏 ≥20 case。
+- 允许 10px 内圆角 + 极轻投影（现代风需要），禁止营销渐变大图。
+
+---
+
+## 附录 C：v3 落地实现 + 两项增量（2026-09-01，已实现）
+
+> 状态：**已实现并联调通过**。实现文件：`index.html`（壳）/ `style.css` / `app.js`；
+> 后端增量：`server.py` 新增 4 个只读/动作路由（不动现有路由）；
+> 附带修复：`automation/core/status.py` 的 RUNS 路径 P0（曾指向空的 `automation/runs/`，
+> 导致 `/api/overview` 全读不到状态 → 改指 `results/runs/`，与 server.py 对齐）。
+
+### C.1 增量一：样本变体（多用例确认能力，占位先行）
+
+- 详情抽屉第 5 个 tab「变体」：占位说明页（命名约定 `<模块>-<能力>-<序号>`、并集判定口径、数据源预留）。
+- 后端 `GET /api/case/<id>/variants` 已实现，当前返回 `{case_id, variants: []}`。
+- 矩阵行展开子行（▸）与并集判定渲染逻辑已在 app.js 中就绪，variants 返回非空即自动启用（Phase 3 无需再改前端骨架）。
+
+### C.2 增量二：终端加大 + 可调
+
+- 默认高度 210px → **320px**（CSS 变量 `--term-h`）。
+- 顶部 4px 拖拽条（hover 高亮），拖动范围 **120px ~ 70vh**，高度持久化到 localStorage（`edr_term_h`）。
+- 「最大化」按钮：终端铺满内容区，再点或按 Esc 还原；最大化时禁用折叠与拖拽。
+- 「清空」「停止」保留；任务运行时终端点绿点呼吸，空闲转灰。
+
+### C.3 后端新增路由（全部增量，现有契约不动）
+
+| 路由 | 说明 |
+|---|---|
+| `GET /api/case/<id>/variants` | 变体占位（C.1） |
+| `GET /api/sysmon_evidence` | 整份 Sysmon L2 证据（矩阵 SYSMON 列 + 详情 Sysmon tab 共用） |
+| `GET /api/manual` | 读 `docs/USER_MANUAL.md`，手册面板渲染 |
+| `POST /api/module/<m>/match` | 匹配本模块（`run_all.py match --module`，CLI 本已支持） |
+
+### C.4 面板数据源映射（实现口径）
+
+- **行业基线 tab**：`industry_baseline.json` 的 categories 全量参照矩阵（行为 × Sysmon/MDE/CrowdStrike/SentinelOne，Yes/Partial/No 徽章）。
+- **同学基线 tab**：`classmate_baseline.json` 逐 case 对照（本产品 badge vs 同学 有/?/无，一致/差异标记）。
+- **总结报告**：四卡（总 case/覆盖率/较上轮新增/较上轮退化）——「较上轮」对比 localStorage 快照（`edr_report_snapshot`，「存为本轮基线」按钮显式打快照，**历史不迁后端**）；自动摘要（全采集模块 / 关注项 / 手动模块）；「导出报告 Markdown」前端生成下载。
+
+### C.5 联调记录
+
+- `status.py` 修复后 `/api/overview`：16 模块 53 case，collected 26 / not_collected 27，run_state 真实（matched/delivered）。
+- 新增端点全部 200；app.js 过 `node --check`；静态资源（style.css/app.js）经 Flask static_folder 正常服务。
+- 已知留白：变体数据源未接入（占位）；行业基线为行为级参照矩阵（未做模块级聚合差异，需行为中英映射表后再加）。

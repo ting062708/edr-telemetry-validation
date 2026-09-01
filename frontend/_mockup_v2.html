@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDR 采集验证 · 美化稿 v2</title>
+<style>
+  :root{
+    /* 背景分层：base < panel < raised，靠明度差做层次（不用投影） */
+    --bg:#0b0e14; --panel:#11151d; --panel-2:#161b26; --raised:#1c2230;
+    --border:#232a3a; --border-strong:#2e3750;
+    --text:#e8eaf0; --text-dim:#97a0b4; --text-faint:#5b6376;
+    --ok:#34c77b; --warn:#f2a93b; --bad:#e8545a; --muted:#5b6376;
+    --manual:#8b7cf6; --accent:#5b93ff; --accent-dim:#3d6fd6;
+    --mono:"JetBrains Mono",Consolas,"Courier New",monospace;
+    --sans:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;
+    --r:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+  a{color:var(--accent);text-decoration:none}
+  ::-webkit-scrollbar{width:9px;height:9px}
+  ::-webkit-scrollbar-thumb{background:#2a3247;border-radius:5px;border:2px solid var(--bg)}
+  ::-webkit-scrollbar-thumb:hover{background:#3a4460}
+  ::-webkit-scrollbar-track{background:transparent}
+  button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+
+  /* ═══ 顶栏 ═══ */
+  .topbar{height:52px;background:var(--panel);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;padding:0 16px;flex-shrink:0}
+  .logo{display:flex;align-items:center;gap:9px;font-weight:600;font-size:15px;letter-spacing:.3px}
+  .logo svg{flex-shrink:0}
+  .logo .ver{font-family:var(--mono);font-size:10px;color:var(--text-faint);border:1px solid var(--border);padding:1px 6px;border-radius:8px;margin-left:2px}
+  .snap{display:flex;align-items:center;gap:7px;padding:4px 12px;border:1px solid var(--border);border-radius:20px;font-size:12px;color:var(--text-dim);font-family:var(--mono);background:var(--panel-2)}
+  .snap .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);animation:pulse 2s infinite}
+  @keyframes pulse{50%{opacity:.35}}
+  .topbar .spacer{flex:1}
+  .btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);background:var(--panel-2);color:var(--text);padding:6px 14px;border-radius:var(--r);cursor:pointer;font-size:13px;font-family:var(--sans);transition:border-color .15s,background .15s}
+  .btn:hover{border-color:var(--accent);background:var(--raised)}
+  .btn svg{flex-shrink:0}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:500}
+  .btn.primary:hover{background:var(--accent-dim);border-color:var(--accent-dim)}
+  /* 手册：顶栏一级入口，强调描边，醒目但不抢主按钮 */
+  .btn.manual{border-color:var(--manual);color:var(--manual);background:rgba(139,124,246,.08)}
+  .btn.manual:hover{background:rgba(139,124,246,.18);border-color:var(--manual)}
+  .btn .kbd{font-family:var(--mono);font-size:10px;color:var(--text-faint);border:1px solid var(--border);border-radius:3px;padding:0 4px;margin-left:2px}
+
+  /* ═══ 主体 ═══ */
+  .main{flex:1;display:flex;min-height:0}
+
+  /* 侧栏 */
+  .sidebar{width:184px;background:var(--panel);border-right:1px solid var(--border);overflow-y:auto;padding:10px 8px;flex-shrink:0}
+  .side-label{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;color:var(--text-faint);padding:6px 12px 8px}
+  .mod{padding:8px 12px;cursor:pointer;border-radius:var(--r);margin-bottom:2px;border-left:2px solid transparent;transition:background .12s}
+  .mod:hover{background:var(--panel-2)}
+  .mod.active{background:var(--raised);border-left-color:var(--accent)}
+  .mod .row{display:flex;justify-content:space-between;align-items:center}
+  .mod .name{font-size:13px;color:var(--text-dim)}
+  .mod.active .name{color:var(--text)}
+  .mod .cnt{font-family:var(--mono);font-size:10px;color:var(--text-faint);background:var(--panel-2);padding:1px 7px;border-radius:8px}
+  .mod.active .cnt{background:var(--panel);color:var(--text-dim)}
+  /* 模块健康度迷你条：绿=采集 琥珀=疑问 红=缺失 灰=待测 */
+  .mod .health{display:flex;gap:2px;margin-top:6px;height:3px}
+  .mod .health i{flex:1;border-radius:2px;background:var(--border)}
+  .mod .health i.ok{background:var(--ok)} .mod .health i.warn{background:var(--warn)}
+  .mod .health i.bad{background:var(--bad)}
+  .mod.is-manual .cnt{color:var(--manual);background:rgba(139,124,246,.12)}
+  .side-sep{height:1px;background:var(--border);margin:10px 4px}
+
+  /* 主区 */
+  .content{flex:1;display:flex;flex-direction:column;min-width:0}
+  .matrix-wrap{flex:1;overflow:auto;padding:14px 16px}
+
+  /* 汇总条：让「结果更新了」一眼可见 */
+  .statstrip{display:flex;gap:10px;margin-bottom:14px;align-items:stretch}
+  .stat{flex:1;background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:10px 14px;display:flex;align-items:center;gap:12px}
+  .stat .ico{width:34px;height:34px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .stat .num{font-family:var(--mono);font-size:22px;font-weight:600;line-height:1}
+  .stat .lab{font-size:11px;color:var(--text-faint);margin-top:3px}
+  .stat.ok .ico{background:rgba(52,199,123,.12);color:var(--ok)}
+  .stat.warn .ico{background:rgba(242,169,59,.12);color:var(--warn)}
+  .stat.bad .ico{background:rgba(232,84,90,.12);color:var(--bad)}
+  .stat.muted .ico{background:rgba(91,99,118,.15);color:var(--muted)}
+  .stat.total{flex:1.4;flex-direction:column;align-items:flex-start;justify-content:center;gap:8px}
+  .stat.total .row1{display:flex;justify-content:space-between;width:100%;align-items:baseline}
+  .stat.total .pct{font-family:var(--mono);font-size:18px;color:var(--ok)}
+  .pbar{width:100%;height:5px;border-radius:3px;background:var(--border);display:flex;overflow:hidden}
+  .pbar i{display:block;height:100%}
+
+  /* 模块带：吸顶 + 内联统计 */
+  .module-band{display:flex;align-items:center;gap:10px;padding:10px 4px 8px;position:sticky;top:-14px;background:var(--bg);z-index:2}
+  .module-band .name{font-size:15px;font-weight:600}
+  .module-band .cn{color:var(--text-faint);font-size:12px}
+  .module-band .mstats{font-family:var(--mono);font-size:11px;color:var(--text-dim);display:flex;gap:8px}
+  .module-band .mstats b{font-weight:600}
+  .module-band .mstats .g{color:var(--ok)} .module-band .mstats .y{color:var(--warn)} .module-band .mstats .r{color:var(--bad)} .module-band .mstats .x{color:var(--muted)}
+  .module-band .actions{margin-left:auto;display:flex;gap:8px}
+  .module-band .btn{font-size:12px;padding:4px 11px}
+
+  /* 矩阵表 */
+  table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:18px}
+  thead th{background:var(--panel-2);color:var(--text-faint);font-weight:500;font-size:11px;letter-spacing:.5px;text-align:left;padding:7px 12px;border-bottom:1px solid var(--border);white-space:nowrap}
+  tbody td{padding:0 12px;height:38px;border-bottom:1px solid var(--border);font-size:13px;white-space:nowrap}
+  tbody tr{transition:background .1s}
+  tbody tr:hover{background:var(--panel-2);cursor:pointer}
+  tbody tr:last-child td{border-bottom:none}
+  .case-id{font-family:var(--mono);font-size:12px;color:var(--accent)}
+  .bhv{color:var(--text-dim)}
+  .badge{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:11px;font-size:11px;font-weight:600}
+  .badge i{width:6px;height:6px;border-radius:50%;background:currentColor}
+  .badge.ok{background:rgba(52,199,123,.13);color:var(--ok)}
+  .badge.warn{background:rgba(242,169,59,.13);color:var(--warn)}
+  .badge.bad{background:rgba(232,84,90,.13);color:var(--bad)}
+  .badge.muted{background:rgba(91,99,118,.18);color:#8d95a8}
+  .badge.manual{background:rgba(139,124,246,.13);color:var(--manual)}
+  /* 状态点替代裸 ✓/− */
+  .st{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-dim)}
+  .st i{width:7px;height:7px;border-radius:50%;background:var(--ok)}
+  .st.no{color:var(--text-faint)} .st.no i{background:transparent;border:1px solid var(--border-strong)}
+  .st.warn i{background:var(--warn)}
+  .op .btn{font-size:11px;padding:3px 9px;margin-right:4px}
+  .op .btn.icon{padding:3px 8px}
+  .manual-tag{color:var(--text-faint);font-size:12px}
+
+  /* ═══ 详情抽屉 ═══ */
+  .drawer{position:fixed;top:52px;right:0;bottom:0;width:580px;background:var(--panel);border-left:1px solid var(--border-strong);transform:translateX(100%);transition:transform .22s ease;display:flex;flex-direction:column;z-index:10}
+  .drawer.open{transform:translateX(0)}
+  .drawer-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+  .drawer-head .title{font-weight:600;font-family:var(--mono);font-size:14px}
+  .drawer-head .sub{color:var(--text-faint);font-size:12px}
+  .drawer-head .close{margin-left:auto;cursor:pointer;color:var(--text-dim);width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:var(--r);font-size:14px}
+  .drawer-head .close:hover{background:var(--raised);color:var(--text)}
+  .tabs{display:flex;border-bottom:1px solid var(--border);flex-shrink:0;padding:0 8px}
+  .tab{padding:10px 14px;cursor:pointer;color:var(--text-faint);font-size:13px;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .12s}
+  .tab:hover{color:var(--text-dim)}
+  .tab.active{color:var(--text);border-bottom-color:var(--accent)}
+  .tab .n{font-family:var(--mono);font-size:10px;margin-left:4px;color:var(--text-faint)}
+  .drawer-body{flex:1;overflow:auto;padding:16px 18px}
+  .sec-t{color:var(--text-faint);font-size:11px;letter-spacing:.8px;margin:4px 0 10px;font-family:var(--mono)}
+  .field-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px dashed var(--border);font-size:12px}
+  .field-row .f{color:var(--text-dim);font-family:var(--mono)}
+  .field-row .s{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:11px}
+  .field-row .s.ok{color:var(--ok)} .field-row .s.bad{color:var(--bad)} .field-row .s.warn{color:var(--warn)}
+  /* 事件漏斗：横向阶梯条 */
+  .funnel{margin-top:6px}
+  .funnel .step{display:flex;align-items:center;gap:10px;margin-bottom:5px;font-family:var(--mono);font-size:11px}
+  .funnel .step .lab{width:88px;color:var(--text-faint);text-align:right}
+  .funnel .step .bar{height:12px;border-radius:2px;background:var(--accent);opacity:.75;min-width:2px}
+  .funnel .step .n{width:46px;color:var(--text-dim)}
+  .drawer-foot{padding:12px 18px;border-top:1px solid var(--border);display:flex;gap:8px;background:var(--panel-2)}
+
+  /* ═══ 终端 ═══ */
+  .terminal{background:var(--panel);border-top:1px solid var(--border-strong);flex-shrink:0}
+  .term-bar{height:30px;display:flex;align-items:center;padding:0 12px;cursor:pointer;color:var(--text-dim);font-size:12px;gap:9px;font-family:var(--mono);user-select:none}
+  .term-bar:hover{background:var(--panel-2)}
+  .term-bar .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);animation:pulse 1.2s infinite}
+  .term-bar .dot.idle{background:var(--muted);animation:none}
+  .term-bar .last{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-faint)}
+  .term-bar .tbtn{color:var(--text-faint);padding:2px 8px;border-radius:4px}
+  .term-bar .tbtn:hover{background:var(--raised);color:var(--text)}
+  .term-body{height:210px;overflow-y:auto;padding:10px 16px;font-family:var(--mono);font-size:12px;line-height:1.75;background:#080a0f;display:none;border-top:1px solid var(--border)}
+  .term-body.open{display:block}
+  .term-body .ts{color:var(--text-faint)}
+  .term-body .lv-ok{color:var(--ok)} .term-body .lv-info{color:var(--accent)}
+  .term-body .lv-warn{color:var(--warn)} .term-body .lv-err{color:var(--bad)}
+  .term-body .dim{color:var(--text-dim)}
+  .term-body .caret{display:inline-block;width:7px;height:13px;background:var(--ok);vertical-align:-2px;animation:pulse 1s infinite}
+
+  /* ═══ 手册弹层（顶栏一级入口点开） ═══ */
+  .manual-mask{position:fixed;inset:0;background:rgba(5,7,11,.6);z-index:20;display:none}
+  .manual-mask.open{display:block}
+  .manual{position:fixed;top:0;right:0;bottom:0;width:640px;background:var(--panel);border-left:1px solid var(--manual);z-index:21;transform:translateX(100%);transition:transform .22s ease;display:flex;flex-direction:column}
+  .manual.open{transform:translateX(0)}
+  .manual-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;color:var(--manual);font-weight:600}
+  .manual-body{flex:1;overflow:auto;padding:18px 22px;color:var(--text-dim);font-size:13px;line-height:1.8}
+  .manual-body h3{color:var(--text);margin:16px 0 8px;font-size:14px}
+  .manual-body code{font-family:var(--mono);background:var(--raised);padding:1px 6px;border-radius:4px;font-size:12px;color:var(--accent)}
+
+  .hint{position:fixed;bottom:8px;left:200px;color:var(--text-faint);font-size:11px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+
+<!-- ═══ 顶栏 ═══ -->
+<div class="topbar">
+  <div class="logo">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#34c77b" stroke-width="1.6"/><circle cx="12" cy="12" r="4.5" stroke="#34c77b" stroke-width="1.4" opacity=".55"/><circle cx="12" cy="12" r="1.6" fill="#34c77b"/><line x1="12" y1="12" x2="18.5" y2="6" stroke="#34c77b" stroke-width="1.6"/></svg>
+    EDR 采集验证<span class="ver">v2</span>
+  </div>
+  <div class="snap"><span class="dot"></span>快照 <b style="color:var(--text)">ioa</b></div>
+  <div class="spacer"></div>
+  <!-- 手册：一级入口，紫色描边与其它按钮区分 -->
+  <button class="btn manual" onclick="toggleManual(true)">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>
+    使用手册<span class="kbd">F1</span>
+  </button>
+  <button class="btn">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+    导入日志
+  </button>
+  <button class="btn">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
+    全量匹配
+  </button>
+  <button class="btn primary">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg>
+    全量投递
+  </button>
+</div>
+
+<!-- ═══ 主体 ═══ -->
+<div class="main">
+  <!-- 侧栏 -->
+  <div class="sidebar">
+    <div class="side-label">模块 MODULES</div>
+    <div class="mod active">
+      <div class="row"><span class="name">Registry</span><span class="cnt">3</span></div>
+      <div class="health"><i class="ok"></i><i class="warn"></i><i></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">Process</span><span class="cnt">6</span></div>
+      <div class="health"><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="bad"></i><i></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">File</span><span class="cnt">5</span></div>
+      <div class="health"><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="warn"></i><i></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">Account</span><span class="cnt">5</span></div>
+      <div class="health"><i class="ok"></i><i class="ok"></i><i class="warn"></i><i class="warn"></i><i></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">Network</span><span class="cnt">5</span></div>
+      <div class="health"><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">Driver</span><span class="cnt">3</span></div>
+      <div class="health"><i class="ok"></i><i class="ok"></i><i class="ok"></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">Hash</span><span class="cnt">3</span></div>
+      <div class="health"><i class="ok"></i><i class="ok"></i><i class="ok"></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">WMI</span><span class="cnt">3</span></div>
+      <div class="health"><i class="warn"></i><i class="warn"></i><i></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">Service</span><span class="cnt">3</span></div>
+      <div class="health"><i class="ok"></i><i class="ok"></i><i class="ok"></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">ScheduleTask</span><span class="cnt">3</span></div>
+      <div class="health"><i class="ok"></i><i class="ok"></i><i class="warn"></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">Pipe</span><span class="cnt">2</span></div>
+      <div class="health"><i class="ok"></i><i class="ok"></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">PowerShell</span><span class="cnt">1</span></div>
+      <div class="health"><i class="warn"></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">BIT</span><span class="cnt">1</span></div>
+      <div class="health"><i class="ok"></i></div>
+    </div>
+    <div class="side-sep"></div>
+    <div class="side-label">手动 MANUAL</div>
+    <div class="mod is-manual">
+      <div class="row"><span class="name">Device</span><span class="cnt">手动</span></div>
+    </div>
+    <div class="mod is-manual">
+      <div class="row"><span class="name">EDR 运维</span><span class="cnt">手动</span></div>
+    </div>
+  </div>
+
+  <!-- 主区 -->
+  <div class="content">
+    <div class="matrix-wrap">
+
+      <!-- 汇总条：判定分布一眼看全，结果更新即时反映 -->
+      <div class="statstrip">
+        <div class="stat ok">
+          <div class="ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <div><div class="num">35</div><div class="lab">采集</div></div>
+        </div>
+        <div class="stat warn">
+          <div class="ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></div>
+          <div><div class="num">7</div><div class="lab">疑问</div></div>
+        </div>
+        <div class="stat bad">
+          <div class="ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
+          <div><div class="num">1</div><div class="lab">缺失</div></div>
+        </div>
+        <div class="stat muted">
+          <div class="ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <div><div class="num">2</div><div class="lab">待测</div></div>
+        </div>
+        <div class="stat total">
+          <div class="row1"><span class="lab" style="margin:0">采集覆盖率 · 45 CASE</span><span class="pct">78%</span></div>
+          <div class="pbar"><i style="width:78%;background:var(--ok)"></i><i style="width:15%;background:var(--warn)"></i><i style="width:2%;background:var(--bad)"></i><i style="width:5%;background:var(--muted)"></i></div>
+        </div>
+      </div>
+
+      <!-- Registry 模块 -->
+      <div class="module-band">
+        <span class="name">Registry</span><span class="cn">注册表</span>
+        <span class="mstats"><b class="g">1 采集</b><b class="y">1 疑问</b><b class="x">1 待测</b></span>
+        <span class="actions">
+          <button class="btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>匹配本模块</button>
+          <button class="btn primary"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg>跑本模块</button>
+        </span>
+      </div>
+      <table>
+        <thead><tr><th>CASE</th><th>行为</th><th>判定</th><th>样本</th><th>日志</th><th>SYSMON</th><th style="text-align:right">操作</th></tr></thead>
+        <tbody>
+          <tr onclick="openDrawer('REG-CREATE-001','键/值创建')">
+            <td class="case-id">REG-CREATE-001</td><td class="bhv">键/值创建</td>
+            <td><span class="badge ok"><i></i>采集</span></td>
+            <td><span class="st"><i></i>已投递</span></td>
+            <td><span class="st"><i></i>3 版</span></td>
+            <td><span class="st"><i></i>已对照</span></td>
+            <td class="op" style="text-align:right"><button class="btn icon" title="匹配"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></button><button class="btn icon" title="跑样本"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg></button></td>
+          </tr>
+          <tr onclick="openDrawer('REG-MODIFY-001','键/值修改')">
+            <td class="case-id">REG-MODIFY-001</td><td class="bhv">键/值修改</td>
+            <td><span class="badge warn"><i></i>疑问</span></td>
+            <td><span class="st"><i></i>已投递</span></td>
+            <td><span class="st"><i></i>2 版</span></td>
+            <td><span class="st no"><i></i>无</span></td>
+            <td class="op" style="text-align:right"><button class="btn icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></button><button class="btn icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg></button></td>
+          </tr>
+          <tr onclick="openDrawer('REG-DELETE-001','键/值删除')">
+            <td class="case-id">REG-DELETE-001</td><td class="bhv">键/值删除</td>
+            <td><span class="badge muted"><i></i>待测</span></td>
+            <td><span class="st no"><i></i>未投递</span></td>
+            <td><span class="st no"><i></i>无</span></td>
+            <td><span class="st no"><i></i>无</span></td>
+            <td class="op" style="text-align:right"><button class="btn icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></button><button class="btn icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg></button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Device 手动模块 -->
+      <div class="module-band">
+        <span class="name">Device</span><span class="cn">设备操作</span>
+        <span class="badge manual"><i></i>手动模式</span>
+      </div>
+      <table>
+        <thead><tr><th>CASE</th><th>行为</th><th>判定</th><th>样本</th><th>日志</th><th>SYSMON</th><th style="text-align:right">操作</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="case-id">DEVICE-USB-001</td><td class="bhv">USB 插拔</td>
+            <td><span class="badge manual"><i></i>手动</span></td>
+            <td><span class="st no"><i></i>—</span></td>
+            <td><span class="st"><i></i>已确认</span></td>
+            <td><span class="st no"><i></i>—</span></td>
+            <td class="op" style="text-align:right"><span class="manual-tag">复用人工结果</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <!-- 终端 -->
+    <div class="terminal">
+      <div class="term-bar" onclick="toggleTerm()">
+        <span class="dot"></span>
+        <span style="color:var(--text-dim)">终端</span>
+        <span class="last">REG-CREATE-001 · [RESULT] PASS ExitCode=0</span>
+        <span class="tbtn" onclick="event.stopPropagation()">清空</span>
+        <span class="tbtn" onclick="event.stopPropagation()">停止</span>
+        <span class="tbtn" id="term-arrow">▾</span>
+      </div>
+      <div class="term-body open" id="term">
+        <div><span class="ts">[12:00:01]</span> <span class="lv-info">▶ run</span> <span class="dim">REG-CREATE-001 (snapshot=ioa)</span></div>
+        <div><span class="ts">[12:00:03]</span> <span class="dim">[RUN-BEGIN] TestCaseID=REG-CREATE-001</span></div>
+        <div><span class="ts">[12:00:05]</span> <span class="lv-ok">[TARGET]</span> <span class="dim">Operation=RegistryCreate  Target=HKCU\...\Run\EDRTelemetryRunTest</span></div>
+        <div><span class="ts">[12:00:06]</span> <span class="lv-warn">[SYSMON]</span> <span class="dim">EventID=13 RegistryEvent captured ✓</span></div>
+        <div><span class="ts">[12:00:06]</span> <span class="lv-ok">[RESULT]</span> <span class="dim">PASS ExitCode=0</span></div>
+        <div><span class="ts">[12:00:07]</span> <span class="caret"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 详情抽屉 ═══ -->
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <span class="title" id="d-title">REG-CREATE-001</span>
+    <span class="sub" id="d-sub">键/值创建</span>
+    <span class="badge ok"><i></i>采集</span>
+    <span class="close" onclick="closeDrawer()">✕</span>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="tab(this)">结果</div>
+    <div class="tab" onclick="tab(this)">样本</div>
+    <div class="tab" onclick="tab(this)">日志<span class="n">3</span></div>
+    <div class="tab" onclick="tab(this)">Sysmon</div>
+  </div>
+  <div class="drawer-body">
+    <div class="sec-t">字段命中 · FIELD COVERAGE</div>
+    <div class="field-row"><span class="f">Child.RegOpName</span><span class="s ok">✓ PASS · 新建</span></div>
+    <div class="field-row"><span class="f">Child.TargetObject</span><span class="s ok">✓ PASS · HKCU\...\Run\EDRTelemetryRunTest</span></div>
+    <div class="field-row"><span class="f">Parent.FileMd5</span><span class="s ok">✓ PASS · 156ca9cf…</span></div>
+    <div class="field-row"><span class="f">Child.ContentData</span><span class="s warn">△ MISS · 无此字段</span></div>
+
+    <div class="sec-t" style="margin-top:18px">事件漏斗 · MATCH FUNNEL</div>
+    <div class="funnel">
+      <div class="step"><span class="lab">total</span><span class="bar" style="width:180px"></span><span class="n">128</span></div>
+      <div class="step"><span class="lab">hostname</span><span class="bar" style="width:180px"></span><span class="n">128</span></div>
+      <div class="step"><span class="lab">time ±120s</span><span class="bar" style="width:26px;background:var(--warn)"></span><span class="n">3</span></div>
+      <div class="step"><span class="lab">actor md5</span><span class="bar" style="width:26px;background:var(--warn)"></span><span class="n">3</span></div>
+      <div class="step"><span class="lab">pid</span><span class="bar" style="width:26px;background:var(--warn)"></span><span class="n">3</span></div>
+      <div class="step"><span class="lab">operation</span><span class="bar" style="width:26px;background:var(--ok)"></span><span class="n">3</span></div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn primary"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg>跑样本</button>
+    <button class="btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>匹配</button>
+  </div>
+</div>
+
+<!-- ═══ 手册弹层 ═══ -->
+<div class="manual-mask" id="manual-mask" onclick="toggleManual(false)"></div>
+<div class="manual" id="manual">
+  <div class="manual-head">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>
+    使用手册
+    <span class="close" style="margin-left:auto;cursor:pointer;color:var(--text-dim)" onclick="toggleManual(false)">✕</span>
+  </div>
+  <div class="manual-body">
+    <h3>快速上手</h3>
+    1. 顶栏 <code>全量投递</code> 会把 45 个 case 按模块串行投递到 VM 执行；<br>
+    2. 跑完后点 <code>全量匹配</code>，将 stdout 自报与 IOA 日志逐字段比对；<br>
+    3. 判定列实时刷新：绿=采集、琥珀=疑问、红=缺失、灰=待测。
+    <h3>三级操作</h3>
+    单 case（矩阵行内按钮）→ 单模块（模块头按钮）→ 全量（顶栏按钮），每一级都有「跑」和「匹配」。
+    <h3>手动能力</h3>
+    USB 插拔与 EDR 运维不做自动化，判定来自人工测试，操作列不提供自动按钮。
+    <div style="margin-top:20px;color:var(--text-faint);font-size:12px">实现时此面板内容复用现有 <code>GET /api/manual</code>（USER_MANUAL.md）。</div>
+  </div>
+</div>
+
+<div class="hint">_mockup_v2.html · 美化稿 · 数据为示例</div>
+
+<script>
+  function openDrawer(id,bhv){
+    document.getElementById('d-title').textContent = id;
+    document.getElementById('d-sub').textContent = bhv;
+    document.getElementById('drawer').classList.add('open');
+  }
+  function closeDrawer(){document.getElementById('drawer').classList.remove('open');}
+  function tab(el){
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    el.classList.add('active');
+  }
+  function toggleTerm(){
+    var b=document.getElementById('term');
+    b.classList.toggle('open');
+    document.getElementById('term-arrow').textContent = b.classList.contains('open')?'▾':'▸';
+  }
+  function toggleManual(open){
+    document.getElementById('manual').classList.toggle('open',open);
+    document.getElementById('manual-mask').classList.toggle('open',open);
+  }
+  document.addEventListener('keydown',function(e){if(e.key==='F1'){e.preventDefault();toggleManual(true);}if(e.key==='Escape'){toggleManual(false);closeDrawer();}});
+</script>
+</body>
+</html>

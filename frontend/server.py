@@ -237,7 +237,7 @@ def api_industry():
 
 @app.route('/api/classmate_baseline')
 def api_classmate_baseline():
-    """同学（张顺钦）实测的『行为→IOA事件类型/字段』映射，作参照。"""
+    """同学实测的『行为→IOA事件类型/字段』映射，作演示期兜底参照（暂时保留）。"""
     p = CONFIG / 'classmate_baseline.json'
     if not p.exists():
         return jsonify({})
@@ -297,6 +297,18 @@ def api_all_deliver():
     cmd = [sys.executable, str(RUN_ALL), 'deliver']
     if no_restore:
         cmd.append('--no-restore')
+    task = _enqueue(cmd)
+    return jsonify({'task_id': task.id, 'state': task.state})
+
+
+@app.route('/api/module/<module>/match', methods=['POST'])
+def api_module_match(module):
+    """匹配本模块：run_all.py match --module <module>。"""
+    data = request.get_json(silent=True) or {}
+    json_path = data.get('json')
+    cmd = [sys.executable, str(RUN_ALL), 'match', '--module', module]
+    if json_path:
+        cmd += ['--json', json_path]
     task = _enqueue(cmd)
     return jsonify({'task_id': task.id, 'state': task.state})
 
@@ -497,6 +509,40 @@ def api_logs(case_id):
     case = _find_case(case_id)
     module = (case or {}).get('module', '')
     return jsonify({'logs': _list_log_candidates(module, case_id)})
+
+
+@app.route('/api/case/<case_id>/variants')
+def api_variants(case_id):
+    """多用例变体（占位）。
+
+    一个能力可有多个触发方式（如注册表 Run 键 / RunOnce 键），每个触发方式
+    是一个变体 case，命名 <模块>-<能力>-<序号>（REG-CREATE-001 / -002）。
+    case 行判定 = 各变体判定的并集（任一命中即能力存在，见 docs/chain/04_conclusion.md）。
+    当前一个 case = 一个触发方式，故返回空列表；后续接入变体数据源时在此填充。
+    """
+    return jsonify({'case_id': case_id, 'variants': []})
+
+
+@app.route('/api/sysmon_evidence')
+def api_sysmon_evidence():
+    """整份 Sysmon（L2）对照证据：{case_id: {total, event_ids, baseline_ids,
+    matched, captured, note}}。矩阵 SYSMON 列与详情 Sysmon tab 共用。"""
+    p = CONFIG / 'sysmon_evidence.json'
+    if not p.exists():
+        return jsonify({})
+    try:
+        return jsonify(json.loads(p.read_text(encoding='utf-8-sig')))
+    except Exception:
+        return jsonify({})
+
+
+@app.route('/api/manual')
+def api_manual():
+    """使用手册（docs/USER_MANUAL.md），前端手册面板渲染。"""
+    p = ROOT.parent / 'docs' / 'USER_MANUAL.md'
+    if not p.exists():
+        return jsonify({'error': 'manual not found', 'text': ''}), 404
+    return jsonify({'text': p.read_text(encoding='utf-8-sig', errors='replace')})
 
 
 @app.route('/api/case/<case_id>/sample', methods=['POST'])

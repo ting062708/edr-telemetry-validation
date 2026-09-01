@@ -18,7 +18,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-RUNS = ROOT / 'runs'
+RUNS = ROOT.parent / 'results' / 'runs'
 CONFIG = ROOT / 'config'
 
 # 四态 -> emoji

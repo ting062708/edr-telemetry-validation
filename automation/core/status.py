@@ -19,7 +19,9 @@ from pathlib import Path
 _HERE = Path(__file__).resolve().parent      # core/
 ROOT = _HERE.parent                           # automation/
 CONFIG = ROOT / 'config'
-RUNS = ROOT / 'runs'
+# 运行产物统一在 results/runs/（与 frontend/server.py 的 RUNS 一致）。
+# 曾误指 automation/runs/（空目录），导致 /api/overview 全部状态读不出来。
+RUNS = ROOT.parent / 'results' / 'runs'
 
 # Display name for every module (16 total).
 MODULE_DISPLAY = {
@@ -77,7 +79,7 @@ def _load_case_result_map() -> dict:
 
 
 def _load_classmate_baseline() -> dict:
-    """同学（张顺钦）实测映射：case_id -> {behavior, verdict, operation, note}。"""
+    """同学实测映射：case_id -> {behavior, verdict, operation, note}（演示期兜底参照）。"""
     p = CONFIG / 'classmate_baseline.json'
     if not p.exists():
         return {}
@@ -111,8 +113,8 @@ def _verdict_to_binary(value) -> str:
 def _capability_to_binary(match_doc, has_stdout=False, result_map_entry=None, classmate_entry=None) -> str:
     """能力判定 → 前端状态：采集通过 / 采集未通过 / 待判定。
 
-    优先级：match 能力结论 > case_result_map 定稿(对/错) > 同学 baseline 兜底 > 待判定。
-    同学 baseline（张顺钦实测）仅作演示期占位；本项目复测定稿后以 case_result_map 为准。
+    优先级：case_result_map 定稿（含人工实测直填的手动 case）> match 能力结论
+    > 同学 baseline 兜底（演示期暂时保留）> 待判定。
     """
     b = _verdict_to_binary(result_map_entry)
     if b != '待判定':
@@ -123,12 +125,10 @@ def _capability_to_binary(match_doc, has_stdout=False, result_map_entry=None, cl
             return '采集通过'
         if cap is False:
             return '采集未通过'
-    # 没有自己的定稿结论时，演示期用同学（张顺钦）baseline 顶包
+    # 没有定稿结论时，演示期用同学 baseline 顶包（暂时保留）
     if isinstance(classmate_entry, dict):
         v = classmate_entry.get('verdict', '')
-        if v == '有':
-            return '采集通过'
-        if v == '?':
+        if v in ('有', '?'):
             return '采集通过'
         if v == '无':
             return '采集未通过'

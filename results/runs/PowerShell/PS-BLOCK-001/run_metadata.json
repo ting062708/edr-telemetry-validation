@@ -1,18 +1,18 @@
 [
   {
     "test_case_id": "PS-BLOCK-001",
-    "run_id": "c462f6820a474a46bb709d71447a831c",
+    "run_id": "adf032a6e15a4943904d553ea3f77660",
     "module": "PowerShell",
     "action": "script_block",
     "process_name": "PowerShellScriptBlockTest.exe",
-    "pid": 6588,
+    "pid": 5268,
     "hostname": "DESKTOP-0AHK53B",
-    "run_start_utc": "2026-08-26T16:15:21.190000+00:00",
-    "setup_begin_utc": "2026-08-26T16:15:21.206000+00:00",
-    "setup_end_utc": "2026-08-26T16:15:21.206000+00:00",
-    "target_begin_utc": "2026-08-26T16:15:24.258000+00:00",
-    "target_end_utc": "2026-08-26T16:15:34.706000+00:00",
-    "run_end_utc": "2026-08-26T16:15:34.706000+00:00",
+    "run_start_utc": "2026-09-01T15:25:49.064000+00:00",
+    "setup_begin_utc": "2026-09-01T15:25:49.064000+00:00",
+    "setup_end_utc": "2026-09-01T15:25:49.064000+00:00",
+    "target_begin_utc": "2026-09-01T15:25:52.130000+00:00",
+    "target_end_utc": "2026-09-01T15:26:05.787000+00:00",
+    "run_end_utc": "2026-09-01T15:26:05.787000+00:00",
     "sample_result": "PASS",
     "exit_code": 0,
     "parser_mode": "current",
@@ -20,7 +20,7 @@
     "degraded_match": false,
     "target_fields": {
       "Operation": "ScriptBlock",
-      "ScriptText": "$m='EDRTelemetryScriptBlock_c462f682'; Write-Output $m; Start-Sleep -Milliseconds 300",
+      "ScriptText": "$m='EDRTelemetryScriptBlock_adf032a6'; Write-Output $m; Start-Sleep -Milliseconds 300",
       "ExecResult": "PASS"
     },
     "error_lines": []

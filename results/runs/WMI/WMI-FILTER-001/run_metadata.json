@@ -1,18 +1,18 @@
 [
   {
     "test_case_id": "WMI-FILTER-001",
-    "run_id": "6177e2cf-0c6a-47c8-9a1d-8a08b9d2f973",
+    "run_id": "c15a6070-aee3-4b36-968e-121d17725ffe",
     "module": "WMI",
     "action": "WmiEventFilter",
     "process_name": "WmiActivityTest.exe",
-    "pid": 6844,
+    "pid": 6952,
     "hostname": "DESKTOP-0AHK53B",
-    "run_start_utc": "2026-08-26T16:04:25.504000+00:00",
-    "setup_begin_utc": "2026-08-26T16:04:25.699000+00:00",
-    "setup_end_utc": "2026-08-26T16:04:28.252000+00:00",
-    "target_begin_utc": "2026-08-26T16:04:28.252000+00:00",
-    "target_end_utc": "2026-08-26T16:04:28.355000+00:00",
-    "run_end_utc": "2026-08-26T16:04:28.355000+00:00",
+    "run_start_utc": "2026-09-01T15:15:10.921000+00:00",
+    "setup_begin_utc": "2026-09-01T15:15:11.013000+00:00",
+    "setup_end_utc": "2026-09-01T15:15:13.110000+00:00",
+    "target_begin_utc": "2026-09-01T15:15:13.110000+00:00",
+    "target_end_utc": "2026-09-01T15:15:13.188000+00:00",
+    "run_end_utc": "2026-09-01T15:15:13.188000+00:00",
     "sample_result": "PASS",
     "exit_code": 0,
     "parser_mode": "current",
@@ -21,7 +21,7 @@
     "target_fields": {
       "Operation": "WmiCreate",
       "WmiClass": "__EventFilter",
-      "TargetName": "EDRTelemetryWmiFilter_6177e2cf0c6a",
+      "TargetName": "EDRTelemetryWmiFilter_c15a6070aee3",
       "Namespace": "root\\subscription"
     },
     "error_lines": []

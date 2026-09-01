@@ -17,7 +17,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent.parent          # automation/
 CONFIG = HERE / 'config'
-RUNS = HERE / 'runs'
+RUNS = HERE.parent / 'results' / 'runs'
 
 sys.path.insert(0, str(HERE / 'tools'))
 from parse_evtx import read_evtx  # noqa: E402

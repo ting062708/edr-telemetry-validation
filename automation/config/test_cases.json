@@ -1871,7 +1871,8 @@
         "hostname"
       ],
       "behavior": "管道创建",
-      "sample_md5": "2A20E66091ABFC8B4A093AAD090437B3"
+      "sample_md5": "2A20E66091ABFC8B4A093AAD090437B3",
+      "sample_sha256": "3E37EA8E33275519B1CE9C1835A067914C6187FC3C7128A239942D7594ED6FC3"
     },
     {
       "id": "PIPE-CONNECT-001",
@@ -1906,7 +1907,8 @@
         "hostname"
       ],
       "behavior": "管道连接",
-      "sample_md5": "2A20E66091ABFC8B4A093AAD090437B3"
+      "sample_md5": "2A20E66091ABFC8B4A093AAD090437B3",
+      "sample_sha256": "3E37EA8E33275519B1CE9C1835A067914C6187FC3C7128A239942D7594ED6FC3"
     },
     {
       "id": "WMI-FILTER-001",
@@ -1941,7 +1943,8 @@
         "hostname"
       ],
       "behavior": "WMI事件过滤器",
-      "sample_md5": "ACF3B288A25576FE5935E945199D0548"
+      "sample_md5": "ACF3B288A25576FE5935E945199D0548",
+      "sample_sha256": "AE8F34DAB549A2CCAD348A87F00BAFA47967B55444FE9C3EB6BAC83C004B42DD"
     },
     {
       "id": "WMI-CONSUMER-001",
@@ -1976,7 +1979,8 @@
         "hostname"
       ],
       "behavior": "WMI事件消费者",
-      "sample_md5": "ACF3B288A25576FE5935E945199D0548"
+      "sample_md5": "ACF3B288A25576FE5935E945199D0548",
+      "sample_sha256": "AE8F34DAB549A2CCAD348A87F00BAFA47967B55444FE9C3EB6BAC83C004B42DD"
     },
     {
       "id": "WMI-CONSUMER-TO-FILTER-001",
@@ -2011,7 +2015,8 @@
         "hostname"
       ],
       "behavior": "WMI事件消费者绑定",
-      "sample_md5": "ACF3B288A25576FE5935E945199D0548"
+      "sample_md5": "ACF3B288A25576FE5935E945199D0548",
+      "sample_sha256": "AE8F34DAB549A2CCAD348A87F00BAFA47967B55444FE9C3EB6BAC83C004B42DD"
     },
     {
       "id": "DEVICE-VDISK-MOUNT-001",
@@ -2046,7 +2051,8 @@
         "hostname"
       ],
       "behavior": "虚拟磁盘挂载",
-      "sample_md5": "514D1AC2E8F182BDA510A405BA91CA21"
+      "sample_md5": "514D1AC2E8F182BDA510A405BA91CA21",
+      "sample_sha256": "4976E7F4171B8263F7EAD2A6D0600745598578A30ADF8A0DFA1552338BEE2620"
     },
     {
       "id": "GPO-MODIFY-001",
@@ -2081,7 +2087,8 @@
         "hostname"
       ],
       "behavior": "组策略修改",
-      "sample_md5": "10B8C9137AE6D196E066B7627C6ED700"
+      "sample_md5": "10B8C9137AE6D196E066B7627C6ED700",
+      "sample_sha256": "A2657099E4868B41BC1A5940FD9F9A48E75DC87245A7E25F7C51A4AD1495AA8D"
     },
     {
       "id": "BIT-JOB-001",
@@ -2116,7 +2123,8 @@
         "hostname"
       ],
       "behavior": "BITS作业",
-      "sample_md5": "82A6202CDE7456F4BAE4A49464564735"
+      "sample_md5": "82A6202CDE7456F4BAE4A49464564735",
+      "sample_sha256": "4FE92B075FEAC583105BE83BAD3DDAD4A980FCA544DE0863DA5BD4534613E101"
     },
     {
       "id": "PS-BLOCK-001",
@@ -2151,7 +2159,8 @@
         "hostname"
       ],
       "behavior": "PowerShell脚本块",
-      "sample_md5": "C62687F1F56AFD4B25AF940A79FB1AB3"
+      "sample_md5": "C62687F1F56AFD4B25AF940A79FB1AB3",
+      "sample_sha256": "1AC99E130203EA0FC14B456CD7082650D73ECE828584CFB9DB9F13618AB98448"
     }
   ]
 }

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDR 采集验证 · 美化稿 v3（浅色现代风）</title>
+<style>
+  :root{
+    /* 浅色分层：浅灰底 + 白卡片 + 软边框 */
+    --bg:#f2f4f9; --panel:#ffffff; --panel-2:#f6f8fc; --raised:#eef1f8;
+    --border:#e4e8f0; --border-strong:#d3d9e6;
+    --text:#1d2433; --text-dim:#5b6579; --text-faint:#98a1b3;
+    /* 状态色（浅色底适配版，语义不变） */
+    --ok:#16a34a; --ok-bg:#e7f6ec;
+    --warn:#d97706; --warn-bg:#fdf1e0;
+    --bad:#e11d48; --bad-bg:#fde8ec;
+    --muted:#8b94a7; --muted-bg:#eef0f4;
+    --manual:#7c6cf0; --manual-bg:#efedfd;
+    --accent:#4f6ef7; --accent-dim:#3b57d9; --accent-bg:#eef1fe;
+    --mono:"JetBrains Mono",Consolas,"Courier New",monospace;
+    --sans:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;
+    --r:10px; --r-sm:7px;
+    --shadow:0 1px 2px rgba(20,30,60,.05),0 4px 14px rgba(20,30,60,.05);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+  a{color:var(--accent);text-decoration:none}
+  ::-webkit-scrollbar{width:9px;height:9px}
+  ::-webkit-scrollbar-thumb{background:#cdd4e2;border-radius:5px;border:2px solid transparent;background-clip:content-box}
+  ::-webkit-scrollbar-thumb:hover{background:#b3bdD0;border:2px solid transparent;background-clip:content-box}
+  button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+
+  /* ═══ 顶栏 ═══ */
+  .topbar{height:56px;background:var(--panel);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;padding:0 18px;flex-shrink:0}
+  .logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:15px;letter-spacing:.2px}
+  .logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#4f6ef7,#7c6cf0);display:flex;align-items:center;justify-content:center}
+  .logo .ver{font-family:var(--mono);font-size:10px;color:var(--text-faint);border:1px solid var(--border);padding:1px 7px;border-radius:9px;margin-left:2px}
+  .snap{display:flex;align-items:center;gap:7px;padding:5px 13px;border:1px solid var(--border);border-radius:20px;font-size:12px;color:var(--text-dim);font-family:var(--mono);background:var(--panel-2)}
+  .snap .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);animation:pulse 2s infinite}
+  @keyframes pulse{50%{opacity:.35}}
+  .topbar .spacer{flex:1}
+  .topbar .sep{width:1px;height:24px;background:var(--border);margin:0 4px}
+  .btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);background:var(--panel);color:var(--text-dim);padding:7px 14px;border-radius:var(--r-sm);cursor:pointer;font-size:13px;font-family:var(--sans);transition:all .15s}
+  .btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
+  .btn svg{flex-shrink:0}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  .btn.primary:hover{background:var(--accent-dim);border-color:var(--accent-dim);color:#fff}
+  .btn.manual{border-color:#ddd6fc;color:var(--manual);background:var(--manual-bg)}
+  .btn.manual:hover{border-color:var(--manual);background:#e4dffc;color:var(--manual)}
+  .btn.view{color:var(--text-dim)}
+  .btn.view.active{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
+  .btn .kbd{font-family:var(--mono);font-size:10px;color:var(--text-faint);border:1px solid var(--border);border-radius:4px;padding:0 5px;margin-left:2px}
+
+  /* ═══ 主体 ═══ */
+  .main{flex:1;display:flex;min-height:0}
+
+  /* 侧栏 */
+  .sidebar{width:196px;background:var(--panel);border-right:1px solid var(--border);overflow-y:auto;padding:12px 10px;flex-shrink:0}
+  .side-label{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;color:var(--text-faint);padding:6px 12px 8px}
+  .mod{padding:8px 12px;cursor:pointer;border-radius:var(--r-sm);margin-bottom:2px;transition:background .12s;border:1px solid transparent}
+  .mod:hover{background:var(--panel-2)}
+  .mod.active{background:var(--accent-bg);border-color:#dbe3fd}
+  .mod .row{display:flex;justify-content:space-between;align-items:center}
+  .mod .name{font-size:13px;color:var(--text-dim);font-weight:500}
+  .mod.active .name{color:var(--accent);font-weight:600}
+  .mod .cnt{font-family:var(--mono);font-size:10px;color:var(--text-faint);background:var(--raised);padding:1px 8px;border-radius:9px}
+  .mod.active .cnt{background:#fff;color:var(--accent)}
+  .mod .health{display:flex;gap:2px;margin-top:7px;height:4px}
+  .mod .health i{flex:1;border-radius:2px;background:var(--border)}
+  .mod .health i.ok{background:var(--ok)} .mod .health i.warn{background:var(--warn)} .mod .health i.bad{background:var(--bad)}
+  .mod.is-manual .cnt{color:var(--manual);background:var(--manual-bg)}
+  .side-sep{height:1px;background:var(--border);margin:10px 4px}
+
+  /* 主区 */
+  .content{flex:1;display:flex;flex-direction:column;min-width:0}
+  .matrix-wrap{flex:1;overflow:auto;padding:16px 18px}
+
+  /* 汇总条 */
+  .statstrip{display:flex;gap:12px;margin-bottom:16px;align-items:stretch}
+  .stat{flex:1;background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:12px 16px;display:flex;align-items:center;gap:13px;box-shadow:var(--shadow)}
+  .stat .ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .stat .num{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1}
+  .stat .lab{font-size:11px;color:var(--text-faint);margin-top:4px}
+  .stat.ok .ico{background:var(--ok-bg);color:var(--ok)}
+  .stat.warn .ico{background:var(--warn-bg);color:var(--warn)}
+  .stat.bad .ico{background:var(--bad-bg);color:var(--bad)}
+  .stat.muted .ico{background:var(--muted-bg);color:var(--muted)}
+  .stat.total{flex:1.5;flex-direction:column;align-items:flex-start;justify-content:center;gap:9px}
+  .stat.total .row1{display:flex;justify-content:space-between;width:100%;align-items:baseline}
+  .stat.total .pct{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--ok)}
+  .pbar{width:100%;height:6px;border-radius:3px;background:var(--raised);display:flex;overflow:hidden}
+  .pbar i{display:block;height:100%}
+
+  /* 模块带 */
+  .module-band{display:flex;align-items:center;gap:10px;padding:10px 4px 10px;position:sticky;top:-16px;background:var(--bg);z-index:2}
+  .module-band .name{font-size:15px;font-weight:700}
+  .module-band .cn{color:var(--text-faint);font-size:12px}
+  .module-band .mstats{font-family:var(--mono);font-size:11px;color:var(--text-dim);display:flex;gap:8px}
+  .module-band .mstats b{font-weight:600}
+  .module-band .mstats .g{color:var(--ok)} .module-band .mstats .y{color:var(--warn)} .module-band .mstats .r{color:var(--bad)} .module-band .mstats .x{color:var(--muted)}
+  .module-band .actions{margin-left:auto;display:flex;gap:8px}
+  .module-band .btn{font-size:12px;padding:5px 12px}
+
+  /* 矩阵表 */
+  table{width:100%;border-collapse:separate;border-spacing:0;background:var(--panel);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:20px;box-shadow:var(--shadow)}
+  thead th{background:var(--panel-2);color:var(--text-faint);font-weight:600;font-size:11px;letter-spacing:.5px;text-align:left;padding:8px 14px;border-bottom:1px solid var(--border);white-space:nowrap}
+  tbody td{padding:0 14px;height:40px;border-bottom:1px solid var(--border);font-size:13px;white-space:nowrap}
+  tbody tr{transition:background .1s}
+  tbody tr:hover{background:var(--accent-bg);cursor:pointer}
+  tbody tr:last-child td{border-bottom:none}
+  .case-id{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:600}
+  .bhv{color:var(--text-dim)}
+  .badge{display:inline-flex;align-items:center;gap:6px;padding:3px 11px;border-radius:12px;font-size:11px;font-weight:600}
+  .badge i{width:6px;height:6px;border-radius:50%;background:currentColor}
+  .badge.ok{background:var(--ok-bg);color:var(--ok)}
+  .badge.warn{background:var(--warn-bg);color:var(--warn)}
+  .badge.bad{background:var(--bad-bg);color:var(--bad)}
+  .badge.muted{background:var(--muted-bg);color:var(--muted)}
+  .badge.manual{background:var(--manual-bg);color:var(--manual)}
+  .st{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-dim)}
+  .st i{width:7px;height:7px;border-radius:50%;background:var(--ok)}
+  .st.no{color:var(--text-faint)} .st.no i{background:transparent;border:1.5px solid var(--border-strong)}
+  .op{text-align:right}
+  .op .btn{font-size:11px;padding:4px 9px;margin-left:4px}
+  .manual-tag{color:var(--text-faint);font-size:12px}
+
+  /* ═══ 右侧滑出面板（详情/手册/Baseline/报告 共用骨架） ═══ */
+  .mask{position:fixed;inset:0;background:rgba(20,28,48,.28);z-index:20;display:none;backdrop-filter:blur(2px)}
+  .mask.open{display:block}
+  .slide{position:fixed;top:0;right:0;bottom:0;width:640px;background:var(--panel);z-index:21;transform:translateX(100%);transition:transform .24s ease;display:flex;flex-direction:column;box-shadow:-8px 0 30px rgba(20,30,60,.12)}
+  .slide.open{transform:translateX(0)}
+  .slide-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0}
+  .slide-head .title{font-weight:700;font-size:15px}
+  .slide-head .sub{color:var(--text-faint);font-size:12px}
+  .slide-head .close{margin-left:auto;cursor:pointer;color:var(--text-dim);width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:14px}
+  .slide-head .close:hover{background:var(--raised);color:var(--text)}
+  .slide-body{flex:1;overflow:auto;padding:18px 22px}
+  .slide-foot{padding:12px 20px;border-top:1px solid var(--border);display:flex;gap:8px;background:var(--panel-2);flex-shrink:0}
+
+  /* 详情抽屉专用 */
+  .tabs{display:flex;border-bottom:1px solid var(--border);flex-shrink:0;padding:0 12px;gap:2px}
+  .tab{padding:11px 15px;cursor:pointer;color:var(--text-faint);font-size:13px;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .12s;font-weight:500}
+  .tab:hover{color:var(--text-dim)}
+  .tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
+  .tab .n{font-family:var(--mono);font-size:10px;margin-left:4px;color:var(--text-faint)}
+  .sec-t{color:var(--text-faint);font-size:11px;letter-spacing:.8px;margin:4px 0 10px;font-family:var(--mono);font-weight:600}
+  .field-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed var(--border);font-size:12px}
+  .field-row .f{color:var(--text-dim);font-family:var(--mono)}
+  .field-row .s{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:11px;font-weight:600}
+  .field-row .s.ok{color:var(--ok)} .field-row .s.bad{color:var(--bad)} .field-row .s.warn{color:var(--warn)}
+  .funnel{margin-top:6px}
+  .funnel .step{display:flex;align-items:center;gap:10px;margin-bottom:6px;font-family:var(--mono);font-size:11px}
+  .funnel .step .lab{width:92px;color:var(--text-faint);text-align:right}
+  .funnel .step .track{flex:1;height:14px;background:var(--raised);border-radius:4px;overflow:hidden}
+  .funnel .step .bar{height:100%;border-radius:4px;background:var(--accent);min-width:2px}
+  .funnel .step .n{width:44px;color:var(--text-dim);font-weight:600}
+
+  /* Baseline / 报告 面板内容 */
+  .cmp-table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;font-size:12px;margin-bottom:16px}
+  .cmp-table th{background:var(--panel-2);color:var(--text-faint);font-weight:600;font-size:11px;text-align:left;padding:8px 12px;border-bottom:1px solid var(--border)}
+  .cmp-table td{padding:8px 12px;border-bottom:1px solid var(--border)}
+  .cmp-table tr:last-child td{border-bottom:none}
+  .cmp-table .mod-name{font-weight:600}
+  .delta-up{color:var(--ok);font-weight:700;font-family:var(--mono)}
+  .delta-dn{color:var(--bad);font-weight:700;font-family:var(--mono)}
+  .delta-eq{color:var(--text-faint);font-family:var(--mono)}
+  .report-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+  .rcard{border:1px solid var(--border);border-radius:var(--r-sm);padding:12px 14px;background:var(--panel-2)}
+  .rcard .k{font-size:11px;color:var(--text-faint);margin-bottom:5px}
+  .rcard .v{font-family:var(--mono);font-size:17px;font-weight:700}
+  .md-block{font-size:13px;line-height:1.9;color:var(--text-dim)}
+  .md-block h4{color:var(--text);margin:14px 0 6px;font-size:14px}
+  .md-block code{font-family:var(--mono);background:var(--raised);padding:1px 6px;border-radius:5px;font-size:12px;color:var(--accent)}
+  .seg{display:inline-flex;background:var(--raised);border-radius:8px;padding:3px;gap:2px}
+  .seg button{border:none;background:transparent;padding:5px 14px;border-radius:6px;font-size:12px;cursor:pointer;color:var(--text-dim);font-family:var(--sans)}
+  .seg button.active{background:#fff;color:var(--accent);font-weight:600;box-shadow:0 1px 3px rgba(20,30,60,.1)}
+
+  /* ═══ 终端（保留深色，现代 IDE 惯例） ═══ */
+  .terminal{background:#10141d;border-top:1px solid var(--border-strong);flex-shrink:0}
+  .term-bar{height:32px;display:flex;align-items:center;padding:0 14px;cursor:pointer;color:#8b93a7;font-size:12px;gap:9px;font-family:var(--mono);user-select:none}
+  .term-bar:hover{background:#161b27}
+  .term-bar .dot{width:8px;height:8px;border-radius:50%;background:#34c77b;animation:pulse 1.2s infinite}
+  .term-bar .last{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#5b6376}
+  .term-bar .tbtn{color:#5b6376;padding:2px 9px;border-radius:5px}
+  .term-bar .tbtn:hover{background:#232a3a;color:#e8eaf0}
+  .term-body{height:210px;overflow-y:auto;padding:10px 16px;font-family:var(--mono);font-size:12px;line-height:1.75;background:#0b0e15;display:none;border-top:1px solid #1d2330}
+  .term-body.open{display:block}
+  .term-body .ts{color:#4a5165}
+  .term-body .lv-ok{color:#34c77b} .term-body .lv-info{color:#5b93ff}
+  .term-body .lv-warn{color:#f2a93b} .term-body .lv-err{color:#e8545a}
+  .term-body .dim{color:#97a0b4}
+  .term-body .caret{display:inline-block;width:7px;height:13px;background:#34c77b;vertical-align:-2px;animation:pulse 1s infinite}
+
+  .hint{position:fixed;bottom:8px;left:216px;color:var(--text-faint);font-size:11px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+
+<!-- ═══ 顶栏 ═══ -->
+<div class="topbar">
+  <div class="logo">
+    <span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="1.3" opacity=".6"/><circle cx="12" cy="12" r="1.5" fill="#fff"/><line x1="12" y1="12" x2="18" y2="6.5" stroke="#fff" stroke-width="1.6"/></svg></span>
+    EDR 采集验证<span class="ver">v3</span>
+  </div>
+  <div class="snap"><span class="dot"></span>快照 <b style="color:var(--text)">ioa</b></div>
+  <div class="spacer"></div>
+
+  <!-- 视图入口组：手册 / Baseline / 报告 -->
+  <button class="btn manual" onclick="openPanel('manual')">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>
+    使用手册<span class="kbd">F1</span>
+  </button>
+  <button class="btn view" onclick="openPanel('baseline')">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 3 5-6"/></svg>
+    Baseline 对比
+  </button>
+  <button class="btn view" onclick="openPanel('report')">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+    总结报告
+  </button>
+  <div class="sep"></div>
+
+  <!-- 操作组 -->
+  <button class="btn">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+    导入日志
+  </button>
+  <button class="btn">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
+    全量匹配
+  </button>
+  <button class="btn primary">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg>
+    全量投递
+  </button>
+</div>
+
+<!-- ═══ 主体 ═══ -->
+<div class="main">
+  <!-- 侧栏 -->
+  <div class="sidebar">
+    <div class="side-label">模块 MODULES</div>
+    <div class="mod active">
+      <div class="row"><span class="name">Registry</span><span class="cnt">3</span></div>
+      <div class="health"><i class="ok"></i><i class="warn"></i><i></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">Process</span><span class="cnt">6</span></div>
+      <div class="health"><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="bad"></i><i></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">File</span><span class="cnt">5</span></div>
+      <div class="health"><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="warn"></i><i></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">Account</span><span class="cnt">5</span></div>
+      <div class="health"><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="warn"></i><i class="warn"></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">Network</span><span class="cnt">5</span></div>
+      <div class="health"><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">Driver</span><span class="cnt">3</span></div>
+      <div class="health"><i class="ok"></i><i class="ok"></i><i class="ok"></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">Hash</span><span class="cnt">3</span></div>
+      <div class="health"><i class="ok"></i><i class="ok"></i><i class="ok"></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">WMI</span><span class="cnt">3</span></div>
+      <div class="health"><i class="warn"></i><i class="warn"></i><i></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">Service</span><span class="cnt">3</span></div>
+      <div class="health"><i class="ok"></i><i class="ok"></i><i class="ok"></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">ScheduleTask</span><span class="cnt">3</span></div>
+      <div class="health"><i class="ok"></i><i class="ok"></i><i class="warn"></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">Pipe</span><span class="cnt">2</span></div>
+      <div class="health"><i class="ok"></i><i class="ok"></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">PowerShell</span><span class="cnt">1</span></div>
+      <div class="health"><i class="warn"></i></div>
+    </div>
+    <div class="mod">
+      <div class="row"><span class="name">BIT</span><span class="cnt">1</span></div>
+      <div class="health"><i class="ok"></i></div>
+    </div>
+    <div class="side-sep"></div>
+    <div class="side-label">手动 MANUAL</div>
+    <div class="mod is-manual">
+      <div class="row"><span class="name">Device</span><span class="cnt">手动</span></div>
+    </div>
+    <div class="mod is-manual">
+      <div class="row"><span class="name">EDR 运维</span><span class="cnt">手动</span></div>
+    </div>
+  </div>
+
+  <!-- 主区 -->
+  <div class="content">
+    <div class="matrix-wrap">
+
+      <!-- 汇总条 -->
+      <div class="statstrip">
+        <div class="stat ok">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <div><div class="num">35</div><div class="lab">采集</div></div>
+        </div>
+        <div class="stat warn">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></div>
+          <div><div class="num">7</div><div class="lab">疑问</div></div>
+        </div>
+        <div class="stat bad">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
+          <div><div class="num">1</div><div class="lab">缺失</div></div>
+        </div>
+        <div class="stat muted">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <div><div class="num">2</div><div class="lab">待测</div></div>
+        </div>
+        <div class="stat total">
+          <div class="row1"><span class="lab" style="margin:0">采集覆盖率 · 45 CASE</span><span class="pct">78%</span></div>
+          <div class="pbar"><i style="width:78%;background:var(--ok)"></i><i style="width:15%;background:var(--warn)"></i><i style="width:2%;background:var(--bad)"></i><i style="width:5%;background:var(--muted)"></i></div>
+        </div>
+      </div>
+
+      <!-- Registry 模块 -->
+      <div class="module-band">
+        <span class="name">Registry</span><span class="cn">注册表</span>
+        <span class="mstats"><b class="g">1 采集</b><b class="y">1 疑问</b><b class="x">1 待测</b></span>
+        <span class="actions">
+          <button class="btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>匹配本模块</button>
+          <button class="btn primary"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg>跑本模块</button>
+        </span>
+      </div>
+      <table>
+        <thead><tr><th>CASE</th><th>行为</th><th>判定</th><th>样本</th><th>日志</th><th>SYSMON</th><th style="text-align:right">操作</th></tr></thead>
+        <tbody>
+          <tr onclick="openDrawer('REG-CREATE-001','键/值创建')">
+            <td class="case-id">REG-CREATE-001</td><td class="bhv">键/值创建</td>
+            <td><span class="badge ok"><i></i>采集</span></td>
+            <td><span class="st"><i></i>已投递</span></td>
+            <td><span class="st"><i></i>3 版</span></td>
+            <td><span class="st"><i></i>已对照</span></td>
+            <td class="op"><button class="btn" title="匹配"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></button><button class="btn" title="跑样本"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg></button></td>
+          </tr>
+          <tr onclick="openDrawer('REG-MODIFY-001','键/值修改')">
+            <td class="case-id">REG-MODIFY-001</td><td class="bhv">键/值修改</td>
+            <td><span class="badge warn"><i></i>疑问</span></td>
+            <td><span class="st"><i></i>已投递</span></td>
+            <td><span class="st"><i></i>2 版</span></td>
+            <td><span class="st no"><i></i>无</span></td>
+            <td class="op"><button class="btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></button><button class="btn"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg></button></td>
+          </tr>
+          <tr onclick="openDrawer('REG-DELETE-001','键/值删除')">
+            <td class="case-id">REG-DELETE-001</td><td class="bhv">键/值删除</td>
+            <td><span class="badge muted"><i></i>待测</span></td>
+            <td><span class="st no"><i></i>未投递</span></td>
+            <td><span class="st no"><i></i>无</span></td>
+            <td><span class="st no"><i></i>无</span></td>
+            <td class="op"><button class="btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></button><button class="btn"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg></button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Device 手动模块 -->
+      <div class="module-band">
+        <span class="name">Device</span><span class="cn">设备操作</span>
+        <span class="badge manual"><i></i>手动模式</span>
+      </div>
+      <table>
+        <thead><tr><th>CASE</th><th>行为</th><th>判定</th><th>样本</th><th>日志</th><th>SYSMON</th><th style="text-align:right">操作</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="case-id">DEVICE-USB-001</td><td class="bhv">USB 插拔</td>
+            <td><span class="badge manual"><i></i>手动</span></td>
+            <td><span class="st no"><i></i>—</span></td>
+            <td><span class="st"><i></i>已确认</span></td>
+            <td><span class="st no"><i></i>—</span></td>
+            <td class="op"><span class="manual-tag">复用人工结果</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <!-- 终端 -->
+    <div class="terminal">
+      <div class="term-bar" onclick="toggleTerm()">
+        <span class="dot"></span>
+        <span style="color:#97a0b4">终端</span>
+        <span class="last">REG-CREATE-001 · [RESULT] PASS ExitCode=0</span>
+        <span class="tbtn" onclick="event.stopPropagation()">清空</span>
+        <span class="tbtn" onclick="event.stopPropagation()">停止</span>
+        <span class="tbtn" id="term-arrow">▾</span>
+      </div>
+      <div class="term-body open" id="term">
+        <div><span class="ts">[12:00:01]</span> <span class="lv-info">▶ run</span> <span class="dim">REG-CREATE-001 (snapshot=ioa)</span></div>
+        <div><span class="ts">[12:00:03]</span> <span class="dim">[RUN-BEGIN] TestCaseID=REG-CREATE-001</span></div>
+        <div><span class="ts">[12:00:05]</span> <span class="lv-ok">[TARGET]</span> <span class="dim">Operation=RegistryCreate  Target=HKCU\...\Run\EDRTelemetryRunTest</span></div>
+        <div><span class="ts">[12:00:06]</span> <span class="lv-warn">[SYSMON]</span> <span class="dim">EventID=13 RegistryEvent captured ✓</span></div>
+        <div><span class="ts">[12:00:06]</span> <span class="lv-ok">[RESULT]</span> <span class="dim">PASS ExitCode=0</span></div>
+        <div><span class="ts">[12:00:07]</span> <span class="caret"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 遮罩 ═══ -->
+<div class="mask" id="mask" onclick="closeAll()"></div>
+
+<!-- ═══ 详情抽屉 ═══ -->
+<div class="slide" id="drawer">
+  <div class="slide-head">
+    <span class="title" id="d-title" style="font-family:var(--mono)">REG-CREATE-001</span>
+    <span class="sub" id="d-sub">键/值创建</span>
+    <span class="badge ok"><i></i>采集</span>
+    <span class="close" onclick="closeAll()">✕</span>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="tab(this)">结果</div>
+    <div class="tab" onclick="tab(this)">样本</div>
+    <div class="tab" onclick="tab(this)">日志<span class="n">3</span></div>
+    <div class="tab" onclick="tab(this)">Sysmon</div>
+  </div>
+  <div class="slide-body">
+    <div class="sec-t">字段命中 · FIELD COVERAGE</div>
+    <div class="field-row"><span class="f">Child.RegOpName</span><span class="s ok">✓ PASS · 新建</span></div>
+    <div class="field-row"><span class="f">Child.TargetObject</span><span class="s ok">✓ PASS · HKCU\...\Run\EDRTelemetryRunTest</span></div>
+    <div class="field-row"><span class="f">Parent.FileMd5</span><span class="s ok">✓ PASS · 156ca9cf…</span></div>
+    <div class="field-row"><span class="f">Child.ContentData</span><span class="s warn">△ MISS · 无此字段</span></div>
+
+    <div class="sec-t" style="margin-top:18px">事件漏斗 · MATCH FUNNEL</div>
+    <div class="funnel">
+      <div class="step"><span class="lab">total</span><span class="track"><span class="bar" style="width:100%"></span></span><span class="n">128</span></div>
+      <div class="step"><span class="lab">hostname</span><span class="track"><span class="bar" style="width:100%"></span></span><span class="n">128</span></div>
+      <div class="step"><span class="lab">time ±120s</span><span class="track"><span class="bar" style="width:14%;background:var(--warn)"></span></span><span class="n">3</span></div>
+      <div class="step"><span class="lab">actor md5</span><span class="track"><span class="bar" style="width:14%;background:var(--warn)"></span></span><span class="n">3</span></div>
+      <div class="step"><span class="lab">pid</span><span class="track"><span class="bar" style="width:14%;background:var(--warn)"></span></span><span class="n">3</span></div>
+      <div class="step"><span class="lab">operation</span><span class="track"><span class="bar" style="width:14%;background:var(--ok)"></span></span><span class="n">3</span></div>
+    </div>
+  </div>
+  <div class="slide-foot">
+    <button class="btn primary"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg>跑样本</button>
+    <button class="btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>匹配</button>
+  </div>
+</div>
+
+<!-- ═══ 使用手册面板 ═══ -->
+<div class="slide" id="panel-manual">
+  <div class="slide-head" style="color:var(--manual)">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>
+    <span class="title">使用手册</span>
+    <span class="close" onclick="closeAll()">✕</span>
+  </div>
+  <div class="slide-body md-block">
+    <h4>快速上手</h4>
+    1. 顶栏 <code>全量投递</code> 把 45 个 case 按模块串行投递到 VM 执行；<br>
+    2. 跑完点 <code>全量匹配</code>，stdout 自报与 IOA 日志逐字段比对；<br>
+    3. 判定列实时刷新：绿=采集、琥珀=疑问、红=缺失、灰=待测。
+    <h4>三级操作</h4>
+    单 case（矩阵行内按钮）→ 单模块（模块带按钮）→ 全量（顶栏按钮），每级都有「跑」和「匹配」。
+    <h4>Baseline 与报告</h4>
+    顶栏 <code>Baseline 对比</code> 查看与行业基线/同学基线的逐项差异；<code>总结报告</code> 查看本轮回归的整体结论。
+    <div style="margin-top:20px;color:var(--text-faint);font-size:12px">实现时复用现有 <code>GET /api/manual</code>（USER_MANUAL.md）。</div>
+  </div>
+</div>
+
+<!-- ═══ Baseline 对比面板 ═══ -->
+<div class="slide" id="panel-baseline">
+  <div class="slide-head">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 3 5-6"/></svg>
+    <span class="title">Baseline 对比</span>
+    <span class="sub">当前结果 vs 行业基线 / 同学基线</span>
+    <span class="close" onclick="closeAll()">✕</span>
+  </div>
+  <div class="slide-body">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <div class="seg">
+        <button class="active" onclick="seg(this)">行业基线</button>
+        <button onclick="seg(this)">同学基线</button>
+      </div>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--text-faint)">45 case · 2026-09-01 回归</span>
+    </div>
+    <table class="cmp-table">
+      <thead><tr><th>模块</th><th>本产品</th><th>行业基线</th><th>差异</th></tr></thead>
+      <tbody>
+        <tr><td class="mod-name">Process</td><td><span class="badge ok"><i></i>5/6</span></td><td>6/6</td><td class="delta-dn">▼ Remote Thread</td></tr>
+        <tr><td class="mod-name">Registry</td><td><span class="badge ok"><i></i>3/3</span></td><td>3/3</td><td class="delta-eq">= 持平</td></tr>
+        <tr><td class="mod-name">File</td><td><span class="badge ok"><i></i>4/5</span></td><td>4/5</td><td class="delta-eq">= 持平</td></tr>
+        <tr><td class="mod-name">WMI</td><td><span class="badge warn"><i></i>1/3</span></td><td>1/3</td><td class="delta-eq">= 持平（行业普遍弱）</td></tr>
+        <tr><td class="mod-name">Network</td><td><span class="badge ok"><i></i>5/5</span></td><td>4/5</td><td class="delta-up">▲ URL 采集 超出</td></tr>
+        <tr><td class="mod-name">PowerShell</td><td><span class="badge warn"><i></i>0/1</span></td><td>1/1</td><td class="delta-dn">▼ Script-Block</td></tr>
+      </tbody>
+    </table>
+    <div style="color:var(--text-faint);font-size:12px;line-height:1.8">
+      实现时数据源：现有 <code style="font-family:var(--mono);background:var(--raised);padding:1px 6px;border-radius:5px;color:var(--accent)">GET /api/industry</code> 与 <code style="font-family:var(--mono);background:var(--raised);padding:1px 6px;border-radius:5px;color:var(--accent)">GET /api/classmate_baseline</code>，差异在前端即时计算。
+    </div>
+  </div>
+  <div class="slide-foot">
+    <button class="btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>导出对比 CSV</button>
+  </div>
+</div>
+
+<!-- ═══ 总结报告面板 ═══ -->
+<div class="slide" id="panel-report">
+  <div class="slide-head">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+    <span class="title">总结报告</span>
+    <span class="sub">本轮回归整体结论</span>
+    <span class="close" onclick="closeAll()">✕</span>
+  </div>
+  <div class="slide-body">
+    <div class="report-cards">
+      <div class="rcard"><div class="k">总 Case 数</div><div class="v">45</div></div>
+      <div class="rcard"><div class="k">采集覆盖率</div><div class="v" style="color:var(--ok)">78%</div></div>
+      <div class="rcard"><div class="k">较上轮新增采集</div><div class="v" style="color:var(--ok)">+2</div></div>
+      <div class="rcard"><div class="k">较上轮退化</div><div class="v" style="color:var(--bad)">0</div></div>
+    </div>
+    <div class="sec-t">结论摘要 · SUMMARY</div>
+    <div class="md-block">
+      <h4>采集强项</h4>
+      Network（5/5）、Hash（3/3）、Driver（3/3）、Service（3/3）全项采集；Registry、File 核心行为覆盖完整。
+      <h4>关注项</h4>
+      WMI 永久事件订阅三件套仅采到 1/3（与行业基线持平，属普遍弱项）；PowerShell Script-Block 未采到，低于行业基线，建议优先排查。
+      <h4>手动能力</h4>
+      USB 插拔、EDR 运维已由人工确认，结论归档，不参与自动化回归。
+    </div>
+  </div>
+  <div class="slide-foot">
+    <button class="btn primary"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>导出报告 Markdown</button>
+    <button class="btn">刷新</button>
+  </div>
+</div>
+
+<div class="hint">_mockup_v3.html · 浅色现代风 · 数据为示例</div>
+
+<script>
+  function openDrawer(id,bhv){
+    closeAll();
+    document.getElementById('d-title').textContent = id;
+    document.getElementById('d-sub').textContent = bhv;
+    document.getElementById('drawer').classList.add('open');
+    document.getElementById('mask').classList.add('open');
+  }
+  function openPanel(name){
+    closeAll();
+    document.getElementById('panel-'+name).classList.add('open');
+    document.getElementById('mask').classList.add('open');
+  }
+  function closeAll(){
+    document.querySelectorAll('.slide').forEach(s=>s.classList.remove('open'));
+    document.getElementById('mask').classList.remove('open');
+  }
+  function tab(el){
+    el.parentElement.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    el.classList.add('active');
+  }
+  function seg(el){
+    el.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+    el.classList.add('active');
+  }
+  function toggleTerm(){
+    var b=document.getElementById('term');
+    b.classList.toggle('open');
+    document.getElementById('term-arrow').textContent = b.classList.contains('open')?'▾':'▸';
+  }
+  document.addEventListener('keydown',function(e){
+    if(e.key==='F1'){e.preventDefault();openPanel('manual');}
+    if(e.key==='Escape'){closeAll();}
+  });
+</script>
+</body>
+</html>
