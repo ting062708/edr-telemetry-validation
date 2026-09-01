@@ -1099,7 +1099,7 @@
       "match": {
         "actor_exe": "NetworkActivityTest.exe",
         "operation": "NetBind",
-        "actor_md5": "420CC1EE2BF37C9771EED953D17A3221"
+        "actor_md5": "1F9FA5B4D0CFDE4F9AA3372F49A7FC72"
       },
       "expected_fields": {
         "actor_name": {
@@ -2243,6 +2243,22 @@
       },
       "expected_result": "",
       "notes": "补充样本：写 HKLM Run 启动项（IOA 采启动项路径，不采 HKU\\.DEFAULT）"
+    },
+    {
+      "id": "FILE-CREATE-003",
+      "module": "File",
+      "program": "FileTxtTest.exe",
+      "action": "--case FILE-CREATE-003",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "behavior": "文件创建(TXT)",
+      "sample_md5": "27BA41994D5BCFAB14A3AB8B0D8F0902",
+      "sample_sha256": "CA60DDC8069B052ACD5EC362781125DA5C5BC3E15B2DA2F7302F46CAD7633834",
+      "match": {
+        "actor_md5": "27BA41994D5BCFAB14A3AB8B0D8F0902"
+      },
+      "expected_result": "",
+      "notes": "补充样本：创建 TXT 文件到 C:\\Temp，验证路径 vs 文件类型偏向"
     }
   ]
 }

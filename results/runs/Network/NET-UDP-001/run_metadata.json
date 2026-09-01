@@ -1,34 +1,34 @@
 [
   {
     "test_case_id": "NET-UDP-001",
-    "run_id": "71d3f3b3-5ed0-40bd-9dc2-aeea4b280c33",
+    "run_id": "461a03a7-8714-4161-b708-25ae2789c729",
     "module": "Network",
     "action": "UDPConnection",
     "process_name": "NetworkActivityTest.exe",
-    "pid": 4424,
+    "pid": 5108,
     "hostname": "DESKTOP-0AHK53B",
-    "run_start_utc": "2026-09-01T17:18:55.025000+00:00",
-    "setup_begin_utc": "2026-09-01T17:18:55.069000+00:00",
-    "setup_end_utc": "2026-09-01T17:18:55.069000+00:00",
-    "target_begin_utc": "2026-09-01T17:18:55.069000+00:00",
-    "target_end_utc": null,
-    "run_end_utc": "2026-09-01T17:19:01.188000+00:00",
-    "sample_result": "FAIL",
-    "exit_code": 1,
+    "run_start_utc": "2026-09-01T18:47:58.559000+00:00",
+    "setup_begin_utc": "2026-09-01T18:47:58.624000+00:00",
+    "setup_end_utc": "2026-09-01T18:47:58.640000+00:00",
+    "target_begin_utc": "2026-09-01T18:47:58.640000+00:00",
+    "target_end_utc": "2026-09-01T18:47:59.487000+00:00",
+    "run_end_utc": "2026-09-01T18:47:59.487000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
     "parser_mode": "current",
-    "missing_fields": [
-      "target_end_utc"
-    ],
-    "degraded_match": true,
+    "missing_fields": [],
+    "degraded_match": false,
     "target_fields": {
       "Protocol": "UDP",
-      "RemoteIP": "8.8.8.8",
+      "RemoteIP": "114.114.114.114",
       "RemotePort": "53",
       "Payload": "DNS-A-Query",
-      "QueryName": "example.com"
+      "QueryName": "example.com",
+      "LocalEndpoint": "0.0.0.0:56392",
+      "ResponseFrom": "114.114.114.114:53",
+      "BytesSent": "29",
+      "BytesReceived": "61"
     },
-    "error_lines": [
-      "SocketException: �������ӷ���һ��ʱ���û����ȷ�𸴻����ӵ�����û�з�Ӧ�����ӳ���ʧ�ܡ�"
-    ]
+    "error_lines": []
   }
 ]

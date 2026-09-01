@@ -1,0 +1,15 @@
+[RUN-BEGIN] RunID=1c6a7b2f-1447-44f1-9b73-fe49c3ee7ecc TimeUTC=2026-09-01T18:49:08.538Z
+[META] TestCaseID=FILE-CREATE-003 Module=File Action=FileCreateTxt
+[META] Process=FileTxtTest.exe PID=7388 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-09-01T18:49:08.584Z
+[SETUP] TargetPath=C:\Temp\EDRTest\EDRTelemetryFileTest.txt
+[SETUP] FileType=txt
+[SETUP-END] TimeUTC=2026-09-01T18:49:08.584Z
+[TARGET-BEGIN] TimeUTC=2026-09-01T18:49:08.584Z
+[TARGET] Operation=FileCreate
+[TARGET] TargetPath=C:\Temp\EDRTest\EDRTelemetryFileTest.txt
+[TARGET] FileType=txt
+[TARGET] FileSize=44
+[TARGET-END] TimeUTC=2026-09-01T18:49:09.115Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=1c6a7b2f-1447-44f1-9b73-fe49c3ee7ecc TimeUTC=2026-09-01T18:49:09.115Z
