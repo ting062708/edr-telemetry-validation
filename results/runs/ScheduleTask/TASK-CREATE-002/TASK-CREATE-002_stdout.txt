@@ -1,0 +1,13 @@
+[RUN-BEGIN] RunID=ebd92ecd-25c1-4c9a-af6f-c7f313f317b3 TimeUTC=2026-09-01T18:14:30.753Z
+[META] TestCaseID=TASK-CREATE-002 Module=ScheduleTask Action=SchedTaskCreateXml
+[META] Process=TaskXmlTest.exe PID=10820 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-09-01T18:14:30.905Z
+[SETUP] XmlPath=C:\EDRTest\samples\ScheduleTask\EDRTelemetryTask.xml
+[SETUP-END] TimeUTC=2026-09-01T18:14:33.067Z
+[TARGET-BEGIN] TimeUTC=2026-09-01T18:14:33.067Z
+[TARGET] Operation=SchedTaskCreate
+[TARGET] TaskName=EDRTelemetryTaskXml
+[TARGET] Method=XMLImport
+[TARGET-END] TimeUTC=2026-09-01T18:14:44.788Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=ebd92ecd-25c1-4c9a-af6f-c7f313f317b3 TimeUTC=2026-09-01T18:14:46.316Z

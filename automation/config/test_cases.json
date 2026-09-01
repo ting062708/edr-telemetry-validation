@@ -2204,9 +2204,11 @@
       "execution_mode": "single_action",
       "runner_type": "exe",
       "behavior": "文件创建(JSON)",
-      "sample_md5": "59A37DB8E9B3EF4B02122533258A82FC",
-      "sample_sha256": "8DD8AD23A9436CEB5CA218DB35FC1819E8C9C718B10AC1915BF96FF66D5E7FF4",
-      "match": {},
+      "sample_md5": "DA820A3C39122D2C0D047660E38EA059",
+      "sample_sha256": "8862CA20C4668CAFAE34C201DFEFE574427BB32317DA043A6C79E4CC5362FAF3",
+      "match": {
+        "actor_md5": "DA820A3C39122D2C0D047660E38EA059"
+      },
       "expected_result": "",
       "notes": "补充样本：创建 JSON 文件（IOA 采 JSON 不采 TXT）"
     },
@@ -2220,7 +2222,9 @@
       "behavior": "计划任务创建(XML导入)",
       "sample_md5": "F79725CBD4E8024BA657AA054DAF81F4",
       "sample_sha256": "BDB3922BDCA18CD74D743A4C074520E17FE29C2C7B62272C22EB220DF6F7CD28",
-      "match": {},
+      "match": {
+        "actor_md5": "F79725CBD4E8024BA657AA054DAF81F4"
+      },
       "expected_result": "",
       "notes": "补充样本：schtasks /create /xml 导入（IOA 采 XML 不采 /TR 命令行）"
     },
@@ -2234,7 +2238,9 @@
       "behavior": "注册表键值创建(HKLM Run)",
       "sample_md5": "382ECADBB4455003ADAB703F9E0579F0",
       "sample_sha256": "4A43A58760093B17E5CDDCBE728565534505A5FE5A1F4D910FA524B3875ACC0D",
-      "match": {},
+      "match": {
+        "actor_md5": "382ECADBB4455003ADAB703F9E0579F0"
+      },
       "expected_result": "",
       "notes": "补充样本：写 HKLM Run 启动项（IOA 采启动项路径，不采 HKU\\.DEFAULT）"
     }

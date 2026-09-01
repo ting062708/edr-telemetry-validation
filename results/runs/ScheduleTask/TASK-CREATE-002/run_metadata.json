@@ -1,0 +1,28 @@
+[
+  {
+    "test_case_id": "TASK-CREATE-002",
+    "run_id": "ebd92ecd-25c1-4c9a-af6f-c7f313f317b3",
+    "module": "ScheduleTask",
+    "action": "SchedTaskCreateXml",
+    "process_name": "TaskXmlTest.exe",
+    "pid": 10820,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-09-01T18:14:30.753000+00:00",
+    "setup_begin_utc": "2026-09-01T18:14:30.905000+00:00",
+    "setup_end_utc": "2026-09-01T18:14:33.067000+00:00",
+    "target_begin_utc": "2026-09-01T18:14:33.067000+00:00",
+    "target_end_utc": "2026-09-01T18:14:44.788000+00:00",
+    "run_end_utc": "2026-09-01T18:14:46.316000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Operation": "SchedTaskCreate",
+      "TaskName": "EDRTelemetryTaskXml",
+      "Method": "XMLImport"
+    },
+    "error_lines": []
+  }
+]

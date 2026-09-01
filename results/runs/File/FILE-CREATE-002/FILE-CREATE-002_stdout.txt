@@ -1,0 +1,15 @@
+[RUN-BEGIN] RunID=b1b3f468-b762-4ef1-bcd9-e0fcdbf1b17d TimeUTC=2026-09-01T18:27:26.146Z
+[META] TestCaseID=FILE-CREATE-002 Module=File Action=FileCreateJson
+[META] Process=FileJsonTest.exe PID=11724 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-09-01T18:27:26.196Z
+[SETUP] TargetPath=C:\Temp\EDRTest\EDRTelemetryFileTest.json
+[SETUP] FileType=json
+[SETUP-END] TimeUTC=2026-09-01T18:27:26.196Z
+[TARGET-BEGIN] TimeUTC=2026-09-01T18:27:26.196Z
+[TARGET] Operation=FileCreate
+[TARGET] TargetPath=C:\Temp\EDRTest\EDRTelemetryFileTest.json
+[TARGET] FileType=json
+[TARGET] FileSize=67
+[TARGET-END] TimeUTC=2026-09-01T18:27:26.795Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=b1b3f468-b762-4ef1-bcd9-e0fcdbf1b17d TimeUTC=2026-09-01T18:27:26.795Z

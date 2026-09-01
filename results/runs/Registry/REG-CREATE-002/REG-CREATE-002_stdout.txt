@@ -1,0 +1,17 @@
+[RUN-BEGIN] RunID=346ecb06-4612-4de4-9cce-a21794891b2c TimeUTC=2026-09-01T18:15:57.291Z
+[META] TestCaseID=REG-CREATE-002 Module=Registry Action=RegSetValue
+[META] Process=RegistryRunTest.exe PID=6812 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-09-01T18:15:57.447Z
+[SETUP] RegistryPath=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+[SETUP] ValueName=EDRTelemetryRunTestHklm
+[SETUP] StaleValueRemoved=true
+[SETUP-END] TimeUTC=2026-09-01T18:15:57.447Z
+[TARGET-BEGIN] TimeUTC=2026-09-01T18:15:57.447Z
+[TARGET] Operation=RegSetValue
+[TARGET] RegistryPath=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+[TARGET] ValueName=EDRTelemetryRunTestHklm
+[TARGET] NewValue=C:\Windows\System32\notepad.exe
+[VERIFY] ActualValue=C:\Windows\System32\notepad.exe
+[TARGET-END] TimeUTC=2026-09-01T18:15:58.100Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=346ecb06-4612-4de4-9cce-a21794891b2c TimeUTC=2026-09-01T18:15:58.117Z

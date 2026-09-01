@@ -1,0 +1,31 @@
+[
+  {
+    "test_case_id": "PROC-TAMPER-002",
+    "run_id": "77f8bf1f-6504-4cf9-8dcf-f043efc25f1a",
+    "module": "Process",
+    "action": "APCInject",
+    "process_name": "ApcInjectTest.exe",
+    "pid": 9168,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-09-01T18:10:53.819000+00:00",
+    "setup_begin_utc": "2026-09-01T18:10:53.861000+00:00",
+    "setup_end_utc": "2026-09-01T18:10:55.518000+00:00",
+    "target_begin_utc": "2026-09-01T18:10:55.518000+00:00",
+    "target_end_utc": "2026-09-01T18:10:55.693000+00:00",
+    "run_end_utc": "2026-09-01T18:10:55.708000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Operation": "QueueUserAPC",
+      "TargetPid": "3184",
+      "OpenProcess": "OK",
+      "AllocatedBase": "0x2609EC00000",
+      "BytesWritten": "1",
+      "ApcQueued": "7"
+    },
+    "error_lines": []
+  }
+]

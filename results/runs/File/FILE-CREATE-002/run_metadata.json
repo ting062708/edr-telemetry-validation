@@ -1,0 +1,29 @@
+[
+  {
+    "test_case_id": "FILE-CREATE-002",
+    "run_id": "b1b3f468-b762-4ef1-bcd9-e0fcdbf1b17d",
+    "module": "File",
+    "action": "FileCreateJson",
+    "process_name": "FileJsonTest.exe",
+    "pid": 11724,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-09-01T18:27:26.146000+00:00",
+    "setup_begin_utc": "2026-09-01T18:27:26.196000+00:00",
+    "setup_end_utc": "2026-09-01T18:27:26.196000+00:00",
+    "target_begin_utc": "2026-09-01T18:27:26.196000+00:00",
+    "target_end_utc": "2026-09-01T18:27:26.795000+00:00",
+    "run_end_utc": "2026-09-01T18:27:26.795000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Operation": "FileCreate",
+      "TargetPath": "C:\\Temp\\EDRTest\\EDRTelemetryFileTest.json",
+      "FileType": "json",
+      "FileSize": "67"
+    },
+    "error_lines": []
+  }
+]

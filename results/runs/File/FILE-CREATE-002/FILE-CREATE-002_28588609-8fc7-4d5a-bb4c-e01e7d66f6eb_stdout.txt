@@ -1,0 +1,14 @@
+[RUN-BEGIN] RunID=28588609-8fc7-4d5a-bb4c-e01e7d66f6eb TimeUTC=2026-09-01T18:25:22.390Z
+[META] TestCaseID=FILE-CREATE-002 Module=File Action=FileCreateJson
+[META] Process=FileJsonTest.exe PID=11612 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-09-01T18:25:22.444Z
+[SETUP] TargetPath=C:\Temp\EDRTest\EDRTelemetryFileTest.json
+[SETUP] FileType=json
+[SETUP-END] TimeUTC=2026-09-01T18:25:22.444Z
+[TARGET-BEGIN] TimeUTC=2026-09-01T18:25:22.444Z
+[TARGET] Operation=FileCreate
+[TARGET] TargetPath=C:\Temp\EDRTest\EDRTelemetryFileTest.json
+[TARGET] FileType=json
+[ERROR] DirectoryNotFoundException: δ���ҵ�·����C:\Temp\EDRTest\EDRTelemetryFileTest.json����һ���֡�
+[RESULT] FAIL ExitCode=1
+[RUN-END] RunID=28588609-8fc7-4d5a-bb4c-e01e7d66f6eb TimeUTC=2026-09-01T18:25:22.599Z

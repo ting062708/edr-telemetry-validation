@@ -6,7 +6,7 @@ namespace FileJsonTest
 {
     internal class Program
     {
-        private const string TestDir = @"C:\EDRTest\samples\File";
+        private const string TestDir = @"C:\Temp\EDRTest";
         private const string JsonFileName = "EDRTelemetryFileTest.json";
         private const string JsonContent = "{\"module\":\"File\",\"action\":\"create\",\"marker\":\"EDRTelemetryFileTest\"}";
 
@@ -32,6 +32,7 @@ namespace FileJsonTest
             try
             {
                 Write("[SETUP-BEGIN] TimeUTC=" + UtcNow());
+                Directory.CreateDirectory(TestDir);
                 string fullPath = Path.Combine(TestDir, JsonFileName);
                 if (File.Exists(fullPath)) File.Delete(fullPath);
                 Write("[SETUP] TargetPath=" + fullPath);
