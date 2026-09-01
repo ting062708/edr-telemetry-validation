@@ -2163,6 +2163,34 @@
       "behavior": "PowerShell脚本块",
       "sample_md5": "C62687F1F56AFD4B25AF940A79FB1AB3",
       "sample_sha256": "1AC99E130203EA0FC14B456CD7082650D73ECE828584CFB9DB9F13618AB98448"
+    },
+    {
+      "id": "PROC-IMAGE-LOAD-002",
+      "module": "Process",
+      "program": "LoadLibraryTest.exe",
+      "action": "--case PROC-IMAGE-LOAD-002",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "behavior": "运行时 DLL 加载（LoadLibrary）",
+      "sample_md5": "68C8A01A7ED801E73A9F1488FA54F980",
+      "sample_sha256": "2940BED4F9C006F8217AED0D0FC7D3D3D0D48B05ABB2E6E7BAEFB5D209DF6713",
+      "match": {},
+      "expected_result": "",
+      "notes": "补充样本：显式 LoadLibrary 加载 TestLibrary.dll，补启动期 DLL 之外的运行时映像加载触发方式"
+    },
+    {
+      "id": "PROC-TAMPER-002",
+      "module": "Process",
+      "program": "ApcInjectTest.exe",
+      "action": "--case PROC-TAMPER-002",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "behavior": "APC 注入（QueueUserAPC）",
+      "sample_md5": "FA0A2A9012A843FF86668DECE14005EF",
+      "sample_sha256": "49AAF6C9CA0A272292A7151AA3F56857E96C1CC7D1D85637A8EB709705FE4112",
+      "match": {},
+      "expected_result": "",
+      "notes": "补充样本：QueueUserAPC 注入 ProcessTarget，补 WriteProcessMemory 之外的进程注入手法"
     }
   ]
 }
