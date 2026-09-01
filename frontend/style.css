@@ -196,6 +196,15 @@ tbody tr.variant-row td{background:var(--panel-2);font-size:12px;height:34px}
 .delta-up{color:var(--ok);font-weight:700;font-family:var(--mono)}
 .delta-dn{color:var(--bad);font-weight:700;font-family:var(--mono)}
 .delta-eq{color:var(--text-faint);font-family:var(--mono)}
+.badge.link{cursor:pointer;transition:filter .12s}
+.badge.link:hover{filter:brightness(.94);text-decoration:underline}
+/* 分析 tab（人工映射笔记+采集分析） */
+.atarea{width:100%;box-sizing:border-box;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--panel);padding:10px 12px;font-family:var(--sans);font-size:13px;line-height:1.7;color:var(--text);resize:vertical;outline:none;transition:border-color .12s}
+.atarea:focus{border-color:var(--accent)}
+.atarea::placeholder{color:var(--text-faint)}
+.mapref{border:1px solid var(--border);border-radius:var(--r-sm);background:var(--panel-2);padding:8px 12px}
+.ana-foot{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.ana-meta{font-size:11px;color:var(--text-faint);font-family:var(--mono)}
 .report-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
 .rcard{border:1px solid var(--border);border-radius:var(--r-sm);padding:12px 14px;background:var(--panel-2)}
 .rcard .k{font-size:11px;color:var(--text-faint);margin-bottom:5px}

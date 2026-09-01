@@ -47,6 +47,7 @@ const state = {
   industry: null,
   baselineTab: 'industry',
   classmate: null,
+  analysis: null,        // /api/analysis 整份（人工映射笔记+采集分析）
   es: null,              // 当前 EventSource
   taskId: null,          // 当前任务 id
   variants: {},          // case_id -> variants 数组（占位，当前恒空）
@@ -272,7 +273,7 @@ async function loadSysmon() {
 /* ═══════════ 详情抽屉 ═══════════ */
 const DRAWER_TABS = [
   ['result', '结果'], ['sample', '样本'], ['logs', '日志'],
-  ['sysmon', 'Sysmon'], ['variants', '变体'],
+  ['sysmon', 'Sysmon'], ['variants', '变体'], ['analysis', '分析'],
 ];
 
 function openDrawer(caseId, tab) {
@@ -305,7 +306,7 @@ function renderDrawerTab() {
   $('d-body').innerHTML = '<div class="loading">加载中…</div>';
   const loaders = {
     result: loadTabResult, sample: loadTabSample, logs: loadTabLogs,
-    sysmon: loadTabSysmon, variants: loadTabVariants,
+    sysmon: loadTabSysmon, variants: loadTabVariants, analysis: loadTabAnalysis,
   };
   loaders[state.drawerTab](c);
 }
@@ -371,6 +372,54 @@ async function loadTabResult(c) {
     if (ms.coverage_status) html += `<div class="kv"><span class="k">日志时间窗覆盖</span><span class="v">${esc(ms.coverage_status)}</span></div>`;
   }
   $('d-body').innerHTML = html;
+}
+
+/* ── 分析 tab：人工撰写「映射笔记 + 采集分析」，存 config/case_analysis.json ── */
+async function loadTabAnalysis(c) {
+  if (!state.analysis) { try { state.analysis = (await api('/api/analysis')).cases || {}; } catch (e) { state.analysis = {}; } }
+  const a = state.analysis[c.case_id] || {};
+  let html = '';
+  /* 机器 mapping 只读参考（behavior_fields：行为字段→IOA字段） */
+  if (c.integrated) {
+    let mapDoc = null;
+    try { mapDoc = (await api(`/api/case/${c.case_id}/mapping`)).mapping; } catch (e) { /* 无 mapping */ }
+    const bf = (mapDoc && mapDoc.behavior_fields) || {};
+    const keys = Object.keys(bf);
+    if (keys.length) {
+      html += `<div class="sec-t">机器映射参考 · MAPPING（只读）</div>
+        <div class="mapref">${keys.map((k) => `<div class="kv"><span class="k">${esc(k)}</span><span class="v">${esc(String(bf[k]))}</span></div>`).join('')}</div>`;
+    }
+  }
+  html += `
+    <div class="sec-t"${html ? ' style="margin-top:16px"' : ''}>映射笔记 · 行为 → IOA 事件/字段</div>
+    <textarea class="atarea" id="ana-mapping" rows="4" placeholder="例：覆盖写 → FileWriteClose，取 Child.FilePath / Child.FileMd5；TXT 不采、JSON 可采…">${esc(a.mapping || '')}</textarea>
+    <div class="sec-t" style="margin-top:14px">采集分析 · 结论与限制条件</div>
+    <textarea class="atarea" id="ana-analysis" rows="6" placeholder="例：仅启动期 DLL 可采，运行时 LoadLibrary 不触发；行业普遍 Yes，本产品属弱项，待补…">${esc(a.analysis || '')}</textarea>
+    <div class="ana-foot">
+      <span class="ana-meta">${a.updated ? `上次保存 ${esc(a.updated)}` : '尚未撰写'}</span>
+      <button class="btn primary" id="btn-ana-save">${ICO.checkSm}保存分析</button>
+    </div>`;
+  $('d-body').innerHTML = html;
+  $('btn-ana-save').onclick = () => saveAnalysis(c.case_id);
+}
+async function saveAnalysis(caseId) {
+  const payload = {
+    mapping: $('ana-mapping').value,
+    analysis: $('ana-analysis').value,
+  };
+  try {
+    await post(`/api/case/${caseId}/analysis`, payload);
+    const updated = new Date().toISOString().slice(0, 16).replace('T', ' ');
+    if (payload.mapping.trim() || payload.analysis.trim()) {
+      state.analysis[caseId] = { ...payload, updated };
+    } else {
+      delete state.analysis[caseId];
+    }
+    document.querySelector('.ana-meta').textContent = `上次保存 ${updated}`;
+    toast('分析已保存');
+  } catch (e) {
+    toast(`保存失败：${e.message}`);
+  }
 }
 
 /* ── 样本 tab ── */
@@ -631,23 +680,59 @@ function renderBaseline() {
   return renderClassmate();
 }
 function renderIndustry() {
-  const cats = (state.industry && state.industry.categories) || {};
+  const ind = state.industry || {};
+  const cats = ind.categories || {};
+  const caseMap = ind.case_map || {};
   const names = Object.keys(cats);
   if (!names.length) { $('baseline-body').innerHTML = '<div class="empty">industry_baseline.json 无数据</div>'; return; }
+  /* case_map 反转：行业类目 → 本产品的 case（1 类可对多 case） */
+  const cat2cases = {};
+  Object.keys(caseMap).forEach((id) => {
+    (cat2cases[caseMap[id]] = cat2cases[caseMap[id]] || []).push(id);
+  });
   const chip = (v) => {
     const s = String(v || '').toLowerCase();
     if (s === 'yes') return '<span class="badge ok"><i></i>Yes</span>';
-    if (s.startsWith('partial')) return '<span class="badge warn"><i></i>Partial</span>';
+    if (s.startsWith('partial') || s.startsWith('via')) return '<span class="badge warn"><i></i>' + esc(v) + '</span>';
     return '<span class="badge bad"><i></i>No</span>';
   };
+  const capable = (v) => {
+    const s = String(v || '').toLowerCase();
+    return s === 'yes' || s.startsWith('partial') || s.startsWith('via');
+  };
   const products = ['Sysmon', 'MDE', 'CrowdStrike', 'SentinelOne'];
-  const rows = names.map((cat) => `<tr><td class="mod-name">${esc(cat)}</td>
-    ${products.map((p) => `<td>${chip(cats[cat][p])}</td>`).join('')}</tr>`).join('');
+  let nWeak = 0, nStrong = 0, nAgree = 0;
+  const rows = names.map((cat) => {
+    const ours = (cat2cases[cat] || []).map(findCase).filter(Boolean);
+    /* 本产品列：逐 case 徽章，点击跳详情 */
+    const oursHtml = ours.length
+      ? ours.map((c) => {
+          const b = badgeOf(c);
+          return `<span class="badge ${b.cls} link" data-case="${esc(c.case_id)}" title="${esc(c.case_id)}"><i></i>${b.txt}${b.manual ? '·手测' : ''}</span>`;
+        }).join(' ')
+      : '<span class="badge muted"><i></i>—</span>';
+    /* 对照：行业多数能采（≥2/4）vs 本产品 */
+    const indCap = products.filter((p) => capable(cats[cat][p])).length >= 2;
+    let delta = '<span class="delta-eq">—</span>';
+    if (ours.length && !ours.every((c) => badgeOf(c).cls === 'muted')) {
+      const oursCap = ours.some((c) => ['ok', 'warn'].includes(badgeOf(c).cls));
+      if (oursCap && indCap) { delta = '<span class="delta-eq">= 一致</span>'; nAgree++; }
+      else if (oursCap && !indCap) { delta = '<span class="delta-up">↑ 强于行业</span>'; nStrong++; }
+      else if (!oursCap && indCap) { delta = '<span class="delta-dn">↓ 弱于行业</span>'; nWeak++; }
+      else { delta = '<span class="delta-eq">= 均弱</span>'; nAgree++; }
+    }
+    return `<tr><td class="mod-name">${esc(cat)}</td><td>${oursHtml}</td>
+      ${products.map((p) => `<td>${chip(cats[cat][p])}</td>`).join('')}<td>${delta}</td></tr>`;
+  }).join('');
   $('baseline-body').innerHTML = `
-    <div class="note-box">行业参照矩阵（来源：tsale/EDR-Telemetry）。用于回答「这个行为行业内能不能采」——
-    本产品逐项结论见各 case 详情；行业普遍 No 的行为属预期弱项。</div>
-    <table class="cmp-table"><thead><tr><th>行为</th>${products.map((p) => `<th>${p}</th>`).join('')}</tr></thead>
+    <div class="note-box">本产品当前判定 vs 行业参照矩阵（tsale/EDR-Telemetry，行业多数 = 4 款中 ≥2 款可采）。
+    一致 ${nAgree} 项 · <span class="delta-dn">↓ 弱于行业 ${nWeak} 项</span>（补齐优先级清单） · <span class="delta-up">↑ 强于行业 ${nStrong} 项</span>。
+    点「本产品」列徽章可跳到对应 case 详情。</div>
+    <table class="cmp-table"><thead><tr><th>行为</th><th>本产品</th>${products.map((p) => `<th>${p}</th>`).join('')}<th>对照</th></tr></thead>
     <tbody>${rows}</tbody></table>`;
+  $('baseline-body').querySelectorAll('[data-case]').forEach((el) => {
+    el.onclick = () => openDrawer(el.dataset.case);
+  });
 }
 function renderClassmate() {
   const cases = (state.classmate && state.classmate.cases) || state.classmate || {};

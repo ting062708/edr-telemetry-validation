@@ -1083,9 +1083,9 @@
         "actor_pid",
         "hostname"
       ],
-      "sample_sha256": "75FB659673039A176F389A6775D175ABBFE4BB0C5309EC2E9A7560EFFACA2F58",
+      "sample_sha256": "1378FF67D8500250D63D27086DB88DE8634D95CD7FBA7A8988C40147E8FF010C",
       "note": "实测: 同步 connect + HTTP GET 流量后，IOA 记为 NetworkEvents/HttpRequest (DstIp=93.184.216.34:80, protocol=tcp)。",
-      "sample_md5": "420CC1EE2BF37C9771EED953D17A3221",
+      "sample_md5": "1F9FA5B4D0CFDE4F9AA3372F49A7FC72",
       "behavior": "TCP 连接"
     },
     {
@@ -1138,10 +1138,10 @@
         "actor_pid",
         "hostname"
       ],
-      "sample_sha256": "75FB659673039A176F389A6775D175ABBFE4BB0C5309EC2E9A7560EFFACA2F58",
+      "sample_sha256": "1378FF67D8500250D63D27086DB88DE8634D95CD7FBA7A8988C40147E8FF010C",
       "expected_result": "not_implemented",
       "note": "实测: UDP DNS 查询到 8.8.8.8:53 仅产生 NetBind(bind阶段)，未采到目标 IP(SocketRequest 缺失)。事件存在但目标 IP 字段缺失 → 部分采集。",
-      "sample_md5": "420CC1EE2BF37C9771EED953D17A3221",
+      "sample_md5": "1F9FA5B4D0CFDE4F9AA3372F49A7FC72",
       "behavior": "UDP 连接"
     },
     {
@@ -1195,9 +1195,9 @@
         "actor_pid",
         "hostname"
       ],
-      "sample_sha256": "75FB659673039A176F389A6775D175ABBFE4BB0C5309EC2E9A7560EFFACA2F58",
+      "sample_sha256": "1378FF67D8500250D63D27086DB88DE8634D95CD7FBA7A8988C40147E8FF010C",
       "note": "实测: IOA 记为 NetworkEvents/HttpsRequest (host=www.baidu.com:443) + InternetEvents/InternetOpenUrlW。",
-      "sample_md5": "420CC1EE2BF37C9771EED953D17A3221",
+      "sample_md5": "1F9FA5B4D0CFDE4F9AA3372F49A7FC72",
       "behavior": "URL 访问"
     },
     {
@@ -1243,9 +1243,9 @@
         "actor_pid",
         "hostname"
       ],
-      "sample_sha256": "75FB659673039A176F389A6775D175ABBFE4BB0C5309EC2E9A7560EFFACA2F58",
+      "sample_sha256": "1378FF67D8500250D63D27086DB88DE8634D95CD7FBA7A8988C40147E8FF010C",
       "note": "实测: DnsQuery_W(dnsapi) 产生的 DNS 解析无对应 IOA 事件，example.com 全日志 0 条。IOA 无 DNS 解析采集。",
-      "sample_md5": "420CC1EE2BF37C9771EED953D17A3221",
+      "sample_md5": "1F9FA5B4D0CFDE4F9AA3372F49A7FC72",
       "behavior": "DNS 查询",
       "expected_result": "not_implemented"
     },
@@ -1296,9 +1296,9 @@
         "actor_pid",
         "hostname"
       ],
-      "sample_sha256": "75FB659673039A176F389A6775D175ABBFE4BB0C5309EC2E9A7560EFFACA2F58",
+      "sample_sha256": "1378FF67D8500250D63D27086DB88DE8634D95CD7FBA7A8988C40147E8FF010C",
       "note": "实测: IOA 记为 NetworkEvents/HttpsRequest (host=proof.ovh.net:443)。",
-      "sample_md5": "420CC1EE2BF37C9771EED953D17A3221",
+      "sample_md5": "1F9FA5B4D0CFDE4F9AA3372F49A7FC72",
       "behavior": "文件下载"
     },
     {

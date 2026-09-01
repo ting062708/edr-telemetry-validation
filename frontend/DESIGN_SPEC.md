@@ -308,3 +308,23 @@ Tab 结构（顶部 4 个 tab，默认「结果」）：
 - `status.py` 修复后 `/api/overview`：16 模块 53 case，collected 26 / not_collected 27，run_state 真实（matched/delivered）。
 - 新增端点全部 200；app.js 过 `node --check`；静态资源（style.css/app.js）经 Flask static_folder 正常服务。
 - 已知留白：变体数据源未接入（占位）；行业基线为行为级参照矩阵（未做模块级聚合差异，需行为中英映射表后再加）。
+
+## 十、变体分组（能力级并集判定）
+
+新增样本是「变体」——同一个能力（capability）的多个触发方式，命名 <模块>-<能力>-<序号>。
+现有变体：PROC-IMAGE-LOAD / PROC-TAMPER / FILE-CREATE / TASK-CREATE / REG-CREATE（各 2 个变体，-001/-002）。
+
+前端需要：
+
+1. **按能力分组**：case_id 前缀相同（去掉末尾 -<序号>）的 case 识别为同一能力的多个变体。
+
+2. **矩阵显示**：一个能力一行（默认折叠，行首 ▸ 展开箭头），展开显示各变体子行；或能力行加「N 变体」徽章，点击展开。
+
+3. **能力级并集判定**：
+   - 任一变体「采集到」→ 能力 verdict「对」
+   - 部分变体采到 →「疑问」（有偏向，仅部分触发方式命中）
+   - 全部变体没采到 →「错」（能力缺失/盲区）
+
+4. **详情抽屉**：加「变体 tab」，列出该能力所有变体 case + 各自跑测/判定状态，对照不同触发方式。
+
+5. **数据源**：现有 GET /api/overview 的 case 列表（case_id/module/binary/run_state），前端按 case_id 前缀分组即可，无需后端改动。

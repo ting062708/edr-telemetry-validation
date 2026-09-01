@@ -1,6 +1,6 @@
 """T0 smoke tests for the frontend (no VM required).
 
-  T0-1  collect_status() invariants on real data (53 cases / 16 modules)
+  T0-1  collect_status() invariants on real data (16 modules，总数随配置动态算)
   T0-2  /api/overview via Flask test client
   T0-3  field coverage parsing from an existing match_result.json
   T0-4  status.RUNS 与 server.RUNS 指向同一目录（防 P0 路径漂移回归）
@@ -8,6 +8,8 @@
 历史说明：T0-1 曾断言「collected==0 全部待判定」——那是 case_result_map/runs
 均为空时的兜底态。2026-09-01 status.py 的 RUNS 路径修复后，概览读到真实
 数据（collected>0），原断言前提已失效，改为校验不变量。
+2026-09-02 用户新增 5 个变体 case（REG-CREATE-002 等，45→50），总数断言
+由写死 53 改为从 test_cases.json + RESERVED_MODULES 动态计算。
 """
 import json
 import sys
@@ -19,10 +21,15 @@ for p in (ROOT, ROOT / 'core', ROOT / 'tools', _HERE):
     if str(p) not in sys.path:
         sys.path.insert(0, str(p))
 
-from status import collect_status
+from status import collect_status, RESERVED_MODULES, _load_test_cases
 
 BINARY_VALUES = {'采集通过', '采集未通过', '待判定'}
 RUN_STATES = {'never', 'delivered', 'matched'}
+
+
+def _expected_total() -> int:
+    """期望 case 总数 = test_cases.json + RESERVED_MODULES（随配置动态算，不写死）。"""
+    return len(_load_test_cases()) + sum(len(b) for _, b in RESERVED_MODULES)
 
 
 def t0_collect_status():
@@ -30,7 +37,8 @@ def t0_collect_status():
     s = st['summary']
     print(f"[T0-1] collect_status: {len(st['modules'])} modules, summary={s}")
     assert len(st['modules']) == 16, f"expected 16 modules, got {len(st['modules'])}"
-    assert s['total'] == 53, f"expected 53 cases, got {s['total']}"
+    exp = _expected_total()
+    assert s['total'] == exp, f"expected {exp} cases, got {s['total']}"
     assert s['collected'] + s['not_collected'] + s['pending'] == s['total'], s
     for m in st['modules']:
         for c in m['cases']:
@@ -57,13 +65,16 @@ def t0_overview():
     total = data['summary']['total']
     print(f"[T0-2] /api/overview -> {n_modules} modules / {total} cases")
     assert n_modules == 16, f"expected 16 modules, got {n_modules}"
-    assert total == 53, f"expected 53 cases, got {total}"
+    exp = _expected_total()
+    assert total == exp, f"expected {exp} cases, got {total}"
     # 新增只读端点冒烟
     assert client.get('/api/sysmon_evidence').status_code == 200
     assert client.get('/api/manual').status_code == 200
+    assert client.get('/api/analysis').status_code == 200
+    assert client.get('/api/classmate_baseline').status_code == 200
     v = client.get('/api/case/REG-CREATE-001/variants')
     assert v.status_code == 200 and v.get_json().get('variants') == [], v.get_json()
-    print("[T0-2 PASS] /api/overview 16 modules / 53 cases + 新端点可用")
+    print(f"[T0-2 PASS] /api/overview 16 modules / {total} cases + 新端点可用")
 
 
 def t0_field_table():

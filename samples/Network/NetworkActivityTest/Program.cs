@@ -15,7 +15,7 @@ namespace NetworkActivityTest
         private const string TcpTargetIp = "93.184.216.34";
         private const int TcpTargetPort = 80;
 
-        private const string UdpTargetIp = "8.8.8.8";
+        private const string UdpTargetIp = "114.114.114.114";
         private const int UdpTargetPort = 53;
         private const string UdpQueryName = "example.com";
 

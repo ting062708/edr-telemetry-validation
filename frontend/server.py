@@ -383,6 +383,48 @@ def api_mapping(case_id):
     return jsonify({'mapping': data})
 
 
+ANALYSIS = CONFIG / 'case_analysis.json'
+
+
+def _load_analysis() -> dict:
+    """人工撰写的映射笔记 + 采集分析：case_id -> {mapping, analysis, updated}。"""
+    if not ANALYSIS.exists():
+        return {}
+    try:
+        data = json.loads(ANALYSIS.read_text(encoding='utf-8-sig'))
+    except Exception:
+        return {}
+    return data.get('cases', {}) if isinstance(data, dict) else {}
+
+
+@app.route('/api/analysis')
+def api_analysis():
+    """全部 case 的人工分析（映射笔记 + 采集分析）。"""
+    return jsonify({'cases': _load_analysis()})
+
+
+@app.route('/api/case/<case_id>/analysis', methods=['POST'])
+def api_save_analysis(case_id):
+    """保存单个 case 的人工分析。空内容视为删除该条。"""
+    data = request.get_json(silent=True) or {}
+    mapping = str(data.get('mapping', '')).strip()
+    analysis = str(data.get('analysis', '')).strip()
+    cases = _load_analysis()
+    if mapping or analysis:
+        cases[case_id] = {
+            'mapping': mapping,
+            'analysis': analysis,
+            'updated': time.strftime('%Y-%m-%d %H:%M'),
+        }
+    else:
+        cases.pop(case_id, None)
+    ANALYSIS.write_text(
+        json.dumps({'_meta': {'purpose': '人工撰写的行为→IOA字段映射笔记与采集分析'}, 'cases': cases},
+                   ensure_ascii=False, indent=2),
+        encoding='utf-8')
+    return jsonify({'ok': True})
+
+
 @app.route('/api/case/<case_id>/stdouts')
 def api_stdouts(case_id):
     """stdout 版本列表（历史 + 最新指针），新版本在前。"""
