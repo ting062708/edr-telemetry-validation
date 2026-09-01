@@ -1,9 +1,0 @@
-<Solution>
-  <Configurations>
-    <Platform Name="Any CPU" />
-    <Platform Name="x64" />
-  </Configurations>
-  <Project Path="FileLifecycleTest/FileLifecycleTest.csproj" Id="e143ebee-c7cb-460f-a861-4f2b71af8321">
-    <Platform Solution="*|x64" Project="x64" />
-  </Project>
-</Solution>

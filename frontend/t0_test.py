@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 _HERE = Path(__file__).resolve().parent           # E:/EDR/frontend
-ROOT = _HERE.parent / 'EDRTest' / 'automation'    # E:/EDR/EDRTest/automation
+ROOT = _HERE.parent / 'automation'    # E:/EDR/automation
 for p in (ROOT, ROOT / 'core', ROOT / 'tools', _HERE):
     if str(p) not in sys.path:
         sys.path.insert(0, str(p))

@@ -1,9 +1,0 @@
-<Solution>
-  <Configurations>
-    <Platform Name="Any CPU" />
-    <Platform Name="x64" />
-  </Configurations>
-  <Project Path="RegistryLifecycleTest/RegistryLifecycleTest.csproj" Id="3b51093d-9eb1-402d-a3bf-a199477a90f1">
-    <Platform Solution="*|x64" Project="x64" />
-  </Project>
-</Solution>

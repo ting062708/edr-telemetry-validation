@@ -21,11 +21,11 @@ import uuid
 from pathlib import Path
 
 _HERE = Path(__file__).resolve().parent          # E:/EDR/frontend
-ROOT = _HERE.parent / 'EDRTest' / 'automation'   # E:/EDR/EDRTest/automation
+ROOT = _HERE.parent / 'automation'   # E:/EDR/automation
 CORE = ROOT / 'core'
 TOOLS = ROOT / 'tools'
 CONFIG = ROOT / 'config'
-RUNS = ROOT / 'runs'
+RUNS = ROOT.parent / 'results' / 'runs'
 RUNNER = ROOT / 'runner' / 'telemetry_runner.py'
 RUN_ALL = ROOT / 'run_all.py'
 
@@ -176,11 +176,11 @@ def _samples_root() -> Path:
             return Path(cfg['samples_root'])
     except Exception:
         pass
-    return ROOT.parent.parent / 'EDRTest' / 'samples'
+    return ROOT.parent / 'samples'
 
 
 def _log_roots() -> list[Path]:
-    return [ROOT / 'log', ROOT.parent / 'log', ROOT.parent.parent / 'log']
+    return [ROOT.parent / 'logs']
 
 
 def _list_log_candidates(module: str, case_id: str) -> list[dict]:
