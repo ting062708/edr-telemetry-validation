@@ -50,7 +50,6 @@ const state = {
   analysis: null,        // /api/analysis 整份（人工映射笔记+采集分析）
   es: null,              // 当前 EventSource
   taskId: null,          // 当前任务 id
-  variants: {},          // case_id -> variants 数组（占位，当前恒空）
 };
 
 /* 模块中文名 */
@@ -80,6 +79,34 @@ function badgeOf(c) {
 function allCases() {
   if (!state.overview) return [];
   return state.overview.modules.flatMap((m) => m.cases);
+}
+
+/* ── 变体分组（DESIGN_SPEC 十）：case_id 去掉末尾 -<序号> 即能力前缀。
+   PROC-IMAGE-LOAD-001/-002 → 能力 PROC-IMAGE-LOAD 的 2 个触发方式变体。 ── */
+function capKeyOf(caseId) { return String(caseId).replace(/-\d+$/, ''); }
+/* 按能力前缀分组，保持原有顺序；cases.length>1 的组即变体组 */
+function groupByCapability(cases) {
+  const groups = [];
+  const idx = {};
+  cases.forEach((c) => {
+    const k = capKeyOf(c.case_id);
+    if (idx[k] == null) { idx[k] = groups.length; groups.push({ key: k, cases: [] }); }
+    groups[idx[k]].cases.push(c);
+  });
+  return groups;
+}
+/* 能力级并集判定（DESIGN_SPEC 十.3）：
+   全部变体采集 → 对；部分变体采到/有疑问 → 疑问（采集有偏向）；
+   全部缺失 → 错；含待测且无采集 → 待测 */
+function unionBadge(cases) {
+  const cls = cases.map((c) => badgeOf(c).cls);
+  let b;
+  if (cls.every((x) => x === 'ok')) b = { cls: 'ok', txt: '采集' };
+  else if (cls.some((x) => x === 'ok' || x === 'warn')) b = { cls: 'warn', txt: '疑问' };
+  else if (cls.every((x) => x === 'bad')) b = { cls: 'bad', txt: '缺失' };
+  else b = { cls: 'muted', txt: '待测' };
+  if (cases.some((c) => !c.integrated)) b.manual = true;
+  return b;
 }
 function findCase(caseId) { return allCases().find((c) => c.case_id === caseId) || null; }
 function isManualModule(m) { return m.cases.every((c) => !c.integrated); }
@@ -174,11 +201,9 @@ function renderMatrix() {
       cnt.muted ? `<b class="x">${cnt.muted} 待测</b>` : '',
     ].filter(Boolean).join('');
     const manual = isManualModule(m);
-    const rows = m.cases.map((c) => {
+    /* 单行 case 渲染（独立行 & 变体子行共用） */
+    const caseCells = (c) => {
       const b = badgeOf(c);
-      const vs = state.variants[c.case_id] || [];
-      const expander = vs.length
-        ? `<span class="expander" data-exp="${esc(c.case_id)}">▸</span> ` : '';
       const sample = c.run_state !== 'never'
         ? '<span class="st"><i></i>已投递</span>' : '<span class="st no"><i></i>未投递</span>';
       const log = c.has_match_result ? '<span class="st"><i></i>已匹配</span>'
@@ -188,22 +213,53 @@ function renderMatrix() {
         ? `<button class="btn" data-act="match" data-id="${esc(c.case_id)}" title="匹配">${ICO.checkSm}</button>
            <button class="btn" data-act="run" data-id="${esc(c.case_id)}" title="跑样本">${ICO.playSm}</button>`
         : '<span class="manual-tag">手动测定</span>';
-      /* 变体子行（数据源占位，当前恒无）；case 行判定 = 变体并集 */
-      const subRows = vs.map((v) => `
-        <tr class="variant-row" data-parent="${esc(c.case_id)}" style="display:none">
-          <td class="case-id" style="padding-left:32px">${esc(v.case_id)}</td>
-          <td class="bhv">${esc(v.trigger || '')}</td>
-          <td><span class="badge ${v.badge_cls || 'muted'}"><i></i>${esc(v.badge_txt || '待测')}</span></td>
-          <td colspan="4" class="bhv">${esc(v.note || '')}</td>
-        </tr>`).join('');
-      return `<tr data-case="${esc(c.case_id)}">
-        <td class="case-id">${expander}${esc(c.case_id)}</td>
+      return { b, sample, log, ops };
+    };
+    const rows = groupByCapability(m.cases).map((g) => {
+      /* 单 case 能力：普通行 */
+      if (g.cases.length === 1) {
+        const c = g.cases[0];
+        const { b, sample, log, ops } = caseCells(c);
+        return `<tr data-case="${esc(c.case_id)}">
+        <td class="case-id">${esc(c.case_id)}</td>
         <td class="bhv">${esc(c.display)}</td>
         <td><span class="badge ${b.cls}"><i></i>${b.txt}</span>${b.manual ? '<span class="tag-manual">手测</span>' : ''}</td>
         <td>${c.integrated ? sample : '<span class="st no"><i></i>—</span>'}</td>
         <td>${c.integrated ? log : '<span class="st no"><i></i>—</span>'}</td>
         <td>${c.integrated ? sysmonCell(c) : '<span class="st no"><i></i>—</span>'}</td>
-        <td class="op">${ops}</td></tr>${subRows}`;
+        <td class="op">${ops}</td></tr>`;
+      }
+      /* 变体组：能力行（并集判定，点击展开）+ 各变体子行 */
+      const n = g.cases.length;
+      const ub = unionBadge(g.cases);
+      const nRun = g.cases.filter((c) => c.run_state !== 'never').length;
+      const nMatch = g.cases.filter((c) => c.has_match_result).length;
+      const nSy = g.cases.filter((c) => (state.sysmon[c.case_id] || {}).captured).length;
+      const syCell = nSy === n ? '<span class="st"><i></i>已对照</span>'
+        : nSy > 0 ? `<span class="st warn"><i></i>${nSy}/${n} 对照</span>`
+        : '<span class="st no"><i></i>无</span>';
+      const subRows = g.cases.map((c) => {
+        const { b, sample, log, ops } = caseCells(c);
+        return `<tr class="variant-row" data-parent="${esc(g.key)}" data-case="${esc(c.case_id)}" style="display:none">
+        <td class="case-id" style="padding-left:32px">${esc(c.case_id)}</td>
+        <td class="bhv">${esc(c.display)}</td>
+        <td><span class="badge ${b.cls}"><i></i>${b.txt}</span>${b.manual ? '<span class="tag-manual">手测</span>' : ''}</td>
+        <td>${c.integrated ? sample : '<span class="st no"><i></i>—</span>'}</td>
+        <td>${c.integrated ? log : '<span class="st no"><i></i>—</span>'}</td>
+        <td>${c.integrated ? sysmonCell(c) : '<span class="st no"><i></i>—</span>'}</td>
+        <td class="op">${ops}</td></tr>`;
+      }).join('');
+      return `<tr class="cap-row" data-cap="${esc(g.key)}">
+        <td class="case-id"><span class="expander" data-exp="${esc(g.key)}">▸</span> ${esc(g.key)}<span class="tag-var">${n} 变体</span></td>
+        <td class="bhv" style="color:var(--text-faint)">${n} 种触发方式 · 判定取并集</td>
+        <td><span class="badge ${ub.cls}"><i></i>${ub.txt}</span><span class="tag-cap">并集</span></td>
+        <td><span class="st${nRun ? '' : ' no'}"><i></i>${nRun}/${n} 已投递</span></td>
+        <td><span class="st${nMatch ? '' : ' no'}"><i></i>${nMatch}/${n} 已匹配</span></td>
+        <td>${syCell}</td>
+        <td class="op">
+          <button class="btn" data-gact="match" data-ids="${esc(g.cases.map((c) => c.case_id).join(','))}" title="匹配全部变体">${ICO.checkSm}</button>
+          <button class="btn" data-gact="run" data-ids="${esc(g.cases.filter((c) => c.integrated).map((c) => c.case_id).join(','))}" title="跑全部变体">${ICO.playSm}</button>
+        </td></tr>${subRows}`;
     }).join('');
     return `<div class="module-band">
         <span class="name">${esc(m.module)}</span><span class="cn">${esc(MODULE_CN[m.module] || m.display)}</span>
@@ -222,11 +278,31 @@ function renderMatrix() {
   $('modules').querySelectorAll('tr[data-case]').forEach((tr) => {
     tr.onclick = () => openDrawer(tr.dataset.case);
   });
+  /* 能力行：点击任意位置 = 展开/收起变体子行 */
+  const toggleCap = (key) => {
+    const ex = $('modules').querySelector(`.expander[data-exp="${key}"]`);
+    const subs = $('modules').querySelectorAll(`tr[data-parent="${key}"]`);
+    const open = ex.textContent === '▸';
+    ex.textContent = open ? '▾' : '▸';
+    subs.forEach((s) => { s.style.display = open ? '' : 'none'; });
+  };
+  $('modules').querySelectorAll('tr[data-cap]').forEach((tr) => {
+    tr.onclick = () => toggleCap(tr.dataset.cap);
+  });
   $('modules').querySelectorAll('button[data-act]').forEach((btn) => {
     btn.onclick = (e) => {
       e.stopPropagation();
       if (btn.dataset.act === 'run') runCase(btn.dataset.id);
       else matchCase(btn.dataset.id);
+    };
+  });
+  /* 能力组整组跑/匹配（串行队列） */
+  $('modules').querySelectorAll('button[data-gact]').forEach((btn) => {
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      const ids = btn.dataset.ids.split(',').filter(Boolean);
+      if (btn.dataset.gact === 'run') runGroup(ids);
+      else matchGroup(ids);
     };
   });
   $('modules').querySelectorAll('button[data-mact]').forEach((btn) => {
@@ -239,11 +315,7 @@ function renderMatrix() {
   $('modules').querySelectorAll('.expander').forEach((ex) => {
     ex.onclick = (e) => {
       e.stopPropagation();
-      const id = ex.dataset.exp;
-      const subs = $('modules').querySelectorAll(`tr[data-parent="${id}"]`);
-      const open = ex.textContent === '▸';
-      ex.textContent = open ? '▾' : '▸';
-      subs.forEach((s) => { s.style.display = open ? '' : 'none'; });
+      toggleCap(ex.dataset.exp);
     };
   });
 }
@@ -570,33 +642,49 @@ function loadTabSysmon(c) {
     <div style="color:var(--text-faint);font-size:11px;margin-top:10px">绿色为基线相关 EventID。数据来源：config/sysmon_evidence.json（人工整理，样本人工确认后入 case，前端不做自动归因）。</div>`;
 }
 
-/* ── 变体 tab（占位，数据源预留） ── */
-async function loadTabVariants(c) {
-  let variants = [];
-  try { variants = (await api(`/api/case/${c.case_id}/variants`)).variants || []; } catch (e) { /* 占位接口 */ }
-  state.variants[c.case_id] = variants;
-  if (!variants.length) {
+/* ── 变体 tab（DESIGN_SPEC 十.4）：同能力前缀的变体 case 列表 + 并集判定 ── */
+function loadTabVariants(c) {
+  const key = capKeyOf(c.case_id);
+  const siblings = allCases()
+    .filter((x) => capKeyOf(x.case_id) === key)
+    .sort((a, b) => a.case_id.localeCompare(b.case_id));
+  if (siblings.length <= 1) {
     $('d-body').innerHTML = `
       <div class="empty" style="text-align:left;line-height:2">
-        <div class="big" style="text-align:center">暂无变体</div>
+        <div class="big" style="text-align:center">无变体 · 单触发方式</div>
         <div class="note-box" style="margin-top:14px">
           <b>什么是变体？</b><br>
           一个「能力」可能有多个触发方式（如注册表 Run 键 / RunOnce 键），EDR 采集有偏向性，
           需要用多个测试样例确认。每个触发方式是一个变体 case。<br><br>
           <b>命名约定</b>：<code style="font-family:var(--mono);background:var(--raised);padding:1px 6px;border-radius:5px;color:var(--accent)">&lt;模块&gt;-&lt;能力&gt;-&lt;序号&gt;</code>，
-          如 REG-CREATE-001（Run 键）/ REG-CREATE-002（RunOnce 键），序号即触发方式变体。<br><br>
-          <b>并集判定</b>：case 行判定 = 各变体判定的并集——任一变体命中即能力存在（对应 docs/chain/04_conclusion.md「能力级并集判定」）。<br><br>
-          <b>数据源</b>：<code style="font-family:var(--mono);background:var(--raised);padding:1px 6px;border-radius:5px;color:var(--accent)">GET /api/case/&lt;id&gt;/variants</code> 已预留（当前返回空）。
+          如 REG-CREATE-001（Run 键）/ REG-CREATE-002（RunOnce 键）。case_id 前缀相同（去掉末尾序号）的
+          case 自动识别为同一能力的变体，矩阵里合并为一行、判定取并集。<br><br>
+          <b>并集判定</b>：全部变体采到 → 采集；部分采到 → 疑问（有偏向）；全部未采到 → 缺失。
         </div>
         <div class="sec-t">当前 CASE</div>
         <div class="log-item"><span class="nm">${esc(c.case_id)}</span><span class="mt">${esc(c.display)}</span></div>
       </div>`;
     return;
   }
-  /* 有变体时的渲染（未来启用）：各变体自带判定徽章 */
-  $('d-body').innerHTML = `<div class="sec-t">变体（${variants.length}）· 并集判定</div>` + variants.map((v) => `
-    <div class="log-item"><span class="nm">${esc(v.case_id)} · ${esc(v.trigger || '')}</span>
-    <span class="badge ${v.badge_cls || 'muted'}"><i></i>${esc(v.badge_txt || '待测')}</span></div>`).join('');
+  const ub = unionBadge(siblings);
+  const rows = siblings.map((s) => {
+    const b = badgeOf(s);
+    const cur = s.case_id === c.case_id;
+    const run = s.run_state !== 'never' ? '已投递' : '未投递';
+    const mt = s.has_match_result ? '已匹配' : s.has_stdout ? '待匹配' : '无日志';
+    return `<div class="log-item var-item${cur ? ' cur' : ''}" data-var="${esc(s.case_id)}">
+      <span class="nm">${esc(s.case_id)}${cur ? ' · 当前' : ''}</span>
+      <span class="mt">${esc(s.display)}<br><span style="font-size:10px">${run} · ${mt}</span></span>
+      <span class="badge ${b.cls}"><i></i>${b.txt}</span></div>`;
+  }).join('');
+  $('d-body').innerHTML = `
+    <div class="note-box">能力 <b style="font-family:var(--mono)">${esc(key)}</b> 共 ${siblings.length} 个触发方式变体，
+    能力级判定取并集：<span class="badge ${ub.cls}"><i></i>${ub.txt}</span>
+    （全部采到 → 采集；部分采到 → 疑问·有偏向；全部未采到 → 缺失）。点任一变体可切换查看。</div>
+    <div class="sec-t">变体列表 · VARIANTS</div>${rows}`;
+  $('d-body').querySelectorAll('[data-var]').forEach((el) => {
+    el.onclick = () => { if (el.dataset.var !== c.case_id) openDrawer(el.dataset.var, 'variants'); };
+  });
 }
 
 /* ═══════════ 滑出面板（手册 / Baseline / 报告） ═══════════ */
@@ -977,6 +1065,25 @@ async function matchCase(id, jsonPath) {
     const r = await post(`/api/case/${id}/match`, jsonPath ? { json: jsonPath } : {});
     attachTask(r.task_id, `match ${id}${jsonPath ? '（指定日志）' : ''}`);
   } catch (e) { toast('启动失败：' + e.message); }
+}
+/* 能力组整组跑/匹配：逐个投递（后端单 VM 串行队列），终端跟随最后一个任务 */
+async function runGroup(ids) {
+  let last = null, ok = 0;
+  for (const id of ids) {
+    try { const r = await post(`/api/case/${id}/run`); last = [r.task_id, `run ${id}（变体组）`]; ok++; }
+    catch (e) { toast(`投递 ${id} 失败：${e.message}`); }
+  }
+  if (last) attachTask(last[0], last[1]);
+  if (ok > 1) toast(`已投递 ${ok} 个变体到串行队列`);
+}
+async function matchGroup(ids) {
+  let last = null, ok = 0;
+  for (const id of ids) {
+    try { const r = await post(`/api/case/${id}/match`); last = [r.task_id, `match ${id}（变体组）`]; ok++; }
+    catch (e) { toast(`匹配 ${id} 失败：${e.message}`); }
+  }
+  if (last) attachTask(last[0], last[1]);
+  if (ok > 1) toast(`已提交 ${ok} 个变体匹配`);
 }
 async function runModule(mod) {
   try { const r = await post(`/api/module/${mod}/deliver`); attachTask(r.task_id, `deliver --module ${mod}`); }

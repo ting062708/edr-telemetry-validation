@@ -161,7 +161,7 @@
         "FILE-CREATE-001"
       ],
       "capability": "有",
-      "note": "能力有(FileWriteClose×851)但样本进程FileEvents 0命中=采集盲区;纯创建靠FileTotalWrite=0区分",
+      "note": "能力有(FileWriteClose×851)但样本进程FileEvents 0命中=采集盲区;纯创建靠FileTotalWrite=0区分；实测双重盲区：路径C:\\EDRTest不采 + 文件类型TXT不采（JSON/DLL/EXE采，FileJsonTest@C:\\Temp验证）",
       "last_assessment": "未采到"
     },
     {
@@ -184,7 +184,7 @@
         "FILE-OPEN-001"
       ],
       "capability": "有",
-      "note": "能力有;行业公认难采",
+      "note": "能力有;行业公认难采；实测双重盲区：路径C:\\EDRTest不采 + 文件类型TXT不采（JSON/DLL/EXE采，FileJsonTest@C:\\Temp验证）",
       "last_assessment": "未采到"
     },
     {
@@ -206,7 +206,7 @@
         "FILE-DELETE-001"
       ],
       "capability": "有",
-      "note": "FileDelete×2269",
+      "note": "FileDelete×2269；文件类型盲区：DLL可采，TXT/JSON不采",
       "last_assessment": "未采到"
     },
     {
@@ -228,7 +228,7 @@
         "FILE-MODIFY-001"
       ],
       "capability": "有",
-      "note": "FileWriteClose存在",
+      "note": "FileWriteClose存在；实测双重盲区：路径C:\\EDRTest不采 + 文件类型TXT不采（JSON/DLL/EXE采，FileJsonTest@C:\\Temp验证）",
       "last_assessment": "未采到"
     },
     {
@@ -250,7 +250,7 @@
         "FILE-RENAME-001"
       ],
       "capability": "有",
-      "note": "FileRename×7;baseline写MoveFileExW,实际Action.Name=FileRename(带OldFilePath)",
+      "note": "FileRename×7;baseline写MoveFileExW,实际Action.Name=FileRename(带OldFilePath)；实测双重盲区：路径C:\\EDRTest不采 + 文件类型TXT不采（JSON/DLL/EXE采，FileJsonTest@C:\\Temp验证）",
       "last_assessment": "未采到"
     },
     {
@@ -452,7 +452,7 @@
         "NET-TCP-001"
       ],
       "capability": "有",
-      "note": "NetBind×3;baseline同;NetBind在RUN-END后36s出现,需post_slack≥60",
+      "note": "NetBind×3;baseline同;NetBind在RUN-END后36s出现,需post_slack≥60；TCP采的是connect，UDP才踩bind盲区",
       "last_assessment": "未采到"
     },
     {
@@ -474,7 +474,7 @@
         "NET-UDP-001"
       ],
       "capability": "有",
-      "note": "NetBind×3;baseline同",
+      "note": "NetBind×3;baseline同；UDP只采bind(NetBind)不采sendto，UDP连接本身是盲区（114.114.114.114实测0命中）",
       "last_assessment": "采到"
     },
     {

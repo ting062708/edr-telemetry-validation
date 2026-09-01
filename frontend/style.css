@@ -117,8 +117,17 @@ tbody td{padding:0 14px;height:40px;border-bottom:1px solid var(--border);font-s
 tbody tr{transition:background .1s}
 tbody tr:hover{background:var(--accent-bg);cursor:pointer}
 tbody tr:last-child td{border-bottom:none}
-tbody tr.variant-row:hover{background:var(--panel-2);cursor:default}
+tbody tr.variant-row:hover{background:var(--panel-2);cursor:pointer}
 tbody tr.variant-row td{background:var(--panel-2);font-size:12px;height:34px}
+/* 能力行（变体组，并集判定）：浅色强调底 + 左侧竖条，与变体子行区分层级 */
+tbody tr.cap-row td{background:var(--accent-bg)}
+tbody tr.cap-row:hover td{background:#e8eeff}
+tbody tr.cap-row td:first-child{border-left:3px solid var(--accent);padding-left:11px}
+.tag-var{display:inline-flex;align-items:center;margin-left:8px;padding:1px 7px;border-radius:9px;font-size:10px;color:var(--accent);background:#fff;border:1px solid #dbe3fd;font-weight:600;font-family:var(--sans);vertical-align:1px}
+.tag-cap{display:inline-flex;align-items:center;margin-left:6px;padding:1px 7px;border-radius:9px;font-size:10px;color:var(--text-faint);background:var(--raised);font-weight:600;vertical-align:1px}
+/* 抽屉变体列表 */
+.var-item{cursor:pointer}
+.var-item.cur{border-color:var(--accent);background:var(--accent-bg)}
 .case-id{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:600}
 .bhv{color:var(--text-dim)}
 .badge{display:inline-flex;align-items:center;gap:6px;padding:3px 11px;border-radius:12px;font-size:11px;font-weight:600}
