@@ -398,13 +398,9 @@ def _raw_logs_roots() -> list:
 def _collect_log_candidates(test_case: dict) -> list:
     """Collect candidate IOA JSON exports for a case, newest mtime first.
 
-    Searches three layouts under each log root:
-      (a) log/<Module>/json/*.json   (per-module exports)
-      (b) log/<Module>/*.json        (flat per-module exports)
-      (c) log/*.json                 (flat full-log exports)
+    Searches log/*.json (flat full-log exports) under the single log root.
     Files whose name contains the case id rank above others; within each
-    group the most recently modified file wins. Duplicate paths (reachable
-    via multiple roots) are collapsed.
+    group the most recently modified file wins.
     """
     module = test_case.get('module') or 'Unknown'
     case_id = test_case['id']
