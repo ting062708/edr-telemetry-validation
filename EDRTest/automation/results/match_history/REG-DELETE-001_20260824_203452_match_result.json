@@ -1,0 +1,109 @@
+{
+  "verdict": "NOT_IMPLEMENTED",
+  "verdict_icon": "❌",
+  "capability_state": "Not Implemented",
+  "message": "未采集：云端日志中无 'RegDeleteValue' 行为事件（能力不存在）。 Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": "not_implemented",
+  "as_expected": true,
+  "capability_detected": false,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {
+    "Operation": {
+      "value": "RegDeleteValue",
+      "found": false,
+      "where": []
+    },
+    "RegistryPath": {
+      "value": "Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+      "found": false,
+      "where": []
+    },
+    "ValueName": {
+      "value": "EDRTelemetryRunTest",
+      "found": true,
+      "where": [
+        "RegSetValue"
+      ]
+    },
+    "OldValue": {
+      "value": "C:\\Windows\\System32\\calc.exe",
+      "found": true,
+      "where": [
+        "RegSetValue"
+      ]
+    }
+  },
+  "test_case_id": "REG-DELETE-001",
+  "module": "Registry",
+  "action": "--case REG-DELETE-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 2255,
+    "after_hostname": 2255,
+    "after_time": 53,
+    "after_actor": 3,
+    "after_pid": 3,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-23T05:04:04.389000+00:00",
+    "log_time_max": "2026-08-23T05:11:50.191000+00:00",
+    "target_begin": "2026-08-23T05:08:21.404000+00:00",
+    "target_end": "2026-08-23T05:08:21.420000+00:00",
+    "run_begin": "2026-08-23T05:08:15.999000+00:00",
+    "run_end": "2026-08-23T05:08:21.420000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": false,
+    "capability_base_detected": false,
+    "capability_evidence": [],
+    "value_scan": {
+      "Operation": {
+        "value": "RegDeleteValue",
+        "found": false,
+        "where": []
+      },
+      "RegistryPath": {
+        "value": "Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+        "found": false,
+        "where": []
+      },
+      "ValueName": {
+        "value": "EDRTelemetryRunTest",
+        "found": true,
+        "where": [
+          "RegSetValue"
+        ]
+      },
+      "OldValue": {
+        "value": "C:\\Windows\\System32\\calc.exe",
+        "found": true,
+        "where": [
+          "RegSetValue"
+        ]
+      }
+    },
+    "capability_count": 0,
+    "capability_base_count": 0,
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 2255/2255",
+      "Time window [2026-08-23T05:08:10.999000+00:00 – 2026-08-23T05:08:51.420000+00:00]: 53 events (coverage=COVERED)",
+      "Actor ('RegistryLifecycleTest.exe'): 3 events",
+      "PID (11384): strict → 3 events",
+      "MD5 exact ('8C0800D1C33F9DABCD7E82C5748D6BBB'): 3 → 3 events",
+      "Operation ('RegDeleteValue'): 0 events",
+      "Capability ('RegDeleteValue'): 0 events (能力不存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

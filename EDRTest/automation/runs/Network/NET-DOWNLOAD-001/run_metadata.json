@@ -1,0 +1,32 @@
+[
+  {
+    "test_case_id": "NET-DOWNLOAD-001",
+    "run_id": "544a9502-ff4a-413c-9b6b-5231a06d5589",
+    "module": "Network",
+    "action": "FileDownloaded",
+    "process_name": "NetworkActivityTest.exe",
+    "pid": 10016,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T16:49:51.569000+00:00",
+    "setup_begin_utc": "2026-08-26T16:49:51.664000+00:00",
+    "setup_end_utc": "2026-08-26T16:49:51.669000+00:00",
+    "target_begin_utc": "2026-08-26T16:49:51.669000+00:00",
+    "target_end_utc": "2026-08-26T16:50:48.174000+00:00",
+    "run_end_utc": "2026-08-26T16:50:48.174000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "URL": "https://proof.ovh.net/files/1Mb.dat",
+      "Host": "proof.ovh.net",
+      "RemotePort": "443",
+      "OutputPath": "C:\\Temp\\EDRTest\\NetworkActivityTest_download.dat",
+      "BytesDownloaded": "1048576",
+      "SHA256": "66F77F71710117F71712EB5766F3151E8AECEC390EBE0B0349C84961F1A547E6",
+      "Md5": "77d0476b8db959524e967d35e918e487"
+    },
+    "error_lines": []
+  }
+]

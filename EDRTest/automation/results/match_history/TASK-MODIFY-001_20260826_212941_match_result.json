@@ -1,0 +1,157 @@
+{
+  "verdict": "NOT_IMPLEMENTED",
+  "verdict_icon": "❌",
+  "capability_state": "Not Implemented",
+  "message": "未采集：云端日志中无 'SchedTaskUpdate' 行为事件（能力不存在）。 Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": "not_implemented",
+  "as_expected": true,
+  "capability_detected": false,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {
+    "TaskName": {
+      "value": "EDR_Telemetry_Test_Task",
+      "found": false,
+      "where": []
+    },
+    "TaskPath": {
+      "value": "\\EDR_Telemetry_Test_Task",
+      "found": false,
+      "where": []
+    },
+    "Operation": {
+      "value": "Modify",
+      "found": false,
+      "where": []
+    },
+    "Command": {
+      "value": "C:\\Windows\\System32\\cmd.exe",
+      "found": true,
+      "where": [
+        "ProcessCreate"
+      ]
+    },
+    "CommandArgs": {
+      "value": "/c exit 0",
+      "found": true,
+      "where": [
+        "ScriptScan"
+      ]
+    },
+    "Author": {
+      "value": "tester",
+      "found": true,
+      "where": [
+        "ProcessCreate"
+      ]
+    },
+    "Description": {
+      "value": "EDR Scheduled Task Modification Test",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "TASK-MODIFY-001",
+  "module": "ScheduleTask",
+  "action": "--case TASK-MODIFY-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 9721,
+    "after_hostname": 9721,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-25T14:15:23.127000+00:00",
+    "log_time_max": "2026-08-25T15:18:19.937000+00:00",
+    "target_begin": "2026-08-25T14:51:06.471000+00:00",
+    "target_end": "2026-08-25T14:51:07.494000+00:00",
+    "run_begin": "2026-08-25T14:51:02.799000+00:00",
+    "run_end": "2026-08-25T14:51:07.494000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": false,
+    "capability_base_detected": false,
+    "capability_evidence": [],
+    "value_scan": {
+      "TaskName": {
+        "value": "EDR_Telemetry_Test_Task",
+        "found": false,
+        "where": []
+      },
+      "TaskPath": {
+        "value": "\\EDR_Telemetry_Test_Task",
+        "found": false,
+        "where": []
+      },
+      "Operation": {
+        "value": "Modify",
+        "found": false,
+        "where": []
+      },
+      "Command": {
+        "value": "C:\\Windows\\System32\\cmd.exe",
+        "found": true,
+        "where": [
+          "ProcessCreate"
+        ]
+      },
+      "CommandArgs": {
+        "value": "/c exit 0",
+        "found": true,
+        "where": [
+          "ScriptScan"
+        ]
+      },
+      "Author": {
+        "value": "tester",
+        "found": true,
+        "where": [
+          "ProcessCreate"
+        ]
+      },
+      "Description": {
+        "value": "EDR Scheduled Task Modification Test",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 0,
+    "capability_base_count": 0,
+    "capability_v2": "无",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "indirect",
+      "anchor_process": "ScheduledTaskLifecycleTest.exe",
+      "anchor_md5": "95f1cb296d1e29c5a5b526f071739b2e",
+      "tables": [
+        "ServiceEvents"
+      ],
+      "operations": [
+        "SchedTaskUpdate"
+      ],
+      "probe": null
+    },
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 9721/9721",
+      "Time window [2026-08-25T14:50:57.799000+00:00 – 2026-08-25T14:51:37.494000+00:00]: 0 events (coverage=COVERED)",
+      "Actor ('ScheduledTaskLifecycleTest.exe'): 0 events",
+      "PID (5428): source carries no actor_pid — filter omitted",
+      "MD5 exact ('95F1CB296D1E29C5A5B526F071739B2E'): 0 → 0 events",
+      "Operation ('SchedTaskUpdate'): 0 events",
+      "Capability ('SchedTaskUpdate'): 0 events (能力不存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

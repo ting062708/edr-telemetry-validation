@@ -1,0 +1,29 @@
+[
+  {
+    "test_case_id": "HASH-IMPHASH-001",
+    "run_id": "f01dee52-21af-4582-835d-27d89332d809",
+    "module": "Hash",
+    "action": "IMPHASH",
+    "process_name": "HashBaselineTool.exe",
+    "pid": 11948,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T15:41:47.866000+00:00",
+    "setup_begin_utc": "2026-08-26T15:41:47.870000+00:00",
+    "setup_end_utc": "2026-08-26T15:41:47.872000+00:00",
+    "target_begin_utc": "2026-08-26T15:41:47.872000+00:00",
+    "target_end_utc": "2026-08-26T15:41:47.947000+00:00",
+    "run_end_utc": "2026-08-26T15:41:47.947000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Algorithm": "IMPHASH",
+      "TargetPath": "C:\\EDRTest\\samples\\Hash\\Support\\TestLibrary.dll",
+      "IMPHASH": "bc467363ca8532e5f94bbbbd5cf5f104",
+      "ImportCount": "18"
+    },
+    "error_lines": []
+  }
+]

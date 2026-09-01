@@ -1,0 +1,149 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "采集到：云端日志存在 11 条 'RemoteThread' 事件（能力存在）。Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {
+    "Operation": {
+      "value": "RemoteThreadCreate",
+      "found": false,
+      "where": []
+    },
+    "TargetPID": {
+      "value": "5624",
+      "found": true,
+      "where": [
+        "FileDelete"
+      ]
+    },
+    "RemoteThreadID": {
+      "value": "6720",
+      "found": true,
+      "where": [
+        "ProcessCreate"
+      ]
+    },
+    "StartRoutine": {
+      "value": "kernel32!Sleep",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "PROC-REMOTE-THREAD-001",
+  "module": "Process",
+  "action": "remotethread",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 11615,
+    "after_hostname": 11615,
+    "after_time": 102,
+    "after_actor": 14,
+    "after_pid": 14,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-26T16:01:23.490000+00:00",
+    "log_time_max": "2026-08-26T17:31:12.098000+00:00",
+    "target_begin": "2026-08-26T16:41:09.590000+00:00",
+    "target_end": "2026-08-26T16:41:10.508000+00:00",
+    "run_begin": "2026-08-26T16:41:06.338000+00:00",
+    "run_end": "2026-08-26T16:41:11.623000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "RemoteThread",
+        "actor": "csrss.exe",
+        "target": "csrss.exe"
+      },
+      {
+        "operation": "RemoteThread",
+        "actor": "ProcessTarget.exe",
+        "target": "ProcessTarget.exe"
+      },
+      {
+        "operation": "RemoteThread",
+        "actor": "VGAuthService.exe",
+        "target": "VGAuthService.exe"
+      },
+      {
+        "operation": "RemoteThread",
+        "actor": "spoolsv.exe",
+        "target": "spoolsv.exe"
+      },
+      {
+        "operation": "RemoteThread",
+        "actor": "vm3dservice.exe",
+        "target": "vm3dservice.exe"
+      }
+    ],
+    "value_scan": {
+      "Operation": {
+        "value": "RemoteThreadCreate",
+        "found": false,
+        "where": []
+      },
+      "TargetPID": {
+        "value": "5624",
+        "found": true,
+        "where": [
+          "FileDelete"
+        ]
+      },
+      "RemoteThreadID": {
+        "value": "6720",
+        "found": true,
+        "where": [
+          "ProcessCreate"
+        ]
+      },
+      "StartRoutine": {
+        "value": "kernel32!Sleep",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 11,
+    "capability_base_count": 11,
+    "capability_v2": "无",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "direct",
+      "anchor_process": "ProcessLifecycleTest.exe",
+      "anchor_md5": "f6d123d8483cf7bc0d324726b3b52639",
+      "tables": [
+        "RemoteInjectEvents"
+      ],
+      "operations": [
+        "RemoteThread"
+      ],
+      "probe": null
+    },
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 11615/11615",
+      "Time window [2026-08-26T16:41:01.338000+00:00 – 2026-08-26T16:41:41.623000+00:00]: 102 events (coverage=COVERED)",
+      "Actor ('ProcessLifecycleTest.exe'): 14 events",
+      "PID (7208): strict → 14 events",
+      "MD5 exact ('F6D123D8483CF7BC0D324726B3B52639'): 14 → 14 events",
+      "Operation ('RemoteThread'): 0 events",
+      "Capability ('RemoteThread'): 11 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

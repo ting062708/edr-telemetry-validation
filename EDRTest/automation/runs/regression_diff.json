@@ -1,0 +1,259 @@
+{
+  "created": "2026-08-23T17:53:10",
+  "baseline_created": "2026-08-23T17:51:47",
+  "rules_changed": false,
+  "rows": [
+    {
+      "case_id": "REG-CREATE-001",
+      "module": "Registry",
+      "before": null,
+      "after": null,
+      "change": "skip"
+    },
+    {
+      "case_id": "REG-MODIFY-001",
+      "module": "Registry",
+      "before": null,
+      "after": null,
+      "change": "skip"
+    },
+    {
+      "case_id": "REG-DELETE-001",
+      "module": "Registry",
+      "before": null,
+      "after": null,
+      "change": "skip"
+    },
+    {
+      "case_id": "PROC-IMAGE-LOAD-001",
+      "module": "Process",
+      "before": null,
+      "after": null,
+      "change": "skip"
+    },
+    {
+      "case_id": "PROC-CREATE-001",
+      "module": "Process",
+      "before": "IMPLEMENTED",
+      "after": "IMPLEMENTED",
+      "change": "unchanged"
+    },
+    {
+      "case_id": "PROC-ACCESS-001",
+      "module": "Process",
+      "before": "IMPLEMENTED",
+      "after": "IMPLEMENTED",
+      "change": "unchanged"
+    },
+    {
+      "case_id": "PROC-REMOTE-THREAD-001",
+      "module": "Process",
+      "before": "IMPLEMENTED",
+      "after": "IMPLEMENTED",
+      "change": "unchanged"
+    },
+    {
+      "case_id": "PROC-TAMPER-001",
+      "module": "Process",
+      "before": "IMPLEMENTED",
+      "after": "IMPLEMENTED",
+      "change": "unchanged"
+    },
+    {
+      "case_id": "PROC-TERMINATE-001",
+      "module": "Process",
+      "before": "NOT_IMPLEMENTED",
+      "after": "NOT_IMPLEMENTED",
+      "change": "unchanged"
+    },
+    {
+      "case_id": "FILE-CREATE-001",
+      "module": "File",
+      "before": "NOT_IMPLEMENTED",
+      "after": "NOT_IMPLEMENTED",
+      "change": "unchanged"
+    },
+    {
+      "case_id": "FILE-OPEN-001",
+      "module": "File",
+      "before": "NOT_IMPLEMENTED",
+      "after": "NOT_IMPLEMENTED",
+      "change": "unchanged"
+    },
+    {
+      "case_id": "FILE-DELETE-001",
+      "module": "File",
+      "before": "NOT_IMPLEMENTED",
+      "after": "NOT_IMPLEMENTED",
+      "change": "unchanged"
+    },
+    {
+      "case_id": "FILE-MODIFY-001",
+      "module": "File",
+      "before": "NOT_IMPLEMENTED",
+      "after": "NOT_IMPLEMENTED",
+      "change": "unchanged"
+    },
+    {
+      "case_id": "FILE-RENAME-001",
+      "module": "File",
+      "before": "NOT_IMPLEMENTED",
+      "after": "NOT_IMPLEMENTED",
+      "change": "unchanged"
+    },
+    {
+      "case_id": "ACCOUNT-CREATE-001",
+      "module": "Account",
+      "before": "NOT_IMPLEMENTED",
+      "after": "NOT_IMPLEMENTED",
+      "change": "unchanged"
+    },
+    {
+      "case_id": "ACCOUNT-MODIFY-001",
+      "module": "Account",
+      "before": "NOT_IMPLEMENTED",
+      "after": "NOT_IMPLEMENTED",
+      "change": "unchanged"
+    },
+    {
+      "case_id": "ACCOUNT-DELETE-001",
+      "module": "Account",
+      "before": "NOT_IMPLEMENTED",
+      "after": "NOT_IMPLEMENTED",
+      "change": "unchanged"
+    },
+    {
+      "case_id": "ACCOUNT-LOGIN-001",
+      "module": "Account",
+      "before": "IMPLEMENTED",
+      "after": "IMPLEMENTED",
+      "change": "unchanged"
+    },
+    {
+      "case_id": "ACCOUNT-LOGOFF-001",
+      "module": "Account",
+      "before": "IMPLEMENTED",
+      "after": "IMPLEMENTED",
+      "change": "unchanged"
+    },
+    {
+      "case_id": "NET-TCP-001",
+      "module": "Network",
+      "before": null,
+      "after": null,
+      "change": "skip"
+    },
+    {
+      "case_id": "NET-UDP-001",
+      "module": "Network",
+      "before": null,
+      "after": null,
+      "change": "skip"
+    },
+    {
+      "case_id": "NET-URL-001",
+      "module": "Network",
+      "before": null,
+      "after": null,
+      "change": "skip"
+    },
+    {
+      "case_id": "NET-DNS-001",
+      "module": "Network",
+      "before": null,
+      "after": null,
+      "change": "skip"
+    },
+    {
+      "case_id": "NET-DOWNLOAD-001",
+      "module": "Network",
+      "before": null,
+      "after": null,
+      "change": "skip"
+    },
+    {
+      "case_id": "HASH-MD5-001",
+      "module": "Hash",
+      "before": null,
+      "after": null,
+      "change": "skip"
+    },
+    {
+      "case_id": "HASH-SHA-001",
+      "module": "Hash",
+      "before": null,
+      "after": null,
+      "change": "skip"
+    },
+    {
+      "case_id": "HASH-IMPHASH-001",
+      "module": "Hash",
+      "before": null,
+      "after": null,
+      "change": "skip"
+    },
+    {
+      "case_id": "DRIVER-LOAD-001",
+      "module": "Driver",
+      "before": "IMPLEMENTED",
+      "after": "IMPLEMENTED",
+      "change": "unchanged"
+    },
+    {
+      "case_id": "DRIVER-MODIFY-001",
+      "module": "Driver",
+      "before": "IMPLEMENTED",
+      "after": "IMPLEMENTED",
+      "change": "unchanged"
+    },
+    {
+      "case_id": "DRIVER-UNLOAD-001",
+      "module": "Driver",
+      "before": "NOT_IMPLEMENTED",
+      "after": "NOT_IMPLEMENTED",
+      "change": "unchanged"
+    },
+    {
+      "case_id": "TASK-CREATE-001",
+      "module": "ScheduledTask",
+      "before": null,
+      "after": null,
+      "change": "skip"
+    },
+    {
+      "case_id": "TASK-MODIFY-001",
+      "module": "ScheduledTask",
+      "before": null,
+      "after": null,
+      "change": "skip"
+    },
+    {
+      "case_id": "TASK-DELETE-001",
+      "module": "ScheduledTask",
+      "before": null,
+      "after": null,
+      "change": "skip"
+    },
+    {
+      "case_id": "SVC-CREATE-001",
+      "module": "Service",
+      "before": null,
+      "after": null,
+      "change": "skip"
+    },
+    {
+      "case_id": "SVC-MODIFY-001",
+      "module": "Service",
+      "before": null,
+      "after": null,
+      "change": "skip"
+    },
+    {
+      "case_id": "SVC-DELETE-001",
+      "module": "Service",
+      "before": null,
+      "after": null,
+      "change": "skip"
+    }
+  ]
+}

@@ -1,0 +1,398 @@
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
+
+namespace ProcessLifecycleTest
+{
+    internal class Program
+    {
+        private const uint PROCESS_TERMINATE = 0x0001;
+        private const uint PROCESS_CREATE_THREAD = 0x0002;
+        private const uint PROCESS_VM_OPERATION = 0x0008;
+        private const uint PROCESS_VM_WRITE = 0x0020;
+        private const uint PROCESS_QUERY_INFORMATION = 0x0400;
+        private const uint SYNCHRONIZE = 0x00100000;
+
+        private const uint MEM_COMMIT = 0x1000;
+        private const uint MEM_RESERVE = 0x2000;
+        private const uint MEM_RELEASE = 0x8000;
+        private const uint PAGE_READWRITE = 0x04;
+        private const uint WAIT_OBJECT_0 = 0x00000000;
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern IntPtr OpenProcess(uint desiredAccess, bool inheritHandle, int processId);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool TerminateProcess(IntPtr processHandle, uint exitCode);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern IntPtr VirtualAllocEx(IntPtr processHandle, IntPtr address, UIntPtr size,
+            uint allocationType, uint protection);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool WriteProcessMemory(IntPtr processHandle, IntPtr baseAddress, byte[] buffer,
+            UIntPtr size, out UIntPtr bytesWritten);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool VirtualFreeEx(IntPtr processHandle, IntPtr address, UIntPtr size, uint freeType);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        private static extern IntPtr GetModuleHandle(string moduleName);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
+        private static extern IntPtr GetProcAddress(IntPtr moduleHandle, string functionName);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern IntPtr CreateRemoteThread(IntPtr processHandle, IntPtr threadAttributes,
+            UIntPtr stackSize, IntPtr startAddress, IntPtr parameter, uint creationFlags, out uint threadId);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern uint WaitForSingleObject(IntPtr handle, uint milliseconds);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool CloseHandle(IntPtr handle);
+
+        private static readonly string RunId = Guid.NewGuid().ToString("N");
+        private static readonly int Pid = Process.GetCurrentProcess().Id;
+        private static readonly string Host = Environment.MachineName;
+        private static string _action;
+
+        private static int Main(string[] args)
+        {
+            if (args.Length != 1)
+            {
+                PrintUsage();
+                return 2;
+            }
+
+            _action = args[0].Trim().ToLowerInvariant();
+            if (_action != "create" && _action != "terminate" && _action != "access" &&
+                _action != "remotethread" && _action != "tamper")
+            {
+                PrintUsage();
+                return 2;
+            }
+
+            PrintRunBegin();
+            try
+            {
+                int rc;
+                switch (_action)
+                {
+                    case "create": rc = RunCreate(); break;
+                    case "terminate": rc = RunTerminate(); break;
+                    case "access": rc = RunAccess(); break;
+                    case "remotethread": rc = RunRemoteThread(); break;
+                    case "tamper": rc = RunTamper(); break;
+                    default: rc = 2; break;
+                }
+                Console.WriteLine("[RUN-END] TimeUTC=" + UtcNow());
+                return rc;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[RESULT] FAIL ExitCode=1");
+                Console.WriteLine("[ERROR] " + ex.GetType().Name + ": " + ex.Message);
+                Console.WriteLine("[RUN-END] TimeUTC=" + UtcNow());
+                return 1;
+            }
+        }
+
+        private static int RunCreate()
+        {
+            string targetPath = TargetPath();
+            SetupBegin();
+            Console.WriteLine("[SETUP] TargetPath=" + targetPath);
+            Console.WriteLine("[SETUP] TargetExists=" + (File.Exists(targetPath) ? "true" : "false"));
+            if (!File.Exists(targetPath))
+            {
+                SetupEnd();
+                return Fail("ProcessTarget.exe not found.");
+            }
+            if (FindSingleTarget() != null)
+            {
+                SetupEnd();
+                return Fail("ProcessTarget.exe is already running. Stop it before PROC-CREATE-001.");
+            }
+            SetupEnd();
+
+            Thread.Sleep(3000);
+            TargetBegin();
+            var psi = new ProcessStartInfo
+            {
+                FileName = targetPath,
+                WorkingDirectory = Path.GetDirectoryName(targetPath),
+                UseShellExecute = false
+            };
+            Process target = Process.Start(psi);
+            if (target == null)
+                return FailInsideTarget("Process.Start returned null.");
+            Thread.Sleep(800);
+            if (target.HasExited)
+                return FailInsideTarget("ProcessTarget.exe exited unexpectedly.");
+
+            PrintTarget("Operation", "ProcessCreate");
+            PrintTarget("TargetImage", targetPath);
+            PrintTarget("TargetPID", target.Id.ToString());
+            TargetEnd();
+            return Pass();
+        }
+
+        private static int RunTerminate()
+        {
+            Process target = RequireExistingTarget();
+            if (target == null) return 1;
+
+            SetupBegin();
+            Console.WriteLine("[SETUP] ExistingTargetPID=" + target.Id);
+            Console.WriteLine("[SETUP] Validation=PASS");
+            SetupEnd();
+            Thread.Sleep(3000);
+
+            TargetBegin();
+            IntPtr handle = OpenProcess(PROCESS_TERMINATE | SYNCHRONIZE, false, target.Id);
+            if (handle == IntPtr.Zero)
+                return FailInsideTargetWin32("OpenProcess(PROCESS_TERMINATE)");
+            try
+            {
+                if (!TerminateProcess(handle, 0xED01))
+                    return FailInsideTargetWin32("TerminateProcess");
+                uint wait = WaitForSingleObject(handle, 5000);
+                if (wait != WAIT_OBJECT_0)
+                    return FailInsideTarget("Target did not terminate within 5 seconds.");
+                PrintTarget("Operation", "ProcessTerminate");
+                PrintTarget("TargetPID", target.Id.ToString());
+                PrintTarget("ExitCode", "0xED01");
+                TargetEnd();
+            }
+            finally
+            {
+                CloseHandle(handle);
+            }
+            return Pass();
+        }
+
+        private static int RunAccess()
+        {
+            Process target = RequireExistingTarget();
+            if (target == null) return 1;
+
+            SetupBegin();
+            Console.WriteLine("[SETUP] ExistingTargetPID=" + target.Id);
+            Console.WriteLine("[SETUP] Validation=PASS");
+            SetupEnd();
+            Thread.Sleep(3000);
+
+            TargetBegin();
+            IntPtr handle = OpenProcess(PROCESS_QUERY_INFORMATION, false, target.Id);
+            if (handle == IntPtr.Zero)
+                return FailInsideTargetWin32("OpenProcess(PROCESS_QUERY_INFORMATION)");
+            PrintTarget("Operation", "ProcessAccess");
+            PrintTarget("TargetPID", target.Id.ToString());
+            PrintTarget("DesiredAccess", "PROCESS_QUERY_INFORMATION");
+            PrintTarget("HandleOpened", "true");
+            CloseHandle(handle);
+            TargetEnd();
+            return Pass();
+        }
+
+        private static int RunRemoteThread()
+        {
+            Process target = RequireExistingTarget();
+            if (target == null) return 1;
+
+            SetupBegin();
+            Console.WriteLine("[SETUP] ExistingTargetPID=" + target.Id);
+            Console.WriteLine("[SETUP] Validation=PASS");
+            SetupEnd();
+            Thread.Sleep(3000);
+
+            TargetBegin();
+            IntPtr handle = OpenProcess(PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION, false, target.Id);
+            if (handle == IntPtr.Zero)
+                return FailInsideTargetWin32("OpenProcess(PROCESS_CREATE_THREAD)");
+
+            IntPtr kernel32 = GetModuleHandle("kernel32.dll");
+            IntPtr sleepAddress = kernel32 == IntPtr.Zero ? IntPtr.Zero : GetProcAddress(kernel32, "Sleep");
+            if (sleepAddress == IntPtr.Zero)
+            {
+                CloseHandle(handle);
+                return FailInsideTargetWin32("GetProcAddress(Sleep)");
+            }
+
+            uint threadId;
+            IntPtr thread = CreateRemoteThread(handle, IntPtr.Zero, UIntPtr.Zero, sleepAddress,
+                new IntPtr(1000), 0, out threadId);
+            if (thread == IntPtr.Zero)
+            {
+                CloseHandle(handle);
+                return FailInsideTargetWin32("CreateRemoteThread");
+            }
+
+            PrintTarget("Operation", "RemoteThreadCreate");
+            PrintTarget("TargetPID", target.Id.ToString());
+            PrintTarget("RemoteThreadID", threadId.ToString());
+            PrintTarget("StartRoutine", "kernel32!Sleep");
+            TargetEnd();
+
+            WaitForSingleObject(thread, 3000);
+            CloseHandle(thread);
+            CloseHandle(handle);
+            return Pass();
+        }
+
+        private static int RunTamper()
+        {
+            Process target = RequireExistingTarget();
+            if (target == null) return 1;
+
+            SetupBegin();
+            Console.WriteLine("[SETUP] ExistingTargetPID=" + target.Id);
+            Console.WriteLine("[SETUP] Validation=PASS");
+            SetupEnd();
+            Thread.Sleep(3000);
+
+            TargetBegin();
+            IntPtr handle = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION | PROCESS_VM_WRITE,
+                false, target.Id);
+            if (handle == IntPtr.Zero)
+                return FailInsideTargetWin32("OpenProcess(PROCESS_VM_OPERATION|PROCESS_VM_WRITE)");
+
+            byte[] marker = Encoding.ASCII.GetBytes("EDR_PROCESS_TAMPER_TEST\0");
+            IntPtr remote = VirtualAllocEx(handle, IntPtr.Zero, (UIntPtr)marker.Length,
+                MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+            if (remote == IntPtr.Zero)
+            {
+                CloseHandle(handle);
+                return FailInsideTargetWin32("VirtualAllocEx");
+            }
+
+            UIntPtr written;
+            if (!WriteProcessMemory(handle, remote, marker, (UIntPtr)marker.Length, out written))
+            {
+                VirtualFreeEx(handle, remote, UIntPtr.Zero, MEM_RELEASE);
+                CloseHandle(handle);
+                return FailInsideTargetWin32("WriteProcessMemory");
+            }
+            if (written.ToUInt64() != (ulong)marker.Length)
+            {
+                VirtualFreeEx(handle, remote, UIntPtr.Zero, MEM_RELEASE);
+                CloseHandle(handle);
+                return FailInsideTarget("WriteProcessMemory wrote an unexpected byte count.");
+            }
+
+            PrintTarget("Operation", "ProcessTamper");
+            PrintTarget("TargetPID", target.Id.ToString());
+            PrintTarget("Action", "VirtualAllocEx+WriteProcessMemory");
+            PrintTarget("BytesWritten", written.ToUInt64().ToString());
+            PrintTarget("RemoteAddress", "0x" + remote.ToInt64().ToString("X"));
+            TargetEnd();
+
+            VirtualFreeEx(handle, remote, UIntPtr.Zero, MEM_RELEASE);
+            CloseHandle(handle);
+            return Pass();
+        }
+
+        private static Process RequireExistingTarget()
+        {
+            Process p = FindSingleTarget();
+            if (p != null) return p;
+            Console.WriteLine("[SETUP-BEGIN] TimeUTC=" + UtcNow());
+            Console.WriteLine("[SETUP] Validation=FAIL");
+            Console.WriteLine("[SETUP-END] TimeUTC=" + UtcNow());
+            Fail("Exactly one ProcessTarget.exe must already be running. Start ProcessTarget.exe first.");
+            return null;
+        }
+
+        private static Process FindSingleTarget()
+        {
+            Process[] matches = Process.GetProcessesByName("ProcessTarget");
+            if (matches.Length != 1) return null;
+            try
+            {
+                string expected = Path.GetFullPath(TargetPath());
+                string actual = Path.GetFullPath(matches[0].MainModule.FileName);
+                return string.Equals(expected, actual, StringComparison.OrdinalIgnoreCase) ? matches[0] : null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private static string TargetPath()
+        {
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ProcessTarget.exe");
+        }
+
+        private static string TestCaseId()
+        {
+            switch (_action)
+            {
+                case "create": return "PROC-CREATE-001";
+                case "terminate": return "PROC-TERMINATE-001";
+                case "access": return "PROC-ACCESS-001";
+                case "remotethread": return "PROC-REMOTE-THREAD-001";
+                case "tamper": return "PROC-TAMPER-001";
+                default: return "PROC-UNKNOWN";
+            }
+        }
+
+        private static void PrintRunBegin()
+        {
+            Console.WriteLine("[RUN-BEGIN] RunID=" + RunId);
+            Console.WriteLine("[META] TestCaseID=" + TestCaseId());
+            Console.WriteLine("[META] Module=Process");
+            Console.WriteLine("[META] Action=" + _action);
+            Console.WriteLine("[META] Process=ProcessLifecycleTest.exe");
+            Console.WriteLine("[META] PID=" + Pid);
+            Console.WriteLine("[META] Hostname=" + Host);
+            Console.WriteLine("[META] RunStartUTC=" + UtcNow());
+        }
+
+        private static void SetupBegin() { Console.WriteLine("[SETUP-BEGIN] TimeUTC=" + UtcNow()); }
+        private static void SetupEnd() { Console.WriteLine("[SETUP-END] TimeUTC=" + UtcNow()); }
+        private static void TargetBegin() { Console.WriteLine("[TARGET-BEGIN] TimeUTC=" + UtcNow()); }
+        private static void TargetEnd() { Console.WriteLine("[TARGET-END] TimeUTC=" + UtcNow()); }
+        private static void PrintTarget(string key, string value) { Console.WriteLine("[TARGET] " + key + "=" + value); }
+
+        private static int Pass()
+        {
+            Console.WriteLine("[RESULT] PASS ExitCode=0");
+            return 0;
+        }
+
+        private static int Fail(string message)
+        {
+            Console.WriteLine("[RESULT] FAIL ExitCode=1");
+            Console.WriteLine("[ERROR] " + message);
+            return 1;
+        }
+
+        private static int FailInsideTarget(string message)
+        {
+            TargetEnd();
+            return Fail(message);
+        }
+
+        private static int FailInsideTargetWin32(string operation)
+        {
+            int error = Marshal.GetLastWin32Error();
+            TargetEnd();
+            return Fail(operation + " failed. Win32Error=" + error);
+        }
+
+        private static string UtcNow()
+        {
+            return DateTime.UtcNow.ToString("yyyy-MM-dd'T'HH:mm:ss.fff'Z'");
+        }
+
+        private static void PrintUsage()
+        {
+            Console.WriteLine("Usage: ProcessLifecycleTest.exe <create|terminate|access|remotethread|tamper>");
+        }
+    }
+}

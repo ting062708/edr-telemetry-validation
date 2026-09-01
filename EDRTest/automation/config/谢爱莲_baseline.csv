@@ -1,0 +1,54 @@
+行为名称,检测状态,事件类型/备注
+Process Creation,✅,ProcessCreate
+Process Termination,❌,无 ProcessTerminate 事件
+Process Access,✅,NtOpenProcess
+Image/Library Loaded,✅,LoadDll（仅启动期 DLL，运行时 LoadLibrary 不采）
+Remote Thread Creation,✅,RemoteThread
+Process Tampering Activity,✅,NtWriteVirtualMemory/VirtualAllocEx
+File Creation,✅,FileWriteClose（子事件新建，靠 FileTotalWrite=0 区分）
+File Opened,✅,FileRead（仅系统 .cab，普通 .exe/.txt 不采）
+File Deletion,✅,FileDelete
+File Modification,✅,FileWriteClose（子事件覆盖写）
+File Renaming,✅,FileRename（Child.OldFilePath 源 + Child.FilePath 目标）
+Local Account Creation,❌,无 AccountCreate(4720) 事件
+Local Account Modification,❌,无 AccountPwdChange(4723/4738) 事件
+Local Account Deletion,❌,无 AccountDelete(4726) 事件
+Account Login,✅,LoginSuccess
+Account Logoff,❌,无 AccountLogoff(4634/4647) 事件
+TCP Connection,✅,HttpRequest（Host/DstIp/DstPort）
+UDP Connection,✅,SocketRequest（仅系统广播/组播，单播不采）
+URL,✅,HttpsRequest（Child.Url 非空）
+DNS Query,❌,无 NetDnsQuery 事件
+File Downloaded,✅,HttpsRequest（Host=proof.ovh.net）
+MD5,✅,Child.FileMd5 字段
+SHA,❌,无 SHA 字段
+IMPHASH,❌,无 IMPHASH 字段
+Key/Value Creation,✅,RegSetValue（仅覆盖写，首次创建不采）
+Key/Value Modification,✅,RegSetValue（RegOldValData/RegValData 比对）
+Key/Value Deletion,❌,无 RegDeleteValue 事件
+Scheduled Task Creation,✅,RpcSchedTaskCreate
+Scheduled Task Modification,❌,无 SchedTaskUpdate 事件
+Scheduled Task Deletion,❌,无 SchedTaskDelete 事件
+Service Creation,❌,无 CreateService（仅 StartService）
+Service Modification,❌,无 ModifyService 事件
+Service Deletion,❌,无 DeleteService 事件
+Driver Loaded,✅,LoadDriver
+Driver Modification,✅,FileWriteClose（改 .sys 落为文件事件）
+Driver Unloaded,❌,无 UnloadDriver 事件
+Virtual Disk Mount,❌,无 VirtualDiskMount 事件
+USB Device Unmount,❌,无字段
+USB Device Mount,❌,无字段
+Group Policy Modification,✅,RegSetValue（路径筛选）
+Pipe Creation,✅,NamedPipe（PipeOpName=创建）
+Pipe Connection,✅,NamedPipe（PipeOpName=打开）
+Agent Start,❌,与保活无法区分
+Agent Stop,❌,与保活无法区分
+Agent Install,✅,首次上线时间
+Agent Uninstall,❌,与保活无法区分
+Agent Keep-Alive,❌,区分不了心跳丢失/主动关闭
+Agent Errors,❌,测不了
+WmiEventConsumerToFilter,❌,无 WmiCreate（仅 ScriptScan 可见）
+WmiEventConsumer,❌,无 WmiCreate（仅 ScriptScan 可见）
+WmiEventFilter,❌,无 WmiCreate（仅 ScriptScan 可见）
+BIT JOBS Activity,❌,无 BitsJobCreate（仅 bitsadmin 命令行可见）
+Script-Block Activity,✅,ScriptScan

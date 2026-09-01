@@ -1,0 +1,8 @@
+﻿=== dotnet ===
+C:\Program Files\dotnet\dotnet.exe
+=== msbuild (vswhere) ===
+D:\Visual Studio 2022\MSBuild\Current\Bin\MSBuild.exe
+=== csc.exe (search) ===
+C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe
+DONE

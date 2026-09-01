@@ -1,0 +1,125 @@
+{
+  "verdict": "ERROR_LOG_INPUT",
+  "verdict_icon": "🔴",
+  "capability_state": null,
+  "message": "Event log time range does not cover the TARGET window. Log: [2026-08-25T14:15:23.127000+00:00 – 2026-08-25T15:03:52.280000+00:00], Target: [2026-08-25T15:04:39.435000+00:00 – 2026-08-25T15:04:42.285000+00:00]. Re-export the log with a wider time range.",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": null,
+  "anchor_detected": null,
+  "anomaly": null,
+  "value_scan": {
+    "Operation": {
+      "value": "BitsJobCreate",
+      "found": false,
+      "where": []
+    },
+    "JobName": {
+      "value": "EDRTelemetryBitJob_b668ba86",
+      "found": false,
+      "where": []
+    },
+    "JobType": {
+      "value": "download",
+      "found": true,
+      "where": [
+        "HttpRequest"
+      ]
+    },
+    "CreateResult": {
+      "value": "FAIL",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "BIT-JOB-001",
+  "module": "BIT",
+  "action": "",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 6864,
+    "after_hostname": 6864,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-25T14:15:23.127000+00:00",
+    "log_time_max": "2026-08-25T15:03:52.280000+00:00",
+    "target_begin": "2026-08-25T15:04:39.435000+00:00",
+    "target_end": "2026-08-25T15:04:42.285000+00:00",
+    "run_begin": "2026-08-25T15:04:36.140000+00:00",
+    "run_end": "2026-08-25T15:04:45.621000+00:00",
+    "coverage_status": "NOT_COVERED",
+    "candidate_count": 0,
+    "capability_detected": false,
+    "capability_base_detected": false,
+    "capability_evidence": [],
+    "value_scan": {
+      "Operation": {
+        "value": "BitsJobCreate",
+        "found": false,
+        "where": []
+      },
+      "JobName": {
+        "value": "EDRTelemetryBitJob_b668ba86",
+        "found": false,
+        "where": []
+      },
+      "JobType": {
+        "value": "download",
+        "found": true,
+        "where": [
+          "HttpRequest"
+        ]
+      },
+      "CreateResult": {
+        "value": "FAIL",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 0,
+    "capability_base_count": 0,
+    "capability_v2": "无",
+    "collected_v2": "未采到",
+    "sample_value_found": false,
+    "sample_value_hits": {
+      "JobName": false
+    },
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 6864/6864",
+      "Time window [2026-08-25T15:04:31.140000+00:00 – 2026-08-25T15:05:15.621000+00:00]: 0 events (coverage=NOT_COVERED)",
+      "Actor ('BitsJobTest.exe'): 0 events",
+      "PID (9268): source carries no actor_pid — filter omitted",
+      "MD5 exact ('82A6202CDE7456F4BAE4A49464564735'): 0 → 0 events",
+      "Operation ('BitsJobCreate'): 0 events",
+      "behavior_fields[JobName]→['Child.JobName']='EDRTelemetryBitJob_b668ba86': 0 hits in window pool",
+      "behavior_fields[TargetName]→Child.JobName: no stdout TARGET value, skipped",
+      "Capability ('BitsJobCreate'): 0 events (能力不存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.JobName",
+      "Child.JobType",
+      "Child.NodeName"
+    ],
+    "matched_event_coverage": {
+      "Child.JobName": null,
+      "Child.JobType": null,
+      "Child.NodeName": null
+    },
+    "filled": 0,
+    "total": 3
+  }
+}

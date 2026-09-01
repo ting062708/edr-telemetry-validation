@@ -1,0 +1,157 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "采集到：云端日志存在 8 条 'ScriptScan' 事件（能力存在）。（样本具体对象值未命中，但能力存在，不影响判定。）Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {
+    "Operation": {
+      "value": "ScriptBlock",
+      "found": true,
+      "where": [
+        "ProcessCreate"
+      ]
+    },
+    "ScriptText": {
+      "value": "$m='EDRTelemetryScriptBlock_c462f682'; Write-Output $m; Start-Sleep -Milliseconds 300",
+      "found": true,
+      "where": [
+        "ProcessCreate"
+      ]
+    },
+    "ExecResult": {
+      "value": "PASS",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "PS-BLOCK-001",
+  "module": "PowerShell",
+  "action": "",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 11615,
+    "after_hostname": 11615,
+    "after_time": 179,
+    "after_actor": 1,
+    "after_pid": 1,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-26T16:01:23.490000+00:00",
+    "log_time_max": "2026-08-26T17:31:12.098000+00:00",
+    "target_begin": "2026-08-26T16:15:24.258000+00:00",
+    "target_end": "2026-08-26T16:15:34.706000+00:00",
+    "run_begin": "2026-08-26T16:15:21.190000+00:00",
+    "run_end": "2026-08-26T16:15:34.706000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "ScriptScan",
+        "actor": "powershell.exe",
+        "target": ""
+      },
+      {
+        "operation": "ScriptScan",
+        "actor": "powershell.exe",
+        "target": "Microsoft.PowerShell.Utility.psm1"
+      },
+      {
+        "operation": "ScriptScan",
+        "actor": "powershell.exe",
+        "target": "Microsoft.PowerShell.Utility.psd1"
+      },
+      {
+        "operation": "ScriptScan",
+        "actor": "powershell.exe",
+        "target": "PowerShellGet.psd1"
+      },
+      {
+        "operation": "ScriptScan",
+        "actor": "powershell.exe",
+        "target": "Pester.psd1"
+      }
+    ],
+    "value_scan": {
+      "Operation": {
+        "value": "ScriptBlock",
+        "found": true,
+        "where": [
+          "ProcessCreate"
+        ]
+      },
+      "ScriptText": {
+        "value": "$m='EDRTelemetryScriptBlock_c462f682'; Write-Output $m; Start-Sleep -Milliseconds 300",
+        "found": true,
+        "where": [
+          "ProcessCreate"
+        ]
+      },
+      "ExecResult": {
+        "value": "PASS",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 8,
+    "capability_base_count": 8,
+    "capability_v2": "有",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "indirect",
+      "anchor_process": "powershell.exe",
+      "anchor_md5": null,
+      "tables": [
+        "ScriptEvents"
+      ],
+      "operations": [
+        "ScriptScan"
+      ],
+      "probe": null
+    },
+    "sample_value_found": false,
+    "sample_value_hits": {
+      "ScriptText": false
+    },
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 11615/11615",
+      "Time window [2026-08-26T16:15:16.190000+00:00 – 2026-08-26T16:16:04.706000+00:00]: 179 events (coverage=COVERED)",
+      "Actor ('PowerShellScriptBlockTest.exe'): 1 events",
+      "PID (6588): strict → 1 events",
+      "MD5 exact ('C62687F1F56AFD4B25AF940A79FB1AB3'): 1 → 1 events",
+      "Operation ('ScriptScan'): 0 events",
+      "behavior_fields[ScriptText]→['Child.ScriptText']=\"$m='EDRTelemetryScriptBlock_c462f682'; Write-Output $m; Start-Sleep -Milliseconds 300\": 0 hits in window pool",
+      "behavior_fields[TargetName]→Child.ScriptText: no stdout TARGET value, skipped",
+      "Capability ('ScriptScan'): 8 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.ScriptText",
+      "Child.ScriptMd5",
+      "Child.NodeName"
+    ],
+    "matched_event_coverage": {
+      "Child.ScriptText": null,
+      "Child.ScriptMd5": null,
+      "Child.NodeName": null
+    },
+    "filled": 0,
+    "total": 3
+  }
+}

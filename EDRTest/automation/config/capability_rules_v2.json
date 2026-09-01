@@ -1,0 +1,1015 @@
+{
+  "version": "2.0.0",
+  "generated": "2026-08-25",
+  "standard": "能力=有/无(全局:operation/表存在即有能力); 采集=时间窗+锚定进程(Parent)+表类别(窗内命中即采集成功)",
+  "anchor_types": {
+    "direct": "样本进程自己就是Parent(发起者),按样本MD5/进程名锚定",
+    "indirect": "样本拉起子进程,子进程才是Parent(如GPO→msiexec, PS→powershell.exe),按子进程锚定",
+    "system": "kernel/系统进程执行,样本不在日志(如驱动加载/账户操作),跳过进程锚定,只看表+时间窗",
+    "field": "无operation,按事件字段存在性判断(如哈希=FileMd5字段)"
+  },
+  "capabilities": [
+    {
+      "id": "proc-create",
+      "name": "进程创建",
+      "anchor": {
+        "type": "direct",
+        "process": "ProcessLifecycleTest.exe",
+        "md5": "f6d123d8483cf7bc0d324726b3b52639",
+        "role": "parent"
+      },
+      "tables": [
+        "ProcEvents"
+      ],
+      "operations": [
+        "ProcessCreate"
+      ],
+      "cases": [
+        "PROC-CREATE-001"
+      ],
+      "capability": "有",
+      "note": "样本为Parent创建ProcessTarget.exe,ProcessCreate×2635",
+      "last_assessment": "采到"
+    },
+    {
+      "id": "proc-image-load",
+      "name": "映像/模块加载",
+      "anchor": {
+        "type": "direct",
+        "process": "ImageLoadTest.exe",
+        "md5": "047056e9d0ec527268037f13672593a7",
+        "role": "parent"
+      },
+      "tables": [
+        "ModuleEvents"
+      ],
+      "operations": [
+        "LoadDll"
+      ],
+      "cases": [
+        "PROC-IMAGE-LOAD-001"
+      ],
+      "capability": "有",
+      "note": "LoadDll×8,样本加载TestLibrary.dll",
+      "last_assessment": "采到"
+    },
+    {
+      "id": "proc-access",
+      "name": "进程访问",
+      "anchor": {
+        "type": "direct",
+        "process": "ProcessLifecycleTest.exe",
+        "md5": "f6d123d8483cf7bc0d324726b3b52639",
+        "role": "parent"
+      },
+      "tables": [
+        "RemoteInjectEvents"
+      ],
+      "operations": [
+        "NtOpenProcess"
+      ],
+      "cases": [
+        "PROC-ACCESS-001"
+      ],
+      "capability": "有",
+      "note": "样本failed_deliver无证据;日志NtOpenProcess×1是rundll32产生",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "proc-remote-thread",
+      "name": "远程线程",
+      "anchor": {
+        "type": "direct",
+        "process": "ProcessLifecycleTest.exe",
+        "md5": "f6d123d8483cf7bc0d324726b3b52639",
+        "role": "parent"
+      },
+      "tables": [
+        "RemoteInjectEvents"
+      ],
+      "operations": [
+        "RemoteThread"
+      ],
+      "cases": [
+        "PROC-REMOTE-THREAD-001"
+      ],
+      "capability": "有",
+      "note": "日志RemoteThread×11存在(归属待查)",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "proc-tamper",
+      "name": "进程篡改",
+      "anchor": {
+        "type": "direct",
+        "process": "ProcessLifecycleTest.exe",
+        "md5": "f6d123d8483cf7bc0d324726b3b52639",
+        "role": "parent"
+      },
+      "tables": [
+        "RemoteInjectEvents"
+      ],
+      "operations": [
+        "NtWriteVirtualMemory",
+        "WriteProcessMemory"
+      ],
+      "cases": [
+        "PROC-TAMPER-001"
+      ],
+      "capability": "有",
+      "note": "样本failed_deliver;日志NtWriteVirtualMemory×2是BIT/PS样本产生",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "proc-terminate",
+      "name": "进程终止",
+      "anchor": {
+        "type": "direct",
+        "process": "ProcessLifecycleTest.exe",
+        "md5": "f6d123d8483cf7bc0d324726b3b52639",
+        "role": "parent"
+      },
+      "tables": [
+        "ProcEvents"
+      ],
+      "operations": [
+        "ProcessTerminate"
+      ],
+      "cases": [
+        "PROC-TERMINATE-001"
+      ],
+      "capability": "无",
+      "note": "无ProcessTerminate事件,与baseline一致",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "file-create",
+      "name": "文件创建",
+      "anchor": {
+        "type": "direct",
+        "process": "FileLifecycleTest.exe",
+        "md5": "156ca9cf54e5ae8e919375026d60a02b",
+        "role": "parent"
+      },
+      "tables": [
+        "FileEvents"
+      ],
+      "operations": [
+        "FileWriteClose"
+      ],
+      "cases": [
+        "FILE-CREATE-001"
+      ],
+      "capability": "有",
+      "note": "能力有(FileWriteClose×851)但样本进程FileEvents 0命中=采集盲区;纯创建靠FileTotalWrite=0区分",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "file-open",
+      "name": "文件打开",
+      "anchor": {
+        "type": "direct",
+        "process": "FileLifecycleTest.exe",
+        "md5": "156ca9cf54e5ae8e919375026d60a02b",
+        "role": "parent"
+      },
+      "tables": [
+        "FileEvents"
+      ],
+      "operations": [
+        "FileRead",
+        "FileWriteClose"
+      ],
+      "cases": [
+        "FILE-OPEN-001"
+      ],
+      "capability": "有",
+      "note": "能力有;行业公认难采",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "file-delete",
+      "name": "文件删除",
+      "anchor": {
+        "type": "direct",
+        "process": "FileLifecycleTest.exe",
+        "md5": "156ca9cf54e5ae8e919375026d60a02b",
+        "role": "parent"
+      },
+      "tables": [
+        "FileEvents"
+      ],
+      "operations": [
+        "FileDelete"
+      ],
+      "cases": [
+        "FILE-DELETE-001"
+      ],
+      "capability": "有",
+      "note": "FileDelete×2269",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "file-modify",
+      "name": "文件修改",
+      "anchor": {
+        "type": "direct",
+        "process": "FileLifecycleTest.exe",
+        "md5": "156ca9cf54e5ae8e919375026d60a02b",
+        "role": "parent"
+      },
+      "tables": [
+        "FileEvents"
+      ],
+      "operations": [
+        "FileWriteClose"
+      ],
+      "cases": [
+        "FILE-MODIFY-001"
+      ],
+      "capability": "有",
+      "note": "FileWriteClose存在",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "file-rename",
+      "name": "文件重命名",
+      "anchor": {
+        "type": "direct",
+        "process": "FileLifecycleTest.exe",
+        "md5": "156ca9cf54e5ae8e919375026d60a02b",
+        "role": "parent"
+      },
+      "tables": [
+        "FileEvents"
+      ],
+      "operations": [
+        "FileRename"
+      ],
+      "cases": [
+        "FILE-RENAME-001"
+      ],
+      "capability": "有",
+      "note": "FileRename×7;baseline写MoveFileExW,实际Action.Name=FileRename(带OldFilePath)",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "reg-create",
+      "name": "注册表键值创建",
+      "anchor": {
+        "type": "direct",
+        "process": "RegistryLifecycleTest.exe",
+        "md5": "8c0800d1c33f9dabcd7e82c5748d6bbb",
+        "role": "parent"
+      },
+      "tables": [
+        "RegEvents"
+      ],
+      "operations": [
+        "RegSetValue"
+      ],
+      "cases": [
+        "REG-CREATE-001"
+      ],
+      "capability": "有",
+      "note": "RegSetValue存在;路径有筛选,值无→有触发",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "reg-modify",
+      "name": "注册表键值修改",
+      "anchor": {
+        "type": "direct",
+        "process": "RegistryLifecycleTest.exe",
+        "md5": "8c0800d1c33f9dabcd7e82c5748d6bbb",
+        "role": "parent"
+      },
+      "tables": [
+        "RegEvents"
+      ],
+      "operations": [
+        "RegSetValue"
+      ],
+      "cases": [
+        "REG-MODIFY-001"
+      ],
+      "capability": "有",
+      "note": "RegSetValue×1(notepad→calc,启动项路径)",
+      "last_assessment": "采到"
+    },
+    {
+      "id": "reg-delete",
+      "name": "注册表键值删除",
+      "anchor": {
+        "type": "direct",
+        "process": "RegistryLifecycleTest.exe",
+        "md5": "8c0800d1c33f9dabcd7e82c5748d6bbb",
+        "role": "parent"
+      },
+      "tables": [
+        "RegEvents"
+      ],
+      "operations": [
+        "RegDeleteValue",
+        "RegDeleteKey"
+      ],
+      "cases": [
+        "REG-DELETE-001"
+      ],
+      "capability": "无",
+      "note": "无RegDeleteValue/RegDeleteKey事件,与baseline一致",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "account-create",
+      "name": "本地账户创建",
+      "anchor": {
+        "type": "system",
+        "process": null,
+        "md5": null,
+        "role": null
+      },
+      "tables": [
+        "AccountEvents"
+      ],
+      "operations": [
+        "AccountCreate"
+      ],
+      "cases": [
+        "ACCOUNT-CREATE-001"
+      ],
+      "capability": "无",
+      "note": "baseline有(AccountCreate);本次日志无(仅4798 UserLocalGroupEnum);疑似状态残留或方法差异,需干净快照复测",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "account-modify",
+      "name": "本地账户修改",
+      "anchor": {
+        "type": "system",
+        "process": null,
+        "md5": null,
+        "role": null
+      },
+      "tables": [
+        "AccountEvents"
+      ],
+      "operations": [
+        "AccountPwdChange"
+      ],
+      "cases": [
+        "ACCOUNT-MODIFY-001"
+      ],
+      "capability": "无",
+      "note": "无4723等事件,与baseline一致",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "account-delete",
+      "name": "本地账户删除",
+      "anchor": {
+        "type": "system",
+        "process": null,
+        "md5": null,
+        "role": null
+      },
+      "tables": [
+        "AccountEvents"
+      ],
+      "operations": [
+        "AccountDelete"
+      ],
+      "cases": [
+        "ACCOUNT-DELETE-001"
+      ],
+      "capability": "无",
+      "note": "与baseline一致",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "account-login",
+      "name": "账户登录",
+      "anchor": {
+        "type": "system",
+        "process": null,
+        "md5": null,
+        "role": null
+      },
+      "tables": [
+        "LoginEvents"
+      ],
+      "operations": [
+        "LoginSuccess"
+      ],
+      "cases": [
+        "ACCOUNT-LOGIN-001"
+      ],
+      "capability": "有",
+      "note": "LoginSuccess×1635",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "account-logoff",
+      "name": "账户登出",
+      "anchor": {
+        "type": "system",
+        "process": null,
+        "md5": null,
+        "role": null
+      },
+      "tables": [
+        "AccountEvents"
+      ],
+      "operations": [
+        "AccountLogoff"
+      ],
+      "cases": [
+        "ACCOUNT-LOGOFF-001"
+      ],
+      "capability": "无",
+      "note": "无4634/4647,与baseline一致",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "net-tcp",
+      "name": "TCP连接",
+      "anchor": {
+        "type": "direct",
+        "process": "NetworkActivityTest.exe",
+        "md5": "420cc1ee2bf37c9771eed953d17a3221",
+        "role": "parent"
+      },
+      "tables": [
+        "NetworkEvents"
+      ],
+      "operations": [
+        "HttpRequest"
+      ],
+      "slack": {
+        "post": 60
+      },
+      "cases": [
+        "NET-TCP-001"
+      ],
+      "capability": "有",
+      "note": "NetBind×3;baseline同;NetBind在RUN-END后36s出现,需post_slack≥60",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "net-udp",
+      "name": "UDP连接",
+      "anchor": {
+        "type": "direct",
+        "process": "NetworkActivityTest.exe",
+        "md5": "420cc1ee2bf37c9771eed953d17a3221",
+        "role": "parent"
+      },
+      "tables": [
+        "NetworkEvents"
+      ],
+      "operations": [
+        "NetBind"
+      ],
+      "cases": [
+        "NET-UDP-001"
+      ],
+      "capability": "有",
+      "note": "NetBind×3;baseline同",
+      "last_assessment": "采到"
+    },
+    {
+      "id": "net-url",
+      "name": "URL访问",
+      "anchor": {
+        "type": "direct",
+        "process": "NetworkActivityTest.exe",
+        "md5": "420cc1ee2bf37c9771eed953d17a3221",
+        "role": "parent"
+      },
+      "tables": [
+        "NetworkEvents"
+      ],
+      "operations": [
+        "HttpsRequest",
+        "HttpRequest"
+      ],
+      "cases": [
+        "NET-URL-001"
+      ],
+      "capability": "有",
+      "note": "HttpsRequest×119但url字段为空;baseline标疑问",
+      "last_assessment": "采到"
+    },
+    {
+      "id": "net-dns",
+      "name": "DNS查询",
+      "anchor": {
+        "type": "direct",
+        "process": "NetworkActivityTest.exe",
+        "md5": "420cc1ee2bf37c9771eed953d17a3221",
+        "role": "parent"
+      },
+      "tables": [
+        "NetworkEvents"
+      ],
+      "operations": [
+        "NetDnsQuery"
+      ],
+      "cases": [
+        "NET-DNS-001"
+      ],
+      "capability": "无",
+      "note": "无端口记录;baseline标疑问",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "net-download",
+      "name": "文件下载",
+      "anchor": {
+        "type": "direct",
+        "process": "NetworkActivityTest.exe",
+        "md5": "420cc1ee2bf37c9771eed953d17a3221",
+        "role": "parent"
+      },
+      "tables": [
+        "NetworkEvents",
+        "FileEvents"
+      ],
+      "operations": [
+        "HttpsRequest",
+        "FileWriteClose"
+      ],
+      "cases": [
+        "NET-DOWNLOAD-001"
+      ],
+      "capability": "有",
+      "note": "tcp连接+新建文件联合,与baseline一致",
+      "last_assessment": "采到"
+    },
+    {
+      "id": "hash-md5",
+      "name": "MD5",
+      "anchor": {
+        "type": "direct",
+        "process": "HashBaselineTool.exe",
+        "md5": "c1e9b569e8c5dd13c0ea5c0bd5396948",
+        "role": "parent"
+      },
+      "tables": [
+        "CryptEvents"
+      ],
+      "operations": [
+        "CryptAcquireContextW"
+      ],
+      "cases": [
+        "HASH-MD5-001"
+      ],
+      "capability": "有",
+      "note": "stdout口径:样本计算哈希行为被采(CryptAcquireContextW×3,InjectDll hook);与张顺钦按哈希值元数据字段口径(MD5有/SHA无/IMPHASH无)不同",
+      "last_assessment": "采到"
+    },
+    {
+      "id": "hash-sha",
+      "name": "SHA",
+      "anchor": {
+        "type": "direct",
+        "process": "HashBaselineTool.exe",
+        "md5": "c1e9b569e8c5dd13c0ea5c0bd5396948",
+        "role": "parent"
+      },
+      "tables": [
+        "CryptEvents"
+      ],
+      "operations": [
+        "CryptAcquireContextW"
+      ],
+      "cases": [
+        "HASH-SHA-001"
+      ],
+      "capability": "有",
+      "note": "stdout口径:样本计算哈希行为被采(CryptAcquireContextW×3,InjectDll hook);与张顺钦按哈希值元数据字段口径(MD5有/SHA无/IMPHASH无)不同",
+      "last_assessment": "采到"
+    },
+    {
+      "id": "hash-imphash",
+      "name": "IMPHASH",
+      "anchor": {
+        "type": "direct",
+        "process": "HashBaselineTool.exe",
+        "md5": "c1e9b569e8c5dd13c0ea5c0bd5396948",
+        "role": "parent"
+      },
+      "tables": [
+        "CryptEvents"
+      ],
+      "operations": [
+        "CryptAcquireContextW"
+      ],
+      "cases": [
+        "HASH-IMPHASH-001"
+      ],
+      "capability": "有",
+      "note": "stdout口径:样本计算哈希行为被采(CryptAcquireContextW×3,InjectDll hook);与张顺钦按哈希值元数据字段口径(MD5有/SHA无/IMPHASH无)不同",
+      "last_assessment": "采到"
+    },
+    {
+      "id": "driver-load",
+      "name": "驱动加载",
+      "anchor": {
+        "type": "system",
+        "process": null,
+        "md5": null,
+        "role": null
+      },
+      "tables": [
+        "ModuleEvents"
+      ],
+      "operations": [
+        "LoadDriver"
+      ],
+      "cases": [
+        "DRIVER-LOAD-001"
+      ],
+      "capability": "有",
+      "note": "LoadDriver×9,系统进程加载",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "driver-modify",
+      "name": "驱动文件修改",
+      "anchor": {
+        "type": "direct",
+        "process": "DriverLifecycleTest.exe",
+        "md5": "e569892b7eefaa9284720d8311af5ba7",
+        "role": "parent"
+      },
+      "tables": [
+        "FileEvents"
+      ],
+      "operations": [
+        "FileWriteClose"
+      ],
+      "cases": [
+        "DRIVER-MODIFY-001"
+      ],
+      "capability": "有",
+      "note": "改驱动文件=FileWriteClose能采;baseline判无(无专用事件),语义差异",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "driver-unload",
+      "name": "驱动卸载",
+      "anchor": {
+        "type": "system",
+        "process": null,
+        "md5": null,
+        "role": null
+      },
+      "tables": [
+        "ModuleEvents"
+      ],
+      "operations": [
+        "UnloadDriver"
+      ],
+      "cases": [
+        "DRIVER-UNLOAD-001"
+      ],
+      "capability": "无",
+      "note": "无UnloadDriver,与baseline一致",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "task-create",
+      "name": "计划任务创建",
+      "anchor": {
+        "type": "indirect",
+        "process": "ScheduledTaskLifecycleTest.exe",
+        "md5": "95f1cb296d1e29c5a5b526f071739b2e",
+        "role": "child"
+      },
+      "tables": [
+        "ServiceEvents"
+      ],
+      "operations": [
+        "RpcSchedTaskCreate"
+      ],
+      "cases": [
+        "TASK-CREATE-001"
+      ],
+      "capability": "有",
+      "note": "RpcSchedTaskCreate×18全为系统任务;baseline备注需导入XML才抓,样本用/TR命令行→未采",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "task-modify",
+      "name": "计划任务修改",
+      "anchor": {
+        "type": "indirect",
+        "process": "ScheduledTaskLifecycleTest.exe",
+        "md5": "95f1cb296d1e29c5a5b526f071739b2e",
+        "role": "child"
+      },
+      "tables": [
+        "ServiceEvents"
+      ],
+      "operations": [
+        "SchedTaskUpdate"
+      ],
+      "cases": [
+        "TASK-MODIFY-001"
+      ],
+      "capability": "无",
+      "note": "baseline有(SchedTaskUpdate);本次无此operation,需复测确认",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "task-delete",
+      "name": "计划任务删除",
+      "anchor": {
+        "type": "indirect",
+        "process": "ScheduledTaskLifecycleTest.exe",
+        "md5": "95f1cb296d1e29c5a5b526f071739b2e",
+        "role": "child"
+      },
+      "tables": [
+        "ServiceEvents"
+      ],
+      "operations": [
+        "SchedTaskDelete"
+      ],
+      "cases": [
+        "TASK-DELETE-001"
+      ],
+      "capability": "无",
+      "note": "与baseline一致",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "svc-create",
+      "name": "服务创建",
+      "anchor": {
+        "type": "indirect",
+        "process": "ServiceLifecycleTest.exe",
+        "md5": "582dd9e5c1ca802a2e9e2ff08ff66c2e",
+        "role": "child"
+      },
+      "tables": [
+        "ServiceEvents"
+      ],
+      "operations": [
+        "CreateService"
+      ],
+      "cases": [
+        "SVC-CREATE-001"
+      ],
+      "capability": "无",
+      "note": "baseline有(CreateService);本次无,仅StartService×53;需干净快照复测",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "svc-modify",
+      "name": "服务修改",
+      "anchor": {
+        "type": "indirect",
+        "process": "ServiceLifecycleTest.exe",
+        "md5": "582dd9e5c1ca802a2e9e2ff08ff66c2e",
+        "role": "child"
+      },
+      "tables": [
+        "ServiceEvents"
+      ],
+      "operations": [
+        "ModifyService"
+      ],
+      "cases": [
+        "SVC-MODIFY-001"
+      ],
+      "capability": "无",
+      "note": "与baseline一致",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "svc-delete",
+      "name": "服务删除",
+      "anchor": {
+        "type": "indirect",
+        "process": "ServiceLifecycleTest.exe",
+        "md5": "582dd9e5c1ca802a2e9e2ff08ff66c2e",
+        "role": "child"
+      },
+      "tables": [
+        "ServiceEvents"
+      ],
+      "operations": [
+        "DeleteService"
+      ],
+      "cases": [
+        "SVC-DELETE-001"
+      ],
+      "capability": "无",
+      "note": "与baseline一致",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "pipe-create",
+      "name": "命名管道创建",
+      "anchor": {
+        "type": "direct",
+        "process": "PipeLifecycleTest.exe",
+        "md5": "2a20e660c72d23b2be41e33c22d1075e",
+        "role": "parent"
+      },
+      "tables": [
+        "FileEvents"
+      ],
+      "operations": [
+        "NamedPipe"
+      ],
+      "cases": [
+        "PIPE-CREATE-001"
+      ],
+      "capability": "有",
+      "note": "NamedPipe×10",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "pipe-connect",
+      "name": "命名管道连接",
+      "anchor": {
+        "type": "direct",
+        "process": "PipeLifecycleTest.exe",
+        "md5": "2a20e660c72d23b2be41e33c22d1075e",
+        "role": "parent"
+      },
+      "tables": [
+        "FileEvents"
+      ],
+      "operations": [
+        "NamedPipe"
+      ],
+      "cases": [
+        "PIPE-CONNECT-001"
+      ],
+      "capability": "有",
+      "note": "NamedPipe×10",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "wmi-filter",
+      "name": "WMI事件筛选器",
+      "anchor": {
+        "type": "direct",
+        "process": "WmiActivityTest.exe",
+        "md5": "acf3b2887e1bc5a2c7d3c1c3b0f5c5e9",
+        "role": "parent"
+      },
+      "tables": [
+        "WmiEvents"
+      ],
+      "operations": [
+        "WmiCreate"
+      ],
+      "cases": [
+        "WMI-FILTER-001"
+      ],
+      "capability": "无",
+      "note": "无专用WMI事件(WmiCreate不存在);仅脚本被ScriptScan×3捕获但那是脚本能力不是WMI能力;与baseline一致",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "wmi-consumer",
+      "name": "WMI事件消费者",
+      "anchor": {
+        "type": "direct",
+        "process": "WmiActivityTest.exe",
+        "md5": "acf3b2887e1bc5a2c7d3c1c3b0f5c5e9",
+        "role": "parent"
+      },
+      "tables": [
+        "WmiEvents"
+      ],
+      "operations": [
+        "WmiCreate"
+      ],
+      "cases": [
+        "WMI-CONSUMER-001"
+      ],
+      "capability": "无",
+      "note": "同上",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "wmi-consumer-to-filter",
+      "name": "WMI消费-筛选绑定",
+      "anchor": {
+        "type": "direct",
+        "process": "WmiActivityTest.exe",
+        "md5": "acf3b2887e1bc5a2c7d3c1c3b0f5c5e9",
+        "role": "parent"
+      },
+      "tables": [
+        "WmiEvents"
+      ],
+      "operations": [
+        "WmiCreate"
+      ],
+      "cases": [
+        "WMI-CONSUMER-TO-FILTER-001"
+      ],
+      "capability": "无",
+      "note": "同上",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "device-vdisk",
+      "name": "虚拟磁盘挂载",
+      "anchor": {
+        "type": "direct",
+        "process": "VirtualDiskMountTest.exe",
+        "md5": "514d1ac2d5c7a56e4ac8e3d2b4e0f1a7",
+        "role": "parent"
+      },
+      "tables": [
+        "SystemChangeEvents"
+      ],
+      "operations": [
+        "VirtualDiskMount"
+      ],
+      "cases": [
+        "DEVICE-VDISK-MOUNT-001"
+      ],
+      "capability": "无",
+      "note": "样本usage失败未执行;需修复--case参数后复测",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "gpo-modify",
+      "name": "组策略修改",
+      "anchor": {
+        "type": "indirect",
+        "process": "msiexec.exe",
+        "md5": null,
+        "role": "parent"
+      },
+      "tables": [
+        "RegEvents"
+      ],
+      "operations": [
+        "RegSetValue"
+      ],
+      "slack": {
+        "post": 300
+      },
+      "cases": [
+        "GPO-MODIFY-001"
+      ],
+      "capability": "有",
+      "note": "样本拉msiexec写策略,msiexec×25 RegSetValue于RUN-END后~3min异步应用,需post_slack≥300;与baseline一致",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "bit-job",
+      "name": "BITS任务",
+      "anchor": {
+        "type": "direct",
+        "process": "BitsJobTest.exe",
+        "md5": "82a6202cde7456f4bae4a49464564735",
+        "role": "parent"
+      },
+      "tables": [
+        "SystemChangeEvents"
+      ],
+      "operations": [
+        "BitsJobCreate"
+      ],
+      "cases": [
+        "BIT-JOB-001"
+      ],
+      "capability": "无",
+      "note": "无BitsJobCreate;与baseline一致(样本注入NtWriteVirtualMemory被采但非BITS事件)",
+      "last_assessment": "未采到"
+    },
+    {
+      "id": "ps-block",
+      "name": "PowerShell脚本块",
+      "anchor": {
+        "type": "indirect",
+        "process": "powershell.exe",
+        "md5": null,
+        "role": "parent"
+      },
+      "tables": [
+        "ScriptEvents"
+      ],
+      "operations": [
+        "ScriptScan"
+      ],
+      "cases": [
+        "PS-BLOCK-001"
+      ],
+      "capability": "有",
+      "note": "样本拉powershell.exe,ScriptScan×6;与baseline一致",
+      "last_assessment": "采到"
+    }
+  ]
+}

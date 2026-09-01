@@ -1,0 +1,28 @@
+[
+  {
+    "test_case_id": "PROC-TERMINATE-001",
+    "run_id": "253fc84e041349d897372fb9f6bf02ce",
+    "module": "Process",
+    "action": "terminate",
+    "process_name": "ProcessLifecycleTest.exe",
+    "pid": 13276,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T16:43:35.114000+00:00",
+    "setup_begin_utc": "2026-08-26T16:43:35.142000+00:00",
+    "setup_end_utc": "2026-08-26T16:43:35.142000+00:00",
+    "target_begin_utc": "2026-08-26T16:43:38.151000+00:00",
+    "target_end_utc": "2026-08-26T16:43:38.163000+00:00",
+    "run_end_utc": "2026-08-26T16:43:38.163000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Operation": "ProcessTerminate",
+      "TargetPID": "8420",
+      "ExitCode": "0xED01"
+    },
+    "error_lines": []
+  }
+]

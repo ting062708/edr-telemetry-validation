@@ -1,0 +1,236 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "采集到：'HttpsRequest' 事件命中，字段校验通过 (ID=ef8a3b8a-fc83-4fe4-b702-f017cc0a8c65)。",
+  "matched_event_id": "ef8a3b8a-fc83-4fe4-b702-f017cc0a8c65",
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [
+    {
+      "field": "actor_name",
+      "required": true,
+      "rule": {
+        "equals": "NetworkActivityTest.exe",
+        "required": true
+      },
+      "actual_value": "NetworkActivityTest.exe",
+      "status": "PASS"
+    },
+    {
+      "field": "actor_pid",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "9728",
+      "status": "PASS"
+    },
+    {
+      "field": "operation",
+      "required": true,
+      "rule": {
+        "equals": "HttpsRequest",
+        "required": true
+      },
+      "actual_value": "HttpsRequest",
+      "status": "PASS"
+    },
+    {
+      "field": "event_time_utc",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "2026-08-25 14:41:16.921000+00:00",
+      "status": "PASS"
+    },
+    {
+      "field": "hostname",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "DESKTOP-0AHK53B",
+      "status": "PASS"
+    },
+    {
+      "field": "remote_host",
+      "required": true,
+      "rule": {
+        "contains": "baidu.com",
+        "required": true
+      },
+      "actual_value": "www.baidu.com",
+      "status": "PASS"
+    },
+    {
+      "field": "url",
+      "required": false,
+      "rule": {
+        "contains": "baidu.com",
+        "required": false
+      },
+      "actual_value": null,
+      "status": "MISSING_IN_EVENT"
+    }
+  ],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": true,
+  "anomaly": null,
+  "value_scan": {
+    "URL": {
+      "value": "https://www.baidu.com",
+      "found": true,
+      "where": [
+        "InternetOpenUrlW"
+      ]
+    },
+    "Method": {
+      "value": "GET",
+      "found": false,
+      "where": []
+    },
+    "ResponseBytes": {
+      "value": "2443",
+      "found": true,
+      "where": [
+        "LogonAssignPrivilege"
+      ]
+    }
+  },
+  "test_case_id": "NET-URL-001",
+  "module": "Network",
+  "action": "--case NET-URL-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 9721,
+    "after_hostname": 9721,
+    "after_time": 112,
+    "after_actor": 22,
+    "after_pid": 22,
+    "after_operation": 1,
+    "after_extra": 1,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-25T14:15:23.127000+00:00",
+    "log_time_max": "2026-08-25T15:18:19.937000+00:00",
+    "target_begin": "2026-08-25T14:41:14.902000+00:00",
+    "target_end": "2026-08-25T14:41:21.941000+00:00",
+    "run_begin": "2026-08-25T14:41:14.199000+00:00",
+    "run_end": "2026-08-25T14:41:21.941000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 1,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "HttpsRequest",
+        "actor": "svchost.exe",
+        "target": ""
+      },
+      {
+        "operation": "HttpsRequest",
+        "actor": "AppHostRegistrationVerifier.exe",
+        "target": ""
+      },
+      {
+        "operation": "HttpsRequest",
+        "actor": "AppHostRegistrationVerifier.exe",
+        "target": ""
+      },
+      {
+        "operation": "HttpsRequest",
+        "actor": "msedgewebview2.exe",
+        "target": ""
+      },
+      {
+        "operation": "HttpsRequest",
+        "actor": "MSPCManagerService.exe",
+        "target": ""
+      }
+    ],
+    "value_scan": {
+      "URL": {
+        "value": "https://www.baidu.com",
+        "found": true,
+        "where": [
+          "InternetOpenUrlW"
+        ]
+      },
+      "Method": {
+        "value": "GET",
+        "found": false,
+        "where": []
+      },
+      "ResponseBytes": {
+        "value": "2443",
+        "found": true,
+        "where": [
+          "LogonAssignPrivilege"
+        ]
+      }
+    },
+    "capability_count": 119,
+    "capability_base_count": 119,
+    "capability_v2": "有",
+    "collected_v2": "采到",
+    "capability_v2_rule": {
+      "anchor_type": "direct",
+      "anchor_process": "NetworkActivityTest.exe",
+      "anchor_md5": "420cc1ee2bf37c9771eed953d17a3221",
+      "tables": [
+        "NetworkEvents"
+      ],
+      "operations": [
+        "HttpsRequest",
+        "HttpRequest"
+      ],
+      "probe": null
+    },
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 9721/9721",
+      "Time window [2026-08-25T14:41:09.199000+00:00 – 2026-08-25T14:41:51.941000+00:00]: 112 events (coverage=COVERED)",
+      "Actor ('NetworkActivityTest.exe'): 22 events",
+      "PID (9728): strict → 22 events",
+      "MD5 exact ('420CC1EE2BF37C9771EED953D17A3221'): 22 → 22 events",
+      "Operation ('HttpsRequest'): 1 events",
+      "match[Child.Host]='baidu.com' (contains): 1 → 1 events",
+      "Capability ('HttpsRequest'): 119 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.DstIp",
+      "Child.DstPort",
+      "Child.Host",
+      "Child.Protocol",
+      "Child.SrcIp",
+      "Child.SrcPort",
+      "Child.NodeName",
+      "Child.Type"
+    ],
+    "matched_event_coverage": {
+      "Child.DstIp": "183.2.172.177",
+      "Child.DstPort": "443",
+      "Child.Host": "www.baidu.com",
+      "Child.Protocol": "tcp",
+      "Child.SrcIp": "192.168.8.156",
+      "Child.SrcPort": "49985",
+      "Child.NodeName": "www.baidu.com",
+      "Child.Type": "网络"
+    },
+    "filled": 8,
+    "total": 8
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "采集到：云端日志存在 25 条 'RegSetValue' 事件（能力存在）。（样本具体对象值未命中，但能力存在，不影响判定。）Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {
+    "Operation": {
+      "value": "RegSetValue",
+      "found": true,
+      "where": [
+        "RegSetValue"
+      ]
+    },
+    "RegKeyPath": {
+      "value": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+      "found": false,
+      "where": []
+    },
+    "RegValueName": {
+      "value": "EDRTelemetryGpoTest",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "GPO-MODIFY-001",
+  "module": "GPO",
+  "action": "",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 11615,
+    "after_hostname": 11615,
+    "after_time": 36,
+    "after_actor": 1,
+    "after_pid": 1,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-26T16:01:23.490000+00:00",
+    "log_time_max": "2026-08-26T17:31:12.098000+00:00",
+    "target_begin": "2026-08-26T16:10:14.197000+00:00",
+    "target_end": "2026-08-26T16:10:14.197000+00:00",
+    "run_begin": "2026-08-26T16:10:11.132000+00:00",
+    "run_end": "2026-08-26T16:10:14.211000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "RegSetValue",
+        "actor": "msiexec.exe",
+        "target": ""
+      },
+      {
+        "operation": "RegSetValue",
+        "actor": "msiexec.exe",
+        "target": ""
+      },
+      {
+        "operation": "RegSetValue",
+        "actor": "msiexec.exe",
+        "target": ""
+      },
+      {
+        "operation": "RegSetValue",
+        "actor": "msiexec.exe",
+        "target": ""
+      },
+      {
+        "operation": "RegSetValue",
+        "actor": "msiexec.exe",
+        "target": ""
+      }
+    ],
+    "value_scan": {
+      "Operation": {
+        "value": "RegSetValue",
+        "found": true,
+        "where": [
+          "RegSetValue"
+        ]
+      },
+      "RegKeyPath": {
+        "value": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+        "found": false,
+        "where": []
+      },
+      "RegValueName": {
+        "value": "EDRTelemetryGpoTest",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 25,
+    "capability_base_count": 25,
+    "capability_v2": "有",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "indirect",
+      "anchor_process": "msiexec.exe",
+      "anchor_md5": null,
+      "tables": [
+        "RegEvents"
+      ],
+      "operations": [
+        "RegSetValue"
+      ],
+      "probe": null
+    },
+    "sample_value_found": false,
+    "sample_value_hits": {
+      "RegKeyPath": false,
+      "RegValueName": false,
+      "RegValueData": false
+    },
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 11615/11615",
+      "Time window [2026-08-26T16:10:06.132000+00:00 – 2026-08-26T16:10:44.211000+00:00]: 36 events (coverage=COVERED)",
+      "Actor ('GroupPolicyModifyTest.exe'): 1 events",
+      "PID (7060): strict → 1 events",
+      "MD5 exact ('10B8C9137AE6D196E066B7627C6ED700'): 1 → 1 events",
+      "Operation ('RegSetValue'): 0 events",
+      "behavior_fields[RegKeyPath]→['Child.RegKeyPath']='HKCU\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Policies\\\\Explorer': 0 hits in window pool",
+      "behavior_fields[RegValueName]→['Child.RegValueName']='EDRTelemetryGpoTest': 0 hits in window pool",
+      "behavior_fields[RegValueData]→['Child.RegValueData']='1': 0 hits in window pool",
+      "Capability ('RegSetValue'): 25 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.RegKeyPath",
+      "Child.RegValueName",
+      "Child.RegValueData",
+      "Child.RegGroupName"
+    ],
+    "matched_event_coverage": {
+      "Child.RegKeyPath": null,
+      "Child.RegValueName": null,
+      "Child.RegValueData": null,
+      "Child.RegGroupName": null
+    },
+    "filled": 0,
+    "total": 4
+  }
+}

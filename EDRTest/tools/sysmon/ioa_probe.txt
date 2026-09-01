@@ -1,0 +1,115 @@
+===== ZTSM PROGRAMDATA ===== 
+Basic
+EPSec
+EPSecDoc
+Log
+Privilege
+TDHS
+TenioDL
+TxSecZone
+ZtsmEnt
+ZtsmEntDownload
+ztsmmgr
+===== ZTSM EDR DIR ===== 
+找不到文件
+===== ZTSM BASIC DIR ===== 
+253.dat
+254.dat
+255.dat
+256.dat
+259.dat
+aidefend
+AutomaticScanTaskPolicy.json
+CacheDynamicRulePolicy
+CacheIdentityPolicy
+CacheLoginPolicy
+CachePolicy
+CacheReAuthCfgPolicy
+CacheResult.db
+CustomRes
+customres.zip
+CustomSpa
+custom_homepage.dat
+DataAudit.db
+DataInfo
+DataNetwork.db
+dgsattr.db
+dgsconf.db
+dgsext.db
+dgsquery.db
+Dlp
+dlpkv.db
+edr
+EdrLocalData
+EdrTasks
+Enterprise_GlobalMgr.db
+FirstInstallFlag
+gsattr.db
+gsconf.db
+gsext.db
+gskv.db
+gsquery.db
+HardwareInfo.dat
+I18N_CURRENT.ini
+IOALic2Module.dat
+LocalSrvConfig.dat
+NewFeatureConfig.ini
+NGNLocal
+ngntab.png
+officeapp.dat
+officeapp_new.dat
+packet_cache_file
+packet_cache_file_cnt1
+performance
+PolicyCache
+PolicyConfig
+PreConfig.dat
+PrivilegeCache.dat
+QMAssetDiscoveryMgr.ini
+QMComplianceCheck.dat
+QMComplianceCheckEncrypt.dat
+QMComplianceLastResult.dat
+QMCustomHomepage.dat
+QMDeviceRecord.dat
+QMDocProtectSwitch_QMHIPSPolicyEng.exe
+QMDocProtectSwitch_QMHIPSService.exe
+QMFireWallRule.dat
+QMFireWallStatus.dat
+QMMdcRemoteCtrlEncrypt.dat
+QMNetworkMgr.ini
+QMRemoteConfig.dat
+QMRemoteControl.dat
+QMRuleAllDevice.dat
+QMRuleProcessCreate.dat
+QMRuleUDevice.dat
+QMRuleUDisk.dat
+QMSaasConfig.ini
+QMSysRepLibPiracy.dat
+QMVirusDBUpdateHistory.dat
+ScanEngConfig.ini
+Serverconfig.dat
+Serverconfig.dat.new
+Serverconfig.dat.old
+shutdown_record.ini
+SoftWareDistributionResult.dat
+Tasks
+tbs_cache
+ToolBox
+trayicon_logout.ico
+TrojanResult.db
+ttapp.dat
+TxNetProtection.dat
+TxNGNPolicy.dat
+usr
+VulResult.db
+VulResult.db.bak
+===== EDR LOG FILES (recent) ===== 
+C:\ProgramData\ZtsmEnt\Basic\edr
+===== SERVICES ===== 
+SERVICE_NAME: ztsmemgsvc
+DISPLAY_NAME: ztsm emg service
+SERVICE_NAME: ztsmrtp
+DISPLAY_NAME: ztsm rtp service
+SERVICE_NAME: ztsmwscsvc
+DISPLAY_NAME: ztsm wsc service
+===== DONE ===== 

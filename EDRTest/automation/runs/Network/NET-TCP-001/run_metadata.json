@@ -1,0 +1,32 @@
+[
+  {
+    "test_case_id": "NET-TCP-001",
+    "run_id": "0c8e4117-af21-4a75-bfdc-c6e206cee117",
+    "module": "Network",
+    "action": "TCPConnection",
+    "process_name": "NetworkActivityTest.exe",
+    "pid": 5412,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T16:46:23.874000+00:00",
+    "setup_begin_utc": "2026-08-26T16:46:24.092000+00:00",
+    "setup_end_utc": "2026-08-26T16:46:24.092000+00:00",
+    "target_begin_utc": "2026-08-26T16:46:24.092000+00:00",
+    "target_end_utc": null,
+    "run_end_utc": "2026-08-26T16:46:45.665000+00:00",
+    "sample_result": "FAIL",
+    "exit_code": 1,
+    "parser_mode": "current",
+    "missing_fields": [
+      "target_end_utc"
+    ],
+    "degraded_match": true,
+    "target_fields": {
+      "Protocol": "TCP",
+      "RemoteIP": "93.184.216.34",
+      "RemotePort": "80"
+    },
+    "error_lines": [
+      "SocketException: ����Ŀ�����������ܾ����޷����ӡ� 93.184.216.34:80"
+    ]
+  }
+]

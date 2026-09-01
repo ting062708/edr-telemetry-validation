@@ -1,0 +1,69 @@
+{
+  "verdict": "NOT_IMPLEMENTED",
+  "verdict_icon": "❌",
+  "capability_state": "Not Implemented",
+  "message": "No telemetry event matched all criteria. Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "test_case_id": "FILE-MODIFY-001",
+  "module": "File",
+  "action": "--case FILE-MODIFY-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 1649,
+    "after_hostname": 1649,
+    "after_time": 115,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-24T04:42:01.457000+00:00",
+    "log_time_max": "2026-08-24T04:54:55.384000+00:00",
+    "target_begin": "2026-08-24T04:50:07.570000+00:00",
+    "target_end": "2026-08-24T04:50:07.610000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 1649/1649",
+      "Time window [2026-08-24T04:50:02.570000+00:00 – 2026-08-24T04:50:37.610000+00:00]: 115 events (coverage=COVERED)",
+      "Actor ('FileLifecycleTest.exe'): 0 events",
+      "PID (5696): source carries no actor_pid — filter omitted",
+      "MD5 exact ('203EBC81024D164132B436EFDA7463C9'): 0 → 0 events",
+      "Operation ('FileWriteClose'): 0 events",
+      "behavior_fields[Path]→['Child.FilePath']='C:\\\\EDRTest\\\\samples\\\\File\\\\FileLifecycle_Target.exe': 0 → 0 events",
+      "behavior_fields[FileName]→['Child.FileName']='FileLifecycle_Target.exe': 0 → 0 events",
+      "behavior_fields[ContentMd5]→['Child.FileMd5']='f871af7a4eeed41601eaa3369f49094d': 0 → 0 events"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.FileCreateOpName",
+      "Child.FileName",
+      "Child.FilePath",
+      "Child.FileSize",
+      "Child.NodeName",
+      "Child.Type",
+      "Child.FileMd5"
+    ],
+    "matched_event_coverage": {
+      "Child.FileCreateOpName": null,
+      "Child.FileName": null,
+      "Child.FilePath": null,
+      "Child.FileSize": null,
+      "Child.NodeName": null,
+      "Child.Type": null,
+      "Child.FileMd5": null
+    },
+    "filled": 0,
+    "total": 7
+  }
+}

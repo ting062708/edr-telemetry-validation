@@ -1,0 +1,11 @@
+[RUN-BEGIN] RunID=30a97a1e-bed2-4e24-a1fd-cca4f80ced8b TimeUTC=2026-08-23T06:13:35.094Z
+[META] TestCaseID=NET-DOWNLOAD-001 Module=Network Action=FileDownloaded
+[META] Process=NetworkActivityTest.exe PID=10724 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-23T06:13:35.130Z
+[SETUP] OutputPath=C:\Temp\EDRTest\NetworkActivityTest_download.dat
+[SETUP-END] TimeUTC=2026-08-23T06:13:35.149Z
+[TARGET-BEGIN] TimeUTC=2026-08-23T06:13:35.150Z
+[TARGET] URL=https://proof.ovh.net/files/1Mb.dat
+[TARGET] Host=proof.ovh.net
+[TARGET] RemotePort=443
+[TARGET] OutputPath=C:\Temp\EDRTest\NetworkActivityTest_download.dat

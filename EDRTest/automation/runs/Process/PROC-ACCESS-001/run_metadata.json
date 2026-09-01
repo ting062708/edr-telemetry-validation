@@ -1,0 +1,29 @@
+[
+  {
+    "test_case_id": "PROC-ACCESS-001",
+    "run_id": "e8811b54efca4f66a8770e9e7d7f40c3",
+    "module": "Process",
+    "action": "access",
+    "process_name": "ProcessLifecycleTest.exe",
+    "pid": 5800,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T16:40:07.975000+00:00",
+    "setup_begin_utc": "2026-08-26T16:40:08.024000+00:00",
+    "setup_end_utc": "2026-08-26T16:40:08.024000+00:00",
+    "target_begin_utc": "2026-08-26T16:40:11.047000+00:00",
+    "target_end_utc": "2026-08-26T16:40:11.054000+00:00",
+    "run_end_utc": "2026-08-26T16:40:11.054000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Operation": "ProcessAccess",
+      "TargetPID": "5424",
+      "DesiredAccess": "PROCESS_QUERY_INFORMATION",
+      "HandleOpened": "true"
+    },
+    "error_lines": []
+  }
+]

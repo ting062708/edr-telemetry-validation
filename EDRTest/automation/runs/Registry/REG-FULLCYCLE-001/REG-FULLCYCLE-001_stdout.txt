@@ -1,0 +1,64 @@
+[RUN-BEGIN]
+[META] Suite=RegistryLifecycleTest
+[META] Mode=FULL-LIFECYCLE-FROZEN
+[META] TestCases=REG-CREATE-001,REG-MODIFY-001,REG-DELETE-001
+[META] RunID=1f837887-590a-406f-9b5f-75af6ab953f3
+[META] Process=RegistryLifecycleTest.exe
+[META] PID=5920
+[META] Hostname=DESKTOP-0AHK53B
+[META] StartTimeUTC=2026-08-22T05:16:21.077Z
+[META] Is64BitProcess=True
+[META] RegistryHive=HKCU
+[META] RegistryPath=Software\Microsoft\Windows\CurrentVersion\Run
+[META] ValueName=EDRTelemetryRunTest
+[META] CreatedValue=C:\Windows\System32\notepad.exe
+[META] ModifiedValue=C:\Windows\System32\calc.exe
+[META] InterPhaseDelayMs=10000
+[PHASE-BEGIN] TestCaseID=REG-CREATE-001 TimeUTC=2026-08-22T05:16:21.093Z
+[PHASE] Telemetry=Registry Value Creation
+[SETUP-BEGIN] TestCaseID=REG-CREATE-001 TimeUTC=2026-08-22T05:16:21.093Z
+[SETUP] ExpectedValueState=ABSENT
+[SETUP] ActualValueState=ABSENT
+[SETUP] Validation=PASS
+[SETUP-END] TestCaseID=REG-CREATE-001 TimeUTC=2026-08-22T05:16:21.167Z
+[TARGET-BEGIN] TestCaseID=REG-CREATE-001 TimeUTC=2026-08-22T05:16:21.167Z
+[TARGET] Operation=RegSetValue
+[TARGET] ValueName=EDRTelemetryRunTest
+[TARGET] NewValue=C:\Windows\System32\notepad.exe
+[TARGET-END] TestCaseID=REG-CREATE-001 TimeUTC=2026-08-22T05:16:21.189Z
+[VERIFY] ActualKind=String ActualValue=C:\Windows\System32\notepad.exe
+[VERIFY] Validation=PASS
+[PHASE-END] TestCaseID=REG-CREATE-001 Status=PASS TimeUTC=2026-08-22T05:16:21.189Z
+[PHASE-BEGIN] TestCaseID=REG-MODIFY-001 TimeUTC=2026-08-22T05:16:31.216Z
+[PHASE] Telemetry=Registry Value Modification
+[SETUP-BEGIN] TestCaseID=REG-MODIFY-001 TimeUTC=2026-08-22T05:16:31.216Z
+[SETUP] ExpectedValue=C:\Windows\System32\notepad.exe
+[SETUP] ActualKind=String ActualValue=C:\Windows\System32\notepad.exe
+[SETUP] Validation=PASS
+[SETUP-END] TestCaseID=REG-MODIFY-001 TimeUTC=2026-08-22T05:16:31.216Z
+[TARGET-BEGIN] TestCaseID=REG-MODIFY-001 TimeUTC=2026-08-22T05:16:31.216Z
+[TARGET] Operation=RegSetValue
+[TARGET] ValueName=EDRTelemetryRunTest
+[TARGET] OldValue=C:\Windows\System32\notepad.exe
+[TARGET] NewValue=C:\Windows\System32\calc.exe
+[TARGET-END] TestCaseID=REG-MODIFY-001 TimeUTC=2026-08-22T05:16:32.482Z
+[VERIFY] ActualKind=String ActualValue=C:\Windows\System32\calc.exe
+[VERIFY] Validation=PASS
+[PHASE-END] TestCaseID=REG-MODIFY-001 Status=PASS TimeUTC=2026-08-22T05:16:32.482Z
+[PHASE-BEGIN] TestCaseID=REG-DELETE-001 TimeUTC=2026-08-22T05:16:42.512Z
+[PHASE] Telemetry=Registry Value Deletion
+[SETUP-BEGIN] TestCaseID=REG-DELETE-001 TimeUTC=2026-08-22T05:16:42.512Z
+[SETUP] ExpectedValue=C:\Windows\System32\calc.exe
+[SETUP] ActualKind=String ActualValue=C:\Windows\System32\calc.exe
+[SETUP] Validation=PASS
+[SETUP-END] TestCaseID=REG-DELETE-001 TimeUTC=2026-08-22T05:16:42.512Z
+[TARGET-BEGIN] TestCaseID=REG-DELETE-001 TimeUTC=2026-08-22T05:16:42.512Z
+[TARGET] Operation=RegDeleteValue
+[TARGET] ValueName=EDRTelemetryRunTest
+[TARGET] OldValue=C:\Windows\System32\calc.exe
+[TARGET-END] TestCaseID=REG-DELETE-001 TimeUTC=2026-08-22T05:16:42.593Z
+[VERIFY] ActualValueState=ABSENT
+[VERIFY] Validation=PASS
+[PHASE-END] TestCaseID=REG-DELETE-001 Status=PASS TimeUTC=2026-08-22T05:16:42.593Z
+[RESULT] PASS ExitCode=0
+[RUN-END] TimeUTC=2026-08-22T05:16:42.593Z

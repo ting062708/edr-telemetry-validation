@@ -1,0 +1,6 @@
+﻿Case ID,模块,行为,判定,打问号,有记录,无记录,情况说明
+NET-DOWNLOAD-001,网络,文件下载,通过,,,,HttpsRequest(Host=proof.ovh.net)
+NET-TCP-001,网络,TCP 连接,通过,,,,HttpRequest(DstIp=93.184.216.34:80)
+NET-URL-001,网络,URL 访问,通过,,,,HttpsRequest(Host=www.baidu.com)，Child.Url 为空、实际在 Host
+NET-UDP-001,网络,UDP 连接,通过(部分)?,?,系统进程广播/组播 → SocketRequest(34 条， svchost/dashost),样本单播 sendto(8.8.8.8:53) → 无记录,SocketRequest 有记录，但全部是系统进程的广播/组播，样本单播 UDP 未采。采到的是系统行为非样本行为。待与导师确认
+NET-DNS-001,网络,DNS 查询,未通过,,,,DnsQuery_W 无对应事件，IOA 不采 DNS 解析

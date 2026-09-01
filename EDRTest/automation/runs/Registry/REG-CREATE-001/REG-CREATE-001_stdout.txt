@@ -1,0 +1,20 @@
+[RUN-BEGIN] RunID=68312ecb-9c10-4dd6-a34e-14ed6311c2ce TimeUTC=2026-08-26T15:06:06.670Z
+[META] TestCaseID=REG-CREATE-001 Module=Registry Action=Create
+[META] Process=RegistryLifecycleTest.exe PID=5328 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-26T15:06:06.769Z
+[SETUP] RegistryPath=Software\Microsoft\Windows\CurrentVersion\Run
+[SETUP] ValueName=EDRTelemetryRunTest
+[SETUP] StaleValueRemoved=false
+[SETUP] ExpectedValueState=ABSENT
+[SETUP] Validation=PASS
+[SETUP-END] TimeUTC=2026-08-26T15:06:06.952Z
+[TARGET-BEGIN] TimeUTC=2026-08-26T15:06:12.011Z
+[TARGET] Operation=RegSetValue
+[TARGET] RegistryPath=Software\Microsoft\Windows\CurrentVersion\Run
+[TARGET] ValueName=EDRTelemetryRunTest
+[TARGET] NewValue=C:\Windows\System32\notepad.exe
+[TARGET-END] TimeUTC=2026-08-26T15:06:12.012Z
+[VERIFY] ActualKind=String ActualValue=C:\Windows\System32\notepad.exe
+[VERIFY] Validation=PASS
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=68312ecb-9c10-4dd6-a34e-14ed6311c2ce TimeUTC=2026-08-26T15:06:12.016Z

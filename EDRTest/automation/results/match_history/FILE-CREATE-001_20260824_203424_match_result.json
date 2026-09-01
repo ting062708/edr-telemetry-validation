@@ -1,0 +1,168 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "采集到：云端日志存在 19 条 'FileWriteClose' 事件（能力存在）。（样本具体对象值未命中，但能力存在，不影响判定。）Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {
+    "Path": {
+      "value": "C:\\EDRTest\\samples\\File\\FileLifecycle_Target.exe",
+      "found": false,
+      "where": []
+    },
+    "FileName": {
+      "value": "FileLifecycle_Target.exe",
+      "found": false,
+      "where": []
+    },
+    "Operation": {
+      "value": "Create",
+      "found": false,
+      "where": []
+    },
+    "Size": {
+      "value": "59",
+      "found": true,
+      "where": [
+        "ProcessCreate"
+      ]
+    },
+    "ContentMd5": {
+      "value": "c99b28b6ebfc73e4582cc2b841e6ebdc",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "FILE-CREATE-001",
+  "module": "File",
+  "action": "--case FILE-CREATE-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 1380,
+    "after_hostname": 1380,
+    "after_time": 16,
+    "after_actor": 1,
+    "after_pid": 1,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-24T08:09:14.458000+00:00",
+    "log_time_max": "2026-08-24T08:21:08.797000+00:00",
+    "target_begin": "2026-08-24T08:11:32.528000+00:00",
+    "target_end": "2026-08-24T08:11:32.559000+00:00",
+    "run_begin": "2026-08-24T08:11:32.500000+00:00",
+    "run_end": "2026-08-24T08:11:32.559000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "FileWriteClose",
+        "actor": "mousocoreworker.exe",
+        "target": "UpdateAgent.dll"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "svchost.exe",
+        "target": "UpdateAgent.dll"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "wermgr.exe",
+        "target": "WER8EDF.tmp.WERInternalMetadata.xml"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "wermgr.exe",
+        "target": "WER8672.tmp.WERInternalMetadata.xml"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "wermgr.exe",
+        "target": "WER68D7.tmp.WERInternalMetadata.xml"
+      }
+    ],
+    "value_scan": {
+      "Path": {
+        "value": "C:\\EDRTest\\samples\\File\\FileLifecycle_Target.exe",
+        "found": false,
+        "where": []
+      },
+      "FileName": {
+        "value": "FileLifecycle_Target.exe",
+        "found": false,
+        "where": []
+      },
+      "Operation": {
+        "value": "Create",
+        "found": false,
+        "where": []
+      },
+      "Size": {
+        "value": "59",
+        "found": true,
+        "where": [
+          "ProcessCreate"
+        ]
+      },
+      "ContentMd5": {
+        "value": "c99b28b6ebfc73e4582cc2b841e6ebdc",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 19,
+    "capability_base_count": 43,
+    "sample_value_found": false,
+    "sample_value_hits": {
+      "Path": false,
+      "FileName": false
+    },
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 1380/1380",
+      "Time window [2026-08-24T08:11:27.500000+00:00 – 2026-08-24T08:12:02.559000+00:00]: 16 events (coverage=COVERED)",
+      "Actor ('FileLifecycleTest.exe'): 1 events",
+      "PID (5248): strict → 1 events",
+      "MD5 exact ('156CA9CF54E5AE8E919375026D60A02B'): 1 → 1 events",
+      "Operation ('FileWriteClose'): 0 events",
+      "behavior_fields[Path]→['Child.FilePath']='C:\\\\EDRTest\\\\samples\\\\File\\\\FileLifecycle_Target.exe': 0 hits in window pool",
+      "behavior_fields[FileName]→['Child.FileName']='FileLifecycle_Target.exe': 0 hits in window pool",
+      "Capability ('FileWriteClose'): 19 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.FileCreateOpName",
+      "Child.FileName",
+      "Child.FilePath",
+      "Child.FileSize",
+      "Child.NodeName",
+      "Child.Type",
+      "Child.FileMd5"
+    ],
+    "matched_event_coverage": {
+      "Child.FileCreateOpName": null,
+      "Child.FileName": null,
+      "Child.FilePath": null,
+      "Child.FileSize": null,
+      "Child.NodeName": null,
+      "Child.Type": null,
+      "Child.FileMd5": null
+    },
+    "filled": 0,
+    "total": 7
+  }
+}

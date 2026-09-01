@@ -1,0 +1,8 @@
+Project: RegistryLifecycleTest
+Candidate: Full Lifecycle Frozen Candidate
+Version: 1.0.0
+Target OS: Windows 10 x64
+Framework: .NET Framework 4.7.2
+Build: Release | x64
+Formal TestCases: REG-CREATE-001, REG-MODIFY-001, REG-DELETE-001
+Registry Target: HKCU\Software\Microsoft\Windows\CurrentVersion\Run\EDRTelemetryRunTest

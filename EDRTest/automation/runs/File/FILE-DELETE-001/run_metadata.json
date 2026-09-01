@@ -1,0 +1,28 @@
+[
+  {
+    "test_case_id": "FILE-DELETE-001",
+    "run_id": "ed3f2482-04df-42be-8197-710db1338e43",
+    "module": "File",
+    "action": "Delete",
+    "process_name": "FileLifecycleTest.exe",
+    "pid": 5200,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T15:17:23.116000+00:00",
+    "setup_begin_utc": "2026-08-26T15:17:23.177000+00:00",
+    "setup_end_utc": "2026-08-26T15:17:23.193000+00:00",
+    "target_begin_utc": "2026-08-26T15:17:23.193000+00:00",
+    "target_end_utc": "2026-08-26T15:17:23.193000+00:00",
+    "run_end_utc": "2026-08-26T15:17:23.193000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Path": "C:\\EDRTest\\samples\\File\\FileLifecycle_Target.dll",
+      "FileName": "FileLifecycle_Target.dll",
+      "Operation": "Delete"
+    },
+    "error_lines": []
+  }
+]

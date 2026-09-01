@@ -1,0 +1,109 @@
+{
+  "verdict": "NOT_IMPLEMENTED",
+  "verdict_icon": "❌",
+  "capability_state": "Not Implemented",
+  "message": "未采集：云端日志中无 'DeleteService' 行为事件（能力不存在）。 Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": "not_implemented",
+  "as_expected": true,
+  "capability_detected": false,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {
+    "ServiceName": {
+      "value": "EDR_Telemetry_Test_Service",
+      "found": false,
+      "where": []
+    },
+    "Operation": {
+      "value": "DeleteService",
+      "found": false,
+      "where": []
+    },
+    "DeleteRequested": {
+      "value": "True",
+      "found": true,
+      "where": [
+        "NtQueryInformationProcess"
+      ]
+    }
+  },
+  "test_case_id": "SVC-DELETE-001",
+  "module": "Service",
+  "action": "--case SVC-DELETE-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 9721,
+    "after_hostname": 9721,
+    "after_time": 29,
+    "after_actor": 1,
+    "after_pid": 1,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-25T14:15:23.127000+00:00",
+    "log_time_max": "2026-08-25T15:18:19.937000+00:00",
+    "target_begin": "2026-08-25T14:58:10.300000+00:00",
+    "target_end": "2026-08-25T14:58:10.427000+00:00",
+    "run_begin": "2026-08-25T14:58:09.911000+00:00",
+    "run_end": "2026-08-25T14:58:10.644000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": false,
+    "capability_base_detected": false,
+    "capability_evidence": [],
+    "value_scan": {
+      "ServiceName": {
+        "value": "EDR_Telemetry_Test_Service",
+        "found": false,
+        "where": []
+      },
+      "Operation": {
+        "value": "DeleteService",
+        "found": false,
+        "where": []
+      },
+      "DeleteRequested": {
+        "value": "True",
+        "found": true,
+        "where": [
+          "NtQueryInformationProcess"
+        ]
+      }
+    },
+    "capability_count": 0,
+    "capability_base_count": 0,
+    "capability_v2": "无",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "indirect",
+      "anchor_process": "ServiceLifecycleTest.exe",
+      "anchor_md5": "582dd9e5c1ca802a2e9e2ff08ff66c2e",
+      "tables": [
+        "ServiceEvents"
+      ],
+      "operations": [
+        "DeleteService"
+      ],
+      "probe": null
+    },
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 9721/9721",
+      "Time window [2026-08-25T14:58:04.911000+00:00 – 2026-08-25T14:58:40.644000+00:00]: 29 events (coverage=COVERED)",
+      "Actor ('ServiceLifecycleTest.exe'): 1 events",
+      "PID (5404): strict → 1 events",
+      "MD5 exact ('582DD9E5C1CA802A2E9E2FF08FF66C2E'): 1 → 1 events",
+      "Operation ('DeleteService'): 0 events",
+      "Capability ('DeleteService'): 0 events (能力不存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

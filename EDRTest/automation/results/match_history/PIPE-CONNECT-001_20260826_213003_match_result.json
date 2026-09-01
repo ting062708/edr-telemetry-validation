@@ -1,0 +1,154 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "采集到：云端日志存在 10 条 'NamedPipe' 事件（能力存在）。样本特征值已命中。Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": true,
+  "anomaly": null,
+  "value_scan": {
+    "Operation": {
+      "value": "PipeConnect",
+      "found": false,
+      "where": []
+    },
+    "PipeName": {
+      "value": "EDRTelemetryPipeTest_661fd228396e",
+      "found": true,
+      "where": [
+        "NamedPipe"
+      ]
+    },
+    "TargetName": {
+      "value": "\\\\.\\pipe\\EDRTelemetryPipeTest_661fd228396e",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "PIPE-CONNECT-001",
+  "module": "Pipe",
+  "action": "--case PIPE-CONNECT-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 9721,
+    "after_hostname": 9721,
+    "after_time": 171,
+    "after_actor": 14,
+    "after_pid": 14,
+    "after_operation": 2,
+    "after_extra": 2,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-25T14:15:23.127000+00:00",
+    "log_time_max": "2026-08-25T15:18:19.937000+00:00",
+    "target_begin": "2026-08-25T15:00:13.633000+00:00",
+    "target_end": "2026-08-25T15:00:13.693000+00:00",
+    "run_begin": "2026-08-25T15:00:13.544000+00:00",
+    "run_end": "2026-08-25T15:00:13.693000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 2,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "NamedPipe",
+        "actor": "PowerShellScriptBlockTest.exe",
+        "target": ""
+      },
+      {
+        "operation": "NamedPipe",
+        "actor": "BitsJobTest.exe",
+        "target": ""
+      },
+      {
+        "operation": "NamedPipe",
+        "actor": "VirtualDiskMountTest.exe",
+        "target": ""
+      },
+      {
+        "operation": "NamedPipe",
+        "actor": "WmiActivityTest.exe",
+        "target": ""
+      },
+      {
+        "operation": "NamedPipe",
+        "actor": "PipeLifecycleTest.exe",
+        "target": ""
+      }
+    ],
+    "value_scan": {
+      "Operation": {
+        "value": "PipeConnect",
+        "found": false,
+        "where": []
+      },
+      "PipeName": {
+        "value": "EDRTelemetryPipeTest_661fd228396e",
+        "found": true,
+        "where": [
+          "NamedPipe"
+        ]
+      },
+      "TargetName": {
+        "value": "\\\\.\\pipe\\EDRTelemetryPipeTest_661fd228396e",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 10,
+    "capability_base_count": 10,
+    "capability_v2": "有",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "direct",
+      "anchor_process": "PipeLifecycleTest.exe",
+      "anchor_md5": "2a20e660c72d23b2be41e33c22d1075e",
+      "tables": [
+        "FileEvents"
+      ],
+      "operations": [
+        "NamedPipe"
+      ],
+      "probe": null
+    },
+    "sample_value_found": true,
+    "sample_value_hits": {
+      "PipeName": true,
+      "TargetName": false
+    },
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 9721/9721",
+      "Time window [2026-08-25T15:00:08.544000+00:00 – 2026-08-25T15:00:43.693000+00:00]: 171 events (coverage=COVERED)",
+      "Actor ('PipeLifecycleTest.exe'): 14 events",
+      "PID (2232): strict → 14 events",
+      "MD5 exact ('2A20E66091ABFC8B4A093AAD090437B3'): 14 → 14 events",
+      "Operation ('NamedPipe'): 2 events",
+      "behavior_fields[PipeName]→['Child.PipeName']='EDRTelemetryPipeTest_661fd228396e': 1 hits in window pool",
+      "behavior_fields[TargetName]→['Child.PipeName']='\\\\\\\\.\\\\pipe\\\\EDRTelemetryPipeTest_661fd228396e': 0 hits in window pool",
+      "Capability ('NamedPipe'): 10 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.PipeName",
+      "Child.NodeName",
+      "Child.Type"
+    ],
+    "matched_event_coverage": {
+      "Child.PipeName": null,
+      "Child.NodeName": null,
+      "Child.Type": null
+    },
+    "filled": 0,
+    "total": 3
+  }
+}

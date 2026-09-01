@@ -1,0 +1,13 @@
+[RUN-BEGIN] RunID=0c8e4117-af21-4a75-bfdc-c6e206cee117 TimeUTC=2026-08-26T16:46:23.874Z
+[META] TestCaseID=NET-TCP-001 Module=Network Action=TCPConnection
+[META] Process=NetworkActivityTest.exe PID=5412 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-26T16:46:24.092Z
+[SETUP] Required=None
+[SETUP-END] TimeUTC=2026-08-26T16:46:24.092Z
+[TARGET-BEGIN] TimeUTC=2026-08-26T16:46:24.092Z
+[TARGET] Protocol=TCP
+[TARGET] RemoteIP=93.184.216.34
+[TARGET] RemotePort=80
+[ERROR] SocketException: ����Ŀ�����������ܾ����޷����ӡ� 93.184.216.34:80
+[RESULT] FAIL ExitCode=1
+[RUN-END] RunID=0c8e4117-af21-4a75-bfdc-c6e206cee117 TimeUTC=2026-08-26T16:46:45.665Z

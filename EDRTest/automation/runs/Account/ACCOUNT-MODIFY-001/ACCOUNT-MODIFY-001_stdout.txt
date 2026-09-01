@@ -1,0 +1,16 @@
+[RUN-BEGIN] RunID=d12f2243-bf4f-44cd-9d73-cc640d7ba6d5 TimeUTC=2026-08-26T15:25:59.106Z
+[META] TestCaseID=ACCOUNT-MODIFY-001 Module=Account Action=Modify
+[META] Process=AccountLifecycleTest.exe PID=5488 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-26T15:25:59.309Z
+[SETUP] Account=EDR_Test_User
+[SETUP] DesiredState=Present
+[SETUP-END] TimeUTC=2026-08-26T15:25:59.688Z
+[TARGET-BEGIN] TimeUTC=2026-08-26T15:25:59.688Z
+[TARGET] Account=EDR_Test_User
+[TARGET] Operation=Modify
+[TARGET] Field=Password
+[TARGET] NewValue=EdrT3st!2026_Bb
+[TARGET-END] TimeUTC=2026-08-26T15:26:04.889Z
+[CLEANUP] AccountDeleteStatus=0
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=d12f2243-bf4f-44cd-9d73-cc640d7ba6d5 TimeUTC=2026-08-26T15:26:04.892Z

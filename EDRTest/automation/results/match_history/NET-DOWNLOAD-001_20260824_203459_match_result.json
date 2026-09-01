@@ -1,0 +1,205 @@
+{
+  "verdict": "ERROR_LOG_INPUT",
+  "verdict_icon": "🔴",
+  "capability_state": null,
+  "message": "Event log time range does not cover the TARGET window. Log: [2026-08-23T06:07:14.579000+00:00 – 2026-08-23T06:19:59.660000+00:00], Target: [2026-08-24T10:49:23.066000+00:00 – 2026-08-24T10:49:49.443000+00:00]. Re-export the log with a wider time range.",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": null,
+  "anchor_detected": null,
+  "anomaly": null,
+  "value_scan": {
+    "URL": {
+      "value": "https://proof.ovh.net/files/1Mb.dat",
+      "found": false,
+      "where": []
+    },
+    "Host": {
+      "value": "proof.ovh.net",
+      "found": true,
+      "where": [
+        "HttpsRequest"
+      ]
+    },
+    "RemotePort": {
+      "value": "443",
+      "found": true,
+      "where": [
+        "HttpsRequest"
+      ]
+    },
+    "OutputPath": {
+      "value": "C:\\Temp\\EDRTest\\NetworkActivityTest_download.dat",
+      "found": true,
+      "where": [
+        "FileWriteClose"
+      ]
+    },
+    "BytesDownloaded": {
+      "value": "1048576",
+      "found": true,
+      "where": [
+        "FileWriteClose"
+      ]
+    },
+    "SHA256": {
+      "value": "66F77F71710117F71712EB5766F3151E8AECEC390EBE0B0349C84961F1A547E6",
+      "found": false,
+      "where": []
+    },
+    "Md5": {
+      "value": "77d0476b8db959524e967d35e918e487",
+      "found": true,
+      "where": [
+        "FileWriteClose"
+      ]
+    }
+  },
+  "test_case_id": "NET-DOWNLOAD-001",
+  "module": "Network",
+  "action": "--case NET-DOWNLOAD-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 2429,
+    "after_hostname": 2429,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-23T06:07:14.579000+00:00",
+    "log_time_max": "2026-08-23T06:19:59.660000+00:00",
+    "target_begin": "2026-08-24T10:49:23.066000+00:00",
+    "target_end": "2026-08-24T10:49:49.443000+00:00",
+    "run_begin": "2026-08-24T10:49:23.050000+00:00",
+    "run_end": "2026-08-24T10:49:49.443000+00:00",
+    "coverage_status": "NOT_COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "HttpsRequest",
+        "actor": "svchost.exe",
+        "target": ""
+      },
+      {
+        "operation": "HttpsRequest",
+        "actor": "svchost.exe",
+        "target": ""
+      },
+      {
+        "operation": "HttpsRequest",
+        "actor": "svchost.exe",
+        "target": ""
+      },
+      {
+        "operation": "HttpsRequest",
+        "actor": "svchost.exe",
+        "target": ""
+      },
+      {
+        "operation": "HttpsRequest",
+        "actor": "svchost.exe",
+        "target": ""
+      }
+    ],
+    "value_scan": {
+      "URL": {
+        "value": "https://proof.ovh.net/files/1Mb.dat",
+        "found": false,
+        "where": []
+      },
+      "Host": {
+        "value": "proof.ovh.net",
+        "found": true,
+        "where": [
+          "HttpsRequest"
+        ]
+      },
+      "RemotePort": {
+        "value": "443",
+        "found": true,
+        "where": [
+          "HttpsRequest"
+        ]
+      },
+      "OutputPath": {
+        "value": "C:\\Temp\\EDRTest\\NetworkActivityTest_download.dat",
+        "found": true,
+        "where": [
+          "FileWriteClose"
+        ]
+      },
+      "BytesDownloaded": {
+        "value": "1048576",
+        "found": true,
+        "where": [
+          "FileWriteClose"
+        ]
+      },
+      "SHA256": {
+        "value": "66F77F71710117F71712EB5766F3151E8AECEC390EBE0B0349C84961F1A547E6",
+        "found": false,
+        "where": []
+      },
+      "Md5": {
+        "value": "77d0476b8db959524e967d35e918e487",
+        "found": true,
+        "where": [
+          "FileWriteClose"
+        ]
+      }
+    },
+    "capability_count": 45,
+    "capability_base_count": 45,
+    "sample_value_found": false,
+    "sample_value_hits": {
+      "Host": false
+    },
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 2429/2429",
+      "Time window [2026-08-24T10:49:18.050000+00:00 – 2026-08-24T10:50:19.443000+00:00]: 0 events (coverage=NOT_COVERED)",
+      "Actor ('NetworkActivityTest.exe'): 0 events",
+      "PID (2712): source carries no actor_pid — filter omitted",
+      "MD5 exact ('420CC1EE2BF37C9771EED953D17A3221'): 0 → 0 events",
+      "Operation ('HttpsRequest'): 0 events",
+      "match[Child.Host]='proof.ovh.net' (contains): 0 → 0 events",
+      "behavior_fields[Host]→['Child.Host']='proof.ovh.net': 0 hits in window pool",
+      "Capability ('HttpsRequest'): 45 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.DstIp",
+      "Child.DstPort",
+      "Child.Host",
+      "Child.Protocol",
+      "Child.SrcIp",
+      "Child.SrcPort",
+      "Child.NodeName",
+      "Child.Type"
+    ],
+    "matched_event_coverage": {
+      "Child.DstIp": null,
+      "Child.DstPort": null,
+      "Child.Host": null,
+      "Child.Protocol": null,
+      "Child.SrcIp": null,
+      "Child.SrcPort": null,
+      "Child.NodeName": null,
+      "Child.Type": null
+    },
+    "filled": 0,
+    "total": 8
+  }
+}

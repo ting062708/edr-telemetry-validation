@@ -1,0 +1,6 @@
+{
+  "case_id": "REG-DELETE-001",
+  "module": "Registry",
+  "behavior_fields": {},
+  "observed_fields": []
+}

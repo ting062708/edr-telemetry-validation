@@ -1,0 +1,95 @@
+{
+  "verdict": "NOT_IMPLEMENTED",
+  "verdict_icon": "❌",
+  "capability_state": "Not Implemented",
+  "message": "未采集：云端日志中无 'ProcessTerminate' 行为事件（能力不存在）。 Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": "not_implemented",
+  "as_expected": true,
+  "capability_detected": false,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {
+    "Operation": {
+      "value": "ProcessTerminate",
+      "found": false,
+      "where": []
+    },
+    "TargetPID": {
+      "value": "13044",
+      "found": true,
+      "where": [
+        "NtQueryInformationProcess"
+      ]
+    },
+    "ExitCode": {
+      "value": "0xED01",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "PROC-TERMINATE-001",
+  "module": "Process",
+  "action": "terminate",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 11003,
+    "after_hostname": 11003,
+    "after_time": 32,
+    "after_actor": 32,
+    "after_pid": 15,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-20T09:14:42.350000+00:00",
+    "log_time_max": "2026-08-22T17:59:32.510000+00:00",
+    "target_begin": "2026-08-21T13:52:08.822000+00:00",
+    "target_end": "2026-08-21T13:52:08.833000+00:00",
+    "run_begin": "2026-08-21T13:52:05.778000+00:00",
+    "run_end": "2026-08-21T13:52:08.836000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": false,
+    "capability_base_detected": false,
+    "capability_evidence": [],
+    "value_scan": {
+      "Operation": {
+        "value": "ProcessTerminate",
+        "found": false,
+        "where": []
+      },
+      "TargetPID": {
+        "value": "13044",
+        "found": true,
+        "where": [
+          "NtQueryInformationProcess"
+        ]
+      },
+      "ExitCode": {
+        "value": "0xED01",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 0,
+    "capability_base_count": 0,
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 11003/11003",
+      "Time window [2026-08-21T13:52:00.778000+00:00 – 2026-08-21T13:52:38.836000+00:00]: 32 events (coverage=COVERED)",
+      "Actor ('ProcessLifecycleTest.exe'): 32 events",
+      "PID (13116): strict → 15 events",
+      "MD5 exact ('F6D123D8483CF7BC0D324726B3B52639'): 15 → 0 events",
+      "Operation ('ProcessTerminate'): 0 events",
+      "Capability ('ProcessTerminate'): 0 events (能力不存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

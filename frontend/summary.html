@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>结果总结 · EDR 遥测采集能力验证</title>
+<style>
+  :root {
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --ink: #1f2937;
+    --sub: #6b7280;
+    --line: #e5e7eb;
+    --brand: #2563eb;
+    --green: #059669;
+    --green-soft: #ecfdf5;
+    --amber: #d97706;
+    --amber-soft: #fffbeb;
+    --red: #dc2626;
+    --red-soft: #fef2f2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg); color: var(--ink); line-height: 1.6; padding: 36px 20px 60px;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; }
+  .topbar { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+  .topbar a { color: var(--sub); text-decoration: none; font-size: 14px; }
+  .topbar a:hover { color: var(--brand); }
+  .hero {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: #fff; border-radius: 16px; padding: 36px 40px; margin-bottom: 24px;
+  }
+  .hero h1 { font-size: 26px; font-weight: 700; margin-bottom: 10px; }
+  .hero p { font-size: 14px; opacity: .9; }
+  .hero .chips { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+  .chip {
+    background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.2);
+    padding: 5px 14px; border-radius: 999px; font-size: 13px; font-weight: 600;
+  }
+  .chip .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+  .chip.g .dot { background: #4ade80; } .chip.a .dot { background: #fbbf24; }
+  .chip.r .dot { background: #f87171; } .chip.p .dot { background: #cbd5e1; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; padding: 24px 28px; margin-bottom: 20px;
+  }
+  .card .mhead { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+  .card .mhead h2 { font-size: 18px; font-weight: 700; }
+  .card .mhead .cnt { font-size: 12px; color: var(--sub); }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; color: var(--sub); font-weight: 600; background: #fafbfc; white-space: nowrap; }
+  tbody tr:hover { background: #fafbfd; }
+  td.beh { font-weight: 600; white-space: nowrap; }
+  .badge {
+    display: inline-block; font-size: 12px; font-weight: 600;
+    padding: 2px 10px; border-radius: 999px; white-space: nowrap;
+  }
+  .badge.g { background: var(--green-soft); color: var(--green); }
+  .badge.a { background: var(--amber-soft); color: var(--amber); }
+  .badge.r { background: var(--red-soft); color: var(--red); }
+  .badge.p { background: #f3f4f6; color: var(--sub); }
+  td.cause { color: #374151; font-size: 12.5px; line-height: 1.55; }
+  td.ai { color: #9ca3af; font-size: 12.5px; font-style: italic; }
+  td.ai .has { color: var(--ink); font-style: normal; }
+  .ai-line { display: block; font-size: 12px; margin-top: 2px; }
+  .ai-line b { color: var(--brand); font-weight: 600; }
+  .foot { color: var(--sub); font-size: 12.5px; text-align: center; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><a href="/">← 返回工作台</a></div>
+  <div class="hero">
+    <h1>结果总结</h1>
+    <p>IOA 采集能力验证 · 能力矩阵 · 采集通过 / 采集未通过</p>
+    <div class="chips" id="chips"></div>
+  </div>
+  <div id="content"></div>
+  <div class="foot">数据来源：能力矩阵（match_result 的 capability_detected）+ case_result_map.json 定稿原因。</div>
+</div>
+<script>
+const $ = (s) => document.querySelector(s);
+// binary 现在返回「采集通过 / 采集未通过」（二态定稿）
+const CLS = { '采集通过': 'g', '采集未通过': 'r' };
+
+function fmtSituations(sit) {
+  if (!sit || typeof sit !== 'object') return '';
+  const parts = [];
+  for (const k of ['有记录', '无记录']) {
+    const arr = sit[k];
+    if (Array.isArray(arr) && arr.length) parts.push(k + '：' + arr.join('、'));
+  }
+  return parts.join('；');
+}
+
+function industryTag(c, ind) {
+  if (!ind || !ind.case_map) return '<span class="badge p">—</span>';
+  const cat = ind.case_map[c.case_id];
+  if (!cat || !ind.categories || !ind.categories[cat]) return '<span class="badge p">—</span>';
+  const p = ind.categories[cat];
+  const names = ['Sysmon', 'MDE', 'CrowdStrike', 'SentinelOne'];
+  const ys = names.filter(k => p[k] === 'Yes').length;
+  const ns = names.filter(k => p[k] === 'No').length;
+  const indState = ys >= 3 ? 'y' : (ns >= 3 ? 'n' : 'mix');
+  const ioa = c.binary === '采集通过' ? 'y' : (c.binary === '采集未通过' ? 'n' : 'p');
+  let tag = '', cls = 'p';
+  if (ioa === 'p') { tag = '· —'; }
+  else if (ioa === 'y' && indState === 'y') { tag = '🟢 行业对齐'; cls = 'g'; }
+  else if (ioa !== 'y' && indState === 'y') { tag = '🔴 能力缺口'; cls = 'r'; }
+  else if (ioa !== 'y' && indState === 'n') { tag = '⚪ 行业常态'; cls = 'p'; }
+  else if (ioa === 'y' && indState === 'n') { tag = '⭐ 领先行业'; cls = 'g'; }
+  else { tag = '· 行业分歧'; }
+  const detail = names.map(k => k + '=' + (p[k] || '')).join(' · ');
+  return '<span class="badge ' + cls + '" title="' + detail + '">' + tag + '</span>';
+}
+
+function render(data, ind) {
+  const s = data.summary;
+  const done = s.collected + s.not_collected;
+  const chips = $('#chips');
+  chips.innerHTML = '';
+  const mk = (cls, label, n) => {
+    const c = document.createElement('span'); c.className = 'chip ' + cls;
+    c.innerHTML = '<span class="dot"></span>' + label + ' ' + n;
+    chips.appendChild(c);
+  };
+  mk('g', '采集通过', s.collected);
+  mk('r', '采集未通过', s.not_collected);
+  let sub = document.getElementById('heroSub');
+  if (!sub) { sub = document.createElement('p'); sub.id = 'heroSub'; document.querySelector('.hero').appendChild(sub); }
+  sub.textContent = '已出结论 ' + done + ' / ' + s.total + ' 个行为（能力矩阵，随 match 实时更新） · 更新于 ' +
+    new Date().toLocaleTimeString('zh-CN', { hour12: false });
+
+  const content = $('#content');
+  for (const m of data.modules) {
+    const card = document.createElement('div'); card.className = 'card';
+    const mhead = document.createElement('div'); mhead.className = 'mhead';
+    mhead.innerHTML = '<h2>' + m.display + '</h2><span class="cnt">' + m.cases.length + ' 个行为</span>';
+    card.appendChild(mhead);
+
+    const table = document.createElement('table');
+    table.innerHTML = '<thead><tr><th>行为</th><th>能力判定</th><th>结论 / 原因</th><th>行业对比</th></tr></thead>';
+    const tbody = document.createElement('tbody');
+    for (const c of m.cases) {
+      const tr = document.createElement('tr');
+      const bv = c.binary || '—';
+      const cls = CLS[bv] || 'p';
+      const cause = [c.result && c.result.note, fmtSituations(c.result && c.result.situations)].filter(Boolean).join('；');
+      tr.innerHTML = '<td class="beh">' + (c.behavior || c.case_id) + '</td>' +
+        '<td><span class="badge ' + cls + '">' + bv + '</span></td>' +
+        '<td class="cause">' + (cause || '—') + '</td>' +
+        '<td>' + industryTag(c, ind) + '</td>';
+      tbody.appendChild(tr);
+    }
+    table.appendChild(tbody);
+    card.appendChild(table);
+    content.appendChild(card);
+  }
+}
+
+function normalizeOverview(data) {
+  let collected = 0, not_collected = 0, pending = 0;
+  for (const m of data.modules) for (const c of m.cases) {
+    const b = c.binary;
+    if (b !== '采集通过' && b !== '采集未通过') {
+      const rv = c.result && c.result.verdict;
+      c.binary = (rv === '对') ? '采集通过' : (rv === '错') ? '采集未通过' : (b || '待判定');
+    }
+    if (c.binary === '采集通过') collected++;
+    else if (c.binary === '采集未通过') not_collected++;
+    else pending++;
+  }
+  data.summary = { total: (data.summary && data.summary.total) || 0, collected, not_collected, pending };
+  return data;
+}
+
+Promise.all([
+  fetch('/api/overview').then(r => r.json()).then(normalizeOverview),
+  fetch('/api/industry').then(r => r.json()).catch(() => ({}))
+]).then(([data, ind]) => {
+  window._ind = ind;
+  window._lastSig = sigOf(data);
+  render(data, ind);
+}).catch(e => {
+  $('#content').innerHTML = '<div class="card">加载失败：' + e.message + '（请确认 server.py 已重启）</div>';
+});
+
+/* 结果总结自动刷新：8 秒轮询，summary 或 v2 判定有变化才重绘 */
+function sigOf(data) {
+  const flat = data.modules.flatMap(m => m.cases);
+  return JSON.stringify(data.summary) + '|' + flat.map(c => (c.binary || '') + '/' + ((c.result && c.result.note) || '')).join(',');
+}
+setInterval(() => {
+  fetch('/api/overview').then(r => r.json()).then(normalizeOverview).then(data => {
+    const sig = sigOf(data);
+    if (sig !== window._lastSig) {
+      window._lastSig = sig;
+      render(data, window._ind || {});
+    }
+  }).catch(() => {});
+}, 8000);
+</script>
+</body>
+</html>

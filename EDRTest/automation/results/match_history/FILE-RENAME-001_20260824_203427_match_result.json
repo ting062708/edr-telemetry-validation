@@ -1,0 +1,168 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "采集到：云端日志存在 3 条 'FileRename' 事件（能力存在）。（样本具体对象值未命中，但能力存在，不影响判定。）Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {
+    "SourcePath": {
+      "value": "C:\\EDRTest\\samples\\File\\FileLifecycle_Target.exe",
+      "found": false,
+      "where": []
+    },
+    "DestinationPath": {
+      "value": "C:\\EDRTest\\samples\\File\\FileLifecycle_Renamed.exe",
+      "found": false,
+      "where": []
+    },
+    "SourceFileName": {
+      "value": "FileLifecycle_Target.exe",
+      "found": false,
+      "where": []
+    },
+    "DestinationFileName": {
+      "value": "FileLifecycle_Renamed.exe",
+      "found": false,
+      "where": []
+    },
+    "Operation": {
+      "value": "Rename",
+      "found": false,
+      "where": []
+    },
+    "ContentMd5": {
+      "value": "678542ff91f6b11621301dfba48af9cf",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "FILE-RENAME-001",
+  "module": "File",
+  "action": "--case FILE-RENAME-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 1380,
+    "after_hostname": 1380,
+    "after_time": 18,
+    "after_actor": 1,
+    "after_pid": 1,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-24T08:09:14.458000+00:00",
+    "log_time_max": "2026-08-24T08:21:08.797000+00:00",
+    "target_begin": "2026-08-24T08:18:19.430000+00:00",
+    "target_end": "2026-08-24T08:18:19.461000+00:00",
+    "run_begin": "2026-08-24T08:18:19.336000+00:00",
+    "run_end": "2026-08-24T08:18:19.461000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "FileRename",
+        "actor": "TiWorker.exe",
+        "target": "31273076_573872835.back.xml"
+      },
+      {
+        "operation": "FileRename",
+        "actor": "TiWorker.exe",
+        "target": "31273069_3994432402.back.xml"
+      },
+      {
+        "operation": "FileRename",
+        "actor": "TiWorker.exe",
+        "target": "31269486_1116977880.back.xml"
+      }
+    ],
+    "value_scan": {
+      "SourcePath": {
+        "value": "C:\\EDRTest\\samples\\File\\FileLifecycle_Target.exe",
+        "found": false,
+        "where": []
+      },
+      "DestinationPath": {
+        "value": "C:\\EDRTest\\samples\\File\\FileLifecycle_Renamed.exe",
+        "found": false,
+        "where": []
+      },
+      "SourceFileName": {
+        "value": "FileLifecycle_Target.exe",
+        "found": false,
+        "where": []
+      },
+      "DestinationFileName": {
+        "value": "FileLifecycle_Renamed.exe",
+        "found": false,
+        "where": []
+      },
+      "Operation": {
+        "value": "Rename",
+        "found": false,
+        "where": []
+      },
+      "ContentMd5": {
+        "value": "678542ff91f6b11621301dfba48af9cf",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 3,
+    "capability_base_count": 3,
+    "sample_value_found": false,
+    "sample_value_hits": {
+      "SourcePath": false,
+      "DestinationPath": false,
+      "DestinationFileName": false,
+      "ContentMd5": false
+    },
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 1380/1380",
+      "Time window [2026-08-24T08:18:14.336000+00:00 – 2026-08-24T08:18:49.461000+00:00]: 18 events (coverage=COVERED)",
+      "Actor ('FileLifecycleTest.exe'): 1 events",
+      "PID (5940): strict → 1 events",
+      "MD5 exact ('156CA9CF54E5AE8E919375026D60A02B'): 1 → 1 events",
+      "Operation ('FileRename'): 0 events",
+      "behavior_fields[SourcePath]→['Child.OldFilePath']='C:\\\\EDRTest\\\\samples\\\\File\\\\FileLifecycle_Target.exe': 0 hits in window pool",
+      "behavior_fields[DestinationPath]→['Child.FilePath']='C:\\\\EDRTest\\\\samples\\\\File\\\\FileLifecycle_Renamed.exe': 0 hits in window pool",
+      "behavior_fields[DestinationFileName]→['Child.FileName']='FileLifecycle_Renamed.exe': 0 hits in window pool",
+      "behavior_fields[ContentMd5]→['Child.FileMd5']='678542ff91f6b11621301dfba48af9cf': 0 hits in window pool",
+      "Capability ('FileRename'): 3 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.FileMd5",
+      "Child.FileName",
+      "Child.FilePath",
+      "Child.FileSize",
+      "Child.NodeName",
+      "Child.OldFilePath",
+      "Child.Type"
+    ],
+    "matched_event_coverage": {
+      "Child.FileMd5": null,
+      "Child.FileName": null,
+      "Child.FilePath": null,
+      "Child.FileSize": null,
+      "Child.NodeName": null,
+      "Child.OldFilePath": null,
+      "Child.Type": null
+    },
+    "filled": 0,
+    "total": 7
+  }
+}

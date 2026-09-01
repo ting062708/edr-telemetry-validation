@@ -1,0 +1,17 @@
+[RUN-BEGIN] RunID=f6ae76ea-1e63-4444-9997-eed8fceef34c TimeUTC=2026-08-24T10:59:45.777Z
+[META] TestCaseID=SVC-DELETE-001 Module=Service Action=Delete
+[META] Process=ServiceLifecycleTest.exe PID=5520 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-24T10:59:45.893Z
+[SETUP] ServiceName=EDR_Telemetry_Test_Service
+[SETUP] BinaryPath="C:\Windows\system32\cmd.exe" /c exit 0
+[SETUP] InitialState=Present
+[SETUP] StartType=Manual
+[SETUP] DisplayName=EDR Telemetry Test Service
+[SETUP-END] TimeUTC=2026-08-24T10:59:46.131Z
+[TARGET-BEGIN] TimeUTC=2026-08-24T10:59:46.131Z
+[TARGET] ServiceName=EDR_Telemetry_Test_Service
+[TARGET] Operation=DeleteService
+[TARGET] DeleteRequested=True
+[TARGET-END] TimeUTC=2026-08-24T10:59:46.445Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=f6ae76ea-1e63-4444-9997-eed8fceef34c TimeUTC=2026-08-24T10:59:46.637Z

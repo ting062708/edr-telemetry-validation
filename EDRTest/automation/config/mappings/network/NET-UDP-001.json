@@ -1,0 +1,6 @@
+{
+  "case_id": "NET-UDP-001",
+  "module": "Network",
+  "behavior_fields": {},
+  "observed_fields": []
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "test_case_id": "ACCOUNT-MODIFY-001",
+    "run_id": "d12f2243-bf4f-44cd-9d73-cc640d7ba6d5",
+    "module": "Account",
+    "action": "Modify",
+    "process_name": "AccountLifecycleTest.exe",
+    "pid": 5488,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T15:25:59.106000+00:00",
+    "setup_begin_utc": "2026-08-26T15:25:59.309000+00:00",
+    "setup_end_utc": "2026-08-26T15:25:59.688000+00:00",
+    "target_begin_utc": "2026-08-26T15:25:59.688000+00:00",
+    "target_end_utc": "2026-08-26T15:26:04.889000+00:00",
+    "run_end_utc": "2026-08-26T15:26:04.892000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Account": "EDR_Test_User",
+      "Operation": "Modify",
+      "Field": "Password",
+      "NewValue": "EdrT3st!2026_Bb"
+    },
+    "error_lines": []
+  }
+]

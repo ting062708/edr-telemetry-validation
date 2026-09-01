@@ -1,0 +1,9 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="NetworkActivityTest.csproj" Id="8e68dc2c-662a-4ac9-924c-d00c86947052">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+</Solution>

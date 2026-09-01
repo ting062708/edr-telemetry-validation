@@ -1,0 +1,206 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "采集到：'CryptAcquireContextW' 事件命中，字段校验通过 (ID=8e9e656b-56d7-4b96-b1fa-31056e2bb8f6)。",
+  "matched_event_id": "8e9e656b-56d7-4b96-b1fa-31056e2bb8f6",
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [
+    {
+      "field": "operation",
+      "required": true,
+      "rule": {
+        "equals": "CryptAcquireContextW",
+        "required": true
+      },
+      "actual_value": "CryptAcquireContextW",
+      "status": "PASS"
+    },
+    {
+      "field": "actor_name",
+      "required": true,
+      "rule": {
+        "equals": "HashBaselineTool.exe",
+        "required": true
+      },
+      "actual_value": "HashBaselineTool.exe",
+      "status": "PASS"
+    },
+    {
+      "field": "actor_pid",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "12884",
+      "status": "PASS"
+    },
+    {
+      "field": "api_ret",
+      "required": true,
+      "rule": {
+        "equals": "1",
+        "required": true
+      },
+      "actual_value": "1",
+      "status": "PASS"
+    },
+    {
+      "field": "event_time_utc",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "2026-08-25 14:45:20.054000+00:00",
+      "status": "PASS"
+    },
+    {
+      "field": "hostname",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "DESKTOP-0AHK53B",
+      "status": "PASS"
+    }
+  ],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": true,
+  "anomaly": null,
+  "value_scan": {
+    "Algorithm": {
+      "value": "SHA",
+      "found": false,
+      "where": []
+    },
+    "TargetPath": {
+      "value": "C:\\EDRTest\\samples\\Hash\\Support\\TestLibrary.dll",
+      "found": true,
+      "where": [
+        "CryptAcquireContextW"
+      ]
+    },
+    "SHA1": {
+      "value": "a4f4b35418047b9b92f4ad8796cac1233504fee1",
+      "found": false,
+      "where": []
+    },
+    "SHA256": {
+      "value": "6e41b23f36ace40be3c522fa1e76ecc7c4c77dec675d2d7a60d4ae99bab1c745",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "HASH-SHA-001",
+  "module": "Hash",
+  "action": "--case HASH-SHA-001 --target C:\\EDRTest\\samples\\Hash\\Support\\TestLibrary.dll",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 9721,
+    "after_hostname": 9721,
+    "after_time": 305,
+    "after_actor": 8,
+    "after_pid": 8,
+    "after_operation": 1,
+    "after_extra": 1,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-25T14:15:23.127000+00:00",
+    "log_time_max": "2026-08-25T15:18:19.937000+00:00",
+    "target_begin": "2026-08-25T14:45:20.035000+00:00",
+    "target_end": "2026-08-25T14:45:20.067000+00:00",
+    "run_begin": "2026-08-25T14:45:19.987000+00:00",
+    "run_end": "2026-08-25T14:45:20.067000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 1,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "CryptAcquireContextW",
+        "actor": "HashBaselineTool.exe",
+        "target": ""
+      },
+      {
+        "operation": "CryptAcquireContextW",
+        "actor": "HashBaselineTool.exe",
+        "target": ""
+      },
+      {
+        "operation": "CryptAcquireContextW",
+        "actor": "HashBaselineTool.exe",
+        "target": ""
+      },
+      {
+        "operation": "CryptAcquireContextW",
+        "actor": "NetworkActivityTest.exe",
+        "target": ""
+      },
+      {
+        "operation": "CryptAcquireContextW",
+        "actor": "NetworkActivityTest.exe",
+        "target": ""
+      }
+    ],
+    "value_scan": {
+      "Algorithm": {
+        "value": "SHA",
+        "found": false,
+        "where": []
+      },
+      "TargetPath": {
+        "value": "C:\\EDRTest\\samples\\Hash\\Support\\TestLibrary.dll",
+        "found": true,
+        "where": [
+          "CryptAcquireContextW"
+        ]
+      },
+      "SHA1": {
+        "value": "a4f4b35418047b9b92f4ad8796cac1233504fee1",
+        "found": false,
+        "where": []
+      },
+      "SHA256": {
+        "value": "6e41b23f36ace40be3c522fa1e76ecc7c4c77dec675d2d7a60d4ae99bab1c745",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 5,
+    "capability_base_count": 5,
+    "capability_v2": "有",
+    "collected_v2": "采到",
+    "capability_v2_rule": {
+      "anchor_type": "direct",
+      "anchor_process": "HashBaselineTool.exe",
+      "anchor_md5": "c1e9b569e8c5dd13c0ea5c0bd5396948",
+      "tables": [
+        "CryptEvents"
+      ],
+      "operations": [
+        "CryptAcquireContextW"
+      ],
+      "probe": null
+    },
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 9721/9721",
+      "Time window [2026-08-25T14:45:14.987000+00:00 – 2026-08-25T14:45:50.067000+00:00]: 305 events (coverage=COVERED)",
+      "Actor ('HashBaselineTool.exe'): 8 events",
+      "PID (12884): strict → 8 events",
+      "MD5 exact ('C1E9B569E8C5DD13C0EA5C0BD5396948'): 8 → 8 events",
+      "Operation ('CryptAcquireContextW'): 1 events",
+      "Capability ('CryptAcquireContextW'): 5 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

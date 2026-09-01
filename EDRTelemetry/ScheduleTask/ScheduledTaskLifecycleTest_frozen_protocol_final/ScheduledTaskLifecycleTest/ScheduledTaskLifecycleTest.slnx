@@ -1,0 +1,9 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="ScheduledTaskLifecycleTest/ScheduledTaskLifecycleTest.csproj" Id="1fd50ff0-473e-40d0-9447-cd84ff34ab05">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+</Solution>

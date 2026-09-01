@@ -1,0 +1,86 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "All required fields present and values verified (ID=8b3b6bfb-bdd2-4b46-b966-9d1df850d0ea).",
+  "matched_event_id": "8b3b6bfb-bdd2-4b46-b966-9d1df850d0ea",
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [
+    {
+      "field": "event_time_utc",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "2026-08-23 00:59:59.171000+00:00",
+      "status": "PASS"
+    },
+    {
+      "field": "hostname",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "DESKTOP-0AHK53B",
+      "status": "PASS"
+    },
+    {
+      "field": "target_user",
+      "required": true,
+      "rule": {
+        "equals": "EDR_Test_User",
+        "required": true
+      },
+      "actual_value": "EDR_Test_User",
+      "status": "PASS"
+    },
+    {
+      "field": "logon_type",
+      "required": true,
+      "rule": {
+        "contains": "交互式",
+        "required": true
+      },
+      "actual_value": "交互式",
+      "status": "PASS"
+    }
+  ],
+  "expected_result": null,
+  "as_expected": false,
+  "test_case_id": "ACCOUNT-LOGIN-001",
+  "module": "Account",
+  "action": "--case ACCOUNT-LOGIN-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 618,
+    "after_hostname": 618,
+    "after_time": 57,
+    "after_actor": 15,
+    "after_pid": 15,
+    "after_operation": 1,
+    "after_extra": 1,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-23T00:58:32.759000+00:00",
+    "log_time_max": "2026-08-23T01:01:41.394000+00:00",
+    "target_begin": "2026-08-23T00:59:59.159000+00:00",
+    "target_end": "2026-08-23T00:59:59.172000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 1,
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 618/618",
+      "Time window [2026-08-23T00:59:56.159000+00:00 – 2026-08-23T01:00:02.172000+00:00]: 57 events (coverage=COVERED)",
+      "Actor ('AccountLifecycleTest.exe'): 15 events",
+      "PID (4464): strict → 15 events",
+      "MD5 exact ('23dfd7506f38bb1f42fbf16e0570a1d6'): 15 → 15 events",
+      "Operation ('LoginSuccess'): 1 events",
+      "match[target_user]='EDR_Test_User' (contains): 1 → 1 events"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

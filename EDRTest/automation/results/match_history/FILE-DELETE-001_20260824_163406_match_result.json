@@ -1,0 +1,100 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "Capability detected: 日志中存在 5 条该行为类型事件，但未锚定到样本进程。Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": false,
+  "anomaly": "行为类型事件在日志中存在，但未锚定到样本进程（actor/md5/pid 均未命中）。可能原因：进程信任过滤 / 路径排除 / cmd 包装 / 待验证。",
+  "test_case_id": "FILE-DELETE-001",
+  "module": "File",
+  "action": "--case FILE-DELETE-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 1380,
+    "after_hostname": 1380,
+    "after_time": 13,
+    "after_actor": 1,
+    "after_pid": 1,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-24T08:09:14.458000+00:00",
+    "log_time_max": "2026-08-24T08:21:08.797000+00:00",
+    "target_begin": "2026-08-24T08:15:02.765000+00:00",
+    "target_end": "2026-08-24T08:15:02.765000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "FileDelete",
+        "actor": "mousocoreworker.exe",
+        "target": "UpdateAgent.dll"
+      },
+      {
+        "operation": "FileDelete",
+        "actor": "wermgr.exe",
+        "target": "WER8EDF.tmp.WERInternalMetadata.xml"
+      },
+      {
+        "operation": "FileDelete",
+        "actor": "wermgr.exe",
+        "target": "WER8672.tmp.WERInternalMetadata.xml"
+      },
+      {
+        "operation": "FileDelete",
+        "actor": "wermgr.exe",
+        "target": "WER68D7.tmp.WERInternalMetadata.xml"
+      },
+      {
+        "operation": "FileDelete",
+        "actor": "TiWorker.exe",
+        "target": "31273076_573872835.back.xml"
+      }
+    ],
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 1380/1380",
+      "Time window [2026-08-24T08:14:57.765000+00:00 – 2026-08-24T08:15:32.765000+00:00]: 13 events (coverage=COVERED)",
+      "Actor ('FileLifecycleTest.exe'): 1 events",
+      "PID (6208): strict → 1 events",
+      "MD5 exact ('156CA9CF54E5AE8E919375026D60A02B'): 1 → 1 events",
+      "Operation ('FileDelete'): 0 events",
+      "match[target_name]='FileLifecycle_Target.dll' (contains): 0 → 0 events",
+      "match[capability_probe]={'operation': 'FileDelete'} (contains): 0 → 0 events",
+      "behavior_fields[Path]→['Child.FilePath']='C:\\\\EDRTest\\\\samples\\\\File\\\\FileLifecycle_Target.dll': 0 → 0 events",
+      "behavior_fields[FileName]→['Child.FileName']='FileLifecycle_Target.dll': 0 → 0 events",
+      "Capability ('FileDelete'): 26 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.FileMd5",
+      "Child.FileName",
+      "Child.FilePath",
+      "Child.FileSize",
+      "Child.NodeName",
+      "Child.Type"
+    ],
+    "matched_event_coverage": {
+      "Child.FileMd5": null,
+      "Child.FileName": null,
+      "Child.FilePath": null,
+      "Child.FileSize": null,
+      "Child.NodeName": null,
+      "Child.Type": null
+    },
+    "filled": 0,
+    "total": 6
+  }
+}

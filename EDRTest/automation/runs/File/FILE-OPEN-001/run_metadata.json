@@ -1,0 +1,30 @@
+[
+  {
+    "test_case_id": "FILE-OPEN-001",
+    "run_id": "d7fc978d-0b19-4f84-8562-6021089d423d",
+    "module": "File",
+    "action": "Open",
+    "process_name": "FileLifecycleTest.exe",
+    "pid": 6104,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T15:15:40.209000+00:00",
+    "setup_begin_utc": "2026-08-26T15:15:40.241000+00:00",
+    "setup_end_utc": "2026-08-26T15:15:40.249000+00:00",
+    "target_begin_utc": "2026-08-26T15:15:40.249000+00:00",
+    "target_end_utc": "2026-08-26T15:15:40.278000+00:00",
+    "run_end_utc": "2026-08-26T15:15:40.278000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Path": "C:\\EDRTest\\samples\\File\\FileLifecycle_Target.exe",
+      "FileName": "FileLifecycle_Target.exe",
+      "Operation": "Open",
+      "CharactersRead": "81",
+      "ContentMd5": "e97eb4434d1d92f41046e92fc537d613"
+    },
+    "error_lines": []
+  }
+]

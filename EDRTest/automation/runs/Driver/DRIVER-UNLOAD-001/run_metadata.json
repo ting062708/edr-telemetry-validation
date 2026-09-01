@@ -1,0 +1,28 @@
+[
+  {
+    "test_case_id": "DRIVER-UNLOAD-001",
+    "run_id": "07872bf75efa4ee1b73bd8b1c7e7a994",
+    "module": "Driver",
+    "action": "Unload",
+    "process_name": "DriverLifecycleTest.exe",
+    "pid": 1808,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T15:44:06.175000+00:00",
+    "setup_begin_utc": "2026-08-26T15:44:06.204000+00:00",
+    "setup_end_utc": "2026-08-26T15:44:06.219000+00:00",
+    "target_begin_utc": "2026-08-26T15:44:06.219000+00:00",
+    "target_end_utc": "2026-08-26T15:44:06.281000+00:00",
+    "run_end_utc": "2026-08-26T15:44:06.297000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "DriverPath": "C:\\EDRTest\\samples\\Driver\\Support\\nonpnp.sys",
+      "ServiceName": "EDR_Telemetry_Test_Driver",
+      "State": "STOPPED"
+    },
+    "error_lines": []
+  }
+]

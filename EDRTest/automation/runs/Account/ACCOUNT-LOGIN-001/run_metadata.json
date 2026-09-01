@@ -1,0 +1,28 @@
+[
+  {
+    "test_case_id": "ACCOUNT-LOGIN-001",
+    "run_id": "bdcaa657-81f9-4e07-8ec8-88b7b693bc20",
+    "module": "Account",
+    "action": "Login",
+    "process_name": "AccountLifecycleTest.exe",
+    "pid": 5668,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T15:29:23.986000+00:00",
+    "setup_begin_utc": "2026-08-26T15:29:24.083000+00:00",
+    "setup_end_utc": "2026-08-26T15:29:24.338000+00:00",
+    "target_begin_utc": "2026-08-26T15:29:24.338000+00:00",
+    "target_end_utc": "2026-08-26T15:29:24.344000+00:00",
+    "run_end_utc": "2026-08-26T15:29:24.360000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Account": "EDR_Test_User",
+      "Operation": "Login",
+      "LogonType": "Interactive"
+    },
+    "error_lines": []
+  }
+]

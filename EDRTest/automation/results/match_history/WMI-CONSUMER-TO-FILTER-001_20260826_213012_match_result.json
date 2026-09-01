@@ -1,0 +1,142 @@
+{
+  "verdict": "NOT_IMPLEMENTED",
+  "verdict_icon": "❌",
+  "capability_state": "Not Implemented",
+  "message": "未采集：云端日志中无 'WmiCreate' 行为事件（能力不存在）。 Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": false,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {
+    "Operation": {
+      "value": "WmiCreate",
+      "found": false,
+      "where": []
+    },
+    "WmiClass": {
+      "value": "__FilterToConsumerBinding",
+      "found": true,
+      "where": [
+        "ScriptScan"
+      ]
+    },
+    "TargetName": {
+      "value": "EDRTelemetryWmiFilter_00d3407fb8da->EDRTelemetryWmiConsumer_00d3407fb8da",
+      "found": false,
+      "where": []
+    },
+    "Namespace": {
+      "value": "root\\subscription",
+      "found": true,
+      "where": [
+        "ScriptScan"
+      ]
+    }
+  },
+  "test_case_id": "WMI-CONSUMER-TO-FILTER-001",
+  "module": "WMI",
+  "action": "--case WMI-CONSUMER-TO-FILTER-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 9721,
+    "after_hostname": 9721,
+    "after_time": 77,
+    "after_actor": 16,
+    "after_pid": 16,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-25T14:15:23.127000+00:00",
+    "log_time_max": "2026-08-25T15:18:19.937000+00:00",
+    "target_begin": "2026-08-25T15:02:50.946000+00:00",
+    "target_end": "2026-08-25T15:02:51.100000+00:00",
+    "run_begin": "2026-08-25T15:02:49.338000+00:00",
+    "run_end": "2026-08-25T15:02:51.118000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": false,
+    "capability_base_detected": false,
+    "capability_evidence": [],
+    "value_scan": {
+      "Operation": {
+        "value": "WmiCreate",
+        "found": false,
+        "where": []
+      },
+      "WmiClass": {
+        "value": "__FilterToConsumerBinding",
+        "found": true,
+        "where": [
+          "ScriptScan"
+        ]
+      },
+      "TargetName": {
+        "value": "EDRTelemetryWmiFilter_00d3407fb8da->EDRTelemetryWmiConsumer_00d3407fb8da",
+        "found": false,
+        "where": []
+      },
+      "Namespace": {
+        "value": "root\\subscription",
+        "found": true,
+        "where": [
+          "ScriptScan"
+        ]
+      }
+    },
+    "capability_count": 0,
+    "capability_base_count": 0,
+    "capability_v2": "无",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "direct",
+      "anchor_process": "WmiActivityTest.exe",
+      "anchor_md5": "acf3b2887e1bc5a2c7d3c1c3b0f5c5e9",
+      "tables": [
+        "WmiEvents"
+      ],
+      "operations": [
+        "WmiCreate"
+      ],
+      "probe": null
+    },
+    "sample_value_found": false,
+    "sample_value_hits": {
+      "WmiClass": false,
+      "TargetName": false
+    },
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 9721/9721",
+      "Time window [2026-08-25T15:02:44.338000+00:00 – 2026-08-25T15:03:21.118000+00:00]: 77 events (coverage=COVERED)",
+      "Actor ('WmiActivityTest.exe'): 16 events",
+      "PID (9492): strict → 16 events",
+      "MD5 exact ('ACF3B288A25576FE5935E945199D0548'): 16 → 16 events",
+      "Operation ('WmiCreate'): 0 events",
+      "behavior_fields[WmiClass]→['Child.WmiClass']='__FilterToConsumerBinding': 0 hits in window pool",
+      "behavior_fields[TargetName]→['Child.WmiName']='EDRTelemetryWmiFilter_00d3407fb8da->EDRTelemetryWmiConsumer_00d3407fb8da': 0 hits in window pool",
+      "Capability ('WmiCreate'): 0 events (能力不存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.WmiClass",
+      "Child.WmiName",
+      "Child.NodeName"
+    ],
+    "matched_event_coverage": {
+      "Child.WmiClass": null,
+      "Child.WmiName": null,
+      "Child.NodeName": null
+    },
+    "filled": 0,
+    "total": 3
+  }
+}

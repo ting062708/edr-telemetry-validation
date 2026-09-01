@@ -1,0 +1,4 @@
+﻿
+  ProcessLifecycleTest -> E:\EDR\EDRTelemetry\process\Process_Module_Ready\Process_Module_Ready\ProcessLifecycleTest\bin\x64\Release\ProcessLifecycleTest.exe
+=== EXIT 0 ===
+DONE

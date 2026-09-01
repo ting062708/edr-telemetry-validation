@@ -1,0 +1,30 @@
+[
+  {
+    "test_case_id": "REG-MODIFY-001",
+    "run_id": "2ccef048-2307-4f4c-a183-9d129359ef4d",
+    "module": "Registry",
+    "action": "Modify",
+    "process_name": "RegistryLifecycleTest.exe",
+    "pid": 6552,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T15:07:19.641000+00:00",
+    "setup_begin_utc": "2026-08-26T15:07:19.735000+00:00",
+    "setup_end_utc": "2026-08-26T15:07:19.750000+00:00",
+    "target_begin_utc": "2026-08-26T15:07:24.752000+00:00",
+    "target_end_utc": "2026-08-26T15:07:24.752000+00:00",
+    "run_end_utc": "2026-08-26T15:07:24.752000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Operation": "RegSetValue",
+      "RegistryPath": "Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+      "ValueName": "EDRTelemetryRunTest",
+      "OldValue": "C:\\Windows\\System32\\notepad.exe",
+      "NewValue": "C:\\Windows\\System32\\calc.exe"
+    },
+    "error_lines": []
+  }
+]

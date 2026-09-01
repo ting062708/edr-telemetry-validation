@@ -1,0 +1,19 @@
+{
+  "case_id": "FILE-RENAME-001",
+  "module": "file",
+  "behavior_fields": {
+    "SourcePath": "Child.OldFilePath",
+    "DestinationPath": "Child.FilePath",
+    "DestinationFileName": "Child.FileName",
+    "ContentMd5": "Child.FileMd5"
+  },
+  "observed_fields": [
+    "Child.FileMd5",
+    "Child.FileName",
+    "Child.FilePath",
+    "Child.FileSize",
+    "Child.NodeName",
+    "Child.OldFilePath",
+    "Child.Type"
+  ]
+}

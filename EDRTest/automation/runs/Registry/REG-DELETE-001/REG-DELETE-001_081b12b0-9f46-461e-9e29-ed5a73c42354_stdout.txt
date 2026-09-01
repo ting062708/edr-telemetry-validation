@@ -1,0 +1,22 @@
+[RUN-BEGIN] RunID=081b12b0-9f46-461e-9e29-ed5a73c42354 TimeUTC=2026-08-23T04:50:42.426Z
+[META] TestCaseID=REG-DELETE-001 Module=Registry Action=Delete
+[META] Process=RegistryLifecycleTest.exe PID=10936 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-23T04:50:42.713Z
+[SETUP] RegistryPath=Software\Microsoft\Windows\CurrentVersion\Run
+[SETUP] ValueName=EDRTelemetryRunTest
+[SETUP] ExpectedValue=C:\Windows\System32\calc.exe
+[SETUP] ActualValueState=ABSENT
+[SETUP] PreconditionSeeded=true
+[SETUP] ActualKind=String ActualValue=C:\Windows\System32\calc.exe
+[SETUP] Validation=PASS
+[SETUP-END] TimeUTC=2026-08-23T04:50:42.976Z
+[TARGET-BEGIN] TimeUTC=2026-08-23T04:50:42.976Z
+[TARGET] Operation=RegDeleteValue
+[TARGET] RegistryPath=Software\Microsoft\Windows\CurrentVersion\Run
+[TARGET] ValueName=EDRTelemetryRunTest
+[TARGET] OldValue=C:\Windows\System32\calc.exe
+[TARGET-END] TimeUTC=2026-08-23T04:50:43.033Z
+[VERIFY] ActualValueState=ABSENT
+[VERIFY] Validation=PASS
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=081b12b0-9f46-461e-9e29-ed5a73c42354 TimeUTC=2026-08-23T04:50:43.033Z

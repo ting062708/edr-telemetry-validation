@@ -1,0 +1,6 @@
+{
+  "case_id": "FILE-OPEN-001",
+  "module": "file",
+  "behavior_fields": {},
+  "observed_fields": []
+}

@@ -1,0 +1,81 @@
+{
+  "verdict": "ERROR_LOG_INPUT",
+  "verdict_icon": "🔴",
+  "capability_state": null,
+  "message": "Event log time range does not cover the TARGET window. Log: [2026-08-24T10:45:00.178000+00:00 – 2026-08-24T10:50:51.868000+00:00], Target: [2026-08-24T11:33:43.266000+00:00 – 2026-08-24T11:33:43.322000+00:00]. Re-export the log with a wider time range.",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": "not_implemented",
+  "as_expected": false,
+  "capability_detected": null,
+  "anchor_detected": null,
+  "anomaly": null,
+  "value_scan": {
+    "Account": {
+      "value": "EDR_Test_User",
+      "found": false,
+      "where": []
+    },
+    "Operation": {
+      "value": "Delete",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "ACCOUNT-DELETE-001",
+  "module": "Account",
+  "action": "--case ACCOUNT-DELETE-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 1195,
+    "after_hostname": 1195,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-24T10:45:00.178000+00:00",
+    "log_time_max": "2026-08-24T10:50:51.868000+00:00",
+    "target_begin": "2026-08-24T11:33:43.266000+00:00",
+    "target_end": "2026-08-24T11:33:43.322000+00:00",
+    "run_begin": "2026-08-24T11:33:42.448000+00:00",
+    "run_end": "2026-08-24T11:33:43.322000+00:00",
+    "coverage_status": "NOT_COVERED",
+    "candidate_count": 0,
+    "capability_detected": false,
+    "capability_base_detected": false,
+    "capability_evidence": [],
+    "value_scan": {
+      "Account": {
+        "value": "EDR_Test_User",
+        "found": false,
+        "where": []
+      },
+      "Operation": {
+        "value": "Delete",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 0,
+    "capability_base_count": 0,
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 1195/1195",
+      "Time window [2026-08-24T11:33:39.448000+00:00 – 2026-08-24T11:33:46.322000+00:00]: 0 events (coverage=NOT_COVERED)",
+      "Actor filter skipped (skip_process_anchor)",
+      "PID filter skipped (skip_process_anchor)",
+      "Operation ('AccountDelete'): 0 events",
+      "match[target_user]='EDR_Test_User' (contains): 0 → 0 events",
+      "Capability ('AccountDelete'): 0 events (能力不存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

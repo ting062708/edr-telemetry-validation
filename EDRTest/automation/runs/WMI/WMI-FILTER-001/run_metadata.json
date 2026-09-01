@@ -1,0 +1,29 @@
+[
+  {
+    "test_case_id": "WMI-FILTER-001",
+    "run_id": "6177e2cf-0c6a-47c8-9a1d-8a08b9d2f973",
+    "module": "WMI",
+    "action": "WmiEventFilter",
+    "process_name": "WmiActivityTest.exe",
+    "pid": 6844,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T16:04:25.504000+00:00",
+    "setup_begin_utc": "2026-08-26T16:04:25.699000+00:00",
+    "setup_end_utc": "2026-08-26T16:04:28.252000+00:00",
+    "target_begin_utc": "2026-08-26T16:04:28.252000+00:00",
+    "target_end_utc": "2026-08-26T16:04:28.355000+00:00",
+    "run_end_utc": "2026-08-26T16:04:28.355000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Operation": "WmiCreate",
+      "WmiClass": "__EventFilter",
+      "TargetName": "EDRTelemetryWmiFilter_6177e2cf0c6a",
+      "Namespace": "root\\subscription"
+    },
+    "error_lines": []
+  }
+]

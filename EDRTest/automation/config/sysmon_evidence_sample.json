@@ -1,0 +1,189 @@
+{
+  "WMI-CONSUMER-001": {
+    "total": 1824,
+    "event_ids": {
+      "1": 375,
+      "2": 5,
+      "3": 3,
+      "4": 1,
+      "5": 4,
+      "6": 19,
+      "11": 1161,
+      "12": 12,
+      "13": 176,
+      "19": 2,
+      "20": 2,
+      "22": 64
+    },
+    "baseline_ids": [
+      20
+    ],
+    "matched": [
+      20
+    ],
+    "captured": true,
+    "note": "WmiEventConsumer(IOA无此事件)"
+  },
+  "WMI-CONSUMER-TO-FILTER-001": {
+    "total": 1905,
+    "event_ids": {
+      "1": 410,
+      "2": 6,
+      "3": 7,
+      "4": 1,
+      "5": 4,
+      "6": 19,
+      "11": 1167,
+      "12": 12,
+      "13": 186,
+      "19": 5,
+      "20": 3,
+      "21": 2,
+      "22": 83
+    },
+    "baseline_ids": [
+      21
+    ],
+    "matched": [
+      21
+    ],
+    "captured": true,
+    "note": "WmiEventConsumerToFilter(IOA无此事件)"
+  },
+  "WMI-FILTER-001": {
+    "total": 1669,
+    "event_ids": {
+      "1": 307,
+      "2": 4,
+      "3": 3,
+      "4": 1,
+      "5": 3,
+      "6": 19,
+      "11": 1154,
+      "12": 9,
+      "13": 123,
+      "19": 2,
+      "22": 44
+    },
+    "baseline_ids": [
+      19
+    ],
+    "matched": [
+      19
+    ],
+    "captured": true,
+    "note": "WmiEventFilter(IOA无此事件)"
+  },
+  "SVC-CREATE-001": {
+    "total": 1367,
+    "event_ids": {
+      "1": 168,
+      "2": 1,
+      "4": 1,
+      "5": 3,
+      "6": 17,
+      "11": 1106,
+      "12": 3,
+      "13": 52,
+      "22": 16
+    },
+    "baseline_ids": [
+      1
+    ],
+    "matched": [
+      1
+    ],
+    "captured": true,
+    "note": "sc.exe进程创建(命令行)"
+  },
+  "SVC-DELETE-001": {
+    "total": 1364,
+    "event_ids": {
+      "1": 164,
+      "2": 1,
+      "3": 3,
+      "4": 1,
+      "5": 3,
+      "6": 13,
+      "11": 1106,
+      "12": 3,
+      "13": 53,
+      "22": 17
+    },
+    "baseline_ids": [
+      1
+    ],
+    "matched": [
+      1
+    ],
+    "captured": true,
+    "note": "sc.exe进程创建"
+  },
+  "SVC-MODIFY-001": {
+    "total": 1367,
+    "event_ids": {
+      "1": 167,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 3,
+      "6": 9,
+      "11": 1106,
+      "12": 5,
+      "13": 56,
+      "22": 18
+    },
+    "baseline_ids": [
+      1
+    ],
+    "matched": [
+      1
+    ],
+    "captured": true,
+    "note": "sc.exe进程创建"
+  },
+  "TASK-CREATE-001": {
+    "total": 1374,
+    "event_ids": {
+      "1": 174,
+      "2": 1,
+      "4": 1,
+      "5": 3,
+      "6": 11,
+      "11": 1107,
+      "12": 5,
+      "13": 53,
+      "22": 19
+    },
+    "baseline_ids": [
+      1
+    ],
+    "matched": [
+      1
+    ],
+    "captured": true,
+    "note": "schtasks.exe进程创建(命令行)"
+  },
+  "TASK-DELETE-001": {
+    "total": 1374,
+    "event_ids": {
+      "1": 172,
+      "2": 1,
+      "4": 1,
+      "5": 3,
+      "6": 17,
+      "11": 1107,
+      "12": 5,
+      "13": 51,
+      "22": 17
+    },
+    "baseline_ids": [
+      1
+    ],
+    "matched": [
+      1
+    ],
+    "captured": true,
+    "note": "schtasks.exe进程创建"
+  }
+}

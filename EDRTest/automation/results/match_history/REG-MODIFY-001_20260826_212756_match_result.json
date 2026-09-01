@@ -1,0 +1,263 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "采集到：'RegSetValue' 事件命中，字段校验通过 (ID=bc21dcef-3cb2-42aa-899c-814e6b53900e)。",
+  "matched_event_id": "bc21dcef-3cb2-42aa-899c-814e6b53900e",
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [
+    {
+      "field": "registry_path",
+      "required": true,
+      "rule": {
+        "contains": "CurrentVersion\\Run",
+        "required": true
+      },
+      "actual_value": "HKEY_USERS\\.DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+      "status": "PASS"
+    },
+    {
+      "field": "registry_value_name",
+      "required": true,
+      "rule": {
+        "equals": "EDRTelemetryRunTest",
+        "required": true
+      },
+      "actual_value": "EDRTelemetryRunTest",
+      "status": "PASS"
+    },
+    {
+      "field": "registry_value_data",
+      "required": true,
+      "rule": {
+        "contains": "calc.exe",
+        "required": true
+      },
+      "actual_value": "C:\\Windows\\System32\\calc.exe",
+      "status": "PASS"
+    },
+    {
+      "field": "registry_old_value_data",
+      "required": true,
+      "rule": {
+        "contains": "notepad.exe",
+        "required": true
+      },
+      "actual_value": "C:\\Windows\\System32\\notepad.exe",
+      "status": "PASS"
+    },
+    {
+      "field": "actor_name",
+      "required": true,
+      "rule": {
+        "equals": "RegistryLifecycleTest.exe",
+        "required": true
+      },
+      "actual_value": "RegistryLifecycleTest.exe",
+      "status": "PASS"
+    },
+    {
+      "field": "actor_pid",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "720",
+      "status": "PASS"
+    },
+    {
+      "field": "operation",
+      "required": true,
+      "rule": {
+        "equals": "RegSetValue",
+        "required": true
+      },
+      "actual_value": "RegSetValue",
+      "status": "PASS"
+    },
+    {
+      "field": "event_time_utc",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "2026-08-25 14:17:13.745000+00:00",
+      "status": "PASS"
+    },
+    {
+      "field": "hostname",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "DESKTOP-0AHK53B",
+      "status": "PASS"
+    }
+  ],
+  "expected_result": "not_implemented",
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": true,
+  "anomaly": null,
+  "value_scan": {
+    "Operation": {
+      "value": "RegSetValue",
+      "found": true,
+      "where": [
+        "RegSetValue"
+      ]
+    },
+    "RegistryPath": {
+      "value": "Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+      "found": true,
+      "where": [
+        "RegSetValue"
+      ]
+    },
+    "ValueName": {
+      "value": "EDRTelemetryRunTest",
+      "found": true,
+      "where": [
+        "RegSetValue"
+      ]
+    },
+    "OldValue": {
+      "value": "C:\\Windows\\System32\\notepad.exe",
+      "found": true,
+      "where": [
+        "RegSetValue"
+      ]
+    },
+    "NewValue": {
+      "value": "C:\\Windows\\System32\\calc.exe",
+      "found": true,
+      "where": [
+        "RegSetValue"
+      ]
+    }
+  },
+  "test_case_id": "REG-MODIFY-001",
+  "module": "Registry",
+  "action": "--case REG-MODIFY-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 9721,
+    "after_hostname": 9721,
+    "after_time": 98,
+    "after_actor": 4,
+    "after_pid": 4,
+    "after_operation": 1,
+    "after_extra": 1,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-25T14:15:23.127000+00:00",
+    "log_time_max": "2026-08-25T15:18:19.937000+00:00",
+    "target_begin": "2026-08-25T14:17:13.742000+00:00",
+    "target_end": "2026-08-25T14:17:13.745000+00:00",
+    "run_begin": "2026-08-25T14:17:08.175000+00:00",
+    "run_end": "2026-08-25T14:17:13.746000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 1,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "RegSetValue",
+        "actor": "msiexec.exe",
+        "target": ""
+      },
+      {
+        "operation": "RegSetValue",
+        "actor": "msiexec.exe",
+        "target": ""
+      },
+      {
+        "operation": "RegSetValue",
+        "actor": "msiexec.exe",
+        "target": ""
+      },
+      {
+        "operation": "RegSetValue",
+        "actor": "msiexec.exe",
+        "target": ""
+      },
+      {
+        "operation": "RegSetValue",
+        "actor": "msiexec.exe",
+        "target": ""
+      }
+    ],
+    "value_scan": {
+      "Operation": {
+        "value": "RegSetValue",
+        "found": true,
+        "where": [
+          "RegSetValue"
+        ]
+      },
+      "RegistryPath": {
+        "value": "Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+        "found": true,
+        "where": [
+          "RegSetValue"
+        ]
+      },
+      "ValueName": {
+        "value": "EDRTelemetryRunTest",
+        "found": true,
+        "where": [
+          "RegSetValue"
+        ]
+      },
+      "OldValue": {
+        "value": "C:\\Windows\\System32\\notepad.exe",
+        "found": true,
+        "where": [
+          "RegSetValue"
+        ]
+      },
+      "NewValue": {
+        "value": "C:\\Windows\\System32\\calc.exe",
+        "found": true,
+        "where": [
+          "RegSetValue"
+        ]
+      }
+    },
+    "capability_count": 26,
+    "capability_base_count": 26,
+    "capability_v2": "有",
+    "collected_v2": "采到",
+    "capability_v2_rule": {
+      "anchor_type": "direct",
+      "anchor_process": "RegistryLifecycleTest.exe",
+      "anchor_md5": "8c0800d1c33f9dabcd7e82c5748d6bbb",
+      "tables": [
+        "RegEvents"
+      ],
+      "operations": [
+        "RegSetValue"
+      ],
+      "probe": null
+    },
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 9721/9721",
+      "Time window [2026-08-25T14:17:03.175000+00:00 – 2026-08-25T14:17:43.746000+00:00]: 98 events (coverage=COVERED)",
+      "Actor ('RegistryLifecycleTest.exe'): 4 events",
+      "PID (720): strict → 4 events",
+      "MD5 exact ('8C0800D1C33F9DABCD7E82C5748D6BBB'): 4 → 4 events",
+      "Operation ('RegSetValue'): 1 events",
+      "match[Child.RegValData]='calc.exe' (contains): 1 → 1 events",
+      "Capability ('RegSetValue'): 26 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

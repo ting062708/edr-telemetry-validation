@@ -1,0 +1,15 @@
+[RUN-BEGIN] RunID=8ab053eb-585b-4760-9eaa-8f231bf931cd TimeUTC=2026-08-25T14:59:22.133Z
+[META] TestCaseID=PIPE-CREATE-001 Module=Pipe Action=PipeCreate
+[META] Process=PipeLifecycleTest.exe PID=3372 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-25T14:59:22.246Z
+[SETUP] Administrator=True
+[SETUP] CleanupMode=UniqueNameAndCloseHandles
+[SETUP] PipeName=EDRTelemetryPipeTest_8ab053eb585b
+[SETUP-END] TimeUTC=2026-08-25T14:59:22.261Z
+[TARGET-BEGIN] TimeUTC=2026-08-25T14:59:22.261Z
+[TARGET] Operation=PipeCreate
+[TARGET] PipeName=EDRTelemetryPipeTest_8ab053eb585b
+[TARGET] TargetName=\\.\pipe\EDRTelemetryPipeTest_8ab053eb585b
+[TARGET-END] TimeUTC=2026-08-25T14:59:22.261Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=8ab053eb-585b-4760-9eaa-8f231bf931cd TimeUTC=2026-08-25T14:59:22.261Z

@@ -1,0 +1,20 @@
+[RUN-BEGIN] RunID=06921afae47745fe9717afbb2b11bf6e TimeUTC=2026-08-26T16:12:56.397Z
+[META] TestCaseID=BITS-JOB-001
+[META] Module=BITS
+[META] Action=bits_job_create
+[META] Process=BitsJobTest.exe
+[META] PID=6576
+[META] Hostname=DESKTOP-0AHK53B
+[META] RunStartUTC=2026-08-26T16:12:56.547Z
+[SETUP-BEGIN] TimeUTC=2026-08-26T16:12:56.563Z
+[SETUP] BitsadminPath=C:\Windows\system32\bitsadmin.exe
+[SETUP] BitsadminExists=true
+[SETUP-END] TimeUTC=2026-08-26T16:12:56.563Z
+[TARGET-BEGIN] TimeUTC=2026-08-26T16:12:59.611Z
+[TARGET] Operation=BitsJobCreate
+[TARGET] JobName=EDRTelemetryBitJob_06921afa
+[TARGET] JobType=download
+[TARGET] CreateResult=FAIL
+[TARGET-END] TimeUTC=2026-08-26T16:13:01.648Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=06921afae47745fe9717afbb2b11bf6e TimeUTC=2026-08-26T16:13:12.897Z

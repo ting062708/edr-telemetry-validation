@@ -1,0 +1,6 @@
+﻿Case ID,模块,行为,判定,打问号,有记录,无记录,情况说明
+ACCOUNT-CREATE-001,账户,本地账户创建,通过,,,,AccountCreate(4720)，lsass 执行需 skip_process_anchor + target_user
+ACCOUNT-LOGIN-001,账户,账户登录,通过,,,,LoginSuccess(4624)，样本进程 MD5 锚定 + target_user + logon_type=交互式
+ACCOUNT-DELETE-001,账户,本地账户删除,未通过,,,,无 4726 账户删除事件
+ACCOUNT-LOGOFF-001,账户,账户注销,未通过,,,,无 4634/4647 注销事件（行业 MDE 也是 No，属常态缺口）
+ACCOUNT-MODIFY-001,账户,本地账户修改,未通过,,,,改密码(NetUserSetInfo 1003)无独立事件；AccountPwdReset 是建账户副产品，4723 全表 0

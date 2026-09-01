@@ -1,0 +1,29 @@
+[
+  {
+    "test_case_id": "WMI-CONSUMER-TO-FILTER-001",
+    "run_id": "938ef53b-6954-4461-b35f-56ff1e3b38a4",
+    "module": "WMI",
+    "action": "WmiEventConsumerToFilter",
+    "process_name": "WmiActivityTest.exe",
+    "pid": 1600,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T16:06:25.195000+00:00",
+    "setup_begin_utc": "2026-08-26T16:06:25.222000+00:00",
+    "setup_end_utc": "2026-08-26T16:06:25.640000+00:00",
+    "target_begin_utc": "2026-08-26T16:06:25.647000+00:00",
+    "target_end_utc": "2026-08-26T16:06:25.749000+00:00",
+    "run_end_utc": "2026-08-26T16:06:25.774000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Operation": "WmiCreate",
+      "WmiClass": "__FilterToConsumerBinding",
+      "TargetName": "EDRTelemetryWmiFilter_938ef53b6954->EDRTelemetryWmiConsumer_938ef53b6954",
+      "Namespace": "root\\subscription"
+    },
+    "error_lines": []
+  }
+]

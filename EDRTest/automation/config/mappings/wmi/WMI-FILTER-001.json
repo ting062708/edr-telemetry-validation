@@ -1,0 +1,13 @@
+{
+  "case_id": "WMI-FILTER-001",
+  "module": "wmi",
+  "behavior_fields": {
+    "WmiClass": "Child.WmiClass",
+    "TargetName": "Child.WmiName"
+  },
+  "observed_fields": [
+    "Child.WmiClass",
+    "Child.WmiName",
+    "Child.NodeName"
+  ]
+}

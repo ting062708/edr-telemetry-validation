@@ -1,0 +1,16 @@
+{
+  "case_id": "FILE-DELETE-001",
+  "module": "file",
+  "behavior_fields": {
+    "Path": "Child.FilePath",
+    "FileName": "Child.FileName"
+  },
+  "observed_fields": [
+    "Child.FileMd5",
+    "Child.FileName",
+    "Child.FilePath",
+    "Child.FileSize",
+    "Child.NodeName",
+    "Child.Type"
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "verdict": "ERROR_LOG_INPUT",
+  "verdict_icon": "🔴",
+  "capability_state": null,
+  "message": "Event log time range does not cover the TARGET window. Log: [2026-08-26T16:01:23.490000+00:00 – 2026-08-26T17:31:12.098000+00:00], Target: [2026-08-25T14:59:22.261000+00:00 – 2026-08-25T14:59:22.261000+00:00]. Re-export the log with a wider time range.",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": null,
+  "anchor_detected": null,
+  "anomaly": null,
+  "value_scan": {
+    "Operation": {
+      "value": "PipeCreate",
+      "found": false,
+      "where": []
+    },
+    "PipeName": {
+      "value": "EDRTelemetryPipeTest_8ab053eb585b",
+      "found": false,
+      "where": []
+    },
+    "TargetName": {
+      "value": "\\\\.\\pipe\\EDRTelemetryPipeTest_8ab053eb585b",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "PIPE-CREATE-001",
+  "module": "Pipe",
+  "action": "--case PIPE-CREATE-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 11615,
+    "after_hostname": 11615,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-26T16:01:23.490000+00:00",
+    "log_time_max": "2026-08-26T17:31:12.098000+00:00",
+    "target_begin": "2026-08-25T14:59:22.261000+00:00",
+    "target_end": "2026-08-25T14:59:22.261000+00:00",
+    "run_begin": "2026-08-25T14:59:22.133000+00:00",
+    "run_end": "2026-08-25T14:59:22.261000+00:00",
+    "coverage_status": "NOT_COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "NamedPipe",
+        "actor": "NetworkActivityTest.exe",
+        "target": ""
+      },
+      {
+        "operation": "NamedPipe",
+        "actor": "NetworkActivityTest.exe",
+        "target": ""
+      },
+      {
+        "operation": "NamedPipe",
+        "actor": "ProcessLifecycleTest.exe",
+        "target": ""
+      },
+      {
+        "operation": "NamedPipe",
+        "actor": "ProcessTarget.exe",
+        "target": ""
+      },
+      {
+        "operation": "NamedPipe",
+        "actor": "ProcessLifecycleTest.exe",
+        "target": ""
+      }
+    ],
+    "value_scan": {
+      "Operation": {
+        "value": "PipeCreate",
+        "found": false,
+        "where": []
+      },
+      "PipeName": {
+        "value": "EDRTelemetryPipeTest_8ab053eb585b",
+        "found": false,
+        "where": []
+      },
+      "TargetName": {
+        "value": "\\\\.\\pipe\\EDRTelemetryPipeTest_8ab053eb585b",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 6,
+    "capability_base_count": 6,
+    "capability_v2": "有",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "direct",
+      "anchor_process": "PipeLifecycleTest.exe",
+      "anchor_md5": "2a20e660c72d23b2be41e33c22d1075e",
+      "tables": [
+        "FileEvents"
+      ],
+      "operations": [
+        "NamedPipe"
+      ],
+      "probe": null
+    },
+    "sample_value_found": false,
+    "sample_value_hits": {
+      "PipeName": false,
+      "TargetName": false
+    },
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 11615/11615",
+      "Time window [2026-08-25T14:59:17.133000+00:00 – 2026-08-25T14:59:52.261000+00:00]: 0 events (coverage=NOT_COVERED)",
+      "Actor ('PipeLifecycleTest.exe'): 0 events",
+      "PID (3372): source carries no actor_pid — filter omitted",
+      "MD5 exact ('2A20E66091ABFC8B4A093AAD090437B3'): 0 → 0 events",
+      "Operation ('NamedPipe'): 0 events",
+      "behavior_fields[PipeName]→['Child.PipeName']='EDRTelemetryPipeTest_8ab053eb585b': 0 hits in window pool",
+      "behavior_fields[TargetName]→['Child.PipeName']='\\\\\\\\.\\\\pipe\\\\EDRTelemetryPipeTest_8ab053eb585b': 0 hits in window pool",
+      "Capability ('NamedPipe'): 6 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.PipeName",
+      "Child.NodeName",
+      "Child.Type"
+    ],
+    "matched_event_coverage": {
+      "Child.PipeName": null,
+      "Child.NodeName": null,
+      "Child.Type": null
+    },
+    "filled": 0,
+    "total": 3
+  }
+}

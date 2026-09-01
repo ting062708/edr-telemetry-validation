@@ -1,0 +1,8 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="VirtualDiskMountTest.csproj" Id="1f993df2-f1f7-4bff-a228-bf288fa7efc0">
+    <Platform Project="x64" />
+  </Project>
+</Solution>

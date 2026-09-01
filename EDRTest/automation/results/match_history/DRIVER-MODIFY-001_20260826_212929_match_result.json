@@ -1,0 +1,176 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "采集到：云端日志存在 851 条 'FileWriteClose' 事件（能力存在）。（样本具体对象值未命中，但能力存在，不影响判定。）Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {
+    "TargetPath": {
+      "value": "C:\\EDRTest\\samples\\Driver\\DriverModification_Target.sys",
+      "found": false,
+      "where": []
+    },
+    "BeforeSHA256": {
+      "value": "122f9e5e42158233f838a34e9f85ded5a850afc1557bfcef840298c79f2da536",
+      "found": false,
+      "where": []
+    },
+    "AfterSHA256": {
+      "value": "ce62182b663369d6b773173abd5e2cae71336327cae0c8b69a5e477eb4681945",
+      "found": false,
+      "where": []
+    },
+    "BeforeSize": {
+      "value": "28584",
+      "found": false,
+      "where": []
+    },
+    "AfterSize": {
+      "value": "28633",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "DRIVER-MODIFY-001",
+  "module": "Driver",
+  "action": "--case DRIVER-MODIFY-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 9721,
+    "after_hostname": 9721,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-25T14:15:23.127000+00:00",
+    "log_time_max": "2026-08-25T15:18:19.937000+00:00",
+    "target_begin": "2026-08-25T14:47:24.553000+00:00",
+    "target_end": "2026-08-25T14:47:24.559000+00:00",
+    "run_begin": "2026-08-25T14:47:24.381000+00:00",
+    "run_end": "2026-08-25T14:47:24.561000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "FileWriteClose",
+        "actor": "CompatTelRunner.exe",
+        "target": "Appraiser_TelemetryRunList.xml"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "svchost.exe",
+        "target": "Microsoft.StorePurchaseApp_22607.1401.2.0_x64__8wekyb3d8bbwe.xml"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "svchost.exe",
+        "target": "Microsoft.YourPhone_1.25072.81.0_neutral_split.scale-150_8wekyb3d8bbwe.xml"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "svchost.exe",
+        "target": "Microsoft.YourPhone_1.25072.81.0_neutral_split.scale-125_8wekyb3d8bbwe.xml"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "svchost.exe",
+        "target": "Microsoft.YourPhone_1.25072.81.0_neutral_split.language-zh-hans_8wekyb3d8bbwe.xml"
+      }
+    ],
+    "value_scan": {
+      "TargetPath": {
+        "value": "C:\\EDRTest\\samples\\Driver\\DriverModification_Target.sys",
+        "found": false,
+        "where": []
+      },
+      "BeforeSHA256": {
+        "value": "122f9e5e42158233f838a34e9f85ded5a850afc1557bfcef840298c79f2da536",
+        "found": false,
+        "where": []
+      },
+      "AfterSHA256": {
+        "value": "ce62182b663369d6b773173abd5e2cae71336327cae0c8b69a5e477eb4681945",
+        "found": false,
+        "where": []
+      },
+      "BeforeSize": {
+        "value": "28584",
+        "found": false,
+        "where": []
+      },
+      "AfterSize": {
+        "value": "28633",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 851,
+    "capability_base_count": 851,
+    "capability_v2": "有",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "direct",
+      "anchor_process": "DriverLifecycleTest.exe",
+      "anchor_md5": "e569892b7eefaa9284720d8311af5ba7",
+      "tables": [
+        "FileEvents"
+      ],
+      "operations": [
+        "FileWriteClose"
+      ],
+      "probe": null
+    },
+    "sample_value_found": false,
+    "sample_value_hits": {
+      "TargetPath": false
+    },
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 9721/9721",
+      "Time window [2026-08-25T14:47:19.381000+00:00 – 2026-08-25T14:47:54.561000+00:00]: 0 events (coverage=COVERED)",
+      "Actor ('DriverLifecycleTest.exe'): 0 events",
+      "PID (3400): source carries no actor_pid — filter omitted",
+      "MD5 exact ('E569892B7EEFAA9284720D8311AF5BA7'): 0 → 0 events",
+      "Operation ('FileWriteClose'): 0 events",
+      "behavior_fields[TargetPath]→['Child.FilePath']='C:\\\\EDRTest\\\\samples\\\\Driver\\\\DriverModification_Target.sys': 0 hits in window pool",
+      "Capability ('FileWriteClose'): 851 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.FileCreateOpName",
+      "Child.FileName",
+      "Child.FilePath",
+      "Child.FileSize",
+      "Child.NodeName",
+      "Child.Type",
+      "Child.FileMd5"
+    ],
+    "matched_event_coverage": {
+      "Child.FileCreateOpName": null,
+      "Child.FileName": null,
+      "Child.FilePath": null,
+      "Child.FileSize": null,
+      "Child.NodeName": null,
+      "Child.Type": null,
+      "Child.FileMd5": null
+    },
+    "filled": 0,
+    "total": 7
+  }
+}

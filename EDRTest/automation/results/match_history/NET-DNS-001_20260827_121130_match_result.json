@@ -1,0 +1,96 @@
+{
+  "verdict": "NOT_IMPLEMENTED",
+  "verdict_icon": "❌",
+  "capability_state": "Not Implemented",
+  "message": "未采集：云端日志中无 'NetDnsQuery' 行为事件（能力不存在）。 Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": "not_implemented",
+  "as_expected": true,
+  "capability_detected": false,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {
+    "QueryName": {
+      "value": "example.com",
+      "found": false,
+      "where": []
+    },
+    "Options": {
+      "value": "DNS_QUERY_BYPASS_CACHE",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "NET-DNS-001",
+  "module": "Network",
+  "action": "--case NET-DNS-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 11615,
+    "after_hostname": 11615,
+    "after_time": 209,
+    "after_actor": 4,
+    "after_pid": 4,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-26T16:01:23.490000+00:00",
+    "log_time_max": "2026-08-26T17:31:12.098000+00:00",
+    "target_begin": "2026-08-26T16:49:00.208000+00:00",
+    "target_end": "2026-08-26T16:49:00.292000+00:00",
+    "run_begin": "2026-08-26T16:49:00.170000+00:00",
+    "run_end": "2026-08-26T16:49:00.292000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": false,
+    "capability_base_detected": false,
+    "capability_evidence": [],
+    "value_scan": {
+      "QueryName": {
+        "value": "example.com",
+        "found": false,
+        "where": []
+      },
+      "Options": {
+        "value": "DNS_QUERY_BYPASS_CACHE",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 0,
+    "capability_base_count": 0,
+    "capability_v2": "无",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "direct",
+      "anchor_process": "NetworkActivityTest.exe",
+      "anchor_md5": "420cc1ee2bf37c9771eed953d17a3221",
+      "tables": [
+        "NetworkEvents"
+      ],
+      "operations": [
+        "NetDnsQuery"
+      ],
+      "probe": null
+    },
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 11615/11615",
+      "Time window [2026-08-26T16:48:55.170000+00:00 – 2026-08-26T16:49:30.292000+00:00]: 209 events (coverage=COVERED)",
+      "Actor ('NetworkActivityTest.exe'): 4 events",
+      "PID (6728): strict → 4 events",
+      "MD5 exact ('420CC1EE2BF37C9771EED953D17A3221'): 4 → 4 events",
+      "Operation ('NetDnsQuery'): 0 events",
+      "match[_note]='DNS operation 待实测校准' (contains): 0 → 0 events",
+      "Capability ('NetDnsQuery'): 0 events (能力不存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

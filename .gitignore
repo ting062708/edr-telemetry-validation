@@ -1,0 +1,32 @@
+# === 构建产物 ===
+bin/
+obj/
+.vs/
+*.exe
+*.dll
+*.pdb
+*.lib
+*.obj
+
+# === Python ===
+__pycache__/
+*.pyc
+*.pyo
+
+# === 日志 ===
+*.log
+logs/
+log/
+run_logs/
+file_rerun_logs/
+
+# === 大体积生成物 ===
+normalized_events.json
+
+# === 工具/IDE ===
+.workbuddy/
+.idea/
+.vscode/
+*.user
+*.suo
+*.tmp

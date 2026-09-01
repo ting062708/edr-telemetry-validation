@@ -1,0 +1,75 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "All required fields present and values verified (ID=4fb3a004-59e9-4643-acbf-5aa7fc416698).",
+  "matched_event_id": "4fb3a004-59e9-4643-acbf-5aa7fc416698",
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [
+    {
+      "field": "event_time_utc",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "2026-08-23 00:58:56.493000+00:00",
+      "status": "PASS"
+    },
+    {
+      "field": "hostname",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "DESKTOP-0AHK53B",
+      "status": "PASS"
+    },
+    {
+      "field": "target_user",
+      "required": true,
+      "rule": {
+        "equals": "EDR_Test_User",
+        "required": true
+      },
+      "actual_value": "EDR_Test_User",
+      "status": "PASS"
+    }
+  ],
+  "expected_result": null,
+  "as_expected": false,
+  "test_case_id": "ACCOUNT-CREATE-001",
+  "module": "Account",
+  "action": "--case ACCOUNT-CREATE-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 618,
+    "after_hostname": 618,
+    "after_time": 23,
+    "after_actor": 23,
+    "after_pid": 23,
+    "after_operation": 1,
+    "after_extra": 1,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-23T00:58:32.759000+00:00",
+    "log_time_max": "2026-08-23T01:01:41.394000+00:00",
+    "target_begin": "2026-08-23T00:58:56.477000+00:00",
+    "target_end": "2026-08-23T00:59:01.473000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 1,
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 618/618",
+      "Time window [2026-08-23T00:58:53.477000+00:00 – 2026-08-23T00:59:04.473000+00:00]: 23 events (coverage=COVERED)",
+      "Actor filter skipped (skip_process_anchor)",
+      "PID filter skipped (skip_process_anchor)",
+      "Operation ('AccountCreate'): 1 events",
+      "match[target_user]='EDR_Test_User' (contains): 1 → 1 events"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

@@ -1,0 +1,167 @@
+{
+  "verdict": "ERROR_LOG_INPUT",
+  "verdict_icon": "🔴",
+  "capability_state": null,
+  "message": "Event log time range does not cover the TARGET window. Log: [2026-08-23T06:07:14.579000+00:00 – 2026-08-23T06:19:59.660000+00:00], Target: [2026-08-24T10:47:19.504000+00:00 – 2026-08-24T10:47:21.487000+00:00]. Re-export the log with a wider time range.",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": "not_implemented",
+  "as_expected": false,
+  "capability_detected": null,
+  "anchor_detected": null,
+  "anomaly": null,
+  "value_scan": {
+    "Protocol": {
+      "value": "UDP",
+      "found": false,
+      "where": []
+    },
+    "RemoteIP": {
+      "value": "8.8.8.8",
+      "found": false,
+      "where": []
+    },
+    "RemotePort": {
+      "value": "53",
+      "found": true,
+      "where": [
+        "ProcessCreate"
+      ]
+    },
+    "Payload": {
+      "value": "DNS-A-Query",
+      "found": false,
+      "where": []
+    },
+    "QueryName": {
+      "value": "example.com",
+      "found": true,
+      "where": [
+        "HttpRequest"
+      ]
+    },
+    "LocalEndpoint": {
+      "value": "0.0.0.0:63411",
+      "found": false,
+      "where": []
+    },
+    "ResponseFrom": {
+      "value": "8.8.8.8:53",
+      "found": false,
+      "where": []
+    },
+    "BytesSent": {
+      "value": "29",
+      "found": true,
+      "where": [
+        "ProcessCreate"
+      ]
+    },
+    "BytesReceived": {
+      "value": "61",
+      "found": true,
+      "where": [
+        "ProcessCreate"
+      ]
+    }
+  },
+  "test_case_id": "NET-UDP-001",
+  "module": "Network",
+  "action": "--case NET-UDP-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 2429,
+    "after_hostname": 2429,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-23T06:07:14.579000+00:00",
+    "log_time_max": "2026-08-23T06:19:59.660000+00:00",
+    "target_begin": "2026-08-24T10:47:19.504000+00:00",
+    "target_end": "2026-08-24T10:47:21.487000+00:00",
+    "run_begin": "2026-08-24T10:47:19.352000+00:00",
+    "run_end": "2026-08-24T10:47:21.487000+00:00",
+    "coverage_status": "NOT_COVERED",
+    "candidate_count": 0,
+    "capability_detected": false,
+    "capability_base_detected": false,
+    "capability_evidence": [],
+    "value_scan": {
+      "Protocol": {
+        "value": "UDP",
+        "found": false,
+        "where": []
+      },
+      "RemoteIP": {
+        "value": "8.8.8.8",
+        "found": false,
+        "where": []
+      },
+      "RemotePort": {
+        "value": "53",
+        "found": true,
+        "where": [
+          "ProcessCreate"
+        ]
+      },
+      "Payload": {
+        "value": "DNS-A-Query",
+        "found": false,
+        "where": []
+      },
+      "QueryName": {
+        "value": "example.com",
+        "found": true,
+        "where": [
+          "HttpRequest"
+        ]
+      },
+      "LocalEndpoint": {
+        "value": "0.0.0.0:63411",
+        "found": false,
+        "where": []
+      },
+      "ResponseFrom": {
+        "value": "8.8.8.8:53",
+        "found": false,
+        "where": []
+      },
+      "BytesSent": {
+        "value": "29",
+        "found": true,
+        "where": [
+          "ProcessCreate"
+        ]
+      },
+      "BytesReceived": {
+        "value": "61",
+        "found": true,
+        "where": [
+          "ProcessCreate"
+        ]
+      }
+    },
+    "capability_count": 0,
+    "capability_base_count": 0,
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 2429/2429",
+      "Time window [2026-08-24T10:47:14.352000+00:00 – 2026-08-24T10:47:51.487000+00:00]: 0 events (coverage=NOT_COVERED)",
+      "Actor ('NetworkActivityTest.exe'): 0 events",
+      "PID (3084): source carries no actor_pid — filter omitted",
+      "MD5 exact ('420CC1EE2BF37C9771EED953D17A3221'): 0 → 0 events",
+      "Operation ('NetBind'): 0 events",
+      "Capability ('NetBind'): 0 events (能力不存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

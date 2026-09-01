@@ -1,0 +1,72 @@
+{
+  "verdict": "NOT_IMPLEMENTED",
+  "verdict_icon": "❌",
+  "capability_state": "Not Implemented",
+  "message": "No telemetry event of this behavior type found (能力不存在). Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": "not_implemented",
+  "as_expected": true,
+  "capability_detected": false,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {},
+  "test_case_id": "ACCOUNT-LOGOFF-001",
+  "module": "Account",
+  "action": "--case ACCOUNT-LOGOFF-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 1311,
+    "after_hostname": 1311,
+    "after_time": 6,
+    "after_actor": 1,
+    "after_pid": 1,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-24T09:15:02.646000+00:00",
+    "log_time_max": "2026-08-24T09:29:51.700000+00:00",
+    "target_begin": "2026-08-24T09:21:14.806000+00:00",
+    "target_end": "2026-08-24T09:21:17.874000+00:00",
+    "run_begin": "2026-08-24T09:21:14.172000+00:00",
+    "run_end": "2026-08-24T09:21:17.888000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": false,
+    "capability_evidence": [],
+    "value_scan": {
+      "Account": {
+        "value": "EDR_Test_User",
+        "found": false,
+        "where": []
+      },
+      "Operation": {
+        "value": "Logoff",
+        "found": false,
+        "where": []
+      },
+      "Mechanism": {
+        "value": "CloseLogonToken",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 0,
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 1311/1311",
+      "Time window [2026-08-24T09:21:11.172000+00:00 – 2026-08-24T09:21:20.888000+00:00]: 6 events (coverage=COVERED)",
+      "Actor ('AccountLifecycleTest.exe'): 1 events",
+      "PID (5600): strict → 1 events",
+      "MD5 exact ('B8BC5CB3E49E2160A169076576589FE3'): 1 → 1 events",
+      "Operation ('AccountLogoff'): 0 events",
+      "match[target_user]='EDR_Test_User' (contains): 0 → 0 events",
+      "Capability ('AccountLogoff'): 0 events (能力不存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

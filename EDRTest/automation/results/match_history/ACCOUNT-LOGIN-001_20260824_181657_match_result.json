@@ -1,0 +1,143 @@
+{
+  "verdict": "ERROR_LOG_INPUT",
+  "verdict_icon": "🔴",
+  "capability_state": null,
+  "message": "Event log time range does not cover the TARGET window. Log: [2026-08-24T09:15:02.646000+00:00 – 2026-08-24T09:29:51.700000+00:00], Target: [2026-08-24T10:09:45.665000+00:00 – 2026-08-24T10:09:45.676000+00:00]. Re-export the log with a wider time range.",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": null,
+  "anchor_detected": null,
+  "anomaly": null,
+  "value_scan": {
+    "Account": {
+      "value": "EDR_Test_User",
+      "found": false,
+      "where": []
+    },
+    "Operation": {
+      "value": "Login",
+      "found": false,
+      "where": []
+    },
+    "LogonType": {
+      "value": "Interactive",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "ACCOUNT-LOGIN-001",
+  "module": "Account",
+  "action": "--case ACCOUNT-LOGIN-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 1369,
+    "after_hostname": 1369,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-24T09:15:02.646000+00:00",
+    "log_time_max": "2026-08-24T09:29:51.700000+00:00",
+    "target_begin": "2026-08-24T10:09:45.665000+00:00",
+    "target_end": "2026-08-24T10:09:45.676000+00:00",
+    "run_begin": "2026-08-24T10:09:45.399000+00:00",
+    "run_end": "2026-08-24T10:09:45.676000+00:00",
+    "coverage_status": "NOT_COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "LoginSuccess",
+        "actor": "services.exe",
+        "target": "SYSTEM"
+      }
+    ],
+    "value_scan": {
+      "Account": {
+        "value": "EDR_Test_User",
+        "found": false,
+        "where": []
+      },
+      "Operation": {
+        "value": "Login",
+        "found": false,
+        "where": []
+      },
+      "LogonType": {
+        "value": "Interactive",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 1,
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 1369/1369",
+      "Time window [2026-08-24T10:09:42.399000+00:00 – 2026-08-24T10:09:48.676000+00:00]: 0 events (coverage=NOT_COVERED)",
+      "Actor ('AccountLifecycleTest.exe'): 0 events",
+      "PID (5160): source carries no actor_pid — filter omitted",
+      "MD5 exact ('B8BC5CB3E49E2160A169076576589FE3'): 0 → 0 events",
+      "Operation ('LoginSuccess'): 0 events",
+      "match[target_user]='EDR_Test_User' (contains): 0 → 0 events",
+      "behavior_fields[Account]→['Child.TargetUserName']='EDR_Test_User': 0 → 0 events",
+      "Capability ('LoginSuccess'): 1 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.AuthenticationPackageName",
+      "Child.ElevatedToken",
+      "Child.ImpersonationLevel",
+      "Child.KeyLength",
+      "Child.LogonGuid",
+      "Child.LogonProcessName",
+      "Child.LogonType",
+      "Child.NodeName",
+      "Child.SubjectDomainName",
+      "Child.SubjectLogonId",
+      "Child.SubjectUserName",
+      "Child.SubjectUserSid",
+      "Child.TargetDomainName",
+      "Child.TargetLinkedLogonId",
+      "Child.TargetLogonId",
+      "Child.TargetUserName",
+      "Child.TargetUserSid",
+      "Child.Type",
+      "Child.VirtualAccount",
+      "Child.WorkstationName"
+    ],
+    "matched_event_coverage": {
+      "Child.AuthenticationPackageName": null,
+      "Child.ElevatedToken": null,
+      "Child.ImpersonationLevel": null,
+      "Child.KeyLength": null,
+      "Child.LogonGuid": null,
+      "Child.LogonProcessName": null,
+      "Child.LogonType": null,
+      "Child.NodeName": null,
+      "Child.SubjectDomainName": null,
+      "Child.SubjectLogonId": null,
+      "Child.SubjectUserName": null,
+      "Child.SubjectUserSid": null,
+      "Child.TargetDomainName": null,
+      "Child.TargetLinkedLogonId": null,
+      "Child.TargetLogonId": null,
+      "Child.TargetUserName": null,
+      "Child.TargetUserSid": null,
+      "Child.Type": null,
+      "Child.VirtualAccount": null,
+      "Child.WorkstationName": null
+    },
+    "filled": 0,
+    "total": 20
+  }
+}

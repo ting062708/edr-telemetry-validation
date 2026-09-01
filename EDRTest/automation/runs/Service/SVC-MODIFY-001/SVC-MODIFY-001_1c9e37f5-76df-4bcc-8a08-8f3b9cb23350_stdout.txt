@@ -1,0 +1,19 @@
+[RUN-BEGIN] RunID=1c9e37f5-76df-4bcc-8a08-8f3b9cb23350 TimeUTC=2026-08-25T14:56:24.331Z
+[META] TestCaseID=SVC-MODIFY-001 Module=Service Action=Modify
+[META] Process=ServiceLifecycleTest.exe PID=5360 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-25T14:56:24.379Z
+[SETUP] ServiceName=EDR_Telemetry_Test_Service
+[SETUP] BinaryPath="C:\Windows\system32\cmd.exe" /c exit 0
+[SETUP] InitialState=Present
+[SETUP] StartType=Manual
+[SETUP] DisplayName=EDR Telemetry Test Service
+[SETUP-END] TimeUTC=2026-08-25T14:56:24.428Z
+[TARGET-BEGIN] TimeUTC=2026-08-25T14:56:24.428Z
+[TARGET] ServiceName=EDR_Telemetry_Test_Service
+[TARGET] Operation=ChangeServiceConfig
+[TARGET] StartTypeBefore=Manual
+[TARGET] StartTypeAfter=Disabled
+[TARGET] DisplayNameAfter=EDR Telemetry Test Service Modified
+[TARGET-END] TimeUTC=2026-08-25T14:56:24.584Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=1c9e37f5-76df-4bcc-8a08-8f3b9cb23350 TimeUTC=2026-08-25T14:56:24.918Z

@@ -1,0 +1,13 @@
+{
+  "case_id": "PIPE-CONNECT-001",
+  "module": "pipe",
+  "behavior_fields": {
+    "PipeName": "Child.PipeName",
+    "TargetName": "Child.PipeName"
+  },
+  "observed_fields": [
+    "Child.PipeName",
+    "Child.NodeName",
+    "Child.Type"
+  ]
+}

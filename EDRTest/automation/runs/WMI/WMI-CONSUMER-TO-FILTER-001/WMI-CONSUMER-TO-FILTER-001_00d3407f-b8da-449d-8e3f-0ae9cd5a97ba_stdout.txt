@@ -1,0 +1,20 @@
+[RUN-BEGIN] RunID=00d3407f-b8da-449d-8e3f-0ae9cd5a97ba TimeUTC=2026-08-25T15:02:49.338Z
+[META] TestCaseID=WMI-CONSUMER-TO-FILTER-001 Module=WMI Action=WmiEventConsumerToFilter
+[META] Process=WmiActivityTest.exe PID=9492 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-25T15:02:49.441Z
+[SETUP] Administrator=True
+[SETUP] Namespace=root\subscription
+[SETUP] ResidueCleanup=True
+[SETUP] FilterName=EDRTelemetryWmiFilter_00d3407fb8da
+[SETUP] ConsumerName=EDRTelemetryWmiConsumer_00d3407fb8da
+[SETUP] PrecreatedFilter=True
+[SETUP] PrecreatedConsumer=True
+[SETUP-END] TimeUTC=2026-08-25T15:02:50.946Z
+[TARGET-BEGIN] TimeUTC=2026-08-25T15:02:50.946Z
+[TARGET] Operation=WmiCreate
+[TARGET] WmiClass=__FilterToConsumerBinding
+[TARGET] TargetName=EDRTelemetryWmiFilter_00d3407fb8da->EDRTelemetryWmiConsumer_00d3407fb8da
+[TARGET] Namespace=root\subscription
+[TARGET-END] TimeUTC=2026-08-25T15:02:51.100Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=00d3407f-b8da-449d-8e3f-0ae9cd5a97ba TimeUTC=2026-08-25T15:02:51.118Z

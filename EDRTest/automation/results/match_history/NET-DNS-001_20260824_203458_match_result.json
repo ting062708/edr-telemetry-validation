@@ -1,0 +1,86 @@
+{
+  "verdict": "ERROR_LOG_INPUT",
+  "verdict_icon": "🔴",
+  "capability_state": null,
+  "message": "Event log time range does not cover the TARGET window. Log: [2026-08-23T06:07:14.579000+00:00 – 2026-08-23T06:19:59.660000+00:00], Target: [2026-08-24T10:48:32.222000+00:00 – 2026-08-24T10:48:32.327000+00:00]. Re-export the log with a wider time range.",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": "not_implemented",
+  "as_expected": false,
+  "capability_detected": null,
+  "anchor_detected": null,
+  "anomaly": null,
+  "value_scan": {
+    "QueryName": {
+      "value": "example.com",
+      "found": true,
+      "where": [
+        "HttpRequest"
+      ]
+    },
+    "Options": {
+      "value": "DNS_QUERY_BYPASS_CACHE",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "NET-DNS-001",
+  "module": "Network",
+  "action": "--case NET-DNS-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 2429,
+    "after_hostname": 2429,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-23T06:07:14.579000+00:00",
+    "log_time_max": "2026-08-23T06:19:59.660000+00:00",
+    "target_begin": "2026-08-24T10:48:32.222000+00:00",
+    "target_end": "2026-08-24T10:48:32.327000+00:00",
+    "run_begin": "2026-08-24T10:48:32.180000+00:00",
+    "run_end": "2026-08-24T10:48:32.327000+00:00",
+    "coverage_status": "NOT_COVERED",
+    "candidate_count": 0,
+    "capability_detected": false,
+    "capability_base_detected": false,
+    "capability_evidence": [],
+    "value_scan": {
+      "QueryName": {
+        "value": "example.com",
+        "found": true,
+        "where": [
+          "HttpRequest"
+        ]
+      },
+      "Options": {
+        "value": "DNS_QUERY_BYPASS_CACHE",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 0,
+    "capability_base_count": 0,
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 2429/2429",
+      "Time window [2026-08-24T10:48:27.180000+00:00 – 2026-08-24T10:49:02.327000+00:00]: 0 events (coverage=NOT_COVERED)",
+      "Actor ('NetworkActivityTest.exe'): 0 events",
+      "PID (2180): source carries no actor_pid — filter omitted",
+      "MD5 exact ('420CC1EE2BF37C9771EED953D17A3221'): 0 → 0 events",
+      "Operation ('NetDnsQuery'): 0 events",
+      "match[_note]='DNS operation 待实测校准' (contains): 0 → 0 events",
+      "Capability ('NetDnsQuery'): 0 events (能力不存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

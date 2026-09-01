@@ -1,0 +1,95 @@
+{
+  "verdict": "NOT_IMPLEMENTED",
+  "verdict_icon": "❌",
+  "capability_state": "Not Implemented",
+  "message": "未采集：云端日志中无 'AccountDelete' 行为事件（能力不存在）。 Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": "not_implemented",
+  "as_expected": true,
+  "capability_detected": false,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {
+    "Account": {
+      "value": "EDR_Test_User",
+      "found": false,
+      "where": []
+    },
+    "Operation": {
+      "value": "Delete",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "ACCOUNT-DELETE-001",
+  "module": "Account",
+  "action": "--case ACCOUNT-DELETE-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 9721,
+    "after_hostname": 9721,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-25T14:15:23.127000+00:00",
+    "log_time_max": "2026-08-25T15:18:19.937000+00:00",
+    "target_begin": "2026-08-25T14:34:52.681000+00:00",
+    "target_end": "2026-08-25T14:34:52.692000+00:00",
+    "run_begin": "2026-08-25T14:34:52.185000+00:00",
+    "run_end": "2026-08-25T14:34:52.692000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": false,
+    "capability_base_detected": false,
+    "capability_evidence": [],
+    "value_scan": {
+      "Account": {
+        "value": "EDR_Test_User",
+        "found": false,
+        "where": []
+      },
+      "Operation": {
+        "value": "Delete",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 0,
+    "capability_base_count": 0,
+    "capability_v2": "无",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "system",
+      "anchor_process": null,
+      "anchor_md5": null,
+      "tables": [
+        "AccountEvents"
+      ],
+      "operations": [
+        "AccountDelete"
+      ],
+      "probe": null
+    },
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 9721/9721",
+      "Time window [2026-08-25T14:34:49.185000+00:00 – 2026-08-25T14:34:55.692000+00:00]: 0 events (coverage=COVERED)",
+      "Actor filter skipped (skip_process_anchor)",
+      "PID filter skipped (skip_process_anchor)",
+      "Operation ('AccountDelete'): 0 events",
+      "match[target_user]='EDR_Test_User' (contains): 0 → 0 events",
+      "Capability ('AccountDelete'): 0 events (能力不存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

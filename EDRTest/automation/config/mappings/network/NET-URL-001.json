@@ -1,0 +1,6 @@
+{
+  "case_id": "NET-URL-001",
+  "module": "Network",
+  "behavior_fields": {},
+  "observed_fields": ["Child.DstIp","Child.DstPort","Child.Host","Child.Protocol","Child.SrcIp","Child.SrcPort","Child.NodeName","Child.Type"]
+}

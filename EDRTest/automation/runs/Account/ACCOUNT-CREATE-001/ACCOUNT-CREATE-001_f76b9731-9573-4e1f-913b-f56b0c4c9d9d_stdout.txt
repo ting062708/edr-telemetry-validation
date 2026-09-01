@@ -1,0 +1,17 @@
+[RUN-BEGIN] RunID=f76b9731-9573-4e1f-913b-f56b0c4c9d9d TimeUTC=2026-08-23T03:49:33.816Z
+[META] TestCaseID=ACCOUNT-CREATE-001 Module=Account Action=Create
+[META] Process=AccountLifecycleTest.exe PID=10296 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-23T03:49:33.858Z
+[SETUP] Account=EDR_Test_User
+[SETUP] DesiredState=Absent
+[SETUP-END] TimeUTC=2026-08-23T03:49:33.858Z
+[TARGET-BEGIN] TimeUTC=2026-08-23T03:49:33.858Z
+[TARGET] Account=EDR_Test_User
+[TARGET] Operation=Create
+[TARGET] SamAccountName=EDR_Test_User
+[TARGET] Comment=EDR Account Lifecycle Test
+[TARGET] Flags=0x201
+[TARGET-END] TimeUTC=2026-08-23T03:49:45.877Z
+[CLEANUP] AccountDeleteStatus=0
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=f76b9731-9573-4e1f-913b-f56b0c4c9d9d TimeUTC=2026-08-23T03:49:45.882Z

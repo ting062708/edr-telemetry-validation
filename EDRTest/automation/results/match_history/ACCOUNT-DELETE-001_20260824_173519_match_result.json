@@ -1,0 +1,66 @@
+{
+  "verdict": "NOT_IMPLEMENTED",
+  "verdict_icon": "❌",
+  "capability_state": "Not Implemented",
+  "message": "No telemetry event of this behavior type found (能力不存在). Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": "not_implemented",
+  "as_expected": true,
+  "capability_detected": false,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {},
+  "test_case_id": "ACCOUNT-DELETE-001",
+  "module": "Account",
+  "action": "--case ACCOUNT-DELETE-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 1311,
+    "after_hostname": 1311,
+    "after_time": 5,
+    "after_actor": 5,
+    "after_pid": 5,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-24T09:15:02.646000+00:00",
+    "log_time_max": "2026-08-24T09:29:51.700000+00:00",
+    "target_begin": "2026-08-24T09:17:57.207000+00:00",
+    "target_end": "2026-08-24T09:17:57.220000+00:00",
+    "run_begin": "2026-08-24T09:17:56.930000+00:00",
+    "run_end": "2026-08-24T09:17:57.220000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": false,
+    "capability_evidence": [],
+    "value_scan": {
+      "Account": {
+        "value": "EDR_Test_User",
+        "found": false,
+        "where": []
+      },
+      "Operation": {
+        "value": "Delete",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 0,
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 1311/1311",
+      "Time window [2026-08-24T09:17:53.930000+00:00 – 2026-08-24T09:18:00.220000+00:00]: 5 events (coverage=COVERED)",
+      "Actor filter skipped (skip_process_anchor)",
+      "PID filter skipped (skip_process_anchor)",
+      "Operation ('AccountDelete'): 0 events",
+      "match[target_user]='EDR_Test_User' (contains): 0 → 0 events",
+      "Capability ('AccountDelete'): 0 events (能力不存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

@@ -1,0 +1,16 @@
+[RUN-BEGIN] RunID=cea8bcf4-03ed-40d2-af35-fa8e10e17b3e TimeUTC=2026-08-23T03:28:47.934Z
+[META] TestCaseID=ACCOUNT-LOGOFF-001 Module=Account Action=Logoff
+[META] Process=AccountLifecycleTest.exe PID=12368 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-23T03:28:47.953Z
+[SETUP] Account=EDR_Test_User
+[SETUP] DesiredState=LoggedOn
+[SETUP] LogonType=Interactive
+[SETUP-END] TimeUTC=2026-08-23T03:28:48.021Z
+[TARGET-BEGIN] TimeUTC=2026-08-23T03:28:48.021Z
+[TARGET] Account=EDR_Test_User
+[TARGET] Operation=Logoff
+[TARGET] Mechanism=CloseLogonToken
+[TARGET-END] TimeUTC=2026-08-23T03:28:50.898Z
+[CLEANUP] AccountDeleteStatus=0
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=cea8bcf4-03ed-40d2-af35-fa8e10e17b3e TimeUTC=2026-08-23T03:28:50.898Z

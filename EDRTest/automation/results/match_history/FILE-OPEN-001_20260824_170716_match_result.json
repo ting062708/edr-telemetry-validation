@@ -1,0 +1,112 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "Capability detected: 日志中存在 6 条 FileRead 事件（能力存在），但未锚定到样本进程。Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": "not_implemented",
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": false,
+  "anomaly": "IOA 具备该行为类型的采集能力（日志中存在该行为事件），但样本进程的文件操作未出现在日志中——仅锚定到进程创建，未锚定到文件操作。可能原因：文件监控只采可信进程 / 路径排除 / cmd 包装 / 待验证。",
+  "value_scan": {
+    "Path": {
+      "value": "C:\\EDRTest\\samples\\File\\FileLifecycle_Target.exe",
+      "found": false,
+      "where": []
+    },
+    "FileName": {
+      "value": "FileLifecycle_Target.exe",
+      "found": false,
+      "where": []
+    },
+    "ContentMd5": {
+      "value": "f55ca31ff53274869b3d9a011e0795b2",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "FILE-OPEN-001",
+  "module": "File",
+  "action": "--case FILE-OPEN-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 1380,
+    "after_hostname": 1380,
+    "after_time": 14,
+    "after_actor": 1,
+    "after_pid": 1,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-24T08:09:14.458000+00:00",
+    "log_time_max": "2026-08-24T08:21:08.797000+00:00",
+    "target_begin": "2026-08-24T08:13:17.095000+00:00",
+    "target_end": "2026-08-24T08:13:17.126000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "FileWriteClose",
+        "actor": "mousocoreworker.exe",
+        "target": "windlp.state-old.xml"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "mousocoreworker.exe",
+        "target": "windlp.state.xml"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "svchost.exe",
+        "target": "windlp.state-old.xml"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "svchost.exe",
+        "target": "windlp.state.xml"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "TiWorker.exe",
+        "target": "Sessions.xml"
+      }
+    ],
+    "value_scan": {
+      "Path": {
+        "value": "C:\\EDRTest\\samples\\File\\FileLifecycle_Target.exe",
+        "found": false,
+        "where": []
+      },
+      "FileName": {
+        "value": "FileLifecycle_Target.exe",
+        "found": false,
+        "where": []
+      },
+      "ContentMd5": {
+        "value": "f55ca31ff53274869b3d9a011e0795b2",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 6,
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 1380/1380",
+      "Time window [2026-08-24T08:13:12.095000+00:00 – 2026-08-24T08:13:47.126000+00:00]: 14 events (coverage=COVERED)",
+      "Actor ('FileLifecycleTest.exe'): 1 events",
+      "PID (5744): strict → 1 events",
+      "MD5 exact ('156CA9CF54E5AE8E919375026D60A02B'): 1 → 1 events",
+      "Operation ('FileRead'): 0 events",
+      "match[capability_probe]={'operation': 'FileWriteClose', 'field': 'Child.FileCreateOpName', 'contains': '打开'} (contains): 0 → 0 events",
+      "Capability ('FileWriteClose'): 6 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

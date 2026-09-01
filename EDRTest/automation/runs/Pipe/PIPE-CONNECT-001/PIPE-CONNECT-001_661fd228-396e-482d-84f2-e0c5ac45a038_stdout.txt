@@ -1,0 +1,16 @@
+[RUN-BEGIN] RunID=661fd228-396e-482d-84f2-e0c5ac45a038 TimeUTC=2026-08-25T15:00:13.544Z
+[META] TestCaseID=PIPE-CONNECT-001 Module=Pipe Action=PipeConnect
+[META] Process=PipeLifecycleTest.exe PID=2232 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-25T15:00:13.577Z
+[SETUP] Administrator=True
+[SETUP] CleanupMode=UniqueNameAndCloseHandles
+[SETUP] PipeName=EDRTelemetryPipeTest_661fd228396e
+[SETUP] PrecreatedServer=True
+[SETUP-END] TimeUTC=2026-08-25T15:00:13.633Z
+[TARGET-BEGIN] TimeUTC=2026-08-25T15:00:13.633Z
+[TARGET] Operation=PipeConnect
+[TARGET] PipeName=EDRTelemetryPipeTest_661fd228396e
+[TARGET] TargetName=\\.\pipe\EDRTelemetryPipeTest_661fd228396e
+[TARGET-END] TimeUTC=2026-08-25T15:00:13.693Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=661fd228-396e-482d-84f2-e0c5ac45a038 TimeUTC=2026-08-25T15:00:13.693Z

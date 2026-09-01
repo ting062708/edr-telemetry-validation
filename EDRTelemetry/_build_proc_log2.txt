@@ -1,0 +1,9 @@
+﻿=== ProcessTarget ===
+
+  ProcessTarget -> E:\EDR\EDRTelemetry\process\Process_Module_Ready\Process_Module_Ready\ProcessTarget\bin\x64\Release\ProcessTarget.exe
+=== ProcessTarget EXIT 0 ===
+=== ImageLoadTest ===
+
+  ImageLoadTest -> E:\EDR\EDRTelemetry\process\ImageLoadTest\ImageLoadTest\bin\x64\Release\ImageLoadTest.exe
+=== ImageLoadTest EXIT 0 ===
+DONE

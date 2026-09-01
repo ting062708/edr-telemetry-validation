@@ -1,0 +1,18 @@
+[RUN-BEGIN] RunID=3e408f7a510a4dd1bba6d3b4e7bc81fe TimeUTC=2026-08-25T14:47:24.381Z
+[META] TestCaseID=DRIVER-MODIFY-001 Module=Driver Action=Modify
+[META] Process=DriverLifecycleTest.exe PID=3400 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-25T14:47:24.429Z
+[SETUP] SourceDriverPath=C:\EDRTest\samples\Driver\Support\nonpnp.sys
+[SETUP] TargetPath=C:\EDRTest\samples\Driver\DriverModification_Target.sys
+[SETUP] BeforeSHA256=122f9e5e42158233f838a34e9f85ded5a850afc1557bfcef840298c79f2da536
+[SETUP] BeforeSize=28584
+[SETUP-END] TimeUTC=2026-08-25T14:47:24.551Z
+[TARGET-BEGIN] TimeUTC=2026-08-25T14:47:24.553Z
+[TARGET] TargetPath=C:\EDRTest\samples\Driver\DriverModification_Target.sys
+[TARGET] BeforeSHA256=122f9e5e42158233f838a34e9f85ded5a850afc1557bfcef840298c79f2da536
+[TARGET] AfterSHA256=ce62182b663369d6b773173abd5e2cae71336327cae0c8b69a5e477eb4681945
+[TARGET] BeforeSize=28584
+[TARGET] AfterSize=28633
+[TARGET-END] TimeUTC=2026-08-25T14:47:24.559Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=3e408f7a510a4dd1bba6d3b4e7bc81fe TimeUTC=2026-08-25T14:47:24.561Z

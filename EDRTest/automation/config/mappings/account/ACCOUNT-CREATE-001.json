@@ -1,0 +1,33 @@
+{
+  "case_id": "ACCOUNT-CREATE-001",
+  "module": "account",
+  "behavior_fields": {
+    "Account": "Child.TargetUserName"
+  },
+  "observed_fields": [
+    "Child.AccountExpires",
+    "Child.DisplayName",
+    "Child.HomeDirectory",
+    "Child.HomePath",
+    "Child.LogonHours",
+    "Child.NewUacValue",
+    "Child.NodeName",
+    "Child.OldUacValue",
+    "Child.PasswordLastSet",
+    "Child.PrimaryGroupId",
+    "Child.ProfilePath",
+    "Child.SamAccountName",
+    "Child.ScriptPath",
+    "Child.SubjectDomainName",
+    "Child.SubjectLogonId",
+    "Child.SubjectUserName",
+    "Child.SubjectUserSid",
+    "Child.TargetDomainName",
+    "Child.TargetSid",
+    "Child.TargetUserName",
+    "Child.Type",
+    "Child.UserAccountControl",
+    "Child.UserParameters",
+    "Child.UserWorkstations"
+  ]
+}

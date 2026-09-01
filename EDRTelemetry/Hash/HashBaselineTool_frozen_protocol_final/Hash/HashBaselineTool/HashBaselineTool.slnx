@@ -1,0 +1,9 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="HashBaselineTool/HashBaselineTool.csproj" Id="6c3a76a5-bb8f-4268-8e51-199114fd708d">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+</Solution>

@@ -1,0 +1,29 @@
+[
+  {
+    "test_case_id": "REG-CREATE-001",
+    "run_id": "68312ecb-9c10-4dd6-a34e-14ed6311c2ce",
+    "module": "Registry",
+    "action": "Create",
+    "process_name": "RegistryLifecycleTest.exe",
+    "pid": 5328,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T15:06:06.670000+00:00",
+    "setup_begin_utc": "2026-08-26T15:06:06.769000+00:00",
+    "setup_end_utc": "2026-08-26T15:06:06.952000+00:00",
+    "target_begin_utc": "2026-08-26T15:06:12.011000+00:00",
+    "target_end_utc": "2026-08-26T15:06:12.012000+00:00",
+    "run_end_utc": "2026-08-26T15:06:12.016000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Operation": "RegSetValue",
+      "RegistryPath": "Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+      "ValueName": "EDRTelemetryRunTest",
+      "NewValue": "C:\\Windows\\System32\\notepad.exe"
+    },
+    "error_lines": []
+  }
+]

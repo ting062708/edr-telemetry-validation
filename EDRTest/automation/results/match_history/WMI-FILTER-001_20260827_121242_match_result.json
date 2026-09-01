@@ -1,0 +1,142 @@
+{
+  "verdict": "NOT_IMPLEMENTED",
+  "verdict_icon": "❌",
+  "capability_state": "Not Implemented",
+  "message": "未采集：云端日志中无 'WmiCreate' 行为事件（能力不存在）。 Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": false,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {
+    "Operation": {
+      "value": "WmiCreate",
+      "found": false,
+      "where": []
+    },
+    "WmiClass": {
+      "value": "__EventFilter",
+      "found": true,
+      "where": [
+        "ScriptScan"
+      ]
+    },
+    "TargetName": {
+      "value": "EDRTelemetryWmiFilter_6177e2cf0c6a",
+      "found": false,
+      "where": []
+    },
+    "Namespace": {
+      "value": "root\\subscription",
+      "found": true,
+      "where": [
+        "ScriptScan"
+      ]
+    }
+  },
+  "test_case_id": "WMI-FILTER-001",
+  "module": "WMI",
+  "action": "--case WMI-FILTER-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 11615,
+    "after_hostname": 11615,
+    "after_time": 39,
+    "after_actor": 1,
+    "after_pid": 1,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-26T16:01:23.490000+00:00",
+    "log_time_max": "2026-08-26T17:31:12.098000+00:00",
+    "target_begin": "2026-08-26T16:04:28.252000+00:00",
+    "target_end": "2026-08-26T16:04:28.355000+00:00",
+    "run_begin": "2026-08-26T16:04:25.504000+00:00",
+    "run_end": "2026-08-26T16:04:28.355000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": false,
+    "capability_base_detected": false,
+    "capability_evidence": [],
+    "value_scan": {
+      "Operation": {
+        "value": "WmiCreate",
+        "found": false,
+        "where": []
+      },
+      "WmiClass": {
+        "value": "__EventFilter",
+        "found": true,
+        "where": [
+          "ScriptScan"
+        ]
+      },
+      "TargetName": {
+        "value": "EDRTelemetryWmiFilter_6177e2cf0c6a",
+        "found": false,
+        "where": []
+      },
+      "Namespace": {
+        "value": "root\\subscription",
+        "found": true,
+        "where": [
+          "ScriptScan"
+        ]
+      }
+    },
+    "capability_count": 0,
+    "capability_base_count": 0,
+    "capability_v2": "无",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "direct",
+      "anchor_process": "WmiActivityTest.exe",
+      "anchor_md5": "acf3b2887e1bc5a2c7d3c1c3b0f5c5e9",
+      "tables": [
+        "WmiEvents"
+      ],
+      "operations": [
+        "WmiCreate"
+      ],
+      "probe": null
+    },
+    "sample_value_found": false,
+    "sample_value_hits": {
+      "WmiClass": false,
+      "TargetName": false
+    },
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 11615/11615",
+      "Time window [2026-08-26T16:04:20.504000+00:00 – 2026-08-26T16:04:58.355000+00:00]: 39 events (coverage=COVERED)",
+      "Actor ('WmiActivityTest.exe'): 1 events",
+      "PID (6844): strict → 1 events",
+      "MD5 exact ('ACF3B288A25576FE5935E945199D0548'): 1 → 1 events",
+      "Operation ('WmiCreate'): 0 events",
+      "behavior_fields[WmiClass]→['Child.WmiClass']='__EventFilter': 0 hits in window pool",
+      "behavior_fields[TargetName]→['Child.WmiName']='EDRTelemetryWmiFilter_6177e2cf0c6a': 0 hits in window pool",
+      "Capability ('WmiCreate'): 0 events (能力不存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.WmiClass",
+      "Child.WmiName",
+      "Child.NodeName"
+    ],
+    "matched_event_coverage": {
+      "Child.WmiClass": null,
+      "Child.WmiName": null,
+      "Child.NodeName": null
+    },
+    "filled": 0,
+    "total": 3
+  }
+}

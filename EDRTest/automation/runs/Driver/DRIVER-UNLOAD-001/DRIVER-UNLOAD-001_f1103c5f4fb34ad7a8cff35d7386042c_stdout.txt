@@ -1,0 +1,15 @@
+[RUN-BEGIN] RunID=f1103c5f4fb34ad7a8cff35d7386042c TimeUTC=2026-08-24T13:11:06.975Z
+[META] TestCaseID=DRIVER-UNLOAD-001 Module=Driver Action=Unload
+[META] Process=DriverLifecycleTest.exe PID=9728 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-24T13:11:07.060Z
+[SETUP] DriverPath=C:\EDRTest\samples\Driver\Support\nonpnp.sys
+[SETUP] ServiceName=EDR_Telemetry_Test_Driver
+[SETUP] InitialState=RUNNING
+[SETUP-END] TimeUTC=2026-08-24T13:11:07.091Z
+[TARGET-BEGIN] TimeUTC=2026-08-24T13:11:07.091Z
+[TARGET] DriverPath=C:\EDRTest\samples\Driver\Support\nonpnp.sys
+[TARGET] ServiceName=EDR_Telemetry_Test_Driver
+[TARGET] State=STOPPED
+[TARGET-END] TimeUTC=2026-08-24T13:11:07.146Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=f1103c5f4fb34ad7a8cff35d7386042c TimeUTC=2026-08-24T13:11:07.146Z

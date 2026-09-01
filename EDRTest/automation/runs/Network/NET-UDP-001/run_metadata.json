@@ -1,0 +1,34 @@
+[
+  {
+    "test_case_id": "NET-UDP-001",
+    "run_id": "2e2d88d8-93c4-462c-8638-126d5b8595ed",
+    "module": "Network",
+    "action": "UDPConnection",
+    "process_name": "NetworkActivityTest.exe",
+    "pid": 6928,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T16:47:41.837000+00:00",
+    "setup_begin_utc": "2026-08-26T16:47:41.955000+00:00",
+    "setup_end_utc": "2026-08-26T16:47:41.955000+00:00",
+    "target_begin_utc": "2026-08-26T16:47:41.955000+00:00",
+    "target_end_utc": "2026-08-26T16:47:43.465000+00:00",
+    "run_end_utc": "2026-08-26T16:47:43.465000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Protocol": "UDP",
+      "RemoteIP": "8.8.8.8",
+      "RemotePort": "53",
+      "Payload": "DNS-A-Query",
+      "QueryName": "example.com",
+      "LocalEndpoint": "0.0.0.0:55529",
+      "ResponseFrom": "8.8.8.8:53",
+      "BytesSent": "29",
+      "BytesReceived": "61"
+    },
+    "error_lines": []
+  }
+]

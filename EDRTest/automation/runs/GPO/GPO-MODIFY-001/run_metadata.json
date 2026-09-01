@@ -1,0 +1,29 @@
+[
+  {
+    "test_case_id": "GPO-MODIFY-001",
+    "run_id": "29bedfe2e3164c0087598e9a2f46ced0",
+    "module": "GPO",
+    "action": "gpo_modify",
+    "process_name": "GroupPolicyModifyTest.exe",
+    "pid": 7060,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T16:10:11.132000+00:00",
+    "setup_begin_utc": "2026-08-26T16:10:11.132000+00:00",
+    "setup_end_utc": "2026-08-26T16:10:11.132000+00:00",
+    "target_begin_utc": "2026-08-26T16:10:14.197000+00:00",
+    "target_end_utc": "2026-08-26T16:10:14.197000+00:00",
+    "run_end_utc": "2026-08-26T16:10:14.211000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Operation": "RegSetValue",
+      "RegKeyPath": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+      "RegValueName": "EDRTelemetryGpoTest",
+      "RegValueData": "1"
+    },
+    "error_lines": []
+  }
+]

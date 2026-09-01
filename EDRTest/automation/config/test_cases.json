@@ -1,0 +1,2157 @@
+{
+  "cases": [
+    {
+      "id": "REG-CREATE-001",
+      "module": "Registry",
+      "program": "RegistryLifecycleTest.exe",
+      "action": "--case REG-CREATE-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "RegistryLifecycleTest.exe",
+        "operation": "RegSetValue",
+        "actor_md5": "8C0800D1C33F9DABCD7E82C5748D6BBB",
+        "capability_probe": {
+          "operation": "RegSetValue",
+          "field": "Child.RegValData",
+          "contains": "notepad.exe"
+        }
+      },
+      "expected_fields": {
+        "registry_path": {
+          "contains": "CurrentVersion\\Run",
+          "required": true
+        },
+        "registry_value_name": {
+          "equals": "EDRTelemetryRunTest",
+          "required": true
+        },
+        "registry_value_data": {
+          "contains": "notepad.exe",
+          "required": true
+        },
+        "actor_name": {
+          "equals": "RegistryLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "operation": {
+          "equals": "RegSetValue",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "sample_sha256": "A65B5233A2AF7591576F23741E348C6996D44AC3A4F58DED680BA6059FFDD098",
+      "sample_md5": "8C0800D1C33F9DABCD7E82C5748D6BBB",
+      "expected_result": "not_implemented",
+      "notes": "IOA 不采集注册表值【首次创建】(ABSENT→value，RegOldValData 为空)；仅采集【覆盖写/修改】(有旧值)。实测创建 notepad.exe 无 RegSetValue 事件（日志唯一 RegSetValue 是修改 notepad→calc）",
+      "behavior": "键/值创建"
+    },
+    {
+      "id": "REG-MODIFY-001",
+      "module": "Registry",
+      "program": "RegistryLifecycleTest.exe",
+      "action": "--case REG-MODIFY-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "RegistryLifecycleTest.exe",
+        "operation": "RegSetValue",
+        "actor_md5": "8C0800D1C33F9DABCD7E82C5748D6BBB",
+        "Child.RegValData": "calc.exe"
+      },
+      "expected_fields": {
+        "registry_path": {
+          "contains": "CurrentVersion\\Run",
+          "required": true
+        },
+        "registry_value_name": {
+          "equals": "EDRTelemetryRunTest",
+          "required": true
+        },
+        "registry_value_data": {
+          "contains": "calc.exe",
+          "required": true
+        },
+        "registry_old_value_data": {
+          "contains": "notepad.exe",
+          "required": true
+        },
+        "actor_name": {
+          "equals": "RegistryLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "operation": {
+          "equals": "RegSetValue",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "sample_sha256": "A65B5233A2AF7591576F23741E348C6996D44AC3A4F58DED680BA6059FFDD098",
+      "notes": "IOA 采集注册表值【覆盖写/修改】(RegSetValue，RegOldValData→RegValData 齐全)。实测修改 notepad→calc 采到（推翻旧结论「修改未采集」）",
+      "sample_md5": "8C0800D1C33F9DABCD7E82C5748D6BBB",
+      "behavior": "键/值修改"
+    },
+    {
+      "id": "REG-DELETE-001",
+      "module": "Registry",
+      "program": "RegistryLifecycleTest.exe",
+      "action": "--case REG-DELETE-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "RegistryLifecycleTest.exe",
+        "operation": "RegDeleteValue",
+        "actor_md5": "8C0800D1C33F9DABCD7E82C5748D6BBB"
+      },
+      "expected_fields": {
+        "registry_path": {
+          "contains": "CurrentVersion\\Run",
+          "required": true
+        },
+        "registry_value_name": {
+          "equals": "EDRTelemetryRunTest",
+          "required": true
+        },
+        "actor_name": {
+          "equals": "RegistryLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "operation": {
+          "equals": "RegDeleteValue",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "sample_sha256": "A65B5233A2AF7591576F23741E348C6996D44AC3A4F58DED680BA6059FFDD098",
+      "expected_result": "not_implemented",
+      "notes": "IOA 无 RegDeleteValue 事件，键/值删除未采集（实测删除 calc.exe 无事件）",
+      "sample_md5": "8C0800D1C33F9DABCD7E82C5748D6BBB",
+      "behavior": "键/值删除"
+    },
+    {
+      "id": "PROC-IMAGE-LOAD-001",
+      "module": "Process",
+      "program": "ImageLoadTest.exe",
+      "action": "imageload",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "ImageLoadTest.exe",
+        "operation": "LoadDll",
+        "actor_md5": "047056E9D0EC527268037F13672593A7"
+      },
+      "expected_fields": {
+        "target_name": {
+          "contains": "TestLibrary.dll",
+          "required": true
+        },
+        "target_path": {
+          "contains": "EDRTest",
+          "required": true
+        },
+        "actor_name": {
+          "equals": "ImageLoadTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "operation": {
+          "equals": "LoadDll",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "operation",
+        "actor_name",
+        "actor_pid",
+        "target_name",
+        "target_path",
+        "hostname"
+      ],
+      "expected_result": "not_implemented",
+      "note": "IOA 有加载DLL监控项(ModuleEvents/LoadDll)，但只采集到进程启动时加载的 clr.dll/mscoreei.dll，未采集运行时 LoadLibrary 的 TestLibrary.dll。判断为 IOA 采集能力不足而非样本问题。",
+      "sample_sha256": "38B9751998528D7009B1DA9D5DAC498B406B8588EB7997218BBF0875B6E035ED",
+      "sample_md5": "047056E9D0EC527268037F13672593A7",
+      "behavior": "映像加载"
+    },
+    {
+      "id": "PROC-CREATE-001",
+      "module": "Process",
+      "program": "ProcessLifecycleTest.exe",
+      "action": "create",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "ProcessLifecycleTest.exe",
+        "operation": "ProcessCreate",
+        "actor_md5": "F6D123D8483CF7BC0D324726B3B52639"
+      },
+      "expected_fields": {
+        "target_name": {
+          "equals": "ProcessTarget.exe",
+          "required": true
+        },
+        "target_path": {
+          "contains": "EDRTest",
+          "required": true
+        },
+        "actor_name": {
+          "equals": "ProcessLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "operation": {
+          "equals": "ProcessCreate",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "operation",
+        "actor_name",
+        "actor_pid",
+        "target_name",
+        "target_path",
+        "hostname"
+      ],
+      "sample_sha256": "C8E0EC091E4FFD13F02C5715F822D1D48B7E89FF9A1310141038DE8C03A83E3D",
+      "sample_md5": "F6D123D8483CF7BC0D324726B3B52639",
+      "behavior": "进程创建"
+    },
+    {
+      "id": "PROC-ACCESS-001",
+      "module": "Process",
+      "program": "ProcessLifecycleTest.exe",
+      "action": "access",
+      "pre_start": "ProcessTarget.exe",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "ProcessLifecycleTest.exe",
+        "operation": "NtOpenProcess",
+        "actor_md5": "F6D123D8483CF7BC0D324726B3B52639"
+      },
+      "expected_fields": {
+        "target_name": {
+          "equals": "ProcessTarget.exe",
+          "required": true
+        },
+        "target_path": {
+          "contains": "EDRTest",
+          "required": true
+        },
+        "actor_name": {
+          "equals": "ProcessLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "operation": {
+          "equals": "NtOpenProcess",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "operation",
+        "actor_name",
+        "actor_pid",
+        "target_name",
+        "target_path",
+        "hostname"
+      ],
+      "sample_sha256": "C8E0EC091E4FFD13F02C5715F822D1D48B7E89FF9A1310141038DE8C03A83E3D",
+      "sample_md5": "F6D123D8483CF7BC0D324726B3B52639",
+      "behavior": "进程访问"
+    },
+    {
+      "id": "PROC-REMOTE-THREAD-001",
+      "module": "Process",
+      "program": "ProcessLifecycleTest.exe",
+      "action": "remotethread",
+      "pre_start": "ProcessTarget.exe",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "ProcessLifecycleTest.exe",
+        "operation": "RemoteThread",
+        "actor_md5": "F6D123D8483CF7BC0D324726B3B52639"
+      },
+      "expected_fields": {
+        "target_name": {
+          "equals": "ProcessTarget.exe",
+          "required": true
+        },
+        "target_path": {
+          "contains": "EDRTest",
+          "required": true
+        },
+        "actor_name": {
+          "equals": "ProcessLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "operation": {
+          "equals": "RemoteThread",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "operation",
+        "actor_name",
+        "actor_pid",
+        "target_name",
+        "target_path",
+        "hostname"
+      ],
+      "sample_sha256": "C8E0EC091E4FFD13F02C5715F822D1D48B7E89FF9A1310141038DE8C03A83E3D",
+      "sample_md5": "F6D123D8483CF7BC0D324726B3B52639",
+      "behavior": "远程线程注入"
+    },
+    {
+      "id": "PROC-TAMPER-001",
+      "module": "Process",
+      "program": "ProcessLifecycleTest.exe",
+      "action": "tamper",
+      "pre_start": "ProcessTarget.exe",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "ProcessLifecycleTest.exe",
+        "operation": [
+          "NtWriteVirtualMemory",
+          "VirtualAllocEx",
+          "WriteProcessMemory"
+        ],
+        "actor_md5": "F6D123D8483CF7BC0D324726B3B52639"
+      },
+      "expected_fields": {
+        "target_name": {
+          "equals": "ProcessTarget.exe",
+          "required": true
+        },
+        "target_path": {
+          "contains": "EDRTest",
+          "required": true
+        },
+        "actor_name": {
+          "equals": "ProcessLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "actor_name",
+        "actor_pid",
+        "target_name",
+        "target_path",
+        "hostname"
+      ],
+      "sample_sha256": "C8E0EC091E4FFD13F02C5715F822D1D48B7E89FF9A1310141038DE8C03A83E3D",
+      "sample_md5": "F6D123D8483CF7BC0D324726B3B52639",
+      "behavior": "进程内存篡改"
+    },
+    {
+      "id": "PROC-TERMINATE-001",
+      "module": "Process",
+      "program": "ProcessLifecycleTest.exe",
+      "action": "terminate",
+      "pre_start": "ProcessTarget.exe",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "ProcessLifecycleTest.exe",
+        "operation": "ProcessTerminate",
+        "actor_md5": "F6D123D8483CF7BC0D324726B3B52639"
+      },
+      "expected_fields": {
+        "target_name": {
+          "equals": "ProcessTarget.exe",
+          "required": true
+        },
+        "target_path": {
+          "contains": "EDRTest",
+          "required": true
+        },
+        "actor_name": {
+          "equals": "ProcessLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "operation": {
+          "equals": "ProcessTerminate",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "operation",
+        "actor_name",
+        "actor_pid",
+        "target_name",
+        "target_path",
+        "hostname"
+      ],
+      "expected_result": "not_implemented",
+      "note": "全量日志全局搜索 ProcessTerminate/TerminateProcess/NtTerminateProcess 命中 0 条，IOA 无进程终止遥测。判断为 IOA 采集能力缺失。",
+      "sample_sha256": "C8E0EC091E4FFD13F02C5715F822D1D48B7E89FF9A1310141038DE8C03A83E3D",
+      "notes": "IOA事件清单无\"进程终止\"事件，能力缺失",
+      "sample_md5": "F6D123D8483CF7BC0D324726B3B52639",
+      "behavior": "进程终止"
+    },
+    {
+      "id": "FILE-CREATE-001",
+      "module": "File",
+      "program": "FileLifecycleTest.exe",
+      "action": "--case FILE-CREATE-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "FileLifecycleTest.exe",
+        "operation": "FileWriteClose",
+        "actor_md5": "156CA9CF54E5AE8E919375026D60A02B",
+        "capability_probe": {
+          "operation": "FileWriteClose",
+          "field": "Child.FileCreateOpName",
+          "contains": "新建"
+        }
+      },
+      "expected_fields": {
+        "target_path": {
+          "contains": "FileLifecycle_Target",
+          "required": true
+        },
+        "actor_name": {
+          "equals": "FileLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "operation": {
+          "equals": "FileWriteClose",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "operation",
+        "actor_name",
+        "actor_pid",
+        "target_path",
+        "hostname"
+      ],
+      "sample_sha256": "8E8ED1E027241F84DF36259C20FDB4E2A2A6FF555BE2C625625D6CD37B65BCFC",
+      "_note": "创建行为由 FileWriteClose+FileCreateOpName=新建文件 表达（IOA 无独立 FileCreate 事件）",
+      "sample_md5": "156CA9CF54E5AE8E919375026D60A02B",
+      "behavior": "文件创建"
+    },
+    {
+      "id": "FILE-OPEN-001",
+      "module": "File",
+      "program": "FileLifecycleTest.exe",
+      "action": "--case FILE-OPEN-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "FileLifecycleTest.exe",
+        "operation": "FileRead",
+        "actor_md5": "156CA9CF54E5AE8E919375026D60A02B",
+        "capability_probe": {
+          "operation": "FileWriteClose",
+          "field": "Child.FileCreateOpName",
+          "contains": "打开"
+        }
+      },
+      "expected_fields": {
+        "target_path": {
+          "contains": "FileLifecycle_Target.exe",
+          "required": true
+        },
+        "actor_name": {
+          "equals": "FileLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "operation": {
+          "equals": "FileRead",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "operation",
+        "actor_name",
+        "actor_pid",
+        "target_path",
+        "hostname"
+      ],
+      "sample_sha256": "8E8ED1E027241F84DF36259C20FDB4E2A2A6FF555BE2C625625D6CD37B65BCFC",
+      "_note": "读 .exe 重测（行业规范样本）",
+      "sample_md5": "156CA9CF54E5AE8E919375026D60A02B",
+      "expected_result": "not_implemented",
+      "behavior": "文件打开"
+    },
+    {
+      "id": "FILE-DELETE-001",
+      "module": "File",
+      "program": "FileLifecycleTest.exe",
+      "action": "--case FILE-DELETE-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "FileLifecycleTest.exe",
+        "operation": "FileDelete",
+        "target_name": "FileLifecycle_Target.dll",
+        "actor_md5": "156CA9CF54E5AE8E919375026D60A02B",
+        "capability_probe": {
+          "operation": "FileDelete"
+        }
+      },
+      "expected_fields": {
+        "target_path": {
+          "contains": "FileLifecycle_Target",
+          "required": true
+        },
+        "actor_name": {
+          "equals": "FileLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "operation": {
+          "equals": "FileDelete",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "operation",
+        "actor_name",
+        "actor_pid",
+        "target_path",
+        "hostname"
+      ],
+      "sample_sha256": "8E8ED1E027241F84DF36259C20FDB4E2A2A6FF555BE2C625625D6CD37B65BCFC",
+      "_note": "删 .dll 重测 FileDelete（IOA 采 dll 删除，不采 txt/json）",
+      "sample_md5": "156CA9CF54E5AE8E919375026D60A02B",
+      "behavior": "文件删除"
+    },
+    {
+      "id": "FILE-MODIFY-001",
+      "module": "File",
+      "program": "FileLifecycleTest.exe",
+      "action": "--case FILE-MODIFY-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "FileLifecycleTest.exe",
+        "operation": "FileWriteClose",
+        "actor_md5": "156CA9CF54E5AE8E919375026D60A02B",
+        "capability_probe": {
+          "operation": "FileWriteClose",
+          "field": "Child.FileCreateOpName",
+          "contains": "覆盖写"
+        }
+      },
+      "expected_fields": {
+        "target_path": {
+          "contains": "FileLifecycle_Target",
+          "required": true
+        },
+        "actor_name": {
+          "equals": "FileLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "operation": {
+          "equals": "FileWriteClose",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "operation",
+        "actor_name",
+        "actor_pid",
+        "target_path",
+        "hostname"
+      ],
+      "sample_sha256": "8E8ED1E027241F84DF36259C20FDB4E2A2A6FF555BE2C625625D6CD37B65BCFC",
+      "_note": "FileWriteClose 采到",
+      "sample_md5": "156CA9CF54E5AE8E919375026D60A02B",
+      "behavior": "文件修改"
+    },
+    {
+      "id": "FILE-RENAME-001",
+      "module": "File",
+      "program": "FileLifecycleTest.exe",
+      "action": "--case FILE-RENAME-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "FileLifecycleTest.exe",
+        "operation": "FileRename",
+        "actor_md5": "156CA9CF54E5AE8E919375026D60A02B",
+        "capability_probe": {
+          "operation": "FileRename"
+        }
+      },
+      "expected_fields": {
+        "target_path": {
+          "contains": "FileLifecycle_Renamed",
+          "required": true
+        },
+        "actor_name": {
+          "equals": "FileLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "operation": {
+          "equals": "FileRename",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "operation",
+        "actor_name",
+        "actor_pid",
+        "target_path",
+        "hostname"
+      ],
+      "sample_sha256": "8E8ED1E027241F84DF36259C20FDB4E2A2A6FF555BE2C625625D6CD37B65BCFC",
+      "_note": "FileRename 采到（Child.OldFilePath=源，Child.FilePath=目标）",
+      "sample_md5": "156CA9CF54E5AE8E919375026D60A02B",
+      "behavior": "文件重命名"
+    },
+    {
+      "id": "ACCOUNT-CREATE-001",
+      "module": "Account",
+      "program": "AccountLifecycleTest.exe",
+      "action": "--case ACCOUNT-CREATE-001",
+      "sample_sha256": "E48E7F8B914DEA89897C190924731F6F91E34334E9F28F3A1120C356597791A2",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "skip_process_anchor": true,
+        "operation": "AccountCreate",
+        "target_user": "EDR_Test_User",
+        "post_slack_s": 3,
+        "pre_slack_s": 3,
+        "actor_md5": "B8BC5CB3E49E2160A169076576589FE3"
+      },
+      "expected_fields": {
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        },
+        "target_user": {
+          "equals": "EDR_Test_User",
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "hostname",
+        "target_user"
+      ],
+      "_note": "IOA 未采集账号创建/修改/删除事件(同学独立验证 2/5 一致)",
+      "sample_md5": "B8BC5CB3E49E2160A169076576589FE3",
+      "behavior": "本地账户创建",
+      "capability_probe": {
+        "operation": "AccountCreate",
+        "field": "Child.TargetUserName",
+        "equals": "EDR_Test_User"
+      }
+    },
+    {
+      "id": "ACCOUNT-MODIFY-001",
+      "module": "Account",
+      "program": "AccountLifecycleTest.exe",
+      "action": "--case ACCOUNT-MODIFY-001",
+      "sample_sha256": "E48E7F8B914DEA89897C190924731F6F91E34334E9F28F3A1120C356597791A2",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "skip_process_anchor": true,
+        "operation": "AccountPwdChange",
+        "target_user": "EDR_Test_User",
+        "post_slack_s": 3,
+        "pre_slack_s": 3,
+        "actor_md5": "B8BC5CB3E49E2160A169076576589FE3"
+      },
+      "expected_fields": {
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        },
+        "target_user": {
+          "equals": "EDR_Test_User",
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "hostname",
+        "target_user"
+      ],
+      "_note": "IOA 未采集账号创建/修改/删除事件(同学独立验证 2/5 一致)",
+      "notes": "IOA事件清单无\"账户属性修改\"(改Comment)事件，能力缺失",
+      "sample_md5": "B8BC5CB3E49E2160A169076576589FE3",
+      "expected_result": "not_implemented",
+      "behavior": "本地账户修改",
+      "capability_probe": {
+        "operation": "AccountPwdChange",
+        "field": "Child.TargetUserName",
+        "equals": "EDR_Test_User"
+      }
+    },
+    {
+      "id": "ACCOUNT-DELETE-001",
+      "module": "Account",
+      "program": "AccountLifecycleTest.exe",
+      "action": "--case ACCOUNT-DELETE-001",
+      "sample_sha256": "E48E7F8B914DEA89897C190924731F6F91E34334E9F28F3A1120C356597791A2",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "skip_process_anchor": true,
+        "operation": "AccountDelete",
+        "target_user": "EDR_Test_User",
+        "post_slack_s": 3,
+        "pre_slack_s": 3,
+        "actor_md5": "B8BC5CB3E49E2160A169076576589FE3"
+      },
+      "expected_fields": {
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        },
+        "target_user": {
+          "equals": "EDR_Test_User",
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "hostname",
+        "target_user"
+      ],
+      "_note": "IOA 未采集账号创建/修改/删除事件(同学独立验证 2/5 一致)",
+      "expected_result": "not_implemented",
+      "notes": "IOA事件清单无\"账户删除\"事件，能力缺失",
+      "sample_md5": "B8BC5CB3E49E2160A169076576589FE3",
+      "behavior": "本地账户删除",
+      "capability_probe": {
+        "operation": "AccountDelete",
+        "field": "Child.TargetUserName",
+        "equals": "EDR_Test_User"
+      }
+    },
+    {
+      "id": "ACCOUNT-LOGIN-001",
+      "module": "Account",
+      "program": "AccountLifecycleTest.exe",
+      "action": "--case ACCOUNT-LOGIN-001",
+      "sample_sha256": "E48E7F8B914DEA89897C190924731F6F91E34334E9F28F3A1120C356597791A2",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "AccountLifecycleTest.exe",
+        "operation": "LoginSuccess",
+        "actor_md5": "B8BC5CB3E49E2160A169076576589FE3",
+        "target_user": "EDR_Test_User",
+        "post_slack_s": 3,
+        "pre_slack_s": 3
+      },
+      "expected_fields": {
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        },
+        "target_user": {
+          "equals": "EDR_Test_User",
+          "required": true
+        },
+        "logon_type": {
+          "contains": "交互式",
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "hostname",
+        "target_user",
+        "logon_type"
+      ],
+      "_note": "真实字段已确认: LoginEvents/LoginSuccess, Child.TargetUserName=EDR_Test_User",
+      "sample_md5": "B8BC5CB3E49E2160A169076576589FE3",
+      "behavior": "账户登录",
+      "capability_probe": {
+        "operation": "LoginSuccess",
+        "field": "Child.TargetUserName",
+        "equals": "EDR_Test_User"
+      }
+    },
+    {
+      "id": "ACCOUNT-LOGOFF-001",
+      "module": "Account",
+      "program": "AccountLifecycleTest.exe",
+      "action": "--case ACCOUNT-LOGOFF-001",
+      "sample_sha256": "E48E7F8B914DEA89897C190924731F6F91E34334E9F28F3A1120C356597791A2",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "AccountLifecycleTest.exe",
+        "operation": "AccountLogoff",
+        "actor_md5": "B8BC5CB3E49E2160A169076576589FE3",
+        "target_user": "EDR_Test_User",
+        "post_slack_s": 3,
+        "pre_slack_s": 3
+      },
+      "expected_fields": {
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        },
+        "target_user": {
+          "equals": "EDR_Test_User",
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "hostname",
+        "target_user"
+      ],
+      "_note": "真实字段已确认: LoginEvents/LoginSuccess (Logoff 关闭登录令牌同样触发登录成功日志)",
+      "sample_md5": "B8BC5CB3E49E2160A169076576589FE3",
+      "expected_result": "not_implemented",
+      "behavior": "账户注销",
+      "capability_probe": {
+        "operation": "AccountLogoff",
+        "field": "Child.TargetUserName",
+        "equals": "EDR_Test_User"
+      }
+    },
+    {
+      "id": "NET-TCP-001",
+      "module": "Network",
+      "program": "NetworkActivityTest.exe",
+      "action": "--case NET-TCP-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "NetworkActivityTest.exe",
+        "operation": "HttpRequest",
+        "actor_md5": "420CC1EE2BF37C9771EED953D17A3221",
+        "Child.DstIp": "93.184.216.34",
+        "Child.DstPort": "80"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "NetworkActivityTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "operation": {
+          "equals": "HttpRequest",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        },
+        "protocol": {
+          "equals": "tcp",
+          "required": true
+        },
+        "dst_ip": {
+          "equals": "93.184.216.34",
+          "required": true
+        },
+        "dst_port": {
+          "equals": "80",
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "operation",
+        "actor_name",
+        "actor_pid",
+        "hostname"
+      ],
+      "sample_sha256": "75FB659673039A176F389A6775D175ABBFE4BB0C5309EC2E9A7560EFFACA2F58",
+      "note": "实测: 同步 connect + HTTP GET 流量后，IOA 记为 NetworkEvents/HttpRequest (DstIp=93.184.216.34:80, protocol=tcp)。",
+      "sample_md5": "420CC1EE2BF37C9771EED953D17A3221",
+      "behavior": "TCP 连接"
+    },
+    {
+      "id": "NET-UDP-001",
+      "module": "Network",
+      "program": "NetworkActivityTest.exe",
+      "action": "--case NET-UDP-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "NetworkActivityTest.exe",
+        "operation": "NetBind",
+        "actor_md5": "420CC1EE2BF37C9771EED953D17A3221"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "NetworkActivityTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "operation": {
+          "equals": "NetBind",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        },
+        "target_type": {
+          "equals": "网络",
+          "required": false
+        },
+        "dst_ip": {
+          "equals": "8.8.8.8",
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "operation",
+        "actor_name",
+        "actor_pid",
+        "hostname"
+      ],
+      "sample_sha256": "75FB659673039A176F389A6775D175ABBFE4BB0C5309EC2E9A7560EFFACA2F58",
+      "expected_result": "not_implemented",
+      "note": "实测: UDP DNS 查询到 8.8.8.8:53 仅产生 NetBind(bind阶段)，未采到目标 IP(SocketRequest 缺失)。事件存在但目标 IP 字段缺失 → 部分采集。",
+      "sample_md5": "420CC1EE2BF37C9771EED953D17A3221",
+      "behavior": "UDP 连接"
+    },
+    {
+      "id": "NET-URL-001",
+      "module": "Network",
+      "program": "NetworkActivityTest.exe",
+      "action": "--case NET-URL-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "NetworkActivityTest.exe",
+        "operation": "HttpsRequest",
+        "actor_md5": "420CC1EE2BF37C9771EED953D17A3221",
+        "Child.Host": "baidu.com"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "NetworkActivityTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "operation": {
+          "equals": "HttpsRequest",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        },
+        "remote_host": {
+          "contains": "baidu.com",
+          "required": true
+        },
+        "url": {
+          "contains": "baidu.com",
+          "required": false
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "operation",
+        "actor_name",
+        "actor_pid",
+        "hostname"
+      ],
+      "sample_sha256": "75FB659673039A176F389A6775D175ABBFE4BB0C5309EC2E9A7560EFFACA2F58",
+      "note": "实测: IOA 记为 NetworkEvents/HttpsRequest (host=www.baidu.com:443) + InternetEvents/InternetOpenUrlW。",
+      "sample_md5": "420CC1EE2BF37C9771EED953D17A3221",
+      "behavior": "URL 访问"
+    },
+    {
+      "id": "NET-DNS-001",
+      "module": "Network",
+      "program": "NetworkActivityTest.exe",
+      "action": "--case NET-DNS-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "NetworkActivityTest.exe",
+        "operation": "NetDnsQuery",
+        "_note": "DNS operation 待实测校准",
+        "actor_md5": "420CC1EE2BF37C9771EED953D17A3221"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "NetworkActivityTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "operation": {
+          "equals": "SocketRequest",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "operation",
+        "actor_name",
+        "actor_pid",
+        "hostname"
+      ],
+      "sample_sha256": "75FB659673039A176F389A6775D175ABBFE4BB0C5309EC2E9A7560EFFACA2F58",
+      "note": "实测: DnsQuery_W(dnsapi) 产生的 DNS 解析无对应 IOA 事件，example.com 全日志 0 条。IOA 无 DNS 解析采集。",
+      "sample_md5": "420CC1EE2BF37C9771EED953D17A3221",
+      "behavior": "DNS 查询",
+      "expected_result": "not_implemented"
+    },
+    {
+      "id": "NET-DOWNLOAD-001",
+      "module": "Network",
+      "program": "NetworkActivityTest.exe",
+      "action": "--case NET-DOWNLOAD-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "NetworkActivityTest.exe",
+        "operation": "HttpsRequest",
+        "actor_md5": "420CC1EE2BF37C9771EED953D17A3221",
+        "Child.Host": "proof.ovh.net"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "NetworkActivityTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "operation": {
+          "equals": "HttpsRequest",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        },
+        "remote_host": {
+          "contains": "proof.ovh.net",
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "operation",
+        "actor_name",
+        "actor_pid",
+        "hostname"
+      ],
+      "sample_sha256": "75FB659673039A176F389A6775D175ABBFE4BB0C5309EC2E9A7560EFFACA2F58",
+      "note": "实测: IOA 记为 NetworkEvents/HttpsRequest (host=proof.ovh.net:443)。",
+      "sample_md5": "420CC1EE2BF37C9771EED953D17A3221",
+      "behavior": "文件下载"
+    },
+    {
+      "id": "HASH-MD5-001",
+      "module": "Hash",
+      "program": "HashBaselineTool.exe",
+      "action": "--case HASH-MD5-001 --target C:\\EDRTest\\samples\\Hash\\Support\\TestLibrary.dll",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "sample_sha256": "D589C6ECF7E68ABCFC2F36F870BABDF78930B3C4B13AA7E074C1AC6F7AF3F570",
+      "match": {
+        "actor_exe": "HashBaselineTool.exe",
+        "operation": "CryptAcquireContextW",
+        "actor_md5": "C1E9B569E8C5DD13C0EA5C0BD5396948"
+      },
+      "expected_fields": {
+        "operation": {
+          "equals": "CryptAcquireContextW",
+          "required": true
+        },
+        "actor_name": {
+          "equals": "HashBaselineTool.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "api_ret": {
+          "equals": "1",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "operation",
+        "actor_name",
+        "actor_pid",
+        "hostname"
+      ],
+      "note": "IOA 通过注入Hook监控 CryptAcquireContextW(CryptoAPI) 采集哈希计算行为。Child 为系统API无 FileName，故不用 target_name。",
+      "sample_md5": "C1E9B569E8C5DD13C0EA5C0BD5396948",
+      "behavior": "MD5 哈希计算"
+    },
+    {
+      "id": "HASH-SHA-001",
+      "module": "Hash",
+      "program": "HashBaselineTool.exe",
+      "action": "--case HASH-SHA-001 --target C:\\EDRTest\\samples\\Hash\\Support\\TestLibrary.dll",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "sample_sha256": "D589C6ECF7E68ABCFC2F36F870BABDF78930B3C4B13AA7E074C1AC6F7AF3F570",
+      "match": {
+        "actor_exe": "HashBaselineTool.exe",
+        "operation": "CryptAcquireContextW",
+        "actor_md5": "C1E9B569E8C5DD13C0EA5C0BD5396948"
+      },
+      "expected_fields": {
+        "operation": {
+          "equals": "CryptAcquireContextW",
+          "required": true
+        },
+        "actor_name": {
+          "equals": "HashBaselineTool.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "api_ret": {
+          "equals": "1",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "operation",
+        "actor_name",
+        "actor_pid",
+        "hostname"
+      ],
+      "note": "IOA 通过注入Hook监控 CryptAcquireContextW(CryptoAPI) 采集哈希计算行为。Child 为系统API无 FileName，故不用 target_name。",
+      "sample_md5": "C1E9B569E8C5DD13C0EA5C0BD5396948",
+      "behavior": "SHA 哈希计算"
+    },
+    {
+      "id": "HASH-IMPHASH-001",
+      "module": "Hash",
+      "program": "HashBaselineTool.exe",
+      "action": "--case HASH-IMPHASH-001 --target C:\\EDRTest\\samples\\Hash\\Support\\TestLibrary.dll",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "sample_sha256": "D589C6ECF7E68ABCFC2F36F870BABDF78930B3C4B13AA7E074C1AC6F7AF3F570",
+      "match": {
+        "actor_exe": "HashBaselineTool.exe",
+        "operation": "CryptAcquireContextW",
+        "actor_md5": "C1E9B569E8C5DD13C0EA5C0BD5396948"
+      },
+      "expected_fields": {
+        "operation": {
+          "equals": "CryptAcquireContextW",
+          "required": true
+        },
+        "actor_name": {
+          "equals": "HashBaselineTool.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "api_ret": {
+          "equals": "1",
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "operation",
+        "actor_name",
+        "actor_pid",
+        "hostname"
+      ],
+      "note": "IOA 通过注入Hook监控 CryptAcquireContextW(CryptoAPI) 采集哈希计算行为。Child 为系统API无 FileName，故不用 target_name。",
+      "sample_md5": "C1E9B569E8C5DD13C0EA5C0BD5396948",
+      "behavior": "IMPHASH 计算"
+    },
+    {
+      "id": "DRIVER-LOAD-001",
+      "module": "Driver",
+      "program": "DriverLifecycleTest.exe",
+      "action": "--case DRIVER-LOAD-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "Baseline_Driver",
+      "match": {
+        "operation": "LoadDriver",
+        "kernel_mode": true,
+        "actor_md5": "E569892B7EEFAA9284720D8311AF5BA7"
+      },
+      "expected_fields": {
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        },
+        "Child.FilePath": {
+          "contains": "nonpnp.sys",
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "hostname",
+        "Child.FilePath"
+      ],
+      "sample_sha256": "EC668E6F8105574BB0921E4A6D440F5F4BF4823624128F31D2318D4A06F9B0C1",
+      "sample_md5": "E569892B7EEFAA9284720D8311AF5BA7",
+      "snapshot_policy": "required",
+      "behavior": "驱动加载"
+    },
+    {
+      "id": "DRIVER-MODIFY-001",
+      "module": "Driver",
+      "program": "DriverLifecycleTest.exe",
+      "action": "--case DRIVER-MODIFY-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "Baseline_Driver",
+      "match": {
+        "actor_exe": "DriverLifecycleTest.exe",
+        "operation": "FileWriteClose",
+        "actor_md5": "E569892B7EEFAA9284720D8311AF5BA7"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "DriverLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "actor_name",
+        "actor_pid",
+        "hostname"
+      ],
+      "sample_sha256": "EC668E6F8105574BB0921E4A6D440F5F4BF4823624128F31D2318D4A06F9B0C1",
+      "notes": "行为=复制.sys并追加字符串改SHA，本质是文件修改非驱动事件。IOA Driver采集(Load/Unload)不采此行为，预期被File模块采为FileWriteClose(.sys在白名单)或MISSING，非典型Driver事件",
+      "sample_md5": "E569892B7EEFAA9284720D8311AF5BA7",
+      "snapshot_policy": "never",
+      "behavior": "驱动修改"
+    },
+    {
+      "id": "DRIVER-UNLOAD-001",
+      "module": "Driver",
+      "program": "DriverLifecycleTest.exe",
+      "action": "--case DRIVER-UNLOAD-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "Baseline_Driver",
+      "match": {
+        "actor_exe": "DriverLifecycleTest.exe",
+        "actor_md5": "E569892B7EEFAA9284720D8311AF5BA7",
+        "operation": "UnloadDriver"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "DriverLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "actor_name",
+        "actor_pid",
+        "hostname"
+      ],
+      "sample_sha256": "EC668E6F8105574BB0921E4A6D440F5F4BF4823624128F31D2318D4A06F9B0C1",
+      "notes": "IOA事件清单只有\"加载驱动LoadDriver\"，无\"卸载驱动\"，能力缺失",
+      "expected_result": "not_implemented",
+      "sample_md5": "E569892B7EEFAA9284720D8311AF5BA7",
+      "snapshot_policy": "never",
+      "behavior": "驱动卸载"
+    },
+    {
+      "id": "TASK-CREATE-001",
+      "module": "ScheduleTask",
+      "program": "ScheduledTaskLifecycleTest.exe",
+      "action": "--case TASK-CREATE-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "ScheduledTaskLifecycleTest.exe",
+        "rule_name": "创建计划任务行为",
+        "actor_md5": "95F1CB296D1E29C5A5B526F071739B2E"
+      },
+      "expected_fields": {
+        "rule_name": {
+          "equals": "创建计划任务行为",
+          "required": true
+        },
+        "actor_name": {
+          "equals": "ScheduledTaskLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "rule_name",
+        "actor_name",
+        "actor_pid",
+        "hostname"
+      ],
+      "sample_sha256": "5AD9D8F788260AE71D243DDCAD6B2BBF5713962569134B21D9A26261662EC206",
+      "sample_md5": "95F1CB296D1E29C5A5B526F071739B2E",
+      "behavior": "计划任务创建"
+    },
+    {
+      "id": "TASK-MODIFY-001",
+      "module": "ScheduleTask",
+      "program": "ScheduledTaskLifecycleTest.exe",
+      "action": "--case TASK-MODIFY-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "ScheduledTaskLifecycleTest.exe",
+        "operation": "SchedTaskUpdate",
+        "actor_md5": "95F1CB296D1E29C5A5B526F071739B2E"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "ScheduledTaskLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "actor_name",
+        "actor_pid",
+        "hostname"
+      ],
+      "sample_sha256": "5AD9D8F788260AE71D243DDCAD6B2BBF5713962569134B21D9A26261662EC206",
+      "expected_result": "not_implemented",
+      "notes": "IOA 无对应命中规则（RuleName 仅有\"创建计划任务行为\"，无修改/删除规则）",
+      "sample_md5": "95F1CB296D1E29C5A5B526F071739B2E",
+      "behavior": "计划任务修改"
+    },
+    {
+      "id": "TASK-DELETE-001",
+      "module": "ScheduleTask",
+      "program": "ScheduledTaskLifecycleTest.exe",
+      "action": "--case TASK-DELETE-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "ScheduledTaskLifecycleTest.exe",
+        "operation": "SchedTaskDelete",
+        "actor_md5": "95F1CB296D1E29C5A5B526F071739B2E"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "ScheduledTaskLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "actor_name",
+        "actor_pid",
+        "hostname"
+      ],
+      "sample_sha256": "5AD9D8F788260AE71D243DDCAD6B2BBF5713962569134B21D9A26261662EC206",
+      "expected_result": "not_implemented",
+      "notes": "IOA 无对应命中规则（RuleName 仅有\"创建计划任务行为\"，无修改/删除规则）",
+      "sample_md5": "95F1CB296D1E29C5A5B526F071739B2E",
+      "behavior": "计划任务删除"
+    },
+    {
+      "id": "SVC-CREATE-001",
+      "module": "Service",
+      "program": "ServiceLifecycleTest.exe",
+      "action": "--case SVC-CREATE-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "sample_sha256": "7A6609FC376652A9CEC88D8D5FC092B3CE8CB5695C64E5C851839990DAD11891",
+      "match": {
+        "actor_exe": "ServiceLifecycleTest.exe",
+        "operation": "CreateService",
+        "actor_md5": "582DD9E5C1CA802A2E9E2FF08FF66C2E"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "ServiceLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "actor_name",
+        "actor_pid",
+        "hostname"
+      ],
+      "expected_result": "not_implemented",
+      "notes": "IOA 无服务相关命中规则（Alert.RuleName 无创建/修改/删除服务规则）",
+      "sample_md5": "582DD9E5C1CA802A2E9E2FF08FF66C2E",
+      "behavior": "服务创建"
+    },
+    {
+      "id": "SVC-MODIFY-001",
+      "module": "Service",
+      "program": "ServiceLifecycleTest.exe",
+      "action": "--case SVC-MODIFY-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "sample_sha256": "7A6609FC376652A9CEC88D8D5FC092B3CE8CB5695C64E5C851839990DAD11891",
+      "match": {
+        "actor_exe": "ServiceLifecycleTest.exe",
+        "operation": "ModifyService",
+        "actor_md5": "582DD9E5C1CA802A2E9E2FF08FF66C2E"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "ServiceLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "actor_name",
+        "actor_pid",
+        "hostname"
+      ],
+      "expected_result": "not_implemented",
+      "notes": "IOA 无服务相关命中规则（Alert.RuleName 无创建/修改/删除服务规则）",
+      "sample_md5": "582DD9E5C1CA802A2E9E2FF08FF66C2E",
+      "behavior": "服务修改"
+    },
+    {
+      "id": "SVC-DELETE-001",
+      "module": "Service",
+      "program": "ServiceLifecycleTest.exe",
+      "action": "--case SVC-DELETE-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "sample_sha256": "7A6609FC376652A9CEC88D8D5FC092B3CE8CB5695C64E5C851839990DAD11891",
+      "match": {
+        "actor_exe": "ServiceLifecycleTest.exe",
+        "operation": "DeleteService",
+        "actor_md5": "582DD9E5C1CA802A2E9E2FF08FF66C2E"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "ServiceLifecycleTest.exe",
+          "required": true
+        },
+        "actor_pid": {
+          "nonempty": true,
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "actor_name",
+        "actor_pid",
+        "hostname"
+      ],
+      "expected_result": "not_implemented",
+      "notes": "IOA 无服务相关命中规则（Alert.RuleName 无创建/修改/删除服务规则）",
+      "sample_md5": "582DD9E5C1CA802A2E9E2FF08FF66C2E",
+      "behavior": "服务删除"
+    },
+    {
+      "id": "PIPE-CREATE-001",
+      "module": "Pipe",
+      "program": "PipeLifecycleTest.exe",
+      "action": "--case PIPE-CREATE-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "PipeLifecycleTest.exe",
+        "operation": "NamedPipe",
+        "actor_md5": "2A20E66091ABFC8B4A093AAD090437B3"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "PipeLifecycleTest.exe",
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "actor_name",
+        "hostname"
+      ],
+      "behavior": "管道创建",
+      "sample_md5": "2A20E66091ABFC8B4A093AAD090437B3"
+    },
+    {
+      "id": "PIPE-CONNECT-001",
+      "module": "Pipe",
+      "program": "PipeLifecycleTest.exe",
+      "action": "--case PIPE-CONNECT-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "PipeLifecycleTest.exe",
+        "operation": "NamedPipe",
+        "actor_md5": "2A20E66091ABFC8B4A093AAD090437B3"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "PipeLifecycleTest.exe",
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "actor_name",
+        "hostname"
+      ],
+      "behavior": "管道连接",
+      "sample_md5": "2A20E66091ABFC8B4A093AAD090437B3"
+    },
+    {
+      "id": "WMI-FILTER-001",
+      "module": "WMI",
+      "program": "WmiActivityTest.exe",
+      "action": "--case WMI-FILTER-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "WmiActivityTest.exe",
+        "operation": "WmiCreate",
+        "actor_md5": "ACF3B288A25576FE5935E945199D0548"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "WmiActivityTest.exe",
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "actor_name",
+        "hostname"
+      ],
+      "behavior": "WMI事件过滤器",
+      "sample_md5": "ACF3B288A25576FE5935E945199D0548"
+    },
+    {
+      "id": "WMI-CONSUMER-001",
+      "module": "WMI",
+      "program": "WmiActivityTest.exe",
+      "action": "--case WMI-CONSUMER-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "WmiActivityTest.exe",
+        "operation": "WmiCreate",
+        "actor_md5": "ACF3B288A25576FE5935E945199D0548"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "WmiActivityTest.exe",
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "actor_name",
+        "hostname"
+      ],
+      "behavior": "WMI事件消费者",
+      "sample_md5": "ACF3B288A25576FE5935E945199D0548"
+    },
+    {
+      "id": "WMI-CONSUMER-TO-FILTER-001",
+      "module": "WMI",
+      "program": "WmiActivityTest.exe",
+      "action": "--case WMI-CONSUMER-TO-FILTER-001",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "WmiActivityTest.exe",
+        "operation": "WmiCreate",
+        "actor_md5": "ACF3B288A25576FE5935E945199D0548"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "WmiActivityTest.exe",
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "actor_name",
+        "hostname"
+      ],
+      "behavior": "WMI事件消费者绑定",
+      "sample_md5": "ACF3B288A25576FE5935E945199D0548"
+    },
+    {
+      "id": "DEVICE-VDISK-MOUNT-001",
+      "module": "Device",
+      "program": "VirtualDiskMountTest.exe",
+      "action": "",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "VirtualDiskMountTest.exe",
+        "operation": "VirtualDiskMount",
+        "actor_md5": "514D1AC2E8F182BDA510A405BA91CA21"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "VirtualDiskMountTest.exe",
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "actor_name",
+        "hostname"
+      ],
+      "behavior": "虚拟磁盘挂载",
+      "sample_md5": "514D1AC2E8F182BDA510A405BA91CA21"
+    },
+    {
+      "id": "GPO-MODIFY-001",
+      "module": "GPO",
+      "program": "GroupPolicyModifyTest.exe",
+      "action": "",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "GroupPolicyModifyTest.exe",
+        "operation": "RegSetValue",
+        "actor_md5": "10B8C9137AE6D196E066B7627C6ED700"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "GroupPolicyModifyTest.exe",
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "actor_name",
+        "hostname"
+      ],
+      "behavior": "组策略修改",
+      "sample_md5": "10B8C9137AE6D196E066B7627C6ED700"
+    },
+    {
+      "id": "BIT-JOB-001",
+      "module": "BIT",
+      "program": "BitsJobTest.exe",
+      "action": "",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "BitsJobTest.exe",
+        "operation": "BitsJobCreate",
+        "actor_md5": "82A6202CDE7456F4BAE4A49464564735"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "BitsJobTest.exe",
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "actor_name",
+        "hostname"
+      ],
+      "behavior": "BITS作业",
+      "sample_md5": "82A6202CDE7456F4BAE4A49464564735"
+    },
+    {
+      "id": "PS-BLOCK-001",
+      "module": "PowerShell",
+      "program": "PowerShellScriptBlockTest.exe",
+      "action": "",
+      "execution_mode": "single_action",
+      "runner_type": "exe",
+      "snapshot": "IOA_Sysmon",
+      "match": {
+        "actor_exe": "PowerShellScriptBlockTest.exe",
+        "operation": "ScriptScan",
+        "actor_md5": "C62687F1F56AFD4B25AF940A79FB1AB3"
+      },
+      "expected_fields": {
+        "actor_name": {
+          "equals": "PowerShellScriptBlockTest.exe",
+          "required": true
+        },
+        "hostname": {
+          "nonempty": true,
+          "required": true
+        },
+        "event_time_utc": {
+          "nonempty": true,
+          "required": true
+        }
+      },
+      "required_fields": [
+        "event_time_utc",
+        "actor_name",
+        "hostname"
+      ],
+      "behavior": "PowerShell脚本块",
+      "sample_md5": "C62687F1F56AFD4B25AF940A79FB1AB3"
+    }
+  ]
+}

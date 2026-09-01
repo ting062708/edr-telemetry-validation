@@ -1,0 +1,156 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "采集到：云端日志存在 22 条 'FileWriteClose' 事件（能力存在）。Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": "not_implemented",
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {
+    "Path": {
+      "value": "C:\\EDRTest\\samples\\File\\FileLifecycle_Target.exe",
+      "found": false,
+      "where": []
+    },
+    "FileName": {
+      "value": "FileLifecycle_Target.exe",
+      "found": false,
+      "where": []
+    },
+    "Operation": {
+      "value": "Open",
+      "found": false,
+      "where": []
+    },
+    "CharactersRead": {
+      "value": "81",
+      "found": true,
+      "where": [
+        "ProcessCreate"
+      ]
+    },
+    "ContentMd5": {
+      "value": "af6efe8fcbf580127fc207ada918f060",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "FILE-OPEN-001",
+  "module": "File",
+  "action": "--case FILE-OPEN-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 9721,
+    "after_hostname": 9721,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-25T14:15:23.127000+00:00",
+    "log_time_max": "2026-08-25T15:18:19.937000+00:00",
+    "target_begin": "2026-08-25T14:24:12.952000+00:00",
+    "target_end": "2026-08-25T14:24:12.976000+00:00",
+    "run_begin": "2026-08-25T14:24:12.902000+00:00",
+    "run_end": "2026-08-25T14:24:12.976000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "FileWriteClose",
+        "actor": "CompatTelRunner.exe",
+        "target": "Appraiser_TelemetryRunList.xml"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "mousocoreworker.exe",
+        "target": "windlp.state-old.xml"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "mousocoreworker.exe",
+        "target": "windlp.state.xml"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "svchost.exe",
+        "target": "windlp.state-old.xml"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "svchost.exe",
+        "target": "windlp.state.xml"
+      }
+    ],
+    "value_scan": {
+      "Path": {
+        "value": "C:\\EDRTest\\samples\\File\\FileLifecycle_Target.exe",
+        "found": false,
+        "where": []
+      },
+      "FileName": {
+        "value": "FileLifecycle_Target.exe",
+        "found": false,
+        "where": []
+      },
+      "Operation": {
+        "value": "Open",
+        "found": false,
+        "where": []
+      },
+      "CharactersRead": {
+        "value": "81",
+        "found": true,
+        "where": [
+          "ProcessCreate"
+        ]
+      },
+      "ContentMd5": {
+        "value": "af6efe8fcbf580127fc207ada918f060",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 22,
+    "capability_base_count": 851,
+    "capability_v2": "有",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "direct",
+      "anchor_process": "FileLifecycleTest.exe",
+      "anchor_md5": "156ca9cf54e5ae8e919375026d60a02b",
+      "tables": [
+        "FileEvents"
+      ],
+      "operations": [
+        "FileRead",
+        "FileWriteClose"
+      ],
+      "probe": null
+    },
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 9721/9721",
+      "Time window [2026-08-25T14:24:07.902000+00:00 – 2026-08-25T14:24:42.976000+00:00]: 0 events (coverage=COVERED)",
+      "Actor ('FileLifecycleTest.exe'): 0 events",
+      "PID (6356): source carries no actor_pid — filter omitted",
+      "MD5 exact ('156CA9CF54E5AE8E919375026D60A02B'): 0 → 0 events",
+      "Operation ('FileRead'): 0 events",
+      "Capability ('FileWriteClose'): 22 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

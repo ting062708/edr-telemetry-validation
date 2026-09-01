@@ -1,0 +1,125 @@
+{
+  "verdict": "ERROR_LOG_INPUT",
+  "verdict_icon": "🔴",
+  "capability_state": null,
+  "message": "Event log time range does not cover the TARGET window. Log: [2026-08-26T16:01:23.490000+00:00 – 2026-08-26T17:31:12.098000+00:00], Target: [2026-08-26T15:55:01.272000+00:00 – 2026-08-26T15:55:01.656000+00:00]. Re-export the log with a wider time range.",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": "not_implemented",
+  "as_expected": false,
+  "capability_detected": null,
+  "anchor_detected": null,
+  "anomaly": null,
+  "value_scan": {
+    "ServiceName": {
+      "value": "EDR_Telemetry_Test_Service",
+      "found": false,
+      "where": []
+    },
+    "Operation": {
+      "value": "ChangeServiceConfig",
+      "found": false,
+      "where": []
+    },
+    "StartTypeBefore": {
+      "value": "Manual",
+      "found": false,
+      "where": []
+    },
+    "StartTypeAfter": {
+      "value": "Disabled",
+      "found": false,
+      "where": []
+    },
+    "DisplayNameAfter": {
+      "value": "EDR Telemetry Test Service Modified",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "SVC-MODIFY-001",
+  "module": "Service",
+  "action": "--case SVC-MODIFY-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 11615,
+    "after_hostname": 11615,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-26T16:01:23.490000+00:00",
+    "log_time_max": "2026-08-26T17:31:12.098000+00:00",
+    "target_begin": "2026-08-26T15:55:01.272000+00:00",
+    "target_end": "2026-08-26T15:55:01.656000+00:00",
+    "run_begin": "2026-08-26T15:55:00.809000+00:00",
+    "run_end": "2026-08-26T15:55:01.999000+00:00",
+    "coverage_status": "NOT_COVERED",
+    "candidate_count": 0,
+    "capability_detected": false,
+    "capability_base_detected": false,
+    "capability_evidence": [],
+    "value_scan": {
+      "ServiceName": {
+        "value": "EDR_Telemetry_Test_Service",
+        "found": false,
+        "where": []
+      },
+      "Operation": {
+        "value": "ChangeServiceConfig",
+        "found": false,
+        "where": []
+      },
+      "StartTypeBefore": {
+        "value": "Manual",
+        "found": false,
+        "where": []
+      },
+      "StartTypeAfter": {
+        "value": "Disabled",
+        "found": false,
+        "where": []
+      },
+      "DisplayNameAfter": {
+        "value": "EDR Telemetry Test Service Modified",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 0,
+    "capability_base_count": 0,
+    "capability_v2": "无",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "indirect",
+      "anchor_process": "ServiceLifecycleTest.exe",
+      "anchor_md5": "582dd9e5c1ca802a2e9e2ff08ff66c2e",
+      "tables": [
+        "ServiceEvents"
+      ],
+      "operations": [
+        "ModifyService"
+      ],
+      "probe": null
+    },
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 11615/11615",
+      "Time window [2026-08-26T15:54:55.809000+00:00 – 2026-08-26T15:55:31.999000+00:00]: 0 events (coverage=NOT_COVERED)",
+      "Actor ('ServiceLifecycleTest.exe'): 0 events",
+      "PID (5524): source carries no actor_pid — filter omitted",
+      "MD5 exact ('582DD9E5C1CA802A2E9E2FF08FF66C2E'): 0 → 0 events",
+      "Operation ('ModifyService'): 0 events",
+      "Capability ('ModifyService'): 0 events (能力不存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

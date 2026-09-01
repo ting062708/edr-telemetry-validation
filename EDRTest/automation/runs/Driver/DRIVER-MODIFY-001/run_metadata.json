@@ -1,0 +1,30 @@
+[
+  {
+    "test_case_id": "DRIVER-MODIFY-001",
+    "run_id": "a2c02f7d96944176af9e0b1abd255964",
+    "module": "Driver",
+    "action": "Modify",
+    "process_name": "DriverLifecycleTest.exe",
+    "pid": 4384,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T15:43:36.685000+00:00",
+    "setup_begin_utc": "2026-08-26T15:43:36.757000+00:00",
+    "setup_end_utc": "2026-08-26T15:43:36.920000+00:00",
+    "target_begin_utc": "2026-08-26T15:43:36.922000+00:00",
+    "target_end_utc": "2026-08-26T15:43:36.929000+00:00",
+    "run_end_utc": "2026-08-26T15:43:36.931000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "TargetPath": "C:\\EDRTest\\samples\\Driver\\DriverModification_Target.sys",
+      "BeforeSHA256": "122f9e5e42158233f838a34e9f85ded5a850afc1557bfcef840298c79f2da536",
+      "AfterSHA256": "55f6a38aceed5ee9da7e856a1f1bd66632b37aae6f6d344917df82fc8b218c1c",
+      "BeforeSize": "28584",
+      "AfterSize": "28633"
+    },
+    "error_lines": []
+  }
+]

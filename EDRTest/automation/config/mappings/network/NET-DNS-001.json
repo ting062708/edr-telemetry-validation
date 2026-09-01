@@ -1,0 +1,6 @@
+{
+  "case_id": "NET-DNS-001",
+  "module": "Network",
+  "behavior_fields": {},
+  "observed_fields": []
+}

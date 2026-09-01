@@ -1,0 +1,4 @@
+﻿Case ID,模块,行为,判定,打问号,有记录,无记录,情况说明
+DRIVER-LOAD-001,驱动,驱动加载,通过,,,,LoadDriver 内核态事件(Parent=SystemIdle)，时间窗 + Action.Name + Child.FilePath 锚定
+DRIVER-MODIFY-001,驱动,驱动修改,通过,,,,本质是文件修改(FileWriteClose)，非驱动事件，Parent=样本进程
+DRIVER-UNLOAD-001,驱动,驱动卸载,未通过,,,,IOA 只有""加载驱动 LoadDriver""，无""卸载驱动""事件

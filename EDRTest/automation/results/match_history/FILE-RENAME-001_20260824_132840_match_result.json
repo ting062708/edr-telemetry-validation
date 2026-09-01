@@ -1,0 +1,70 @@
+{
+  "verdict": "NOT_IMPLEMENTED",
+  "verdict_icon": "❌",
+  "capability_state": "Not Implemented",
+  "message": "No telemetry event matched all criteria. Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "test_case_id": "FILE-RENAME-001",
+  "module": "File",
+  "action": "--case FILE-RENAME-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 1649,
+    "after_hostname": 1649,
+    "after_time": 25,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-24T04:42:01.457000+00:00",
+    "log_time_max": "2026-08-24T04:54:55.384000+00:00",
+    "target_begin": "2026-08-24T04:51:29.748000+00:00",
+    "target_end": "2026-08-24T04:51:29.779000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 1649/1649",
+      "Time window [2026-08-24T04:51:24.748000+00:00 – 2026-08-24T04:51:59.779000+00:00]: 25 events (coverage=COVERED)",
+      "Actor ('FileLifecycleTest.exe'): 0 events",
+      "PID (6224): source carries no actor_pid — filter omitted",
+      "MD5 exact ('203EBC81024D164132B436EFDA7463C9'): 0 → 0 events",
+      "Operation ('FileRename'): 0 events",
+      "behavior_fields[SourcePath]→['Child.OldFilePath']='C:\\\\EDRTest\\\\samples\\\\File\\\\FileLifecycle_Target.exe': 0 → 0 events",
+      "behavior_fields[DestinationPath]→['Child.FilePath']='C:\\\\EDRTest\\\\samples\\\\File\\\\FileLifecycle_Renamed.exe': 0 → 0 events",
+      "behavior_fields[DestinationFileName]→['Child.FileName']='FileLifecycle_Renamed.exe': 0 → 0 events",
+      "behavior_fields[ContentMd5]→['Child.FileMd5']='164365a761c86b5bf4060a1dc6e13f2e': 0 → 0 events"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.FileMd5",
+      "Child.FileName",
+      "Child.FilePath",
+      "Child.FileSize",
+      "Child.NodeName",
+      "Child.OldFilePath",
+      "Child.Type"
+    ],
+    "matched_event_coverage": {
+      "Child.FileMd5": null,
+      "Child.FileName": null,
+      "Child.FilePath": null,
+      "Child.FileSize": null,
+      "Child.NodeName": null,
+      "Child.OldFilePath": null,
+      "Child.Type": null
+    },
+    "filled": 0,
+    "total": 7
+  }
+}

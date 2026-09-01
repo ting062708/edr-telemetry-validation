@@ -1,0 +1,16 @@
+[RUN-BEGIN] RunID=d149fea3-b287-4e71-b06d-eb2794a8926f TimeUTC=2026-08-23T00:59:59.032Z
+[META] TestCaseID=ACCOUNT-LOGIN-001 Module=Account Action=Login
+[META] Process=AccountLifecycleTest.exe PID=4464 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-23T00:59:59.069Z
+[SETUP] Account=.\EDR_Test_User
+[SETUP] DesiredState=Present
+[SETUP-END] TimeUTC=2026-08-23T00:59:59.159Z
+[TARGET-BEGIN] TimeUTC=2026-08-23T00:59:59.159Z
+[TARGET] Account=.\EDR_Test_User
+[TARGET] Operation=Login
+[TARGET] LogonType=Interactive
+[TARGET-END] TimeUTC=2026-08-23T00:59:59.172Z
+[CLEANUP] LogonToken=Closed
+[CLEANUP] AccountDeleteStatus=0
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=d149fea3-b287-4e71-b06d-eb2794a8926f TimeUTC=2026-08-23T00:59:59.172Z

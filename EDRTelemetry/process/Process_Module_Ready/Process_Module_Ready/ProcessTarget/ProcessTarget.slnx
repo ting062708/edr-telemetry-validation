@@ -1,0 +1,9 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Release" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="ProcessTarget.csproj" Id="f168a3e8-93cc-4108-af3f-7cc4fed36567">
+    <Platform Project="x64" />
+  </Project>
+</Solution>

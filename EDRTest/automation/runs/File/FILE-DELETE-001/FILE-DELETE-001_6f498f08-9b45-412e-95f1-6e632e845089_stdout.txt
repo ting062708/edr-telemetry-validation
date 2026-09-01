@@ -1,0 +1,17 @@
+[RUN-BEGIN] RunID=6f498f08-9b45-412e-95f1-6e632e845089 TimeUTC=2026-08-24T02:39:04.360Z
+[META] TestCaseID=FILE-DELETE-001 Module=File Action=Delete
+[META] Process=FileLifecycleTest.exe PID=5168 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-24T02:39:04.513Z
+[SETUP] StaleOriginalRemoved=false
+[SETUP] StaleRenamedRemoved=false
+[SETUP] StaleTextRemoved=false
+[SETUP] BaselineCreated=true
+[SETUP] TargetPath=C:\EDRTest\samples\File\FileLifecycle_Target.exe
+[SETUP-END] TimeUTC=2026-08-24T02:39:04.536Z
+[TARGET-BEGIN] TimeUTC=2026-08-24T02:39:04.536Z
+[TARGET] Path=C:\EDRTest\samples\File\FileLifecycle_Target.exe
+[TARGET] FileName=FileLifecycle_Target.exe
+[TARGET] Operation=Delete
+[TARGET-END] TimeUTC=2026-08-24T02:39:10.440Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=6f498f08-9b45-412e-95f1-6e632e845089 TimeUTC=2026-08-24T02:39:10.440Z

@@ -1,0 +1,16 @@
+{
+  "case_id": "DRIVER-MODIFY-001",
+  "module": "driver",
+  "behavior_fields": {
+    "TargetPath": "Child.FilePath"
+  },
+  "observed_fields": [
+    "Child.FileCreateOpName",
+    "Child.FileName",
+    "Child.FilePath",
+    "Child.FileSize",
+    "Child.NodeName",
+    "Child.Type",
+    "Child.FileMd5"
+  ]
+}

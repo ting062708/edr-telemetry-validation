@@ -1,0 +1,16 @@
+{
+  "case_id": "ACCOUNT-MODIFY-001",
+  "module": "account",
+  "behavior_fields": {},
+  "observed_fields": [
+    "Child.NodeName",
+    "Child.SubjectDomainName",
+    "Child.SubjectLogonId",
+    "Child.SubjectUserName",
+    "Child.SubjectUserSid",
+    "Child.TargetDomainName",
+    "Child.TargetSid",
+    "Child.TargetUserName",
+    "Child.Type"
+  ]
+}

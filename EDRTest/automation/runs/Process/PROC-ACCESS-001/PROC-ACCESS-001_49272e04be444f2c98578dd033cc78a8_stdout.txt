@@ -1,0 +1,14 @@
+[RUN-BEGIN] RunID=49272e04be444f2c98578dd033cc78a8 TimeUTC=2026-08-24T09:24:58.138Z
+[META] TestCaseID=PROC-ACCESS-001
+[META] Module=Process
+[META] Action=access
+[META] Process=ProcessLifecycleTest.exe
+[META] PID=5940
+[META] Hostname=DESKTOP-0AHK53B
+[META] RunStartUTC=2026-08-24T09:24:58.264Z
+[SETUP-BEGIN] TimeUTC=2026-08-24T09:24:58.524Z
+[SETUP] Validation=FAIL
+[SETUP-END] TimeUTC=2026-08-24T09:24:58.524Z
+[RESULT] FAIL ExitCode=1
+[ERROR] Exactly one ProcessTarget.exe must already be running. Start ProcessTarget.exe first.
+[RUN-END] TimeUTC=2026-08-24T09:24:58.524Z

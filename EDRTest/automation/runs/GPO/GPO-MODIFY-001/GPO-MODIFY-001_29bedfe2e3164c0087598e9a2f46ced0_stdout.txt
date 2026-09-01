@@ -1,0 +1,21 @@
+[RUN-BEGIN] RunID=29bedfe2e3164c0087598e9a2f46ced0 TimeUTC=2026-08-26T16:10:10.909Z
+[META] TestCaseID=GPO-MODIFY-001
+[META] Module=GPO
+[META] Action=gpo_modify
+[META] Process=GroupPolicyModifyTest.exe
+[META] PID=7060
+[META] Hostname=DESKTOP-0AHK53B
+[META] RunStartUTC=2026-08-26T16:10:11.132Z
+[SETUP-BEGIN] TimeUTC=2026-08-26T16:10:11.132Z
+[SETUP] RegKeyPath=HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer
+[SETUP] RegValueName=EDRTelemetryGpoTest
+[SETUP] PreExistingValue=(none)
+[SETUP-END] TimeUTC=2026-08-26T16:10:11.132Z
+[TARGET-BEGIN] TimeUTC=2026-08-26T16:10:14.197Z
+[TARGET] Operation=RegSetValue
+[TARGET] RegKeyPath=HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer
+[TARGET] RegValueName=EDRTelemetryGpoTest
+[TARGET] RegValueData=1
+[TARGET-END] TimeUTC=2026-08-26T16:10:14.197Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=29bedfe2e3164c0087598e9a2f46ced0 TimeUTC=2026-08-26T16:10:14.211Z

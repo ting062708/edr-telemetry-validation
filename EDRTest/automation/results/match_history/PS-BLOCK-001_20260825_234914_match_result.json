@@ -1,0 +1,132 @@
+{
+  "verdict": "ERROR_LOG_INPUT",
+  "verdict_icon": "🔴",
+  "capability_state": null,
+  "message": "Event log time range does not cover the TARGET window. Log: [2026-08-25T14:15:23.127000+00:00 – 2026-08-25T15:03:52.280000+00:00], Target: [2026-08-25T15:05:17.484000+00:00 – 2026-08-25T15:05:24.135000+00:00]. Re-export the log with a wider time range.",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": null,
+  "anchor_detected": null,
+  "anomaly": null,
+  "value_scan": {
+    "Operation": {
+      "value": "ScriptBlock",
+      "found": false,
+      "where": []
+    },
+    "ScriptText": {
+      "value": "$m='EDRTelemetryScriptBlock_d8288cd5'; Write-Output $m; Start-Sleep -Milliseconds 300",
+      "found": false,
+      "where": []
+    },
+    "ExecResult": {
+      "value": "PASS",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "PS-BLOCK-001",
+  "module": "PowerShell",
+  "action": "",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 6864,
+    "after_hostname": 6864,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-25T14:15:23.127000+00:00",
+    "log_time_max": "2026-08-25T15:03:52.280000+00:00",
+    "target_begin": "2026-08-25T15:05:17.484000+00:00",
+    "target_end": "2026-08-25T15:05:24.135000+00:00",
+    "run_begin": "2026-08-25T15:05:14.477000+00:00",
+    "run_end": "2026-08-25T15:05:24.135000+00:00",
+    "coverage_status": "NOT_COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "ScriptScan",
+        "actor": "WmiActivityTest.exe",
+        "target": ""
+      },
+      {
+        "operation": "ScriptScan",
+        "actor": "WmiActivityTest.exe",
+        "target": ""
+      },
+      {
+        "operation": "ScriptScan",
+        "actor": "svchost.exe",
+        "target": ""
+      },
+      {
+        "operation": "ScriptScan",
+        "actor": "WmiActivityTest.exe",
+        "target": ""
+      }
+    ],
+    "value_scan": {
+      "Operation": {
+        "value": "ScriptBlock",
+        "found": false,
+        "where": []
+      },
+      "ScriptText": {
+        "value": "$m='EDRTelemetryScriptBlock_d8288cd5'; Write-Output $m; Start-Sleep -Milliseconds 300",
+        "found": false,
+        "where": []
+      },
+      "ExecResult": {
+        "value": "PASS",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 4,
+    "capability_base_count": 4,
+    "capability_v2": "有",
+    "collected_v2": "未采到",
+    "sample_value_found": false,
+    "sample_value_hits": {
+      "ScriptText": false
+    },
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 6864/6864",
+      "Time window [2026-08-25T15:05:09.477000+00:00 – 2026-08-25T15:05:54.135000+00:00]: 0 events (coverage=NOT_COVERED)",
+      "Actor ('PowerShellScriptBlockTest.exe'): 0 events",
+      "PID (7316): source carries no actor_pid — filter omitted",
+      "MD5 exact ('C62687F1F56AFD4B25AF940A79FB1AB3'): 0 → 0 events",
+      "Operation ('ScriptScan'): 0 events",
+      "behavior_fields[ScriptText]→['Child.ScriptText']=\"$m='EDRTelemetryScriptBlock_d8288cd5'; Write-Output $m; Start-Sleep -Milliseconds 300\": 0 hits in window pool",
+      "behavior_fields[TargetName]→Child.ScriptText: no stdout TARGET value, skipped",
+      "Capability ('ScriptScan'): 4 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.ScriptText",
+      "Child.ScriptMd5",
+      "Child.NodeName"
+    ],
+    "matched_event_coverage": {
+      "Child.ScriptText": null,
+      "Child.ScriptMd5": null,
+      "Child.NodeName": null
+    },
+    "filled": 0,
+    "total": 3
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "case_id": "BITS-JOB-001",
+  "module": "bits",
+  "behavior_fields": {
+    "JobName": "Child.JobName",
+    "TargetName": "Child.JobName"
+  },
+  "observed_fields": [
+    "Child.JobName",
+    "Child.JobType",
+    "Child.NodeName"
+  ]
+}

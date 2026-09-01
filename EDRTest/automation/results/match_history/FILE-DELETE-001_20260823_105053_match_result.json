@@ -1,0 +1,66 @@
+{
+  "verdict": "ERROR_LOG_INPUT",
+  "verdict_icon": "🔴",
+  "capability_state": null,
+  "message": "Event log time range does not cover the TARGET window. Log: [2026-08-22T12:51:18.791000+00:00 – 2026-08-22T12:54:17.369000+00:00], Target: [2026-08-22T14:16:06.468000+00:00 – 2026-08-22T14:16:11.420000+00:00]. Re-export the log with a wider time range.",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "test_case_id": "FILE-DELETE-001",
+  "module": "File",
+  "action": "--case FILE-DELETE-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 169,
+    "after_hostname": 169,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-22T12:51:18.791000+00:00",
+    "log_time_max": "2026-08-22T12:54:17.369000+00:00",
+    "target_begin": "2026-08-22T14:16:06.468000+00:00",
+    "target_end": "2026-08-22T14:16:11.420000+00:00",
+    "coverage_status": "NOT_COVERED",
+    "candidate_count": 0,
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 169/169",
+      "Time window [2026-08-22T14:16:01.468000+00:00 – 2026-08-22T14:16:41.420000+00:00]: 0 events (coverage=NOT_COVERED)",
+      "Actor ('FileLifecycleTest.exe'): 0 events",
+      "PID (12092): source carries no actor_pid — filter omitted",
+      "MD5 exact ('97e26d29cd197186ed6d809b93bb6595'): 0 → 0 events",
+      "Operation ('FileDelete'): 0 events",
+      "match[target_name]='FileLifecycle_Target.exe' (contains): 0 → 0 events",
+      "behavior_fields[Path]→Child.FilePath='C:\\\\EDRTest\\\\samples\\\\File\\\\FileLifecycle_Target.exe': 0 → 0 events"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.FileMd5",
+      "Child.FileName",
+      "Child.FilePath",
+      "Child.FileSize",
+      "Child.NodeName",
+      "Child.Type"
+    ],
+    "matched_event_coverage": {
+      "Child.FileMd5": null,
+      "Child.FileName": null,
+      "Child.FilePath": null,
+      "Child.FileSize": null,
+      "Child.NodeName": null,
+      "Child.Type": null
+    },
+    "filled": 0,
+    "total": 6
+  }
+}

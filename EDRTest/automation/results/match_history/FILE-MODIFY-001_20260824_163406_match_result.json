@@ -1,0 +1,102 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "Capability detected: 日志中存在 5 条该行为类型事件，但未锚定到样本进程。Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": false,
+  "anomaly": "行为类型事件在日志中存在，但未锚定到样本进程（actor/md5/pid 均未命中）。可能原因：进程信任过滤 / 路径排除 / cmd 包装 / 待验证。",
+  "test_case_id": "FILE-MODIFY-001",
+  "module": "File",
+  "action": "--case FILE-MODIFY-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 1380,
+    "after_hostname": 1380,
+    "after_time": 16,
+    "after_actor": 1,
+    "after_pid": 1,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-24T08:09:14.458000+00:00",
+    "log_time_max": "2026-08-24T08:21:08.797000+00:00",
+    "target_begin": "2026-08-24T08:16:41.195000+00:00",
+    "target_end": "2026-08-24T08:16:41.222000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "FileWriteClose",
+        "actor": "mousocoreworker.exe",
+        "target": "fvereseal.dll"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "mousocoreworker.exe",
+        "target": "WinREAgent.dll"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "mousocoreworker.exe",
+        "target": "ReserveManager.dll"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "mousocoreworker.exe",
+        "target": "TurboStack.dll"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "mousocoreworker.exe",
+        "target": "wcp.dll"
+      }
+    ],
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 1380/1380",
+      "Time window [2026-08-24T08:16:36.195000+00:00 – 2026-08-24T08:17:11.222000+00:00]: 16 events (coverage=COVERED)",
+      "Actor ('FileLifecycleTest.exe'): 1 events",
+      "PID (5580): strict → 1 events",
+      "MD5 exact ('156CA9CF54E5AE8E919375026D60A02B'): 1 → 1 events",
+      "Operation ('FileWriteClose'): 0 events",
+      "match[capability_probe]={'operation': 'FileWriteClose', 'field': 'Child.FileCreateOpName', 'contains': '覆盖写'} (contains): 0 → 0 events",
+      "behavior_fields[Path]→['Child.FilePath']='C:\\\\EDRTest\\\\samples\\\\File\\\\FileLifecycle_Target.exe': 0 → 0 events",
+      "behavior_fields[FileName]→['Child.FileName']='FileLifecycle_Target.exe': 0 → 0 events",
+      "behavior_fields[ContentMd5]→['Child.FileMd5']='95eeb155d6f6d04587e3ffd03ea51fe2': 0 → 0 events",
+      "Capability ('FileWriteClose'): 18 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.FileCreateOpName",
+      "Child.FileName",
+      "Child.FilePath",
+      "Child.FileSize",
+      "Child.NodeName",
+      "Child.Type",
+      "Child.FileMd5"
+    ],
+    "matched_event_coverage": {
+      "Child.FileCreateOpName": null,
+      "Child.FileName": null,
+      "Child.FilePath": null,
+      "Child.FileSize": null,
+      "Child.NodeName": null,
+      "Child.Type": null,
+      "Child.FileMd5": null
+    },
+    "filled": 0,
+    "total": 7
+  }
+}

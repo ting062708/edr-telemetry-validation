@@ -1,0 +1,176 @@
+{
+  "verdict": "ERROR_LOG_INPUT",
+  "verdict_icon": "🔴",
+  "capability_state": null,
+  "message": "Event log time range does not cover the TARGET window. Log: [2026-08-26T16:01:23.490000+00:00 – 2026-08-26T17:31:12.098000+00:00], Target: [2026-08-26T15:43:36.922000+00:00 – 2026-08-26T15:43:36.929000+00:00]. Re-export the log with a wider time range.",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": null,
+  "anchor_detected": null,
+  "anomaly": null,
+  "value_scan": {
+    "TargetPath": {
+      "value": "C:\\EDRTest\\samples\\Driver\\DriverModification_Target.sys",
+      "found": false,
+      "where": []
+    },
+    "BeforeSHA256": {
+      "value": "122f9e5e42158233f838a34e9f85ded5a850afc1557bfcef840298c79f2da536",
+      "found": false,
+      "where": []
+    },
+    "AfterSHA256": {
+      "value": "55f6a38aceed5ee9da7e856a1f1bd66632b37aae6f6d344917df82fc8b218c1c",
+      "found": false,
+      "where": []
+    },
+    "BeforeSize": {
+      "value": "28584",
+      "found": false,
+      "where": []
+    },
+    "AfterSize": {
+      "value": "28633",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "DRIVER-MODIFY-001",
+  "module": "Driver",
+  "action": "--case DRIVER-MODIFY-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 11615,
+    "after_hostname": 11615,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-26T16:01:23.490000+00:00",
+    "log_time_max": "2026-08-26T17:31:12.098000+00:00",
+    "target_begin": "2026-08-26T15:43:36.922000+00:00",
+    "target_end": "2026-08-26T15:43:36.929000+00:00",
+    "run_begin": "2026-08-26T15:43:36.685000+00:00",
+    "run_end": "2026-08-26T15:43:36.931000+00:00",
+    "coverage_status": "NOT_COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "FileWriteClose",
+        "actor": "taskhostw.exe",
+        "target": "energy-report-2026-08-27.xml"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "taskhostw.exe",
+        "target": "energy-report-latest.xml"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "mousocoreworker.exe",
+        "target": "windlp.state-old.xml"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "mousocoreworker.exe",
+        "target": "windlp.state.xml"
+      },
+      {
+        "operation": "FileWriteClose",
+        "actor": "mousocoreworker.exe",
+        "target": "fvereseal.dll"
+      }
+    ],
+    "value_scan": {
+      "TargetPath": {
+        "value": "C:\\EDRTest\\samples\\Driver\\DriverModification_Target.sys",
+        "found": false,
+        "where": []
+      },
+      "BeforeSHA256": {
+        "value": "122f9e5e42158233f838a34e9f85ded5a850afc1557bfcef840298c79f2da536",
+        "found": false,
+        "where": []
+      },
+      "AfterSHA256": {
+        "value": "55f6a38aceed5ee9da7e856a1f1bd66632b37aae6f6d344917df82fc8b218c1c",
+        "found": false,
+        "where": []
+      },
+      "BeforeSize": {
+        "value": "28584",
+        "found": false,
+        "where": []
+      },
+      "AfterSize": {
+        "value": "28633",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 899,
+    "capability_base_count": 899,
+    "capability_v2": "有",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "direct",
+      "anchor_process": "DriverLifecycleTest.exe",
+      "anchor_md5": "e569892b7eefaa9284720d8311af5ba7",
+      "tables": [
+        "FileEvents"
+      ],
+      "operations": [
+        "FileWriteClose"
+      ],
+      "probe": null
+    },
+    "sample_value_found": false,
+    "sample_value_hits": {
+      "TargetPath": false
+    },
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 11615/11615",
+      "Time window [2026-08-26T15:43:31.685000+00:00 – 2026-08-26T15:44:06.931000+00:00]: 0 events (coverage=NOT_COVERED)",
+      "Actor ('DriverLifecycleTest.exe'): 0 events",
+      "PID (4384): source carries no actor_pid — filter omitted",
+      "MD5 exact ('E569892B7EEFAA9284720D8311AF5BA7'): 0 → 0 events",
+      "Operation ('FileWriteClose'): 0 events",
+      "behavior_fields[TargetPath]→['Child.FilePath']='C:\\\\EDRTest\\\\samples\\\\Driver\\\\DriverModification_Target.sys': 0 hits in window pool",
+      "Capability ('FileWriteClose'): 899 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.FileCreateOpName",
+      "Child.FileName",
+      "Child.FilePath",
+      "Child.FileSize",
+      "Child.NodeName",
+      "Child.Type",
+      "Child.FileMd5"
+    ],
+    "matched_event_coverage": {
+      "Child.FileCreateOpName": null,
+      "Child.FileName": null,
+      "Child.FilePath": null,
+      "Child.FileSize": null,
+      "Child.NodeName": null,
+      "Child.Type": null,
+      "Child.FileMd5": null
+    },
+    "filled": 0,
+    "total": 7
+  }
+}

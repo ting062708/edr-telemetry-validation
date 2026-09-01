@@ -1,0 +1,9 @@
+{
+  "case_id": "NET-TCP-001",
+  "module": "Network",
+  "behavior_fields": {
+    "RemoteIP": "Child.DstIp",
+    "RemotePort": "Child.DstPort"
+  },
+  "observed_fields": ["Child.DstIp","Child.DstPort","Child.Host","Child.Url","Child.Protocol","Child.SrcIp","Child.SrcPort","Child.NodeName","Child.Type"]
+}

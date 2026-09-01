@@ -1,0 +1,182 @@
+{
+  "REG-CREATE-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:36:08"
+  },
+  "REG-MODIFY-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:36:13"
+  },
+  "REG-DELETE-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:36:17"
+  },
+  "PROC-IMAGE-LOAD-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:36:24"
+  },
+  "PROC-CREATE-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:36:26"
+  },
+  "PROC-ACCESS-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:36:31"
+  },
+  "PROC-REMOTE-THREAD-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:36:34"
+  },
+  "PROC-TAMPER-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:36:39"
+  },
+  "PROC-TERMINATE-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:36:43"
+  },
+  "FILE-CREATE-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:36:49"
+  },
+  "FILE-OPEN-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:36:53"
+  },
+  "FILE-DELETE-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:36:57"
+  },
+  "FILE-MODIFY-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:37:02"
+  },
+  "FILE-RENAME-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:37:07"
+  },
+  "ACCOUNT-CREATE-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:37:12"
+  },
+  "ACCOUNT-MODIFY-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:37:16"
+  },
+  "ACCOUNT-DELETE-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:37:19"
+  },
+  "ACCOUNT-LOGIN-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:37:23"
+  },
+  "ACCOUNT-LOGOFF-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:37:26"
+  },
+  "NET-TCP-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:37:30"
+  },
+  "NET-UDP-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:37:36"
+  },
+  "NET-URL-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:37:39"
+  },
+  "NET-DNS-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:37:42"
+  },
+  "NET-DOWNLOAD-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:37:47"
+  },
+  "HASH-MD5-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:37:51"
+  },
+  "HASH-SHA-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:37:55"
+  },
+  "HASH-IMPHASH-001": {
+    "status": "matched",
+    "updated": "2026-08-27T14:37:59"
+  },
+  "DRIVER-LOAD-001": {
+    "status": "matched",
+    "updated": "2026-08-27T12:11:50"
+  },
+  "DRIVER-MODIFY-001": {
+    "status": "matched",
+    "updated": "2026-08-27T12:11:55"
+  },
+  "DRIVER-UNLOAD-001": {
+    "status": "matched",
+    "updated": "2026-08-27T12:12:00"
+  },
+  "TASK-CREATE-001": {
+    "status": "matched",
+    "updated": "2026-08-27T12:12:05"
+  },
+  "TASK-MODIFY-001": {
+    "status": "matched",
+    "updated": "2026-08-27T12:12:09"
+  },
+  "TASK-DELETE-001": {
+    "status": "matched",
+    "updated": "2026-08-27T12:12:15"
+  },
+  "SVC-CREATE-001": {
+    "status": "matched",
+    "updated": "2026-08-27T12:12:19"
+  },
+  "SVC-MODIFY-001": {
+    "status": "matched",
+    "updated": "2026-08-27T12:12:25"
+  },
+  "SVC-DELETE-001": {
+    "status": "matched",
+    "updated": "2026-08-27T12:12:29"
+  },
+  "PIPE-CREATE-001": {
+    "status": "matched",
+    "updated": "2026-08-27T12:12:33"
+  },
+  "PIPE-CONNECT-001": {
+    "status": "matched",
+    "updated": "2026-08-27T12:12:38"
+  },
+  "WMI-FILTER-001": {
+    "status": "matched",
+    "updated": "2026-08-27T12:12:42"
+  },
+  "WMI-CONSUMER-001": {
+    "status": "matched",
+    "updated": "2026-08-27T12:12:47"
+  },
+  "WMI-CONSUMER-TO-FILTER-001": {
+    "status": "matched",
+    "updated": "2026-08-27T12:12:52"
+  },
+  "DEVICE-VDISK-MOUNT-001": {
+    "status": "matched",
+    "updated": "2026-08-27T12:12:55"
+  },
+  "GPO-MODIFY-001": {
+    "status": "matched",
+    "updated": "2026-08-27T12:12:59"
+  },
+  "BIT-JOB-001": {
+    "status": "matched",
+    "updated": "2026-08-27T12:13:03"
+  },
+  "PS-BLOCK-001": {
+    "status": "matched",
+    "updated": "2026-08-27T12:13:07"
+  }
+}

@@ -1,0 +1,22 @@
+[RUN-BEGIN] RunID=64043069-1f80-4ad9-9717-ae14969091c5 TimeUTC=2026-08-25T14:17:08.175Z
+[META] TestCaseID=REG-MODIFY-001 Module=Registry Action=Modify
+[META] Process=RegistryLifecycleTest.exe PID=720 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-25T14:17:08.222Z
+[SETUP] RegistryPath=Software\Microsoft\Windows\CurrentVersion\Run
+[SETUP] ValueName=EDRTelemetryRunTest
+[SETUP] ExpectedValue=C:\Windows\System32\notepad.exe
+[SETUP] ActualKind=String ActualValue=C:\Windows\System32\notepad.exe
+[SETUP] PreconditionSeeded=false
+[SETUP] Validation=PASS
+[SETUP-END] TimeUTC=2026-08-25T14:17:08.746Z
+[TARGET-BEGIN] TimeUTC=2026-08-25T14:17:13.742Z
+[TARGET] Operation=RegSetValue
+[TARGET] RegistryPath=Software\Microsoft\Windows\CurrentVersion\Run
+[TARGET] ValueName=EDRTelemetryRunTest
+[TARGET] OldValue=C:\Windows\System32\notepad.exe
+[TARGET] NewValue=C:\Windows\System32\calc.exe
+[TARGET-END] TimeUTC=2026-08-25T14:17:13.745Z
+[VERIFY] ActualKind=String ActualValue=C:\Windows\System32\calc.exe
+[VERIFY] Validation=PASS
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=64043069-1f80-4ad9-9717-ae14969091c5 TimeUTC=2026-08-25T14:17:13.746Z

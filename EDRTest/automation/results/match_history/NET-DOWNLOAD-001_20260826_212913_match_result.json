@@ -1,0 +1,282 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "采集到：'HttpsRequest' 事件命中，字段校验通过 (ID=a0459c2b-94b5-410a-b11b-6834fd752a7a)。样本特征值已命中。",
+  "matched_event_id": "a0459c2b-94b5-410a-b11b-6834fd752a7a",
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [
+    {
+      "field": "actor_name",
+      "required": true,
+      "rule": {
+        "equals": "NetworkActivityTest.exe",
+        "required": true
+      },
+      "actual_value": "NetworkActivityTest.exe",
+      "status": "PASS"
+    },
+    {
+      "field": "actor_pid",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "12420",
+      "status": "PASS"
+    },
+    {
+      "field": "operation",
+      "required": true,
+      "rule": {
+        "equals": "HttpsRequest",
+        "required": true
+      },
+      "actual_value": "HttpsRequest",
+      "status": "PASS"
+    },
+    {
+      "field": "event_time_utc",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "2026-08-25 14:43:01.877000+00:00",
+      "status": "PASS"
+    },
+    {
+      "field": "hostname",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "DESKTOP-0AHK53B",
+      "status": "PASS"
+    },
+    {
+      "field": "remote_host",
+      "required": true,
+      "rule": {
+        "contains": "proof.ovh.net",
+        "required": true
+      },
+      "actual_value": "proof.ovh.net",
+      "status": "PASS"
+    }
+  ],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": true,
+  "anomaly": null,
+  "value_scan": {
+    "URL": {
+      "value": "https://proof.ovh.net/files/1Mb.dat",
+      "found": false,
+      "where": []
+    },
+    "Host": {
+      "value": "proof.ovh.net",
+      "found": true,
+      "where": [
+        "HttpsRequest"
+      ]
+    },
+    "RemotePort": {
+      "value": "443",
+      "found": true,
+      "where": [
+        "HttpsRequest"
+      ]
+    },
+    "OutputPath": {
+      "value": "C:\\Temp\\EDRTest\\NetworkActivityTest_download.dat",
+      "found": true,
+      "where": [
+        "FileWriteClose"
+      ]
+    },
+    "BytesDownloaded": {
+      "value": "1048576",
+      "found": true,
+      "where": [
+        "FileWriteClose"
+      ]
+    },
+    "SHA256": {
+      "value": "66F77F71710117F71712EB5766F3151E8AECEC390EBE0B0349C84961F1A547E6",
+      "found": false,
+      "where": []
+    },
+    "Md5": {
+      "value": "77d0476b8db959524e967d35e918e487",
+      "found": true,
+      "where": [
+        "FileWriteClose"
+      ]
+    }
+  },
+  "test_case_id": "NET-DOWNLOAD-001",
+  "module": "Network",
+  "action": "--case NET-DOWNLOAD-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 9721,
+    "after_hostname": 9721,
+    "after_time": 758,
+    "after_actor": 15,
+    "after_pid": 15,
+    "after_operation": 1,
+    "after_extra": 1,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-25T14:15:23.127000+00:00",
+    "log_time_max": "2026-08-25T15:18:19.937000+00:00",
+    "target_begin": "2026-08-25T14:43:01.400000+00:00",
+    "target_end": "2026-08-25T14:44:17.579000+00:00",
+    "run_begin": "2026-08-25T14:43:01.291000+00:00",
+    "run_end": "2026-08-25T14:44:17.579000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 1,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "HttpsRequest",
+        "actor": "svchost.exe",
+        "target": ""
+      },
+      {
+        "operation": "HttpsRequest",
+        "actor": "AppHostRegistrationVerifier.exe",
+        "target": ""
+      },
+      {
+        "operation": "HttpsRequest",
+        "actor": "AppHostRegistrationVerifier.exe",
+        "target": ""
+      },
+      {
+        "operation": "HttpsRequest",
+        "actor": "msedgewebview2.exe",
+        "target": ""
+      },
+      {
+        "operation": "HttpsRequest",
+        "actor": "MSPCManagerService.exe",
+        "target": ""
+      }
+    ],
+    "value_scan": {
+      "URL": {
+        "value": "https://proof.ovh.net/files/1Mb.dat",
+        "found": false,
+        "where": []
+      },
+      "Host": {
+        "value": "proof.ovh.net",
+        "found": true,
+        "where": [
+          "HttpsRequest"
+        ]
+      },
+      "RemotePort": {
+        "value": "443",
+        "found": true,
+        "where": [
+          "HttpsRequest"
+        ]
+      },
+      "OutputPath": {
+        "value": "C:\\Temp\\EDRTest\\NetworkActivityTest_download.dat",
+        "found": true,
+        "where": [
+          "FileWriteClose"
+        ]
+      },
+      "BytesDownloaded": {
+        "value": "1048576",
+        "found": true,
+        "where": [
+          "FileWriteClose"
+        ]
+      },
+      "SHA256": {
+        "value": "66F77F71710117F71712EB5766F3151E8AECEC390EBE0B0349C84961F1A547E6",
+        "found": false,
+        "where": []
+      },
+      "Md5": {
+        "value": "77d0476b8db959524e967d35e918e487",
+        "found": true,
+        "where": [
+          "FileWriteClose"
+        ]
+      }
+    },
+    "capability_count": 119,
+    "capability_base_count": 119,
+    "capability_v2": "有",
+    "collected_v2": "采到",
+    "capability_v2_rule": {
+      "anchor_type": "direct",
+      "anchor_process": "NetworkActivityTest.exe",
+      "anchor_md5": "420cc1ee2bf37c9771eed953d17a3221",
+      "tables": [
+        "NetworkEvents",
+        "FileEvents"
+      ],
+      "operations": [
+        "HttpsRequest",
+        "FileWriteClose"
+      ],
+      "probe": null
+    },
+    "sample_value_found": true,
+    "sample_value_hits": {
+      "Host": true
+    },
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 9721/9721",
+      "Time window [2026-08-25T14:42:56.291000+00:00 – 2026-08-25T14:44:47.579000+00:00]: 758 events (coverage=COVERED)",
+      "Actor ('NetworkActivityTest.exe'): 15 events",
+      "PID (12420): strict → 15 events",
+      "MD5 exact ('420CC1EE2BF37C9771EED953D17A3221'): 15 → 15 events",
+      "Operation ('HttpsRequest'): 1 events",
+      "match[Child.Host]='proof.ovh.net' (contains): 1 → 1 events",
+      "behavior_fields[Host]→['Child.Host']='proof.ovh.net': 1 hits in window pool",
+      "Capability ('HttpsRequest'): 119 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.DstIp",
+      "Child.DstPort",
+      "Child.Host",
+      "Child.Protocol",
+      "Child.SrcIp",
+      "Child.SrcPort",
+      "Child.NodeName",
+      "Child.Type"
+    ],
+    "matched_event_coverage": {
+      "Child.DstIp": "141.95.207.211",
+      "Child.DstPort": "443",
+      "Child.Host": "proof.ovh.net",
+      "Child.Protocol": "tcp",
+      "Child.SrcIp": "192.168.255.10",
+      "Child.SrcPort": "52989",
+      "Child.NodeName": "proof.ovh.net",
+      "Child.Type": "网络"
+    },
+    "filled": 8,
+    "total": 8
+  }
+}

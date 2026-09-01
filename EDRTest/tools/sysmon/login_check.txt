@@ -1,0 +1,26 @@
+===== LOGIN STATE ===== 
+ 驱动器 C 中的卷没有标签。
+ 卷的序列号是 8E93-3099
+
+ C:\ProgramData\ZtsmEnt\Basic 的目录
+
+2026/07/23  19:59             2,192 CacheLoginPolicy
+               1 个文件          2,192 字节
+               0 个目录 36,342,521,856 可用字节
+ 驱动器 C 中的卷没有标签。
+ 卷的序列号是 8E93-3099
+
+ C:\ProgramData\ZtsmEnt\Basic 的目录
+
+2026/07/23  19:59             3,840 CacheIdentityPolicy
+               1 个文件          3,840 字节
+               0 个目录 36,342,509,568 可用字节
+ 驱动器 C 中的卷没有标签。
+ 卷的序列号是 8E93-3099
+
+ C:\ProgramData\ZtsmEnt\Basic 的目录
+
+2026/08/24  12:37             1,307 IOALic2Module.dat
+               1 个文件          1,307 字节
+               0 个目录 36,342,509,568 可用字节
+===== DONE ===== 

@@ -1,0 +1,388 @@
+{
+  "_meta": {
+    "source": "EDR-Telemetry (https://github.com/tsale/EDR-Telemetry)",
+    "purpose": "行业 EDR 采集能力基准，用于 AI 总结时生成「IOA vs 行业」对比",
+    "products": [
+      "Sysmon",
+      "MDE",
+      "CrowdStrike",
+      "SentinelOne"
+    ],
+    "updated": "2026-08-24"
+  },
+  "categories": {
+    "File Creation": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "File Opened": {
+      "Sysmon": "No",
+      "MDE": "No",
+      "CrowdStrike": "Partially",
+      "SentinelOne": "No"
+    },
+    "File Deletion": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "File Modification": {
+      "Sysmon": "No",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "File Renaming": {
+      "Sysmon": "No",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "Local Account Creation": {
+      "Sysmon": "No",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "Local Account Modification": {
+      "Sysmon": "No",
+      "MDE": "Yes",
+      "CrowdStrike": "Partially",
+      "SentinelOne": "Via EventLogs"
+    },
+    "Local Account Deletion": {
+      "Sysmon": "No",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Via EventLogs"
+    },
+    "Account Login": {
+      "Sysmon": "No",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "Account Logoff": {
+      "Sysmon": "No",
+      "MDE": "No",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "Key/Value Creation": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Partially",
+      "SentinelOne": "Yes"
+    },
+    "Key/Value Modification": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Partially",
+      "SentinelOne": "Yes"
+    },
+    "Key/Value Deletion": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "No",
+      "SentinelOne": "Yes"
+    },
+    "Driver Loaded": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "Driver Modification": {
+      "Sysmon": "No",
+      "MDE": "No",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "No"
+    },
+    "Driver Unloaded": {
+      "Sysmon": "No",
+      "MDE": "No",
+      "CrowdStrike": "No",
+      "SentinelOne": "Partially"
+    },
+    "TCP Connection": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "UDP Connection": {
+      "Sysmon": "Yes",
+      "MDE": "No",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "No"
+    },
+    "URL": {
+      "Sysmon": "No",
+      "MDE": "Yes",
+      "CrowdStrike": "No",
+      "SentinelOne": "Via EnablingTelemetry"
+    },
+    "DNS Query": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "File Downloaded": {
+      "Sysmon": "No",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "Process Creation": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "Process Termination": {
+      "Sysmon": "Yes",
+      "MDE": "No",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "No"
+    },
+    "Process Access": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "Image/Library Loaded": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "Remote Thread Creation": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "Process Tampering Activity": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "MD5": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "SHA": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "IMPHASH": {
+      "Sysmon": "Yes",
+      "MDE": "No",
+      "CrowdStrike": "No",
+      "SentinelOne": "No"
+    },
+    "Scheduled Task Creation": {
+      "Sysmon": "No",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "Scheduled Task Modification": {
+      "Sysmon": "No",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "Scheduled Task Deletion": {
+      "Sysmon": "No",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "Service Creation": {
+      "Sysmon": "No",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "Service Modification": {
+      "Sysmon": "No",
+      "MDE": "No",
+      "CrowdStrike": "Partially",
+      "SentinelOne": "Via EnablingTelemetry"
+    },
+    "Service Deletion": {
+      "Sysmon": "No",
+      "MDE": "No",
+      "CrowdStrike": "No",
+      "SentinelOne": "No"
+    },
+    "Virtual Disk Mount": {
+      "Sysmon": "No",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "No"
+    },
+    "USB Device Unmount": {
+      "Sysmon": "No",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "USB Device Mount": {
+      "Sysmon": "No",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "Group Policy Modification": {
+      "Sysmon": "No",
+      "MDE": "Yes",
+      "CrowdStrike": "No",
+      "SentinelOne": "Yes"
+    },
+    "Pipe Creation": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Via EnablingTelemetry"
+    },
+    "Pipe Connection": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Via EnablingTelemetry"
+    },
+    "Agent Start": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "Agent Stop": {
+      "Sysmon": "Yes",
+      "MDE": "Via EventLogs",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "Agent Install": {
+      "Sysmon": "No",
+      "MDE": "Via EventLogs",
+      "CrowdStrike": "No",
+      "SentinelOne": "Yes"
+    },
+    "Agent Uninstall": {
+      "Sysmon": "No",
+      "MDE": "No",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "Agent Keep-Alive": {
+      "Sysmon": "No",
+      "MDE": "Via EventLogs",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "Agent Errors": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "WmiEventConsumerToFilter": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "WmiEventConsumer": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "WmiEventFilter": {
+      "Sysmon": "Yes",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    },
+    "BITS Jobs Activity": {
+      "Sysmon": "No",
+      "MDE": "No",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Via EventLogs"
+    },
+    "Script-Block Activity": {
+      "Sysmon": "No",
+      "MDE": "Yes",
+      "CrowdStrike": "Yes",
+      "SentinelOne": "Yes"
+    }
+  },
+  "case_map": {
+    "FILE-CREATE-001": "File Creation",
+    "FILE-OPEN-001": "File Opened",
+    "FILE-DELETE-001": "File Deletion",
+    "FILE-MODIFY-001": "File Modification",
+    "FILE-RENAME-001": "File Renaming",
+    "ACCOUNT-CREATE-001": "Local Account Creation",
+    "ACCOUNT-MODIFY-001": "Local Account Modification",
+    "ACCOUNT-DELETE-001": "Local Account Deletion",
+    "ACCOUNT-LOGIN-001": "Account Login",
+    "ACCOUNT-LOGOFF-001": "Account Logoff",
+    "REG-CREATE-001": "Key/Value Creation",
+    "REG-MODIFY-001": "Key/Value Modification",
+    "REG-DELETE-001": "Key/Value Deletion",
+    "DRIVER-LOAD-001": "Driver Loaded",
+    "DRIVER-MODIFY-001": "Driver Modification",
+    "DRIVER-UNLOAD-001": "Driver Unloaded",
+    "NET-TCP-001": "TCP Connection",
+    "NET-UDP-001": "UDP Connection",
+    "NET-URL-001": "URL",
+    "NET-DNS-001": "DNS Query",
+    "NET-DOWNLOAD-001": "File Downloaded",
+    "PROC-IMAGE-LOAD-001": "Image/Library Loaded",
+    "PROC-CREATE-001": "Process Creation",
+    "PROC-ACCESS-001": "Process Access",
+    "PROC-REMOTE-THREAD-001": "Remote Thread Creation",
+    "PROC-TAMPER-001": "Process Tampering Activity",
+    "PROC-TERMINATE-001": "Process Termination",
+    "HASH-MD5-001": "MD5",
+    "HASH-SHA-001": "SHA",
+    "HASH-IMPHASH-001": "IMPHASH",
+    "TASK-CREATE-001": "Scheduled Task Creation",
+    "TASK-MODIFY-001": "Scheduled Task Modification",
+    "TASK-DELETE-001": "Scheduled Task Deletion",
+    "SVC-CREATE-001": "Service Creation",
+    "SVC-MODIFY-001": "Service Modification",
+    "SVC-DELETE-001": "Service Deletion",
+    "PIPE-CREATE-001": "Pipe Creation",
+    "PIPE-CONNECT-001": "Pipe Connection",
+    "WMI-FILTER-001": "WmiEventFilter",
+    "WMI-CONSUMER-001": "WmiEventConsumer",
+    "WMI-CONSUMER-TO-FILTER-001": "WmiEventConsumerToFilter",
+    "DEVICE-VDISK-MOUNT-001": "Virtual Disk Mount",
+    "GPO-MODIFY-001": "Group Policy Modification",
+    "BIT-JOB-001": "BITS Jobs Activity",
+    "PS-BLOCK-001": "Script-Block Activity",
+    "DEVICE-USB-UNMOUNT-001": "USB Device Unmount",
+    "DEVICE-USB-MOUNT-001": "USB Device Mount",
+    "AGENT-START-001": "Agent Start",
+    "AGENT-STOP-001": "Agent Stop",
+    "AGENT-INSTALL-001": "Agent Install",
+    "AGENT-UNINSTALL-001": "Agent Uninstall",
+    "AGENT-KEEPALIVE-001": "Agent Keep-Alive",
+    "AGENT-ERROR-001": "Agent Errors"
+  }
+}

@@ -1,0 +1,19 @@
+[RUN-BEGIN] RunID=dc201de532ed4a018676b4ee5b200d04 TimeUTC=2026-08-26T15:50:11.284Z
+[META] TestCaseID=TASK-DELETE-001 Module=ScheduledTask Action=Delete
+[META] Process=ScheduledTaskLifecycleTest.exe PID=5676 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-26T15:50:11.411Z
+[SETUP] TaskName=EDR_Telemetry_Test_Task
+[SETUP] BaselineState=Present
+[SETUP-END] TimeUTC=2026-08-26T15:50:16.251Z
+[TARGET-BEGIN] TimeUTC=2026-08-26T15:50:16.251Z
+[TARGET] TaskName=EDR_Telemetry_Test_Task
+[TARGET] TaskPath=\EDR_Telemetry_Test_Task
+[TARGET] Operation=Delete
+[TARGET] Command=C:\Windows\System32\cmd.exe
+[TARGET] CommandArgs=/c exit 0
+[TARGET] Author=tester
+[TARGET] Description=EDR Scheduled Task Delete Baseline
+[TARGET] FinalState=Absent
+[TARGET-END] TimeUTC=2026-08-26T15:50:17.357Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=dc201de532ed4a018676b4ee5b200d04 TimeUTC=2026-08-26T15:50:17.357Z

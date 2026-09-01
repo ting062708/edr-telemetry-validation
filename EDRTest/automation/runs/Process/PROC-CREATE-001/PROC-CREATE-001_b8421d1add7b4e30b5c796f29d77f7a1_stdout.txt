@@ -1,0 +1,23 @@
+[RUN-BEGIN] RunID=b8421d1add7b4e30b5c796f29d77f7a1 TimeUTC=2026-08-24T10:44:19.297Z
+[META] TestCaseID=PROC-CREATE-001
+[META] Module=Process
+[META] Action=create
+[META] Process=ProcessLifecycleTest.exe
+[META] PID=5596
+[META] Hostname=DESKTOP-0AHK53B
+[META] RunStartUTC=2026-08-24T10:44:19.337Z
+[SETUP-BEGIN] TimeUTC=2026-08-24T10:44:19.337Z
+[SETUP] TargetPath=C:\EDRTest\samples\Process\ProcessTarget.exe
+[SETUP] TargetExists=true
+[SETUP-END] TimeUTC=2026-08-24T10:44:19.422Z
+[TARGET-BEGIN] TimeUTC=2026-08-24T10:44:22.449Z
+[TARGET-READY] Process=ProcessTarget.exe
+[TARGET-READY] PID=6948
+[TARGET-READY] StartUTC=2026-08-24T10:44:23.161Z
+[TARGET-READY] LifetimeSeconds=60
+[TARGET] Operation=ProcessCreate
+[TARGET] TargetImage=C:\EDRTest\samples\Process\ProcessTarget.exe
+[TARGET] TargetPID=6948
+[TARGET-END] TimeUTC=2026-08-24T10:44:23.764Z
+[RESULT] PASS ExitCode=0
+[RUN-END] TimeUTC=2026-08-24T10:44:23.764Z

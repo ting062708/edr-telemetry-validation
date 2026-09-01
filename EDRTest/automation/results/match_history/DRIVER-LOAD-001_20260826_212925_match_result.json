@@ -1,0 +1,157 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "采集到：云端日志存在 9 条 'LoadDriver' 事件（能力存在）。（样本具体对象值未命中，但能力存在，不影响判定。）Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {
+    "DriverPath": {
+      "value": "C:\\EDRTest\\samples\\Driver\\Support\\nonpnp.sys",
+      "found": false,
+      "where": []
+    },
+    "ServiceName": {
+      "value": "EDR_Telemetry_Test_Driver",
+      "found": false,
+      "where": []
+    },
+    "State": {
+      "value": "RUNNING",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "DRIVER-LOAD-001",
+  "module": "Driver",
+  "action": "--case DRIVER-LOAD-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 9721,
+    "after_hostname": 9721,
+    "after_time": 263,
+    "after_actor": 263,
+    "after_pid": 263,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-25T14:15:23.127000+00:00",
+    "log_time_max": "2026-08-25T15:18:19.937000+00:00",
+    "target_begin": "2026-08-25T14:46:50.035000+00:00",
+    "target_end": "2026-08-25T14:46:50.227000+00:00",
+    "run_begin": "2026-08-25T14:46:50.005000+00:00",
+    "run_end": "2026-08-25T14:46:50.292000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "LoadDriver",
+        "actor": "SystemIdle",
+        "target": "qmudisk64_ev.sys"
+      },
+      {
+        "operation": "LoadDriver",
+        "actor": "SystemIdle",
+        "target": "ztsmtraf64.sys"
+      },
+      {
+        "operation": "LoadDriver",
+        "actor": "SystemIdle",
+        "target": "bthpan.sys"
+      },
+      {
+        "operation": "LoadDriver",
+        "actor": "SystemIdle",
+        "target": "bthenum.sys"
+      },
+      {
+        "operation": "LoadDriver",
+        "actor": "SystemIdle",
+        "target": "rfcomm.sys"
+      }
+    ],
+    "value_scan": {
+      "DriverPath": {
+        "value": "C:\\EDRTest\\samples\\Driver\\Support\\nonpnp.sys",
+        "found": false,
+        "where": []
+      },
+      "ServiceName": {
+        "value": "EDR_Telemetry_Test_Driver",
+        "found": false,
+        "where": []
+      },
+      "State": {
+        "value": "RUNNING",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 9,
+    "capability_base_count": 9,
+    "capability_v2": "有",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "system",
+      "anchor_process": null,
+      "anchor_md5": null,
+      "tables": [
+        "ModuleEvents"
+      ],
+      "operations": [
+        "LoadDriver"
+      ],
+      "probe": null
+    },
+    "sample_value_found": false,
+    "sample_value_hits": {
+      "DriverPath": false
+    },
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 9721/9721",
+      "Time window [2026-08-25T14:46:45.005000+00:00 – 2026-08-25T14:47:20.292000+00:00]: 263 events (coverage=COVERED)",
+      "Actor filter skipped (skip_process_anchor)",
+      "PID filter skipped (skip_process_anchor)",
+      "Operation ('LoadDriver'): 0 events",
+      "behavior_fields[DriverPath]→['Child.FilePath']='C:\\\\EDRTest\\\\samples\\\\Driver\\\\Support\\\\nonpnp.sys': 0 hits in window pool",
+      "Capability ('LoadDriver'): 9 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.FileMd5",
+      "Child.FileName",
+      "Child.FilePath",
+      "Child.FileSize",
+      "Child.ModuleBase",
+      "Child.ModuleSize",
+      "Child.NodeName",
+      "Child.Type"
+    ],
+    "matched_event_coverage": {
+      "Child.FileMd5": null,
+      "Child.FileName": null,
+      "Child.FilePath": null,
+      "Child.FileSize": null,
+      "Child.ModuleBase": null,
+      "Child.ModuleSize": null,
+      "Child.NodeName": null,
+      "Child.Type": null
+    },
+    "filled": 0,
+    "total": 8
+  }
+}

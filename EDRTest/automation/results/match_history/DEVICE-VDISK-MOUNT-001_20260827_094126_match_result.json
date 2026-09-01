@@ -1,0 +1,88 @@
+{
+  "verdict": "PENDING",
+  "verdict_icon": "❓",
+  "capability_state": "Pending Response",
+  "message": "No run data available. Sample has not been executed against this case.",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": null,
+  "anchor_detected": null,
+  "anomaly": null,
+  "value_scan": {},
+  "test_case_id": "DEVICE-VDISK-MOUNT-001",
+  "module": "Device",
+  "action": "",
+  "sample_result": "",
+  "match_stats": {
+    "total_events": 11615,
+    "after_hostname": 11615,
+    "after_time": 11615,
+    "after_actor": 1,
+    "after_pid": 1,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": false,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-26T16:01:23.490000+00:00",
+    "log_time_max": "2026-08-26T17:31:12.098000+00:00",
+    "target_begin": null,
+    "target_end": null,
+    "run_begin": null,
+    "run_end": null,
+    "coverage_status": "UNKNOWN",
+    "candidate_count": 0,
+    "capability_detected": false,
+    "capability_base_detected": false,
+    "capability_evidence": [],
+    "value_scan": {},
+    "capability_count": 0,
+    "capability_base_count": 0,
+    "capability_v2": "无",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "direct",
+      "anchor_process": "VirtualDiskMountTest.exe",
+      "anchor_md5": "514d1ac2d5c7a56e4ac8e3d2b4e0f1a7",
+      "tables": [
+        "SystemChangeEvents"
+      ],
+      "operations": [
+        "VirtualDiskMount"
+      ],
+      "probe": null
+    },
+    "sample_value_found": false,
+    "sample_value_hits": {},
+    "filter_log": [
+      "WARN: stdout hostname empty; hostname filter skipped",
+      "WARN: RUN window absent; time filter skipped",
+      "Actor ('VirtualDiskMountTest.exe'): 1 events",
+      "MD5 exact ('514D1AC2E8F182BDA510A405BA91CA21'): 1 → 1 events",
+      "Operation ('VirtualDiskMount'): 0 events",
+      "behavior_fields[VhdPath]→Child.VhdPath: no stdout TARGET value, skipped",
+      "behavior_fields[TargetName]→Child.VhdPath: no stdout TARGET value, skipped",
+      "Capability ('VirtualDiskMount'): 0 events (能力不存在)"
+    ]
+  },
+  "parser_mode": "legacy_phase",
+  "degraded_match": true,
+  "observed_fields": {
+    "declared": [
+      "Child.VhdPath",
+      "Child.VhdType",
+      "Child.NodeName"
+    ],
+    "matched_event_coverage": {
+      "Child.VhdPath": null,
+      "Child.VhdType": null,
+      "Child.NodeName": null
+    },
+    "filled": 0,
+    "total": 3
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "case_id": "NET-DOWNLOAD-001",
+  "module": "Network",
+  "behavior_fields": {
+    "Host": "Child.Host"
+  },
+  "observed_fields": ["Child.DstIp","Child.DstPort","Child.Host","Child.Protocol","Child.SrcIp","Child.SrcPort","Child.NodeName","Child.Type"]
+}

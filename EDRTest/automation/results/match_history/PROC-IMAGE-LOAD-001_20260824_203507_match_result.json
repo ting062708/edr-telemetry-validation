@@ -1,0 +1,171 @@
+{
+  "verdict": "ERROR_LOG_INPUT",
+  "verdict_icon": "🔴",
+  "capability_state": null,
+  "message": "Event log time range does not cover the TARGET window. Log: [2026-08-20T09:14:42.350000+00:00 – 2026-08-22T17:59:32.510000+00:00], Target: [2026-08-24T10:43:14.247000+00:00 – 2026-08-24T10:43:29.364000+00:00]. Re-export the log with a wider time range.",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": "not_implemented",
+  "as_expected": false,
+  "capability_detected": null,
+  "anchor_detected": null,
+  "anomaly": null,
+  "value_scan": {
+    "Operation": {
+      "value": "LoadLibrary",
+      "found": false,
+      "where": []
+    },
+    "DllPath": {
+      "value": "C:\\EDRTest\\samples\\Process\\Support\\TestLibrary.dll",
+      "found": true,
+      "where": [
+        "FileWriteClose"
+      ]
+    },
+    "ExportFunction": {
+      "value": "GetTestMarker",
+      "found": false,
+      "where": []
+    },
+    "LoadLibraryResult": {
+      "value": "PASS",
+      "found": false,
+      "where": []
+    },
+    "ModuleHandle": {
+      "value": "0x7FFCE8120000",
+      "found": false,
+      "where": []
+    },
+    "GetProcAddressResult": {
+      "value": "PASS",
+      "found": false,
+      "where": []
+    },
+    "TestMarker": {
+      "value": "0x191C",
+      "found": false,
+      "where": []
+    },
+    "HoldingLoaded": {
+      "value": "15000ms",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "PROC-IMAGE-LOAD-001",
+  "module": "Process",
+  "action": "imageload",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 11003,
+    "after_hostname": 11003,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-20T09:14:42.350000+00:00",
+    "log_time_max": "2026-08-22T17:59:32.510000+00:00",
+    "target_begin": "2026-08-24T10:43:14.247000+00:00",
+    "target_end": "2026-08-24T10:43:29.364000+00:00",
+    "run_begin": "2026-08-24T10:43:14.215000+00:00",
+    "run_end": "2026-08-24T10:43:29.364000+00:00",
+    "coverage_status": "NOT_COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "LoadDll",
+        "actor": "ProcessLifecycleTest.exe",
+        "target": "clr.dll"
+      },
+      {
+        "operation": "LoadDll",
+        "actor": "ProcessLifecycleTest.exe",
+        "target": "mscoreei.dll"
+      },
+      {
+        "operation": "LoadDll",
+        "actor": "ProcessLifecycleTest.exe",
+        "target": "clr.dll"
+      },
+      {
+        "operation": "LoadDll",
+        "actor": "ProcessLifecycleTest.exe",
+        "target": "mscoreei.dll"
+      },
+      {
+        "operation": "LoadDll",
+        "actor": "ImageLoadTest.exe",
+        "target": "clr.dll"
+      }
+    ],
+    "value_scan": {
+      "Operation": {
+        "value": "LoadLibrary",
+        "found": false,
+        "where": []
+      },
+      "DllPath": {
+        "value": "C:\\EDRTest\\samples\\Process\\Support\\TestLibrary.dll",
+        "found": true,
+        "where": [
+          "FileWriteClose"
+        ]
+      },
+      "ExportFunction": {
+        "value": "GetTestMarker",
+        "found": false,
+        "where": []
+      },
+      "LoadLibraryResult": {
+        "value": "PASS",
+        "found": false,
+        "where": []
+      },
+      "ModuleHandle": {
+        "value": "0x7FFCE8120000",
+        "found": false,
+        "where": []
+      },
+      "GetProcAddressResult": {
+        "value": "PASS",
+        "found": false,
+        "where": []
+      },
+      "TestMarker": {
+        "value": "0x191C",
+        "found": false,
+        "where": []
+      },
+      "HoldingLoaded": {
+        "value": "15000ms",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 36,
+    "capability_base_count": 36,
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 11003/11003",
+      "Time window [2026-08-24T10:43:09.215000+00:00 – 2026-08-24T10:43:59.364000+00:00]: 0 events (coverage=NOT_COVERED)",
+      "Actor ('ImageLoadTest.exe'): 0 events",
+      "PID (2384): source carries no actor_pid — filter omitted",
+      "MD5 exact ('047056E9D0EC527268037F13672593A7'): 0 → 0 events",
+      "Operation ('LoadDll'): 0 events",
+      "Capability ('LoadDll'): 36 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

@@ -1,0 +1,18 @@
+[RUN-BEGIN] RunID=2ff943e650954f038613402044982e8c TimeUTC=2026-08-26T15:46:47.077Z
+[META] TestCaseID=TASK-CREATE-001 Module=ScheduledTask Action=Create
+[META] Process=ScheduledTaskLifecycleTest.exe PID=5340 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-26T15:46:47.143Z
+[SETUP] TaskName=EDR_Telemetry_Test_Task
+[SETUP] Trigger=2026-08-27T23:46:48
+[SETUP-END] TimeUTC=2026-08-26T15:46:48.299Z
+[TARGET-BEGIN] TimeUTC=2026-08-26T15:46:48.299Z
+[TARGET] TaskName=EDR_Telemetry_Test_Task
+[TARGET] TaskPath=\EDR_Telemetry_Test_Task
+[TARGET] Operation=Create
+[TARGET] Command=C:\Windows\System32\cmd.exe
+[TARGET] CommandArgs=/c exit 0
+[TARGET] Author=tester
+[TARGET] Description=EDR Scheduled Task Creation Test
+[TARGET-END] TimeUTC=2026-08-26T15:46:48.998Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=2ff943e650954f038613402044982e8c TimeUTC=2026-08-26T15:46:48.998Z

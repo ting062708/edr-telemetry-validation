@@ -1,0 +1,9 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="AccountLifecycleTest/AccountLifecycleTest.csproj" Id="55f10de8-3f15-415c-8d40-868d0107feec">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+</Solution>

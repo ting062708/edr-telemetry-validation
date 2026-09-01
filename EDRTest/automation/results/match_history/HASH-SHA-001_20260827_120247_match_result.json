@@ -1,0 +1,121 @@
+{
+  "verdict": "ERROR_LOG_INPUT",
+  "verdict_icon": "🔴",
+  "capability_state": null,
+  "message": "Event log time range does not cover the TARGET window. Log: [2026-08-26T16:01:23.490000+00:00 – 2026-08-26T17:31:12.098000+00:00], Target: [2026-08-26T15:41:04.136000+00:00 – 2026-08-26T15:41:04.167000+00:00]. Re-export the log with a wider time range.",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": null,
+  "anchor_detected": null,
+  "anomaly": null,
+  "value_scan": {
+    "Algorithm": {
+      "value": "SHA",
+      "found": false,
+      "where": []
+    },
+    "TargetPath": {
+      "value": "C:\\EDRTest\\samples\\Hash\\Support\\TestLibrary.dll",
+      "found": false,
+      "where": []
+    },
+    "SHA1": {
+      "value": "a4f4b35418047b9b92f4ad8796cac1233504fee1",
+      "found": false,
+      "where": []
+    },
+    "SHA256": {
+      "value": "6e41b23f36ace40be3c522fa1e76ecc7c4c77dec675d2d7a60d4ae99bab1c745",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "HASH-SHA-001",
+  "module": "Hash",
+  "action": "--case HASH-SHA-001 --target C:\\EDRTest\\samples\\Hash\\Support\\TestLibrary.dll",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 11615,
+    "after_hostname": 11615,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-26T16:01:23.490000+00:00",
+    "log_time_max": "2026-08-26T17:31:12.098000+00:00",
+    "target_begin": "2026-08-26T15:41:04.136000+00:00",
+    "target_end": "2026-08-26T15:41:04.167000+00:00",
+    "run_begin": "2026-08-26T15:41:03.912000+00:00",
+    "run_end": "2026-08-26T15:41:04.167000+00:00",
+    "coverage_status": "NOT_COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "CryptAcquireContextW",
+        "actor": "NetworkActivityTest.exe",
+        "target": ""
+      }
+    ],
+    "value_scan": {
+      "Algorithm": {
+        "value": "SHA",
+        "found": false,
+        "where": []
+      },
+      "TargetPath": {
+        "value": "C:\\EDRTest\\samples\\Hash\\Support\\TestLibrary.dll",
+        "found": false,
+        "where": []
+      },
+      "SHA1": {
+        "value": "a4f4b35418047b9b92f4ad8796cac1233504fee1",
+        "found": false,
+        "where": []
+      },
+      "SHA256": {
+        "value": "6e41b23f36ace40be3c522fa1e76ecc7c4c77dec675d2d7a60d4ae99bab1c745",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 1,
+    "capability_base_count": 1,
+    "capability_v2": "有",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "direct",
+      "anchor_process": "HashBaselineTool.exe",
+      "anchor_md5": "c1e9b569e8c5dd13c0ea5c0bd5396948",
+      "tables": [
+        "CryptEvents"
+      ],
+      "operations": [
+        "CryptAcquireContextW"
+      ],
+      "probe": null
+    },
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 11615/11615",
+      "Time window [2026-08-26T15:40:58.912000+00:00 – 2026-08-26T15:41:34.167000+00:00]: 0 events (coverage=NOT_COVERED)",
+      "Actor ('HashBaselineTool.exe'): 0 events",
+      "PID (10120): source carries no actor_pid — filter omitted",
+      "MD5 exact ('C1E9B569E8C5DD13C0EA5C0BD5396948'): 0 → 0 events",
+      "Operation ('CryptAcquireContextW'): 0 events",
+      "Capability ('CryptAcquireContextW'): 1 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

@@ -1,0 +1,14 @@
+[RUN-BEGIN] RunID=14f68817050340d7bf7ee0b248acb050 TimeUTC=2026-08-25T14:00:13.332Z
+[META] TestCaseID=PROC-TAMPER-001
+[META] Module=Process
+[META] Action=tamper
+[META] Process=ProcessLifecycleTest.exe
+[META] PID=1232
+[META] Hostname=DESKTOP-0AHK53B
+[META] RunStartUTC=2026-08-25T14:00:13.352Z
+[SETUP-BEGIN] TimeUTC=2026-08-25T14:00:13.387Z
+[SETUP] Validation=FAIL
+[SETUP-END] TimeUTC=2026-08-25T14:00:13.387Z
+[RESULT] FAIL ExitCode=1
+[ERROR] Exactly one ProcessTarget.exe must already be running. Start ProcessTarget.exe first.
+[RUN-END] TimeUTC=2026-08-25T14:00:13.387Z

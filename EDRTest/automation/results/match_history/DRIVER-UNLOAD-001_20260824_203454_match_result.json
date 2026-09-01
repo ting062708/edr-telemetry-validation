@@ -1,0 +1,95 @@
+{
+  "verdict": "ERROR_LOG_INPUT",
+  "verdict_icon": "🔴",
+  "capability_state": null,
+  "message": "Event log time range does not cover the TARGET window. Log: [2026-08-22T10:43:00.407000+00:00 – 2026-08-22T10:47:50.942000+00:00], Target: [2026-08-24T11:22:19.946000+00:00 – 2026-08-24T11:22:20.001000+00:00]. Re-export the log with a wider time range.",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": "not_implemented",
+  "as_expected": false,
+  "capability_detected": null,
+  "anchor_detected": null,
+  "anomaly": null,
+  "value_scan": {
+    "DriverPath": {
+      "value": "C:\\EDRTest\\samples\\Driver\\Support\\nonpnp.sys",
+      "found": true,
+      "where": [
+        "LoadDriver"
+      ]
+    },
+    "ServiceName": {
+      "value": "EDR_Telemetry_Test_Driver",
+      "found": false,
+      "where": []
+    },
+    "State": {
+      "value": "STOPPED",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "DRIVER-UNLOAD-001",
+  "module": "Driver",
+  "action": "--case DRIVER-UNLOAD-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 815,
+    "after_hostname": 815,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-22T10:43:00.407000+00:00",
+    "log_time_max": "2026-08-22T10:47:50.942000+00:00",
+    "target_begin": "2026-08-24T11:22:19.946000+00:00",
+    "target_end": "2026-08-24T11:22:20.001000+00:00",
+    "run_begin": "2026-08-24T11:22:19.913000+00:00",
+    "run_end": "2026-08-24T11:22:20.011000+00:00",
+    "coverage_status": "NOT_COVERED",
+    "candidate_count": 0,
+    "capability_detected": false,
+    "capability_base_detected": false,
+    "capability_evidence": [],
+    "value_scan": {
+      "DriverPath": {
+        "value": "C:\\EDRTest\\samples\\Driver\\Support\\nonpnp.sys",
+        "found": true,
+        "where": [
+          "LoadDriver"
+        ]
+      },
+      "ServiceName": {
+        "value": "EDR_Telemetry_Test_Driver",
+        "found": false,
+        "where": []
+      },
+      "State": {
+        "value": "STOPPED",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 0,
+    "capability_base_count": 0,
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 815/815",
+      "Time window [2026-08-24T11:22:14.913000+00:00 – 2026-08-24T11:22:50.011000+00:00]: 0 events (coverage=NOT_COVERED)",
+      "Actor ('DriverLifecycleTest.exe'): 0 events",
+      "PID (11076): source carries no actor_pid — filter omitted",
+      "MD5 exact ('E569892B7EEFAA9284720D8311AF5BA7'): 0 → 0 events",
+      "Operation ('UnloadDriver'): 0 events",
+      "Capability ('UnloadDriver'): 0 events (能力不存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

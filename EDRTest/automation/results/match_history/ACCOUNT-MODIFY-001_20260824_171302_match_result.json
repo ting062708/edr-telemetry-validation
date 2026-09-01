@@ -1,0 +1,100 @@
+{
+  "verdict": "ERROR_LOG_INPUT",
+  "verdict_icon": "🔴",
+  "capability_state": null,
+  "message": "Event log time range does not cover the TARGET window. Log: [2026-08-24T08:34:19.406000+00:00 – 2026-08-24T08:35:54.141000+00:00], Target: [2026-08-23T08:52:14.925000+00:00 – 2026-08-23T08:52:25.470000+00:00]. Re-export the log with a wider time range.",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": "not_implemented",
+  "as_expected": false,
+  "capability_detected": null,
+  "anchor_detected": null,
+  "anomaly": null,
+  "value_scan": {},
+  "test_case_id": "ACCOUNT-MODIFY-001",
+  "module": "Account",
+  "action": "--case ACCOUNT-MODIFY-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 54,
+    "after_hostname": 54,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-24T08:34:19.406000+00:00",
+    "log_time_max": "2026-08-24T08:35:54.141000+00:00",
+    "target_begin": "2026-08-23T08:52:14.925000+00:00",
+    "target_end": "2026-08-23T08:52:25.470000+00:00",
+    "coverage_status": "NOT_COVERED",
+    "candidate_count": 0,
+    "capability_detected": false,
+    "capability_evidence": [],
+    "value_scan": {
+      "Account": {
+        "value": "EDR_Test_User",
+        "found": false,
+        "where": []
+      },
+      "Operation": {
+        "value": "Modify",
+        "found": false,
+        "where": []
+      },
+      "Field": {
+        "value": "Password",
+        "found": false,
+        "where": []
+      },
+      "NewValue": {
+        "value": "EdrT3st!2026_Bb",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 0,
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 54/54",
+      "Time window [2026-08-23T08:52:11.925000+00:00 – 2026-08-23T08:52:28.470000+00:00]: 0 events (coverage=NOT_COVERED)",
+      "Actor filter skipped (skip_process_anchor)",
+      "PID filter skipped (skip_process_anchor)",
+      "Operation ('AccountPwdChange'): 0 events",
+      "match[target_user]='EDR_Test_User' (contains): 0 → 0 events",
+      "Capability ('AccountPwdChange'): 0 events (能力不存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.NodeName",
+      "Child.SubjectDomainName",
+      "Child.SubjectLogonId",
+      "Child.SubjectUserName",
+      "Child.SubjectUserSid",
+      "Child.TargetDomainName",
+      "Child.TargetSid",
+      "Child.TargetUserName",
+      "Child.Type"
+    ],
+    "matched_event_coverage": {
+      "Child.NodeName": null,
+      "Child.SubjectDomainName": null,
+      "Child.SubjectLogonId": null,
+      "Child.SubjectUserName": null,
+      "Child.SubjectUserSid": null,
+      "Child.TargetDomainName": null,
+      "Child.TargetSid": null,
+      "Child.TargetUserName": null,
+      "Child.Type": null
+    },
+    "filled": 0,
+    "total": 9
+  }
+}

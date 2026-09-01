@@ -1,0 +1,19 @@
+[RUN-BEGIN] RunID=338414f2-302d-4286-b1be-bb0a5ce1367e TimeUTC=2026-08-23T03:30:01.902Z
+[META] TestCaseID=FILE-OPEN-001 Module=File Action=Open
+[META] Process=FileLifecycleTest.exe PID=10884 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-23T03:30:01.933Z
+[SETUP] StaleOriginalRemoved=false
+[SETUP] StaleRenamedRemoved=false
+[SETUP] StaleTextRemoved=false
+[SETUP] BaselineCreated=true
+[SETUP] TargetPath=C:\EDRTest\samples\File\FileLifecycle_Target.txt
+[SETUP-END] TimeUTC=2026-08-23T03:30:01.977Z
+[TARGET-BEGIN] TimeUTC=2026-08-23T03:30:01.977Z
+[TARGET] Path=C:\EDRTest\samples\File\FileLifecycle_Target.txt
+[TARGET] FileName=FileLifecycle_Target.txt
+[TARGET] Operation=Open
+[TARGET] CharactersRead=81
+[TARGET] ContentMd5=260bc5a39689633d26f8bb24284373b9
+[TARGET-END] TimeUTC=2026-08-23T03:30:02.036Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=338414f2-302d-4286-b1be-bb0a5ce1367e TimeUTC=2026-08-23T03:30:02.036Z

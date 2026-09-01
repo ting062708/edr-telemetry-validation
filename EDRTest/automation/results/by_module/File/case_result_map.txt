@@ -1,0 +1,23 @@
+================================================================
+IOA 采集能力验证结果 · 文件(File)
+判定标准：导师标准(2026-08-23)：部分情况有记录即判定为通过
+================================================================
+
+【通过】(4)
+  FILE-CREATE-001  文件 · 文件创建
+     说明: IOA 无独立 FileCreate 事件，落 FileWriteClose，靠 Child.FileTotalWrite=0 锚定"纯创建"
+  FILE-DELETE-001  文件 · 文件删除
+     说明: FileDelete 独立采到，sleep 5s 避开"同毫秒建删"去重
+  FILE-MODIFY-001  文件 · 文件修改
+     说明: FileWriteClose 采到
+  FILE-RENAME-001  文件 · 文件重命名
+     说明: FileRename 采到，Child.OldFilePath 字段实证存在
+
+【通过(部分)? —— 待与导师确认】(1)
+  FILE-OPEN-001  文件 · 文件打开
+     有记录: 系统进程读 .cab → FileRead（2~3 条）
+     无记录: 样本读 .txt → 无 FileRead；样本读 .exe → 无 FileRead
+     说明: IOA 有 FileRead 事件类型，但样本读普通文件不触发；采到的 .cab 读是系统进程行为，非样本行为。行业 Sysmon/MDE/SentinelOne 均=No。是否算"部分有记录"待与导师确认
+
+【未通过】(0)
+

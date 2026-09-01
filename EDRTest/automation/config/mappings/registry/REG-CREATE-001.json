@@ -1,0 +1,19 @@
+{
+  "case_id": "REG-CREATE-001",
+  "module": "Registry",
+  "behavior_fields": {
+    "ValueName": "Child.RegValName",
+    "RegistryPath": "Child.RegKeyPath",
+    "NewValue": "Child.RegValData"
+  },
+  "observed_fields": [
+    "Child.RegKeyPath",
+    "Child.RegValName",
+    "Child.RegValData",
+    "Child.RegValType",
+    "Child.RegGroupName",
+    "Child.RegOldValType",
+    "Child.NodeName",
+    "Child.Type"
+  ]
+}

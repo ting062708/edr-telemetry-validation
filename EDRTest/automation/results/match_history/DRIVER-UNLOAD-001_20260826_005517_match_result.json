@@ -1,0 +1,105 @@
+{
+  "verdict": "NOT_IMPLEMENTED",
+  "verdict_icon": "❌",
+  "capability_state": "Not Implemented",
+  "message": "未采集：云端日志中无 'UnloadDriver' 行为事件（能力不存在）。 Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": "not_implemented",
+  "as_expected": true,
+  "capability_detected": false,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {
+    "DriverPath": {
+      "value": "C:\\EDRTest\\samples\\Driver\\Support\\nonpnp.sys",
+      "found": false,
+      "where": []
+    },
+    "ServiceName": {
+      "value": "EDR_Telemetry_Test_Driver",
+      "found": false,
+      "where": []
+    },
+    "State": {
+      "value": "STOPPED",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "DRIVER-UNLOAD-001",
+  "module": "Driver",
+  "action": "--case DRIVER-UNLOAD-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 6864,
+    "after_hostname": 6864,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-25T14:15:23.127000+00:00",
+    "log_time_max": "2026-08-25T15:03:52.280000+00:00",
+    "target_begin": "2026-08-25T14:47:57.868000+00:00",
+    "target_end": "2026-08-25T14:47:58.362000+00:00",
+    "run_begin": "2026-08-25T14:47:57.819000+00:00",
+    "run_end": "2026-08-25T14:47:58.362000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": false,
+    "capability_base_detected": false,
+    "capability_evidence": [],
+    "value_scan": {
+      "DriverPath": {
+        "value": "C:\\EDRTest\\samples\\Driver\\Support\\nonpnp.sys",
+        "found": false,
+        "where": []
+      },
+      "ServiceName": {
+        "value": "EDR_Telemetry_Test_Driver",
+        "found": false,
+        "where": []
+      },
+      "State": {
+        "value": "STOPPED",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 0,
+    "capability_base_count": 0,
+    "capability_v2": "无",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "system",
+      "anchor_process": null,
+      "anchor_md5": null,
+      "tables": [
+        "ModuleEvents"
+      ],
+      "operations": [
+        "UnloadDriver"
+      ],
+      "probe": null
+    },
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 6864/6864",
+      "Time window [2026-08-25T14:47:52.819000+00:00 – 2026-08-25T14:48:28.362000+00:00]: 0 events (coverage=COVERED)",
+      "Actor ('DriverLifecycleTest.exe'): 0 events",
+      "PID (10692): source carries no actor_pid — filter omitted",
+      "MD5 exact ('E569892B7EEFAA9284720D8311AF5BA7'): 0 → 0 events",
+      "Operation ('UnloadDriver'): 0 events",
+      "Capability ('UnloadDriver'): 0 events (能力不存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

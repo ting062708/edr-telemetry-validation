@@ -1,0 +1,203 @@
+{
+  "test_case_id": "REG-FULLCYCLE-001",
+  "module": "Registry",
+  "action": "fullcycle",
+  "overall_verdict": "NOT_IMPLEMENTED",
+  "overall_icon": "❌",
+  "overall_capability_state": "Not Implemented",
+  "phase_count": 3,
+  "phases": [
+    {
+      "phase_id": "REG-CREATE-001",
+      "action": "create",
+      "verdict": "IMPLEMENTED",
+      "verdict_icon": "✅",
+      "capability_state": "Implemented",
+      "message": "All required fields present and values verified (ID=d071a478-5d1e-4082-99bb-a16d52d155f9).",
+      "sample_result": "PASS",
+      "expected_result": null,
+      "as_expected": false,
+      "field_coverage": [
+        {
+          "field": "registry_path",
+          "required": true,
+          "rule": {
+            "contains": "CurrentVersion\\Run",
+            "required": true
+          },
+          "actual_value": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+          "status": "PASS"
+        },
+        {
+          "field": "registry_value_name",
+          "required": true,
+          "rule": {
+            "equals": "EDRTelemetryRunTest",
+            "required": true
+          },
+          "actual_value": "EDRTelemetryRunTest",
+          "status": "PASS"
+        },
+        {
+          "field": "registry_value_data",
+          "required": true,
+          "rule": {
+            "contains": "notepad.exe",
+            "required": true
+          },
+          "actual_value": "C:\\Windows\\System32\\notepad.exe",
+          "status": "PASS"
+        },
+        {
+          "field": "actor_name",
+          "required": true,
+          "rule": {
+            "equals": "RegistryLifecycleTest.exe",
+            "required": true
+          },
+          "actual_value": "RegistryLifecycleTest.exe",
+          "status": "PASS"
+        },
+        {
+          "field": "actor_pid",
+          "required": true,
+          "rule": {
+            "nonempty": true,
+            "required": true
+          },
+          "actual_value": "12824",
+          "status": "PASS"
+        },
+        {
+          "field": "operation",
+          "required": true,
+          "rule": {
+            "equals": "RegSetValue",
+            "required": true
+          },
+          "actual_value": "RegSetValue",
+          "status": "PASS"
+        },
+        {
+          "field": "event_time_utc",
+          "required": true,
+          "rule": {
+            "nonempty": true,
+            "required": true
+          },
+          "actual_value": "2026-08-21 14:47:03.670000+00:00",
+          "status": "PASS"
+        },
+        {
+          "field": "hostname",
+          "required": true,
+          "rule": {
+            "nonempty": true,
+            "required": true
+          },
+          "actual_value": "DESKTOP-0AHK53B",
+          "status": "PASS"
+        }
+      ],
+      "match_stats": {
+        "total_events": 18130,
+        "after_hostname": 18130,
+        "after_time": 67,
+        "after_actor": 13,
+        "after_pid": 13,
+        "after_operation": 1,
+        "after_extra": 1,
+        "target_window_available": true,
+        "pid_filter_applied": true,
+        "pid_skipped_no_data": false,
+        "log_time_min": "2026-08-20T09:14:42.350000+00:00",
+        "log_time_max": "2026-08-22T20:07:23.898000+00:00",
+        "target_begin": "2026-08-21T14:47:03.506000+00:00",
+        "target_end": "2026-08-21T14:47:03.681000+00:00",
+        "coverage_status": "COVERED",
+        "candidate_count": 1,
+        "filter_log": [
+          "Hostname ('DESKTOP-0AHK53B'): 18130/18130",
+          "Time window [2026-08-21T14:47:00.506000+00:00 – 2026-08-21T14:47:06.681000+00:00]: 67 events (coverage=COVERED)",
+          "Actor ('RegistryLifecycleTest.exe'): 13 events",
+          "PID (12824): strict → 13 events",
+          "Operation ('RegSetValue'): 1 events"
+        ]
+      }
+    },
+    {
+      "phase_id": "REG-MODIFY-001",
+      "action": "modify",
+      "verdict": "NOT_IMPLEMENTED",
+      "verdict_icon": "❌",
+      "capability_state": "Not Implemented",
+      "message": "No telemetry event matched all criteria. Log covered TARGET window (coverage=COVERED).",
+      "sample_result": "PASS",
+      "expected_result": "not_implemented",
+      "as_expected": true,
+      "field_coverage": [],
+      "match_stats": {
+        "total_events": 18130,
+        "after_hostname": 18130,
+        "after_time": 117,
+        "after_actor": 0,
+        "after_pid": 0,
+        "after_operation": 0,
+        "after_extra": 0,
+        "target_window_available": true,
+        "pid_filter_applied": false,
+        "pid_skipped_no_data": true,
+        "log_time_min": "2026-08-20T09:14:42.350000+00:00",
+        "log_time_max": "2026-08-22T20:07:23.898000+00:00",
+        "target_begin": "2026-08-21T14:47:13.693000+00:00",
+        "target_end": "2026-08-21T14:47:13.815000+00:00",
+        "coverage_status": "COVERED",
+        "candidate_count": 0,
+        "filter_log": [
+          "Hostname ('DESKTOP-0AHK53B'): 18130/18130",
+          "Time window [2026-08-21T14:47:10.693000+00:00 – 2026-08-21T14:47:16.815000+00:00]: 117 events (coverage=COVERED)",
+          "Actor ('RegistryLifecycleTest.exe'): 0 events",
+          "PID (12824): source carries no actor_pid — filter omitted",
+          "Operation ('RegSetValue'): 0 events"
+        ]
+      }
+    },
+    {
+      "phase_id": "REG-DELETE-001",
+      "action": "delete",
+      "verdict": "NOT_IMPLEMENTED",
+      "verdict_icon": "❌",
+      "capability_state": "Not Implemented",
+      "message": "No telemetry event matched all criteria. Log covered TARGET window (coverage=COVERED).",
+      "sample_result": "PASS",
+      "expected_result": "not_implemented",
+      "as_expected": true,
+      "field_coverage": [],
+      "match_stats": {
+        "total_events": 18130,
+        "after_hostname": 18130,
+        "after_time": 16,
+        "after_actor": 1,
+        "after_pid": 1,
+        "after_operation": 0,
+        "after_extra": 0,
+        "target_window_available": true,
+        "pid_filter_applied": true,
+        "pid_skipped_no_data": false,
+        "log_time_min": "2026-08-20T09:14:42.350000+00:00",
+        "log_time_max": "2026-08-22T20:07:23.898000+00:00",
+        "target_begin": "2026-08-21T14:47:23.823000+00:00",
+        "target_end": "2026-08-21T14:47:23.833000+00:00",
+        "coverage_status": "COVERED",
+        "candidate_count": 0,
+        "filter_log": [
+          "Hostname ('DESKTOP-0AHK53B'): 18130/18130",
+          "Time window [2026-08-21T14:47:20.823000+00:00 – 2026-08-21T14:47:26.833000+00:00]: 16 events (coverage=COVERED)",
+          "Actor ('RegistryLifecycleTest.exe'): 1 events",
+          "PID (12824): strict → 1 events",
+          "Operation ('RegDeleteValue'): 0 events"
+        ]
+      }
+    }
+  ]
+}

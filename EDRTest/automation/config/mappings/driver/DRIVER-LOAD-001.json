@@ -1,0 +1,17 @@
+{
+  "case_id": "DRIVER-LOAD-001",
+  "module": "driver",
+  "behavior_fields": {
+    "DriverPath": "Child.FilePath"
+  },
+  "observed_fields": [
+    "Child.FileMd5",
+    "Child.FileName",
+    "Child.FilePath",
+    "Child.FileSize",
+    "Child.ModuleBase",
+    "Child.ModuleSize",
+    "Child.NodeName",
+    "Child.Type"
+  ]
+}

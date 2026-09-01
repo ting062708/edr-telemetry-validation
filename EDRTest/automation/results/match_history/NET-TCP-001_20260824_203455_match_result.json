@@ -1,0 +1,138 @@
+{
+  "verdict": "ERROR_SAMPLE",
+  "verdict_icon": "🔴",
+  "capability_state": null,
+  "message": "Sample did not execute successfully: result='FAIL', exit_code=1. Errors: ['SocketException: ����Ŀ�����������ܾ����\\u07b7����ӡ� 93.184.216.34:80']",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": null,
+  "anchor_detected": null,
+  "anomaly": null,
+  "value_scan": {},
+  "test_case_id": "NET-TCP-001",
+  "module": "Network",
+  "action": "--case NET-TCP-001",
+  "sample_result": "FAIL",
+  "match_stats": {
+    "total_events": 2429,
+    "after_hostname": 2429,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-23T06:07:14.579000+00:00",
+    "log_time_max": "2026-08-23T06:19:59.660000+00:00",
+    "target_begin": "2026-08-24T10:46:03.966000+00:00",
+    "target_end": null,
+    "run_begin": "2026-08-24T10:46:03.893000+00:00",
+    "run_end": "2026-08-24T10:46:25.476000+00:00",
+    "coverage_status": "NOT_COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "HttpRequest",
+        "actor": "svchost.exe",
+        "target": ""
+      },
+      {
+        "operation": "HttpRequest",
+        "actor": "svchost.exe",
+        "target": ""
+      },
+      {
+        "operation": "HttpRequest",
+        "actor": "svchost.exe",
+        "target": ""
+      },
+      {
+        "operation": "HttpRequest",
+        "actor": "svchost.exe",
+        "target": ""
+      },
+      {
+        "operation": "HttpRequest",
+        "actor": "svchost.exe",
+        "target": ""
+      }
+    ],
+    "value_scan": {
+      "Protocol": {
+        "value": "TCP",
+        "found": false,
+        "where": []
+      },
+      "RemoteIP": {
+        "value": "93.184.216.34",
+        "found": true,
+        "where": [
+          "HttpRequest"
+        ]
+      },
+      "RemotePort": {
+        "value": "80",
+        "found": true,
+        "where": [
+          "HttpRequest"
+        ]
+      }
+    },
+    "capability_count": 15,
+    "capability_base_count": 15,
+    "sample_value_found": false,
+    "sample_value_hits": {
+      "RemoteIP": false,
+      "RemotePort": false
+    },
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 2429/2429",
+      "Time window [2026-08-24T10:45:58.893000+00:00 – 2026-08-24T10:46:55.476000+00:00]: 0 events (coverage=NOT_COVERED)",
+      "Actor ('NetworkActivityTest.exe'): 0 events",
+      "PID (5340): source carries no actor_pid — filter omitted",
+      "MD5 exact ('420CC1EE2BF37C9771EED953D17A3221'): 0 → 0 events",
+      "Operation ('HttpRequest'): 0 events",
+      "match[Child.DstIp]='93.184.216.34' (contains): 0 → 0 events",
+      "match[Child.DstPort]='80' (==): 0 → 0 events",
+      "behavior_fields[RemoteIP]→['Child.DstIp']='93.184.216.34': 0 hits in window pool",
+      "behavior_fields[RemotePort]→['Child.DstPort']='80': 0 hits in window pool",
+      "Capability ('HttpRequest'): 15 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": true,
+  "observed_fields": {
+    "declared": [
+      "Child.DstIp",
+      "Child.DstPort",
+      "Child.Host",
+      "Child.Url",
+      "Child.Protocol",
+      "Child.SrcIp",
+      "Child.SrcPort",
+      "Child.NodeName",
+      "Child.Type"
+    ],
+    "matched_event_coverage": {
+      "Child.DstIp": null,
+      "Child.DstPort": null,
+      "Child.Host": null,
+      "Child.Url": null,
+      "Child.Protocol": null,
+      "Child.SrcIp": null,
+      "Child.SrcPort": null,
+      "Child.NodeName": null,
+      "Child.Type": null
+    },
+    "filled": 0,
+    "total": 9
+  }
+}

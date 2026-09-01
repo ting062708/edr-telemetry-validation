@@ -1,0 +1,4 @@
+﻿Case ID,模块,行为,判定,打问号,有记录,无记录,情况说明
+REG-CREATE-001,注册表,键/值创建,通过,,,,RegSetValue 值从无到有（新增 notepad.exe），锚定 Child.RegValName/RegKeyPath/RegValData
+REG-MODIFY-001,注册表,键/值修改,通过(部分)?,?,值从无到有(ABSENT→value) → RegSetValue（SETUP 预置阶段能采）,覆盖写已有值(notepad→calc) → 无事件,IOA 只采""值从无到有""，覆盖写不触发 RegSetValue。""修改""动作本身未被采到，仅边缘情况有记录。待与导师确认
+REG-DELETE-001,注册表,键/值删除,未通过,,,,IOA 无 RegDeleteValue/RegDeleteKey/RegCreateKey 事件，删值能力缺失

@@ -1,0 +1,256 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "采集到：'LoadDll' 事件命中，字段校验通过 (ID=a20b6e3f-637f-41e6-96e8-992ca9ded135)。",
+  "matched_event_id": "a20b6e3f-637f-41e6-96e8-992ca9ded135",
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [
+    {
+      "field": "target_name",
+      "required": true,
+      "rule": {
+        "contains": "TestLibrary.dll",
+        "required": true
+      },
+      "actual_value": "TestLibrary.dll",
+      "status": "PASS"
+    },
+    {
+      "field": "target_path",
+      "required": true,
+      "rule": {
+        "contains": "EDRTest",
+        "required": true
+      },
+      "actual_value": "C:\\EDRTest\\samples\\Process\\Support\\TestLibrary.dll",
+      "status": "PASS"
+    },
+    {
+      "field": "actor_name",
+      "required": true,
+      "rule": {
+        "equals": "ImageLoadTest.exe",
+        "required": true
+      },
+      "actual_value": "ImageLoadTest.exe",
+      "status": "PASS"
+    },
+    {
+      "field": "actor_pid",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "9740",
+      "status": "PASS"
+    },
+    {
+      "field": "operation",
+      "required": true,
+      "rule": {
+        "equals": "LoadDll",
+        "required": true
+      },
+      "actual_value": "LoadDll",
+      "status": "PASS"
+    },
+    {
+      "field": "event_time_utc",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "2026-08-25 14:18:53.391000+00:00",
+      "status": "PASS"
+    },
+    {
+      "field": "hostname",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "DESKTOP-0AHK53B",
+      "status": "PASS"
+    }
+  ],
+  "expected_result": "not_implemented",
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": true,
+  "anomaly": null,
+  "value_scan": {
+    "Operation": {
+      "value": "LoadLibrary",
+      "found": false,
+      "where": []
+    },
+    "DllPath": {
+      "value": "C:\\EDRTest\\samples\\Process\\Support\\TestLibrary.dll",
+      "found": true,
+      "where": [
+        "LoadDll"
+      ]
+    },
+    "ExportFunction": {
+      "value": "GetTestMarker",
+      "found": false,
+      "where": []
+    },
+    "LoadLibraryResult": {
+      "value": "PASS",
+      "found": false,
+      "where": []
+    },
+    "ModuleHandle": {
+      "value": "0x7FFCEBD80000",
+      "found": false,
+      "where": []
+    },
+    "GetProcAddressResult": {
+      "value": "PASS",
+      "found": false,
+      "where": []
+    },
+    "TestMarker": {
+      "value": "0x1C",
+      "found": false,
+      "where": []
+    },
+    "HoldingLoaded": {
+      "value": "15000ms",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "PROC-IMAGE-LOAD-001",
+  "module": "Process",
+  "action": "imageload",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 9721,
+    "after_hostname": 9721,
+    "after_time": 98,
+    "after_actor": 2,
+    "after_pid": 2,
+    "after_operation": 1,
+    "after_extra": 1,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-25T14:15:23.127000+00:00",
+    "log_time_max": "2026-08-25T15:18:19.937000+00:00",
+    "target_begin": "2026-08-25T14:18:52.854000+00:00",
+    "target_end": "2026-08-25T14:19:08.567000+00:00",
+    "run_begin": "2026-08-25T14:18:52.854000+00:00",
+    "run_end": "2026-08-25T14:19:08.577000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 1,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "LoadDll",
+        "actor": "powershell.exe",
+        "target": "System.Management.Automation.ni.dll"
+      },
+      {
+        "operation": "LoadDll",
+        "actor": "PipeLifecycleTest.exe",
+        "target": "clr.dll"
+      },
+      {
+        "operation": "LoadDll",
+        "actor": "PipeLifecycleTest.exe",
+        "target": "mscoreei.dll"
+      },
+      {
+        "operation": "LoadDll",
+        "actor": "NetworkActivityTest.exe",
+        "target": "clr.dll"
+      },
+      {
+        "operation": "LoadDll",
+        "actor": "NetworkActivityTest.exe",
+        "target": "mscoreei.dll"
+      }
+    ],
+    "value_scan": {
+      "Operation": {
+        "value": "LoadLibrary",
+        "found": false,
+        "where": []
+      },
+      "DllPath": {
+        "value": "C:\\EDRTest\\samples\\Process\\Support\\TestLibrary.dll",
+        "found": true,
+        "where": [
+          "LoadDll"
+        ]
+      },
+      "ExportFunction": {
+        "value": "GetTestMarker",
+        "found": false,
+        "where": []
+      },
+      "LoadLibraryResult": {
+        "value": "PASS",
+        "found": false,
+        "where": []
+      },
+      "ModuleHandle": {
+        "value": "0x7FFCEBD80000",
+        "found": false,
+        "where": []
+      },
+      "GetProcAddressResult": {
+        "value": "PASS",
+        "found": false,
+        "where": []
+      },
+      "TestMarker": {
+        "value": "0x1C",
+        "found": false,
+        "where": []
+      },
+      "HoldingLoaded": {
+        "value": "15000ms",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 8,
+    "capability_base_count": 8,
+    "capability_v2": "有",
+    "collected_v2": "采到",
+    "capability_v2_rule": {
+      "anchor_type": "direct",
+      "anchor_process": "ImageLoadTest.exe",
+      "anchor_md5": "047056e9d0ec527268037f13672593a7",
+      "tables": [
+        "ModuleEvents"
+      ],
+      "operations": [
+        "LoadDll"
+      ],
+      "probe": null
+    },
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 9721/9721",
+      "Time window [2026-08-25T14:18:47.854000+00:00 – 2026-08-25T14:19:38.577000+00:00]: 98 events (coverage=COVERED)",
+      "Actor ('ImageLoadTest.exe'): 2 events",
+      "PID (9740): strict → 2 events",
+      "MD5 exact ('047056E9D0EC527268037F13672593A7'): 2 → 2 events",
+      "Operation ('LoadDll'): 1 events",
+      "Capability ('LoadDll'): 8 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

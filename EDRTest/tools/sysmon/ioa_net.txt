@@ -1,0 +1,51 @@
+===== config.json ===== 
+{
+  "2026-08-02.db": "decrypt",
+  "2026-08-20.db": "decrypt",
+  "2026-08-21.db": "decrypt",
+  "2026-08-22.db": "decrypt",
+  "2026-08-24.db": "decrypt",
+  "DbPath": "C:\\ZtsmEnt\\EdrLocalData"
+} 
+===== policy files ===== 
+--- C:\ProgramData\ZtsmEnt\Basic\EdrTasks\policy_120.txt --- 
+锘縶
+   "id" : 120,
+   "todo" : []
+}
+ 
+--- C:\ProgramData\ZtsmEnt\Basic\EdrTasks\policy_237.txt --- 
+锘縶
+   "id" : 237,
+   "todo" : []
+}
+ 
+--- C:\ProgramData\ZtsmEnt\Basic\EdrTasks\policy_238.txt --- 
+锘縶
+   "id" : 238,
+   "todo" : []
+}
+ 
+===== IsolateBlockTasks ===== 
+锘縶
+   "todo" : []
+}
+ 
+===== PING TEST ===== 
+
+正在 Ping 223.5.5.5 具有 32 字节的数据:
+来自 223.5.5.5 的回复: 字节=32 时间=33ms TTL=128
+
+223.5.5.5 的 Ping 统计信息:
+    数据包: 已发送 = 1，已接收 = 1，丢失 = 0 (0% 丢失)，
+往返行程的估计时间(以毫秒为单位):
+    最短 = 33ms，最长 = 33ms，平均 = 33ms
+
+正在 Ping ins-r23tsuuf.ias.tencent-cloud.net [121.14.77.201] 具有 32 字节的数据:
+来自 121.14.77.201 的回复: 字节=32 时间=34ms TTL=128
+
+121.14.77.201 的 Ping 统计信息:
+    数据包: 已发送 = 1，已接收 = 1，丢失 = 0 (0% 丢失)，
+往返行程的估计时间(以毫秒为单位):
+    最短 = 34ms，最长 = 34ms，平均 = 34ms
+===== DONE ===== 

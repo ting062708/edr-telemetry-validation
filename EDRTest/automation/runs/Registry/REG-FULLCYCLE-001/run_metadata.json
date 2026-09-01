@@ -1,0 +1,81 @@
+[
+  {
+    "test_case_id": "REG-CREATE-001",
+    "run_id": "1f837887-590a-406f-9b5f-75af6ab953f3",
+    "module": null,
+    "action": null,
+    "process_name": "RegistryLifecycleTest.exe",
+    "pid": 5920,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-22T05:16:21.077000+00:00",
+    "setup_begin_utc": "2026-08-22T05:16:21.093000+00:00",
+    "setup_end_utc": "2026-08-22T05:16:21.167000+00:00",
+    "target_begin_utc": "2026-08-22T05:16:21.167000+00:00",
+    "target_end_utc": "2026-08-22T05:16:21.189000+00:00",
+    "run_end_utc": "2026-08-22T05:16:42.593000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Operation": "RegSetValue",
+      "ValueName": "EDRTelemetryRunTest",
+      "NewValue": "C:\\Windows\\System32\\notepad.exe"
+    },
+    "error_lines": []
+  },
+  {
+    "test_case_id": "REG-MODIFY-001",
+    "run_id": "1f837887-590a-406f-9b5f-75af6ab953f3",
+    "module": null,
+    "action": null,
+    "process_name": "RegistryLifecycleTest.exe",
+    "pid": 5920,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-22T05:16:21.077000+00:00",
+    "setup_begin_utc": "2026-08-22T05:16:31.216000+00:00",
+    "setup_end_utc": "2026-08-22T05:16:31.216000+00:00",
+    "target_begin_utc": "2026-08-22T05:16:31.216000+00:00",
+    "target_end_utc": "2026-08-22T05:16:32.482000+00:00",
+    "run_end_utc": "2026-08-22T05:16:42.593000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Operation": "RegSetValue",
+      "ValueName": "EDRTelemetryRunTest",
+      "OldValue": "C:\\Windows\\System32\\notepad.exe",
+      "NewValue": "C:\\Windows\\System32\\calc.exe"
+    },
+    "error_lines": []
+  },
+  {
+    "test_case_id": "REG-DELETE-001",
+    "run_id": "1f837887-590a-406f-9b5f-75af6ab953f3",
+    "module": null,
+    "action": null,
+    "process_name": "RegistryLifecycleTest.exe",
+    "pid": 5920,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-22T05:16:21.077000+00:00",
+    "setup_begin_utc": "2026-08-22T05:16:42.512000+00:00",
+    "setup_end_utc": "2026-08-22T05:16:42.512000+00:00",
+    "target_begin_utc": "2026-08-22T05:16:42.512000+00:00",
+    "target_end_utc": "2026-08-22T05:16:42.593000+00:00",
+    "run_end_utc": "2026-08-22T05:16:42.593000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Operation": "RegDeleteValue",
+      "ValueName": "EDRTelemetryRunTest",
+      "OldValue": "C:\\Windows\\System32\\calc.exe"
+    },
+    "error_lines": []
+  }
+]

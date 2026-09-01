@@ -1,0 +1,222 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "采集到：['NtWriteVirtualMemory', 'VirtualAllocEx', 'WriteProcessMemory'] 事件命中，字段校验通过 (ID=03f4a410-c7c1-47d6-8149-ff57c4ba5499)。",
+  "matched_event_id": "03f4a410-c7c1-47d6-8149-ff57c4ba5499",
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [
+    {
+      "field": "target_name",
+      "required": true,
+      "rule": {
+        "equals": "ProcessTarget.exe",
+        "required": true
+      },
+      "actual_value": "ProcessTarget.exe",
+      "status": "PASS"
+    },
+    {
+      "field": "target_path",
+      "required": true,
+      "rule": {
+        "contains": "EDRTest",
+        "required": true
+      },
+      "actual_value": "C:\\EDRTest\\samples\\Process\\ProcessTarget.exe",
+      "status": "PASS"
+    },
+    {
+      "field": "actor_name",
+      "required": true,
+      "rule": {
+        "equals": "ProcessLifecycleTest.exe",
+        "required": true
+      },
+      "actual_value": "ProcessLifecycleTest.exe",
+      "status": "PASS"
+    },
+    {
+      "field": "actor_pid",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "11028",
+      "status": "PASS"
+    },
+    {
+      "field": "event_time_utc",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "2026-08-26 16:42:40.625000+00:00",
+      "status": "PASS"
+    },
+    {
+      "field": "hostname",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "DESKTOP-0AHK53B",
+      "status": "PASS"
+    }
+  ],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": true,
+  "anomaly": null,
+  "value_scan": {
+    "Operation": {
+      "value": "ProcessTamper",
+      "found": false,
+      "where": []
+    },
+    "TargetPID": {
+      "value": "12272",
+      "found": true,
+      "where": [
+        "VirtualAllocEx"
+      ]
+    },
+    "Action": {
+      "value": "VirtualAllocEx+WriteProcessMemory",
+      "found": false,
+      "where": []
+    },
+    "BytesWritten": {
+      "value": "24",
+      "found": true,
+      "where": [
+        "ProcessCreate"
+      ]
+    },
+    "RemoteAddress": {
+      "value": "0x2B7F6CB0000",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "PROC-TAMPER-001",
+  "module": "Process",
+  "action": "tamper",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 11615,
+    "after_hostname": 11615,
+    "after_time": 137,
+    "after_actor": 17,
+    "after_pid": 17,
+    "after_operation": 1,
+    "after_extra": 1,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-26T16:01:23.490000+00:00",
+    "log_time_max": "2026-08-26T17:31:12.098000+00:00",
+    "target_begin": "2026-08-26T16:42:40.610000+00:00",
+    "target_end": "2026-08-26T16:42:40.722000+00:00",
+    "run_begin": "2026-08-26T16:42:37.389000+00:00",
+    "run_end": "2026-08-26T16:42:40.722000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 1,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "NtWriteVirtualMemory",
+        "actor": "rundll32.exe",
+        "target": "winsat.exe"
+      },
+      {
+        "operation": "VirtualAllocEx",
+        "actor": "MusNotifyIcon.exe",
+        "target": "msedgewebview2.exe"
+      },
+      {
+        "operation": "VirtualAllocEx",
+        "actor": "conhost.exe",
+        "target": "MusNotifyIcon.exe"
+      },
+      {
+        "operation": "VirtualAllocEx",
+        "actor": "ProcessLifecycleTest.exe",
+        "target": "ProcessTarget.exe"
+      },
+      {
+        "operation": "WriteProcessMemory",
+        "actor": "ProcessLifecycleTest.exe",
+        "target": "ProcessTarget.exe"
+      }
+    ],
+    "value_scan": {
+      "Operation": {
+        "value": "ProcessTamper",
+        "found": false,
+        "where": []
+      },
+      "TargetPID": {
+        "value": "12272",
+        "found": true,
+        "where": [
+          "VirtualAllocEx"
+        ]
+      },
+      "Action": {
+        "value": "VirtualAllocEx+WriteProcessMemory",
+        "found": false,
+        "where": []
+      },
+      "BytesWritten": {
+        "value": "24",
+        "found": true,
+        "where": [
+          "ProcessCreate"
+        ]
+      },
+      "RemoteAddress": {
+        "value": "0x2B7F6CB0000",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 6,
+    "capability_base_count": 6,
+    "capability_v2": "有",
+    "collected_v2": "采到",
+    "capability_v2_rule": {
+      "anchor_type": "direct",
+      "anchor_process": "ProcessLifecycleTest.exe",
+      "anchor_md5": "f6d123d8483cf7bc0d324726b3b52639",
+      "tables": [
+        "RemoteInjectEvents"
+      ],
+      "operations": [
+        "NtWriteVirtualMemory",
+        "WriteProcessMemory"
+      ],
+      "probe": null
+    },
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 11615/11615",
+      "Time window [2026-08-26T16:42:32.389000+00:00 – 2026-08-26T16:43:10.722000+00:00]: 137 events (coverage=COVERED)",
+      "Actor ('ProcessLifecycleTest.exe'): 17 events",
+      "PID (11028): strict → 17 events",
+      "MD5 exact ('F6D123D8483CF7BC0D324726B3B52639'): 17 → 17 events",
+      "Operation (['NtWriteVirtualMemory', 'VirtualAllocEx', 'WriteProcessMemory']): 2 events",
+      "Operation dedup (same actor+target): 2 → 1 events",
+      "Capability (['NtWriteVirtualMemory', 'VirtualAllocEx', 'WriteProcessMemory']): 6 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

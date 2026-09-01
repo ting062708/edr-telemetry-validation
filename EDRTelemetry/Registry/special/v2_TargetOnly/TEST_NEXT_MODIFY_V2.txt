@@ -1,0 +1,37 @@
+REG-MODIFY-001 TARGET-only validation build
+
+Purpose:
+- SETUP only READS and validates the prerequisite value.
+- SETUP performs NO registry SetValue.
+- TARGET performs the only registry write from RegistryLifecycleTest.exe:
+  notepad.exe -> calc.exe
+
+Before running the sample (Administrator CMD):
+
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v EDRTelemetryRunTest /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v EDRTelemetryRunTest /t REG_SZ /d "C:\Windows\System32\notepad.exe" /f
+reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v EDRTelemetryRunTest
+
+Confirm the value is C:\Windows\System32\notepad.exe, then wait at least 30 seconds.
+
+Run:
+RegistryLifecycleTest.exe modify > registry_modify_stdout.txt 2>&1
+echo ExitCode=%ERRORLEVEL%
+type registry_modify_stdout.txt
+
+Expected SETUP output:
+[SETUP] ExistingValue=C:\Windows\System32\notepad.exe
+[SETUP] Validation=PASS
+
+Expected TARGET:
+Operation=RegistryModify
+OldValue=C:\Windows\System32\notepad.exe
+NewValue=C:\Windows\System32\calc.exe
+
+IOA PASS evidence must be the TARGET event, not the earlier external preparation event:
+Actor = RegistryLifecycleTest.exe
+PID = PID from this run
+Action = RegSetValue
+RegistryPath = HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+ValueName = EDRTelemetryRunTest
+ValueData = C:\Windows\System32\calc.exe

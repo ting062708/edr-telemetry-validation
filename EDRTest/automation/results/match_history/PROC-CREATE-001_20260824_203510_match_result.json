@@ -1,0 +1,125 @@
+{
+  "verdict": "ERROR_LOG_INPUT",
+  "verdict_icon": "🔴",
+  "capability_state": null,
+  "message": "Event log time range does not cover the TARGET window. Log: [2026-08-20T09:14:42.350000+00:00 – 2026-08-22T17:59:32.510000+00:00], Target: [2026-08-24T10:44:22.449000+00:00 – 2026-08-24T10:44:23.764000+00:00]. Re-export the log with a wider time range.",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": null,
+  "anchor_detected": null,
+  "anomaly": null,
+  "value_scan": {
+    "Operation": {
+      "value": "ProcessCreate",
+      "found": true,
+      "where": [
+        "ProcessCreate"
+      ]
+    },
+    "TargetImage": {
+      "value": "C:\\EDRTest\\samples\\Process\\ProcessTarget.exe",
+      "found": true,
+      "where": [
+        "NtQueryInformationProcess"
+      ]
+    },
+    "TargetPID": {
+      "value": "6948",
+      "found": false,
+      "where": []
+    }
+  },
+  "test_case_id": "PROC-CREATE-001",
+  "module": "Process",
+  "action": "create",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 11003,
+    "after_hostname": 11003,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-20T09:14:42.350000+00:00",
+    "log_time_max": "2026-08-22T17:59:32.510000+00:00",
+    "target_begin": "2026-08-24T10:44:22.449000+00:00",
+    "target_end": "2026-08-24T10:44:23.764000+00:00",
+    "run_begin": "2026-08-24T10:44:19.337000+00:00",
+    "run_end": "2026-08-24T10:44:23.764000+00:00",
+    "coverage_status": "NOT_COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "ProcessCreate",
+        "actor": "RuntimeBroker.exe",
+        "target": "RuntimeBroker.exe"
+      },
+      {
+        "operation": "ProcessCreate",
+        "actor": "RuntimeBroker.exe",
+        "target": "RuntimeBroker.exe"
+      },
+      {
+        "operation": "ProcessCreate",
+        "actor": "BackgroundTaskHost.exe",
+        "target": "BackgroundTaskHost.exe"
+      },
+      {
+        "operation": "ProcessCreate",
+        "actor": "backgroundTaskHost.exe",
+        "target": "backgroundTaskHost.exe"
+      },
+      {
+        "operation": "ProcessCreate",
+        "actor": "svchost.exe",
+        "target": "svchost.exe"
+      }
+    ],
+    "value_scan": {
+      "Operation": {
+        "value": "ProcessCreate",
+        "found": true,
+        "where": [
+          "ProcessCreate"
+        ]
+      },
+      "TargetImage": {
+        "value": "C:\\EDRTest\\samples\\Process\\ProcessTarget.exe",
+        "found": true,
+        "where": [
+          "NtQueryInformationProcess"
+        ]
+      },
+      "TargetPID": {
+        "value": "6948",
+        "found": false,
+        "where": []
+      }
+    },
+    "capability_count": 2406,
+    "capability_base_count": 2406,
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 11003/11003",
+      "Time window [2026-08-24T10:44:14.337000+00:00 – 2026-08-24T10:44:53.764000+00:00]: 0 events (coverage=NOT_COVERED)",
+      "Actor ('ProcessLifecycleTest.exe'): 0 events",
+      "PID (5596): source carries no actor_pid — filter omitted",
+      "MD5 exact ('F6D123D8483CF7BC0D324726B3B52639'): 0 → 0 events",
+      "Operation ('ProcessCreate'): 0 events",
+      "Capability ('ProcessCreate'): 2406 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

@@ -1,0 +1,19 @@
+[RUN-BEGIN] RunID=d8288cd52e7448a2a6cf4e6ef0d3e5a0 TimeUTC=2026-08-25T15:05:14.458Z
+[META] TestCaseID=PS-BLOCK-001
+[META] Module=PowerShell
+[META] Action=script_block
+[META] Process=PowerShellScriptBlockTest.exe
+[META] PID=7316
+[META] Hostname=DESKTOP-0AHK53B
+[META] RunStartUTC=2026-08-25T15:05:14.477Z
+[SETUP-BEGIN] TimeUTC=2026-08-25T15:05:14.477Z
+[SETUP] PowerShellPath=C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe
+[SETUP] PowerShellExists=true
+[SETUP-END] TimeUTC=2026-08-25T15:05:14.477Z
+[TARGET-BEGIN] TimeUTC=2026-08-25T15:05:17.484Z
+[TARGET] Operation=ScriptBlock
+[TARGET] ScriptText=$m='EDRTelemetryScriptBlock_d8288cd5'; Write-Output $m; Start-Sleep -Milliseconds 300
+[TARGET] ExecResult=PASS
+[TARGET-END] TimeUTC=2026-08-25T15:05:24.135Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=d8288cd52e7448a2a6cf4e6ef0d3e5a0 TimeUTC=2026-08-25T15:05:24.135Z

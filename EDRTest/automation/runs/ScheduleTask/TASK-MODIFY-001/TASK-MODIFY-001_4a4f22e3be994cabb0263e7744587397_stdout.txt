@@ -1,0 +1,18 @@
+[RUN-BEGIN] RunID=4a4f22e3be994cabb0263e7744587397 TimeUTC=2026-08-26T15:48:31.016Z
+[META] TestCaseID=TASK-MODIFY-001 Module=ScheduledTask Action=Modify
+[META] Process=ScheduledTaskLifecycleTest.exe PID=5464 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-26T15:48:31.118Z
+[SETUP] TaskName=EDR_Telemetry_Test_Task
+[SETUP] BaselineTrigger=2026-08-27T23:48:31
+[SETUP-END] TimeUTC=2026-08-26T15:48:33.999Z
+[TARGET-BEGIN] TimeUTC=2026-08-26T15:48:33.999Z
+[TARGET] TaskName=EDR_Telemetry_Test_Task
+[TARGET] TaskPath=\EDR_Telemetry_Test_Task
+[TARGET] Operation=Modify
+[TARGET] Command=C:\Windows\System32\cmd.exe
+[TARGET] CommandArgs=/c exit 0
+[TARGET] Author=tester
+[TARGET] Description=EDR Scheduled Task Modification Test
+[TARGET-END] TimeUTC=2026-08-26T15:48:35.765Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=4a4f22e3be994cabb0263e7744587397 TimeUTC=2026-08-26T15:48:35.765Z

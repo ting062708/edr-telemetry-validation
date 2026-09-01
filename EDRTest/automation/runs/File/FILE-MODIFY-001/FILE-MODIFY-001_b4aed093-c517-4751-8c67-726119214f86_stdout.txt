@@ -1,0 +1,22 @@
+[RUN-BEGIN] RunID=b4aed093-c517-4751-8c67-726119214f86 TimeUTC=2026-08-24T07:22:42.739Z
+[META] TestCaseID=FILE-MODIFY-001 Module=File Action=Modify
+[META] Process=FileLifecycleTest.exe PID=5184 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-24T07:22:42.865Z
+[SETUP] StaleOriginalRemoved=false
+[SETUP] StaleRenamedRemoved=false
+[SETUP] StaleTextRemoved=false
+[SETUP] StaleDllRemoved=false
+[SETUP] BaselineCreated=true
+[SETUP] TargetPath=C:\EDRTest\samples\File\FileLifecycle_Target.exe
+[SETUP-END] TimeUTC=2026-08-24T07:22:42.880Z
+[TARGET-BEGIN] TimeUTC=2026-08-24T07:22:42.880Z
+[TARGET] Path=C:\EDRTest\samples\File\FileLifecycle_Target.exe
+[TARGET] FileName=FileLifecycle_Target.exe
+[TARGET] Operation=Modify
+[TARGET] SizeBefore=83
+[TARGET] SizeAfter=149
+[TARGET] BytesAppended=66
+[TARGET] ContentMd5=f18cc91dc22e37781c7bbb07b1cd780c
+[TARGET-END] TimeUTC=2026-08-24T07:22:42.927Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=b4aed093-c517-4751-8c67-726119214f86 TimeUTC=2026-08-24T07:22:42.927Z

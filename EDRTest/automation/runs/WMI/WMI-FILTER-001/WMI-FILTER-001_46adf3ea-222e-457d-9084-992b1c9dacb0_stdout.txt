@@ -1,0 +1,18 @@
+[RUN-BEGIN] RunID=46adf3ea-222e-457d-9084-992b1c9dacb0 TimeUTC=2026-08-25T15:00:57.726Z
+[META] TestCaseID=WMI-FILTER-001 Module=WMI Action=WmiEventFilter
+[META] Process=WmiActivityTest.exe PID=8516 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-25T15:00:57.782Z
+[SETUP] Administrator=True
+[SETUP] Namespace=root\subscription
+[SETUP] ResidueCleanup=True
+[SETUP] FilterName=EDRTelemetryWmiFilter_46adf3ea222e
+[SETUP] ConsumerName=EDRTelemetryWmiConsumer_46adf3ea222e
+[SETUP-END] TimeUTC=2026-08-25T15:00:58.242Z
+[TARGET-BEGIN] TimeUTC=2026-08-25T15:00:58.242Z
+[TARGET] Operation=WmiCreate
+[TARGET] WmiClass=__EventFilter
+[TARGET] TargetName=EDRTelemetryWmiFilter_46adf3ea222e
+[TARGET] Namespace=root\subscription
+[TARGET-END] TimeUTC=2026-08-25T15:00:58.272Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=46adf3ea-222e-457d-9084-992b1c9dacb0 TimeUTC=2026-08-25T15:00:58.292Z

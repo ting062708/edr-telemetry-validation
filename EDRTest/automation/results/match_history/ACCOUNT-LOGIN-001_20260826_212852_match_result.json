@@ -1,0 +1,187 @@
+{
+  "verdict": "IMPLEMENTED",
+  "verdict_icon": "✅",
+  "capability_state": "Implemented",
+  "message": "采集到：云端日志存在 1635 条 'LoginSuccess' 事件（能力存在）。（样本具体对象值未命中，但能力存在，不影响判定。）Log covered TARGET window (coverage=COVERED).",
+  "matched_event_id": null,
+  "missing_required_fields": [],
+  "partial_fields": [],
+  "field_coverage": [],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": false,
+  "anomaly": null,
+  "value_scan": {
+    "Account": {
+      "value": "EDR_Test_User",
+      "found": false,
+      "where": []
+    },
+    "Operation": {
+      "value": "Login",
+      "found": false,
+      "where": []
+    },
+    "LogonType": {
+      "value": "Interactive",
+      "found": true,
+      "where": [
+        "FileWriteClose"
+      ]
+    }
+  },
+  "test_case_id": "ACCOUNT-LOGIN-001",
+  "module": "Account",
+  "action": "--case ACCOUNT-LOGIN-001",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 9721,
+    "after_hostname": 9721,
+    "after_time": 0,
+    "after_actor": 0,
+    "after_pid": 0,
+    "after_operation": 0,
+    "after_extra": 0,
+    "target_window_available": true,
+    "pid_filter_applied": false,
+    "pid_skipped_no_data": true,
+    "log_time_min": "2026-08-25T14:15:23.127000+00:00",
+    "log_time_max": "2026-08-25T15:18:19.937000+00:00",
+    "target_begin": "2026-08-25T14:36:35.535000+00:00",
+    "target_end": "2026-08-25T14:36:35.550000+00:00",
+    "run_begin": "2026-08-25T14:36:35.022000+00:00",
+    "run_end": "2026-08-25T14:36:35.550000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 0,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "LoginSuccess",
+        "actor": "services.exe",
+        "target": "SYSTEM"
+      },
+      {
+        "operation": "LoginSuccess",
+        "actor": "vmtoolsd.exe",
+        "target": "tester"
+      },
+      {
+        "operation": "LoginSuccess",
+        "actor": "vmtoolsd.exe",
+        "target": "tester"
+      },
+      {
+        "operation": "LoginSuccess",
+        "actor": "vmtoolsd.exe",
+        "target": "tester"
+      },
+      {
+        "operation": "LoginSuccess",
+        "actor": "vmtoolsd.exe",
+        "target": "tester"
+      }
+    ],
+    "value_scan": {
+      "Account": {
+        "value": "EDR_Test_User",
+        "found": false,
+        "where": []
+      },
+      "Operation": {
+        "value": "Login",
+        "found": false,
+        "where": []
+      },
+      "LogonType": {
+        "value": "Interactive",
+        "found": true,
+        "where": [
+          "FileWriteClose"
+        ]
+      }
+    },
+    "capability_count": 1635,
+    "capability_base_count": 1635,
+    "capability_v2": "有",
+    "collected_v2": "未采到",
+    "capability_v2_rule": {
+      "anchor_type": "system",
+      "anchor_process": null,
+      "anchor_md5": null,
+      "tables": [
+        "LoginEvents"
+      ],
+      "operations": [
+        "LoginSuccess"
+      ],
+      "probe": null
+    },
+    "sample_value_found": false,
+    "sample_value_hits": {
+      "Account": false
+    },
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 9721/9721",
+      "Time window [2026-08-25T14:36:32.022000+00:00 – 2026-08-25T14:36:38.550000+00:00]: 0 events (coverage=COVERED)",
+      "Actor ('AccountLifecycleTest.exe'): 0 events",
+      "PID (5564): source carries no actor_pid — filter omitted",
+      "MD5 exact ('B8BC5CB3E49E2160A169076576589FE3'): 0 → 0 events",
+      "Operation ('LoginSuccess'): 0 events",
+      "match[target_user]='EDR_Test_User' (contains): 0 → 0 events",
+      "behavior_fields[Account]→['Child.TargetUserName']='EDR_Test_User': 0 hits in window pool",
+      "Capability ('LoginSuccess'): 1635 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false,
+  "observed_fields": {
+    "declared": [
+      "Child.AuthenticationPackageName",
+      "Child.ElevatedToken",
+      "Child.ImpersonationLevel",
+      "Child.KeyLength",
+      "Child.LogonGuid",
+      "Child.LogonProcessName",
+      "Child.LogonType",
+      "Child.NodeName",
+      "Child.SubjectDomainName",
+      "Child.SubjectLogonId",
+      "Child.SubjectUserName",
+      "Child.SubjectUserSid",
+      "Child.TargetDomainName",
+      "Child.TargetLinkedLogonId",
+      "Child.TargetLogonId",
+      "Child.TargetUserName",
+      "Child.TargetUserSid",
+      "Child.Type",
+      "Child.VirtualAccount",
+      "Child.WorkstationName"
+    ],
+    "matched_event_coverage": {
+      "Child.AuthenticationPackageName": null,
+      "Child.ElevatedToken": null,
+      "Child.ImpersonationLevel": null,
+      "Child.KeyLength": null,
+      "Child.LogonGuid": null,
+      "Child.LogonProcessName": null,
+      "Child.LogonType": null,
+      "Child.NodeName": null,
+      "Child.SubjectDomainName": null,
+      "Child.SubjectLogonId": null,
+      "Child.SubjectUserName": null,
+      "Child.SubjectUserSid": null,
+      "Child.TargetDomainName": null,
+      "Child.TargetLinkedLogonId": null,
+      "Child.TargetLogonId": null,
+      "Child.TargetUserName": null,
+      "Child.TargetUserSid": null,
+      "Child.Type": null,
+      "Child.VirtualAccount": null,
+      "Child.WorkstationName": null
+    },
+    "filled": 0,
+    "total": 20
+  }
+}

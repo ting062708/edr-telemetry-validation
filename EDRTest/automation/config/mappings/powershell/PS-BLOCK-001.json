@@ -1,0 +1,13 @@
+{
+  "case_id": "PS-BLOCK-001",
+  "module": "powershell",
+  "behavior_fields": {
+    "ScriptText": "Child.ScriptText",
+    "TargetName": "Child.ScriptText"
+  },
+  "observed_fields": [
+    "Child.ScriptText",
+    "Child.ScriptMd5",
+    "Child.NodeName"
+  ]
+}

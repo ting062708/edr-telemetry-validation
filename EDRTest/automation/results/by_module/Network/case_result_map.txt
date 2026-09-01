@@ -1,0 +1,23 @@
+================================================================
+IOA 采集能力验证结果 · 网络(Network)
+判定标准：导师标准(2026-08-23)：部分情况有记录即判定为通过
+================================================================
+
+【通过】(3)
+  NET-DOWNLOAD-001  网络 · 文件下载
+     说明: HttpsRequest(Host=proof.ovh.net)
+  NET-TCP-001  网络 · TCP 连接
+     说明: HttpRequest(DstIp=93.184.216.34:80)
+  NET-URL-001  网络 · URL 访问
+     说明: HttpsRequest(Host=www.baidu.com)，Child.Url 为空、实际在 Host
+
+【通过(部分)? —— 待与导师确认】(1)
+  NET-UDP-001  网络 · UDP 连接
+     有记录: 系统进程广播/组播 → SocketRequest(34 条, svchost/dashost)
+     无记录: 样本单播 sendto(8.8.8.8:53) → 无记录
+     说明: SocketRequest 有记录，但全部是系统进程的广播/组播，样本单播 UDP 未采。采到的是系统行为非样本行为。待与导师确认
+
+【未通过】(1)
+  NET-DNS-001  网络 · DNS 查询
+     说明: DnsQuery_W 无对应事件，IOA 不采 DNS 解析
+

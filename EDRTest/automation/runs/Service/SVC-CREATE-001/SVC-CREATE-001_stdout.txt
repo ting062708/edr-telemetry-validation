@@ -1,0 +1,16 @@
+[RUN-BEGIN] RunID=9f6cfc2d-69be-4101-9dfe-11fdaf0f25dd TimeUTC=2026-08-26T15:53:20.803Z
+[META] TestCaseID=SVC-CREATE-001 Module=Service Action=Create
+[META] Process=ServiceLifecycleTest.exe PID=5772 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-26T15:53:20.868Z
+[SETUP] ServiceName=EDR_Telemetry_Test_Service
+[SETUP] BinaryPath="C:\Windows\system32\cmd.exe" /c exit 0
+[SETUP] InitialState=Absent
+[SETUP-END] TimeUTC=2026-08-26T15:53:20.868Z
+[TARGET-BEGIN] TimeUTC=2026-08-26T15:53:20.868Z
+[TARGET] ServiceName=EDR_Telemetry_Test_Service
+[TARGET] Operation=CreateService
+[TARGET] DisplayName=EDR Telemetry Test Service
+[TARGET] StartType=Manual
+[TARGET-END] TimeUTC=2026-08-26T15:53:21.047Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=9f6cfc2d-69be-4101-9dfe-11fdaf0f25dd TimeUTC=2026-08-26T15:53:21.653Z

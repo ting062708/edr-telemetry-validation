@@ -1,0 +1,218 @@
+{
+  "verdict": "PARTIALLY_IMPLEMENTED",
+  "verdict_icon": "⚠️",
+  "capability_state": "Partially Implemented",
+  "message": "Event matched (ID=dfcc3334-3f06-4095-ace8-a6bd377f1d73)，但 required 字段校验失败: target_name(FAIL).",
+  "matched_event_id": "dfcc3334-3f06-4095-ace8-a6bd377f1d73",
+  "missing_required_fields": [
+    "target_name"
+  ],
+  "partial_fields": [
+    "target_name"
+  ],
+  "field_coverage": [
+    {
+      "field": "target_name",
+      "required": true,
+      "rule": {
+        "equals": "ProcessTarget.exe",
+        "required": true
+      },
+      "actual_value": "ProcessLifecycleTest.exe",
+      "status": "FAIL"
+    },
+    {
+      "field": "target_path",
+      "required": true,
+      "rule": {
+        "contains": "EDRTest",
+        "required": true
+      },
+      "actual_value": "C:\\EDRTest\\samples\\Process\\ProcessLifecycleTest.exe",
+      "status": "PASS"
+    },
+    {
+      "field": "actor_name",
+      "required": true,
+      "rule": {
+        "equals": "ProcessLifecycleTest.exe",
+        "required": true
+      },
+      "actual_value": "ProcessLifecycleTest.exe",
+      "status": "PASS"
+    },
+    {
+      "field": "actor_pid",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "5468",
+      "status": "PASS"
+    },
+    {
+      "field": "operation",
+      "required": true,
+      "rule": {
+        "equals": "ProcessCreate",
+        "required": true
+      },
+      "actual_value": "ProcessCreate",
+      "status": "PASS"
+    },
+    {
+      "field": "event_time_utc",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "2026-08-26 16:39:07.884000+00:00",
+      "status": "PASS"
+    },
+    {
+      "field": "hostname",
+      "required": true,
+      "rule": {
+        "nonempty": true,
+        "required": true
+      },
+      "actual_value": "DESKTOP-0AHK53B",
+      "status": "PASS"
+    }
+  ],
+  "expected_result": null,
+  "as_expected": false,
+  "capability_detected": true,
+  "anchor_detected": true,
+  "anomaly": null,
+  "value_scan": {
+    "Operation": {
+      "value": "ProcessCreate",
+      "found": true,
+      "where": [
+        "ProcessCreate"
+      ]
+    },
+    "TargetImage": {
+      "value": "C:\\EDRTest\\samples\\Process\\ProcessTarget.exe",
+      "found": true,
+      "where": [
+        "NtQueryInformationProcess"
+      ]
+    },
+    "TargetPID": {
+      "value": "6256",
+      "found": true,
+      "where": [
+        "FileDelete"
+      ]
+    }
+  },
+  "test_case_id": "PROC-CREATE-001",
+  "module": "Process",
+  "action": "create",
+  "sample_result": "PASS",
+  "match_stats": {
+    "total_events": 11615,
+    "after_hostname": 11615,
+    "after_time": 70,
+    "after_actor": 18,
+    "after_pid": 18,
+    "after_operation": 1,
+    "after_extra": 1,
+    "target_window_available": true,
+    "pid_filter_applied": true,
+    "pid_skipped_no_data": false,
+    "log_time_min": "2026-08-26T16:01:23.490000+00:00",
+    "log_time_max": "2026-08-26T17:31:12.098000+00:00",
+    "target_begin": "2026-08-26T16:39:13.614000+00:00",
+    "target_end": "2026-08-26T16:39:15.058000+00:00",
+    "run_begin": "2026-08-26T16:39:10.386000+00:00",
+    "run_end": "2026-08-26T16:39:15.058000+00:00",
+    "coverage_status": "COVERED",
+    "candidate_count": 1,
+    "capability_detected": true,
+    "capability_base_detected": true,
+    "capability_evidence": [
+      {
+        "operation": "ProcessCreate",
+        "actor": "wmiprvse.exe",
+        "target": "wmiprvse.exe"
+      },
+      {
+        "operation": "ProcessCreate",
+        "actor": "RuntimeBroker.exe",
+        "target": "RuntimeBroker.exe"
+      },
+      {
+        "operation": "ProcessCreate",
+        "actor": "backgroundTaskHost.exe",
+        "target": "backgroundTaskHost.exe"
+      },
+      {
+        "operation": "ProcessCreate",
+        "actor": "taskhostw.exe",
+        "target": "taskhostw.exe"
+      },
+      {
+        "operation": "ProcessCreate",
+        "actor": "taskhostw.exe",
+        "target": "taskhostw.exe"
+      }
+    ],
+    "value_scan": {
+      "Operation": {
+        "value": "ProcessCreate",
+        "found": true,
+        "where": [
+          "ProcessCreate"
+        ]
+      },
+      "TargetImage": {
+        "value": "C:\\EDRTest\\samples\\Process\\ProcessTarget.exe",
+        "found": true,
+        "where": [
+          "NtQueryInformationProcess"
+        ]
+      },
+      "TargetPID": {
+        "value": "6256",
+        "found": true,
+        "where": [
+          "FileDelete"
+        ]
+      }
+    },
+    "capability_count": 3507,
+    "capability_base_count": 3507,
+    "capability_v2": "有",
+    "collected_v2": "采到",
+    "capability_v2_rule": {
+      "anchor_type": "direct",
+      "anchor_process": "ProcessLifecycleTest.exe",
+      "anchor_md5": "f6d123d8483cf7bc0d324726b3b52639",
+      "tables": [
+        "ProcEvents"
+      ],
+      "operations": [
+        "ProcessCreate"
+      ],
+      "probe": null
+    },
+    "sample_value_found": null,
+    "sample_value_hits": {},
+    "filter_log": [
+      "Hostname ('DESKTOP-0AHK53B'): 11615/11615",
+      "Time window [2026-08-26T16:39:05.386000+00:00 – 2026-08-26T16:39:45.058000+00:00]: 70 events (coverage=COVERED)",
+      "Actor ('ProcessLifecycleTest.exe'): 18 events",
+      "PID (5468): strict → 18 events",
+      "MD5 exact ('F6D123D8483CF7BC0D324726B3B52639'): 18 → 18 events",
+      "Operation ('ProcessCreate'): 1 events",
+      "Capability ('ProcessCreate'): 3507 events (能力存在)"
+    ]
+  },
+  "parser_mode": "current",
+  "degraded_match": false
+}

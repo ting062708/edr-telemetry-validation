@@ -1,0 +1,29 @@
+[
+  {
+    "test_case_id": "REG-DELETE-001",
+    "run_id": "81ed27a0-7090-4408-b46d-0c9a13303ed9",
+    "module": "Registry",
+    "action": "Delete",
+    "process_name": "RegistryLifecycleTest.exe",
+    "pid": 7000,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T15:08:03.813000+00:00",
+    "setup_begin_utc": "2026-08-26T15:08:03.865000+00:00",
+    "setup_end_utc": "2026-08-26T15:08:04.642000+00:00",
+    "target_begin_utc": "2026-08-26T15:08:09.662000+00:00",
+    "target_end_utc": "2026-08-26T15:08:09.673000+00:00",
+    "run_end_utc": "2026-08-26T15:08:09.673000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "Operation": "RegDeleteValue",
+      "RegistryPath": "Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+      "ValueName": "EDRTelemetryRunTest",
+      "OldValue": "C:\\Windows\\System32\\calc.exe"
+    },
+    "error_lines": []
+  }
+]

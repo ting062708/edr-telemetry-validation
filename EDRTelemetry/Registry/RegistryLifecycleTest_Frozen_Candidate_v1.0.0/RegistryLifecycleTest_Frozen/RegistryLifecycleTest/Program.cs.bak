@@ -1,0 +1,411 @@
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using Microsoft.Win32;
+
+namespace RegistryLifecycleTest
+{
+    internal static class Program
+    {
+        private const string TestCaseCreate = "REG-CREATE-001";
+        private const string TestCaseModify = "REG-MODIFY-001";
+        private const string TestCaseDelete = "REG-DELETE-001";
+
+        private const string RegistryPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
+        private const string ValueName = "EDRTelemetryRunTest";
+        private const string CreatedValue = @"C:\Windows\System32\notepad.exe";
+        private const string ModifiedValue = @"C:\Windows\System32\calc.exe";
+
+        private const int InterPhaseDelayMs = 10000;
+
+        private static readonly string RunId = Guid.NewGuid().ToString("D");
+        private static readonly int Pid = Process.GetCurrentProcess().Id;
+        private static readonly string Hostname = Environment.MachineName;
+
+        private static int Main(string[] args)
+        {
+            string action = args.Length == 0 ? "fullcycle" : args[0].Trim().ToLowerInvariant();
+
+            if (action == "cleanup")
+            {
+                return RunCleanup();
+            }
+
+            if (action != "fullcycle")
+            {
+                PrintUsage();
+                return 2;
+            }
+
+            PrintRunBegin();
+
+            try
+            {
+                if (!RunCreatePhase())
+                    return FailRun("Create phase failed.");
+
+                Thread.Sleep(InterPhaseDelayMs);
+
+                if (!RunModifyPhase())
+                    return FailRun("Modify phase failed.");
+
+                Thread.Sleep(InterPhaseDelayMs);
+
+                if (!RunDeletePhase())
+                    return FailRun("Delete phase failed.");
+
+                Console.WriteLine("[RESULT] PASS ExitCode=0");
+                PrintRunEnd();
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[RESULT] FAIL ExitCode=1");
+                Console.WriteLine("[ERROR] " + ex.GetType().Name + ": " + ex.Message);
+                PrintRunEnd();
+                return 1;
+            }
+        }
+
+        private static bool RunCreatePhase()
+        {
+            PhaseBegin(TestCaseCreate, "Registry Value Creation");
+            SetupBegin(TestCaseCreate);
+
+            if (!TryOpenRunKey(false, out RegistryKey readKey, out string openError))
+            {
+                Console.WriteLine("[SETUP] Validation=FAIL");
+                Console.WriteLine("[SETUP] Reason=" + openError);
+                SetupEnd(TestCaseCreate);
+                PhaseEnd(TestCaseCreate, false);
+                return false;
+            }
+
+            using (readKey)
+            {
+                bool exists = ValueExists(readKey, ValueName);
+                Console.WriteLine("[SETUP] ExpectedValueState=ABSENT");
+                Console.WriteLine("[SETUP] ActualValueState=" + (exists ? "PRESENT" : "ABSENT"));
+                Console.WriteLine("[SETUP] Validation=" + (exists ? "FAIL" : "PASS"));
+
+                if (exists)
+                {
+                    Console.WriteLine("[SETUP] Guidance=Run 'RegistryLifecycleTest.exe cleanup' or restore the clean snapshot.");
+                    SetupEnd(TestCaseCreate);
+                    PhaseEnd(TestCaseCreate, false);
+                    return false;
+                }
+            }
+
+            SetupEnd(TestCaseCreate);
+
+            TargetBegin(TestCaseCreate);
+            using (RegistryKey writeKey = Registry.CurrentUser.OpenSubKey(RegistryPath, true))
+            {
+                if (writeKey == null)
+                    throw new InvalidOperationException("Unable to open HKCU Run key for write access.");
+
+                writeKey.SetValue(ValueName, CreatedValue, RegistryValueKind.String);
+            }
+            Console.WriteLine("[TARGET] Operation=RegSetValue");
+            Console.WriteLine("[TARGET] ValueName=" + ValueName);
+            Console.WriteLine("[TARGET] NewValue=" + CreatedValue);
+            TargetEnd(TestCaseCreate);
+
+            bool verified = VerifyExactValue(CreatedValue, out string verifyMessage);
+            Console.WriteLine("[VERIFY] " + verifyMessage);
+            Console.WriteLine("[VERIFY] Validation=" + (verified ? "PASS" : "FAIL"));
+            PhaseEnd(TestCaseCreate, verified);
+            return verified;
+        }
+
+        private static bool RunModifyPhase()
+        {
+            PhaseBegin(TestCaseModify, "Registry Value Modification");
+            SetupBegin(TestCaseModify);
+
+            bool setupValid = VerifyExactValue(CreatedValue, out string setupMessage);
+            Console.WriteLine("[SETUP] ExpectedValue=" + CreatedValue);
+            Console.WriteLine("[SETUP] " + setupMessage);
+            Console.WriteLine("[SETUP] Validation=" + (setupValid ? "PASS" : "FAIL"));
+            SetupEnd(TestCaseModify);
+
+            if (!setupValid)
+            {
+                PhaseEnd(TestCaseModify, false);
+                return false;
+            }
+
+            TargetBegin(TestCaseModify);
+            using (RegistryKey writeKey = Registry.CurrentUser.OpenSubKey(RegistryPath, true))
+            {
+                if (writeKey == null)
+                    throw new InvalidOperationException("Unable to open HKCU Run key for write access.");
+
+                writeKey.SetValue(ValueName, ModifiedValue, RegistryValueKind.String);
+            }
+            Console.WriteLine("[TARGET] Operation=RegSetValue");
+            Console.WriteLine("[TARGET] ValueName=" + ValueName);
+            Console.WriteLine("[TARGET] OldValue=" + CreatedValue);
+            Console.WriteLine("[TARGET] NewValue=" + ModifiedValue);
+            TargetEnd(TestCaseModify);
+
+            bool verified = VerifyExactValue(ModifiedValue, out string verifyMessage);
+            Console.WriteLine("[VERIFY] " + verifyMessage);
+            Console.WriteLine("[VERIFY] Validation=" + (verified ? "PASS" : "FAIL"));
+            PhaseEnd(TestCaseModify, verified);
+            return verified;
+        }
+
+        private static bool RunDeletePhase()
+        {
+            PhaseBegin(TestCaseDelete, "Registry Value Deletion");
+            SetupBegin(TestCaseDelete);
+
+            bool setupValid = VerifyExactValue(ModifiedValue, out string setupMessage);
+            Console.WriteLine("[SETUP] ExpectedValue=" + ModifiedValue);
+            Console.WriteLine("[SETUP] " + setupMessage);
+            Console.WriteLine("[SETUP] Validation=" + (setupValid ? "PASS" : "FAIL"));
+            SetupEnd(TestCaseDelete);
+
+            if (!setupValid)
+            {
+                PhaseEnd(TestCaseDelete, false);
+                return false;
+            }
+
+            TargetBegin(TestCaseDelete);
+            using (RegistryKey writeKey = Registry.CurrentUser.OpenSubKey(RegistryPath, true))
+            {
+                if (writeKey == null)
+                    throw new InvalidOperationException("Unable to open HKCU Run key for write access.");
+
+                writeKey.DeleteValue(ValueName, true);
+            }
+            Console.WriteLine("[TARGET] Operation=RegDeleteValue");
+            Console.WriteLine("[TARGET] ValueName=" + ValueName);
+            Console.WriteLine("[TARGET] OldValue=" + ModifiedValue);
+            TargetEnd(TestCaseDelete);
+
+            bool verified = VerifyValueAbsent(out string verifyMessage);
+            Console.WriteLine("[VERIFY] " + verifyMessage);
+            Console.WriteLine("[VERIFY] Validation=" + (verified ? "PASS" : "FAIL"));
+            PhaseEnd(TestCaseDelete, verified);
+            return verified;
+        }
+
+        private static int RunCleanup()
+        {
+            Console.WriteLine("[RUN-BEGIN]");
+            PrintMeta("Mode", "RECOVERY-CLEANUP");
+            PrintCommonMeta();
+            Console.WriteLine("[CLEANUP-BEGIN] TimeUTC=" + TimestampUtc());
+
+            try
+            {
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(RegistryPath, true))
+                {
+                    if (key == null)
+                    {
+                        Console.WriteLine("[CLEANUP] RunKeyAccessible=NO");
+                        Console.WriteLine("[RESULT] FAIL ExitCode=1");
+                        Console.WriteLine("[CLEANUP-END] TimeUTC=" + TimestampUtc());
+                        PrintRunEnd();
+                        return 1;
+                    }
+
+                    if (ValueExists(key, ValueName))
+                    {
+                        key.DeleteValue(ValueName, false);
+                        Console.WriteLine("[CLEANUP] DeletedValue=" + ValueName);
+                    }
+                    else
+                    {
+                        Console.WriteLine("[CLEANUP] ValueAlreadyAbsent=" + ValueName);
+                    }
+                }
+
+                Console.WriteLine("[CLEANUP-END] TimeUTC=" + TimestampUtc());
+                Console.WriteLine("[RESULT] PASS ExitCode=0");
+                PrintRunEnd();
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[CLEANUP] ERROR=" + ex.GetType().Name + ": " + ex.Message);
+                Console.WriteLine("[RESULT] FAIL ExitCode=1");
+                Console.WriteLine("[CLEANUP-END] TimeUTC=" + TimestampUtc());
+                PrintRunEnd();
+                return 1;
+            }
+        }
+
+        private static bool VerifyExactValue(string expected, out string message)
+        {
+            if (!TryOpenRunKey(false, out RegistryKey key, out string openError))
+            {
+                message = "ReadError=" + openError;
+                return false;
+            }
+
+            using (key)
+            {
+                if (!ValueExists(key, ValueName))
+                {
+                    message = "ActualValueState=ABSENT";
+                    return false;
+                }
+
+                RegistryValueKind kind;
+                try
+                {
+                    kind = key.GetValueKind(ValueName);
+                }
+                catch (Exception ex)
+                {
+                    message = "GetValueKindError=" + ex.Message;
+                    return false;
+                }
+
+                object raw = key.GetValue(ValueName, null, RegistryValueOptions.DoNotExpandEnvironmentNames);
+                string actual = raw as string;
+
+                message = "ActualKind=" + kind + " ActualValue=" + (actual ?? "<null>");
+                return kind == RegistryValueKind.String &&
+                       string.Equals(actual, expected, StringComparison.Ordinal);
+            }
+        }
+
+        private static bool VerifyValueAbsent(out string message)
+        {
+            if (!TryOpenRunKey(false, out RegistryKey key, out string openError))
+            {
+                message = "ReadError=" + openError;
+                return false;
+            }
+
+            using (key)
+            {
+                bool exists = ValueExists(key, ValueName);
+                message = "ActualValueState=" + (exists ? "PRESENT" : "ABSENT");
+                return !exists;
+            }
+        }
+
+        private static bool TryOpenRunKey(bool writable, out RegistryKey key, out string error)
+        {
+            key = null;
+            error = null;
+
+            try
+            {
+                key = Registry.CurrentUser.OpenSubKey(RegistryPath, writable);
+                if (key == null)
+                {
+                    error = @"HKCU\" + RegistryPath + " is unavailable.";
+                    return false;
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                error = ex.GetType().Name + ": " + ex.Message;
+                return false;
+            }
+        }
+
+        private static bool ValueExists(RegistryKey key, string name)
+        {
+            return key.GetValueNames().Any(v => string.Equals(v, name, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private static int FailRun(string message)
+        {
+            Console.WriteLine("[RESULT] FAIL ExitCode=1");
+            Console.WriteLine("[ERROR] " + message);
+            PrintRunEnd();
+            return 1;
+        }
+
+        private static void PrintRunBegin()
+        {
+            Console.WriteLine("[RUN-BEGIN]");
+            PrintMeta("Suite", "RegistryLifecycleTest");
+            PrintMeta("Mode", "FULL-LIFECYCLE-FROZEN");
+            PrintMeta("TestCases", TestCaseCreate + "," + TestCaseModify + "," + TestCaseDelete);
+            PrintCommonMeta();
+            PrintMeta("RegistryHive", "HKCU");
+            PrintMeta("RegistryPath", RegistryPath);
+            PrintMeta("ValueName", ValueName);
+            PrintMeta("CreatedValue", CreatedValue);
+            PrintMeta("ModifiedValue", ModifiedValue);
+            PrintMeta("InterPhaseDelayMs", InterPhaseDelayMs.ToString());
+        }
+
+        private static void PrintCommonMeta()
+        {
+            PrintMeta("RunID", RunId);
+            PrintMeta("Process", "RegistryLifecycleTest.exe");
+            PrintMeta("PID", Pid.ToString());
+            PrintMeta("Hostname", Hostname);
+            PrintMeta("StartTimeUTC", TimestampUtc());
+            PrintMeta("Is64BitProcess", Environment.Is64BitProcess.ToString());
+        }
+
+        private static void PrintMeta(string key, string value)
+        {
+            Console.WriteLine("[META] " + key + "=" + value);
+        }
+
+        private static void PhaseBegin(string id, string telemetry)
+        {
+            Console.WriteLine("[PHASE-BEGIN] TestCaseID=" + id + " TimeUTC=" + TimestampUtc());
+            Console.WriteLine("[PHASE] Telemetry=" + telemetry);
+        }
+
+        private static void PhaseEnd(string id, bool pass)
+        {
+            Console.WriteLine("[PHASE-END] TestCaseID=" + id + " Status=" + (pass ? "PASS" : "FAIL") + " TimeUTC=" + TimestampUtc());
+        }
+
+        private static void SetupBegin(string id)
+        {
+            Console.WriteLine("[SETUP-BEGIN] TestCaseID=" + id + " TimeUTC=" + TimestampUtc());
+        }
+
+        private static void SetupEnd(string id)
+        {
+            Console.WriteLine("[SETUP-END] TestCaseID=" + id + " TimeUTC=" + TimestampUtc());
+        }
+
+        private static void TargetBegin(string id)
+        {
+            Console.WriteLine("[TARGET-BEGIN] TestCaseID=" + id + " TimeUTC=" + TimestampUtc());
+        }
+
+        private static void TargetEnd(string id)
+        {
+            Console.WriteLine("[TARGET-END] TestCaseID=" + id + " TimeUTC=" + TimestampUtc());
+        }
+
+        private static void PrintRunEnd()
+        {
+            Console.WriteLine("[RUN-END] TimeUTC=" + TimestampUtc());
+        }
+
+        private static string TimestampUtc()
+        {
+            return DateTime.UtcNow.ToString("yyyy-MM-dd'T'HH:mm:ss.fff'Z'");
+        }
+
+        private static void PrintUsage()
+        {
+            Console.WriteLine("Usage:");
+            Console.WriteLine("  RegistryLifecycleTest.exe");
+            Console.WriteLine("  RegistryLifecycleTest.exe fullcycle");
+            Console.WriteLine("  RegistryLifecycleTest.exe cleanup");
+        }
+    }
+}

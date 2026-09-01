@@ -1,0 +1,20 @@
+[RUN-BEGIN] RunID=b47f645e-1ea5-45d4-8a8e-be35e555dff3 TimeUTC=2026-08-23T04:05:17.045Z
+[META] TestCaseID=FILE-RENAME-001 Module=File Action=Rename
+[META] Process=FileLifecycleTest.exe PID=10028 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-23T04:05:17.144Z
+[SETUP] StaleOriginalRemoved=false
+[SETUP] StaleRenamedRemoved=false
+[SETUP] StaleTextRemoved=false
+[SETUP] SourcePrepared=C:\EDRTest\samples\File\FileLifecycle_Target.exe
+[SETUP] DestinationAbsent=C:\EDRTest\samples\File\FileLifecycle_Renamed.exe
+[SETUP-END] TimeUTC=2026-08-23T04:05:17.217Z
+[TARGET-BEGIN] TimeUTC=2026-08-23T04:05:17.217Z
+[TARGET] SourcePath=C:\EDRTest\samples\File\FileLifecycle_Target.exe
+[TARGET] DestinationPath=C:\EDRTest\samples\File\FileLifecycle_Renamed.exe
+[TARGET] SourceFileName=FileLifecycle_Target.exe
+[TARGET] DestinationFileName=FileLifecycle_Renamed.exe
+[TARGET] Operation=Rename
+[TARGET] ContentMd5=9c3e610e12fcc467b7761a0aff45a7a3
+[TARGET-END] TimeUTC=2026-08-23T04:05:17.302Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=b47f645e-1ea5-45d4-8a8e-be35e555dff3 TimeUTC=2026-08-23T04:05:17.302Z

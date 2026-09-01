@@ -1,0 +1,30 @@
+[
+  {
+    "test_case_id": "",
+    "run_id": null,
+    "module": null,
+    "action": null,
+    "process_name": null,
+    "pid": null,
+    "hostname": null,
+    "run_start_utc": null,
+    "setup_begin_utc": null,
+    "setup_end_utc": null,
+    "target_begin_utc": null,
+    "target_end_utc": null,
+    "run_end_utc": null,
+    "sample_result": null,
+    "exit_code": null,
+    "parser_mode": "legacy_phase",
+    "missing_fields": [
+      "pid",
+      "hostname",
+      "run_id",
+      "target_begin_utc",
+      "target_end_utc"
+    ],
+    "degraded_match": true,
+    "target_fields": {},
+    "error_lines": []
+  }
+]

@@ -1,0 +1,25 @@
+[RUN-BEGIN] RunID=fc00668769234fd2b9b330ba6423d937 TimeUTC=2026-08-26T15:09:58.801Z
+[META] TestCaseID=PROC-IMAGE-LOAD-001
+[META] Module=Process
+[META] Action=imageload
+[META] Process=ImageLoadTest.exe
+[META] PID=7644
+[META] Hostname=DESKTOP-0AHK53B
+[META] RunStartUTC=2026-08-26T15:09:58.880Z
+[SETUP-BEGIN] TimeUTC=2026-08-26T15:09:58.896Z
+[SETUP] DllPath=C:\EDRTest\samples\Process\Support\TestLibrary.dll
+[SETUP] DllExists=PASS
+[SETUP-END] TimeUTC=2026-08-26T15:09:58.896Z
+[TARGET-BEGIN] TimeUTC=2026-08-26T15:09:58.896Z
+[TARGET] Operation=LoadLibrary
+[TARGET] DllPath=C:\EDRTest\samples\Process\Support\TestLibrary.dll
+[TARGET] ExportFunction=GetTestMarker
+[TARGET] LoadLibraryResult=PASS
+[TARGET] ModuleHandle=0x7FFE32CD0000
+[TARGET] GetProcAddressResult=PASS
+[TARGET] TestMarker=0x3C
+[TARGET] HoldingLoaded=15000ms
+[TARGET-END] TimeUTC=2026-08-26T15:10:14.149Z
+[RESULT] PASS ExitCode=0
+[SETUP] FreeLibrary=True
+[RUN-END] RunID=fc00668769234fd2b9b330ba6423d937 TimeUTC=2026-08-26T15:10:14.166Z

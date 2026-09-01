@@ -1,0 +1,32 @@
+[
+  {
+    "test_case_id": "TASK-MODIFY-001",
+    "run_id": "4a4f22e3be994cabb0263e7744587397",
+    "module": "ScheduledTask",
+    "action": "Modify",
+    "process_name": "ScheduledTaskLifecycleTest.exe",
+    "pid": 5464,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T15:48:31.016000+00:00",
+    "setup_begin_utc": "2026-08-26T15:48:31.118000+00:00",
+    "setup_end_utc": "2026-08-26T15:48:33.999000+00:00",
+    "target_begin_utc": "2026-08-26T15:48:33.999000+00:00",
+    "target_end_utc": "2026-08-26T15:48:35.765000+00:00",
+    "run_end_utc": "2026-08-26T15:48:35.765000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "TaskName": "EDR_Telemetry_Test_Task",
+      "TaskPath": "\\EDR_Telemetry_Test_Task",
+      "Operation": "Modify",
+      "Command": "C:\\Windows\\System32\\cmd.exe",
+      "CommandArgs": "/c exit 0",
+      "Author": "tester",
+      "Description": "EDR Scheduled Task Modification Test"
+    },
+    "error_lines": []
+  }
+]

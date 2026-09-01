@@ -1,0 +1,15 @@
+{
+  "case_id": "GPO-MODIFY-001",
+  "module": "gpo",
+  "behavior_fields": {
+    "RegKeyPath": "Child.RegKeyPath",
+    "RegValueName": "Child.RegValueName",
+    "RegValueData": "Child.RegValueData"
+  },
+  "observed_fields": [
+    "Child.RegKeyPath",
+    "Child.RegValueName",
+    "Child.RegValueData",
+    "Child.RegGroupName"
+  ]
+}

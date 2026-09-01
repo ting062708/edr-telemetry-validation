@@ -1,0 +1,20 @@
+[RUN-BEGIN] RunID=c6dd17ee-2efd-489b-a277-9075fc6f57c3 TimeUTC=2026-08-24T13:12:25.755Z
+[META] TestCaseID=FILE-CREATE-001 Module=File Action=Create
+[META] Process=FileLifecycleTest.exe PID=5680 Hostname=DESKTOP-0AHK53B
+[SETUP-BEGIN] TimeUTC=2026-08-24T13:12:25.781Z
+[SETUP] StaleOriginalRemoved=false
+[SETUP] StaleRenamedRemoved=false
+[SETUP] StaleTextRemoved=false
+[SETUP] StaleDllRemoved=false
+[SETUP] TargetAbsent=true
+[SETUP] TargetPath=C:\EDRTest\samples\File\FileLifecycle_Target.exe
+[SETUP-END] TimeUTC=2026-08-24T13:12:25.839Z
+[TARGET-BEGIN] TimeUTC=2026-08-24T13:12:25.839Z
+[TARGET] Path=C:\EDRTest\samples\File\FileLifecycle_Target.exe
+[TARGET] FileName=FileLifecycle_Target.exe
+[TARGET] Operation=Create
+[TARGET] Size=59
+[TARGET] ContentMd5=8b6e72acc445c57cf1302e2aa70cba99
+[TARGET-END] TimeUTC=2026-08-24T13:12:25.913Z
+[RESULT] PASS ExitCode=0
+[RUN-END] RunID=c6dd17ee-2efd-489b-a277-9075fc6f57c3 TimeUTC=2026-08-24T13:12:25.913Z

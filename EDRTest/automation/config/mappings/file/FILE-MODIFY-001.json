@@ -1,0 +1,18 @@
+{
+  "case_id": "FILE-MODIFY-001",
+  "module": "file",
+  "behavior_fields": {
+    "Path": "Child.FilePath",
+    "FileName": "Child.FileName",
+    "ContentMd5": "Child.FileMd5"
+  },
+  "observed_fields": [
+    "Child.FileCreateOpName",
+    "Child.FileName",
+    "Child.FilePath",
+    "Child.FileSize",
+    "Child.NodeName",
+    "Child.Type",
+    "Child.FileMd5"
+  ]
+}

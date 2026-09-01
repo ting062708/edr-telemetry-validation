@@ -1,0 +1,31 @@
+[
+  {
+    "test_case_id": "FILE-RENAME-001",
+    "run_id": "4336c35f-f87b-414a-82d3-3218baf46c5d",
+    "module": "File",
+    "action": "Rename",
+    "process_name": "FileLifecycleTest.exe",
+    "pid": 6524,
+    "hostname": "DESKTOP-0AHK53B",
+    "run_start_utc": "2026-08-26T15:21:01.772000+00:00",
+    "setup_begin_utc": "2026-08-26T15:21:01.825000+00:00",
+    "setup_end_utc": "2026-08-26T15:21:01.856000+00:00",
+    "target_begin_utc": "2026-08-26T15:21:01.856000+00:00",
+    "target_end_utc": "2026-08-26T15:21:01.910000+00:00",
+    "run_end_utc": "2026-08-26T15:21:01.910000+00:00",
+    "sample_result": "PASS",
+    "exit_code": 0,
+    "parser_mode": "current",
+    "missing_fields": [],
+    "degraded_match": false,
+    "target_fields": {
+      "SourcePath": "C:\\EDRTest\\samples\\File\\FileLifecycle_Target.exe",
+      "DestinationPath": "C:\\EDRTest\\samples\\File\\FileLifecycle_Renamed.exe",
+      "SourceFileName": "FileLifecycle_Target.exe",
+      "DestinationFileName": "FileLifecycle_Renamed.exe",
+      "Operation": "Rename",
+      "ContentMd5": "77bf7bafa66da05c1f30074afd393d22"
+    },
+    "error_lines": []
+  }
+]

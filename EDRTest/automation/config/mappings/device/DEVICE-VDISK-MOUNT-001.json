@@ -1,0 +1,13 @@
+{
+  "case_id": "DEVICE-VDISK-MOUNT-001",
+  "module": "device",
+  "behavior_fields": {
+    "VhdPath": "Child.VhdPath",
+    "TargetName": "Child.VhdPath"
+  },
+  "observed_fields": [
+    "Child.VhdPath",
+    "Child.VhdType",
+    "Child.NodeName"
+  ]
+}

@@ -1,0 +1,9 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="DriverLifecycleTest/DriverLifecycleTest.csproj" Id="503d5b4b-581e-4aa6-b069-6d49a2b3986d">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+</Solution>
